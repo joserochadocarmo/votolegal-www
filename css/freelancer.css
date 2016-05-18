@@ -457,5 +457,6 @@ footer .footer-below {
     display: none;
     opacity: 0;
 }
-.page-sub-tittle{color: #fff; font-size: 12px; font-weight: 400; padding: 35px 0 0}
+.page-sub-tittle{color: #fff; font-size: 12px; font-weight: 400; padding: 40px 0 0}
 .navbar-brand{padding: 19.5px 35px 19.5px 15px;}
+.link-participar a {color: #2c3e50; }
