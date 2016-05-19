@@ -201,6 +201,23 @@ section.success a.active {
     section.first {
         padding-top: 75px;
     }
+    
+   .page-sub-tittle{font-size: 10px!important; }
+    
+}
+
+@media (min-width:481px) and (max-width:767px){
+	.navbar-header{padding-bottom: 20px}
+	.page-sub-tittle{padding: 35px 0 0!important;}
+    
+}
+
+@media(max-width:480px){
+	.page-sub-tittle{
+	width: 100%;
+	float: left;
+	padding: 10px 0 20px 25px!important;}
+	header .container{padding-top: 130px!important}
 }
 
 #portfolio .portfolio-item {
@@ -459,4 +476,4 @@ footer .footer-below {
 }
 .page-sub-tittle{color: #fff; font-size: 12px; font-weight: 400; padding: 40px 0 0}
 .navbar-brand{padding: 19.5px 35px 19.5px 15px;}
-.link-participar a {color: #2c3e50; }
+.link-participar a, header a {color: #2c3e50; }
