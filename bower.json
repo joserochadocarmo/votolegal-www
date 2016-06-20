@@ -1,0 +1,22 @@
+{
+  "name": "VotoLegal",
+  "authors": [
+    "Eokoe <contato@eokoe.com>"
+  ],
+  "description": "VotoLegal website",
+  "main": "js/main.js",
+  "license": "copyright (c) Eokoe",
+  "homepage": "votolegal.com.br",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.7",
+    "font-awesome": "fontawesome#^4.6.3"
+  }
+}

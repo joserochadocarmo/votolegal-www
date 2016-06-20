@@ -1,0 +1,193 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/**
+* VotoLegal - http://votolegal.org.br
+* author: @eokoeit
+*/
+/* text color */
+/* background color */
+/* line 20, ../sass/screen.scss */
+body {
+  color: #777;
+  padding-top: 20px;
+  background-color: #fff;
+}
+
+/* line 25, ../sass/screen.scss */
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+/* navbar styles */
+/* line 33, ../sass/screen.scss */
+nav.navbar {
+  margin-bottom: 0px !important;
+}
+
+/* line 37, ../sass/screen.scss */
+nav.navbar-votolegal {
+  /* debug */
+  border: none;
+  border-radius: 0px;
+}
+/* line 42, ../sass/screen.scss */
+nav.navbar-votolegal a.navbar-brand {
+  float: left;
+  height: 50px;
+  padding: 0px;
+  line-height: 20px;
+}
+/* line 49, ../sass/screen.scss */
+nav.navbar-votolegal li > a {
+  color: #777;
+  background-color: transparent;
+}
+/* line 53, ../sass/screen.scss */
+nav.navbar-votolegal li > a:focus, nav.navbar-votolegal li > a:hover {
+  color: #777;
+  background-color: transparent;
+}
+
+/* line 59, ../sass/screen.scss */
+.navbar-divider {
+  height: 10px;
+  margin-top: 10px;
+  background-color: #62d35d;
+  background-image: url(../img/home/barra.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* header & slider style*/
+/* line 71, ../sass/screen.scss */
+header.cover .carousel-caption {
+  top: 30%;
+}
+/* line 74, ../sass/screen.scss */
+header.cover .carousel-caption h2 {
+  font-size: 42px;
+}
+/* line 77, ../sass/screen.scss */
+header.cover .carousel-caption p {
+  margin-top: 8%;
+}
+/* line 80, ../sass/screen.scss */
+header.cover .carousel-caption p a {
+  width: 70%;
+  font-size: 24px;
+}
+/* line 87, ../sass/screen.scss */
+header.cover .carousel-indicators {
+  left: auto;
+  width: 10%;
+  margin-left: 0%;
+  right: 5%;
+  bottom: 20px;
+}
+/* line 94, ../sass/screen.scss */
+header.cover .carousel-indicators li {
+  margin: 0px 5px;
+  border: none;
+  background-color: #fff;
+}
+/* line 100, ../sass/screen.scss */
+header.cover .carousel-indicators .active {
+  width: 10px;
+  height: 10px;
+  margin: 0px 5px;
+  background-color: #70ca81 !important;
+}
+
+/* line 109, ../sass/screen.scss */
+section#howto-works {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+/* line 113, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline {
+  padding: 0px;
+  /* horizontal bar */
+}
+/* line 117, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline::before {
+  left: 0;
+  position: absolute;
+  content: " ";
+  width: 80%;
+  height: 2px;
+  background-color: #e5e5e5;
+  top: 10px;
+  z-index: -1;
+  margin-left: 15px;
+}
+/* line 129, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline li {
+  width: 20%;
+  float: left;
+  list-style: none;
+}
+/* line 137, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline .active .howto-works-pill a {
+  border-color: #3fb82c;
+}
+/* line 139, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline .active .howto-works-text {
+  color: #444;
+}
+/* line 145, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline .howto-works-pill a {
+  width: 14px;
+  height: 14px;
+  border-radius: 30px;
+  border: solid 5px #c6c6c6;
+  background-color: #fff !important;
+  padding: 0px 10px;
+  z-index: 10;
+  cursor: default;
+}
+/* line 155, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline .howto-works-pill a:hover {
+  text-decoration: none;
+}
+/* line 160, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline .howto-works-pill:last-child {
+  background-color: #fff;
+}
+/* line 164, ../sass/screen.scss */
+section#howto-works ul.howto-works-timeline .howto-works-text {
+  font-weight: bold;
+  color: #a1a1a1;
+  padding-right: 20px;
+  cursor: default;
+}
+
+/* media styles */
+/* line 175, ../sass/screen.scss */
+section#media {
+  padding: 30px 0px;
+  background: linear-gradient(#e5e5e5, #ffffff);
+}
+/* line 179, ../sass/screen.scss */
+section#media h2 {
+  color: #999999;
+}
+
+/* footer style */
+/* line 187, ../sass/screen.scss */
+footer > div:first-child {
+  min-height: 300px;
+  background-color: #29673e;
+}
+
+/* custom styles */
+/* line 195, ../sass/screen.scss */
+.section-title {
+  color: #4ab855;
+  margin: 50px 0px !important;
+}
