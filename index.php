@@ -12,6 +12,8 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
     <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> 
 </head>
 <body>
@@ -158,7 +160,35 @@
           </div>
           <div class="col-md-7">
             <h2>Na mídia</h2>
-            <div class="col-md-12">
+            <div class="carousel slide" data-ride="carousel">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                <div class="item active">
+                  <div class="row">
+                    <div class="col-md-offset-1 col-md-10">
+                      <div class="col-md-4">
+                        <img src="/img/home/estadao-logo.png" class="img-thumbnail" alt="">
+                      </div>
+                      <div class="col-md-4">
+                        <img src="/img/home/globo-logo.png" class="img-thumbnail" alt="">
+                      </div>
+                      <div class="col-md-4">
+                        <img src="/img/home/estadao-logo.png" class="img-thumbnail" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Controls -->
+              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <!-- span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span -->
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <!-- span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span -->
+              </a>
             </div>
           </div>
         </div>
@@ -167,9 +197,59 @@
 
 
     <!-- page footer -->
-    <footer class="container-fluid">
-      <div>
-      
+    <div class="container-fluid">
+      <div class="navbar-divider"></div>
+    </div>
+
+    <!-- footer -->
+    <footer id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <h4>O projeto?</h4>
+            <br class="divider">
+            <p><a href="#">Sobre</a></p>
+            <p><a href="#">Parceiros</a></p>
+            <p><a href="#">Termos de uso</a></p>
+            <p><a href="#">Políticas de privacidade</a></p>
+          </div>
+          <div class="col-md-2">
+            <h4>Como funciona?</h4>
+            <br class="divider">
+            <p><a href="#">Selos em uso</a></p>
+            <p><a href="#">Use o selo</a></p>
+            <p><a href="#">Obtenha certificação</a></p>
+          </div>
+          <div class="col-md-2">
+            <h4>Ajuda</h4>
+            <br class="divider">
+            <p><a href="#">Perguntas frequentes</a></p>
+            <p><a href="#">Contato</a></p>
+            <p><a href="#">Docusmentos para cadastro</a></p>
+          </div>
+          <div class="col-md-offset-4 col-md-2">
+            <img src="/img/logo-negative.png" alt="VotoLegal">
+          </div>
+
+          <div class="social-buttons col-md-12">
+            <h4>Siga-nos</h4>
+            <ul>
+              <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li>
+              <li><a href="#"><i class="fa fa-tumblr fa-2x"></i></a></li>
+              <li><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube fa-2x"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube fa-2x"></i></a></li>
+              <li><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li>
+            </ul>
+          </div>
+          
+          <div class="copyright col-md-12">
+            <p>Voto Legal é uma plataforma livre e não se responsabiliza pelas informações fornecidas pelos candidatos, bem como a prestação de contas do mesmo.</p>
+            <p>Copyright &copy; 2016 - by Eokoe</p>
+          </div>
+        </div>
       </div>
     </footer>
   

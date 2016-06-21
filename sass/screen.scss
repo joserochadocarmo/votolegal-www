@@ -46,6 +46,16 @@ nav.navbar-votolegal {
       line-height: 20px;
   }
 
+  .dropdown a {
+    color: #4daa59;
+    font-weight: bold;
+  }
+  .dropdown {
+    a:focus, a:hover {
+      background-color: #ffffff;
+    }
+  }
+
   li > a {
     color: $txt_color;
     background-color: transparent;
@@ -180,13 +190,87 @@ section#media {
     color: #999999;
   }
 
+  .img-thumbnail {
+    background-color: transparent;
+    border: none;
+  }
+  .carousel-control.left,
+  .carousel-control.right {
+    background-image: none;
+    background-repeat: no-repeat;
+    opacity: 1;
+  }
+  .carousel-control.left {
+    background-image: url(../img/home/before.png);
+    background-position: left center;
+  }
+  .carousel-control.right {
+    background-image: url(../img/home/after.png);
+    background-position: right center;
+  }
 }
 
 /* footer style */
-footer {
-  > div:first-child {
-    min-height: 300px;
-    background-color: #29673e;
+footer#footer {
+  color: #ffffff;
+  font-size: 12px;
+  padding: 50px 0px;
+  background-color: #29673e;
+
+  a {
+    color: #ffffff;
+
+    &:hover {
+      color: #68ff6e;
+      text-decoration: none;
+    }
+  }
+
+  h4 {
+    color: #34cb64;
+    font-size: 16px;
+  }
+
+  .social-buttons {
+    text-align: center;
+
+    h4 {
+      color: #fff;
+      font-size: 14px;
+      font-weight: bolder;
+    }
+
+    ul {
+      margin: 0px;
+      padding: 0px;
+      display: inline-block;
+      margin-left: auto;
+      margin-right: auto;
+      list-style: none;
+
+      li {
+        float: left;
+        width: 40px;
+        height: 40px;
+        margin: 2px;
+        line-height: 45px;
+        background-color: #43ac45;
+        padding-top: 3px;
+        border-radius: 30px;
+        
+        a {
+          color: #ffffff;
+          &:hover {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    margin: 40px 0px;
   }
 }
 

@@ -43,17 +43,26 @@ nav.navbar-votolegal a.navbar-brand {
   line-height: 20px;
 }
 /* line 49, ../sass/screen.scss */
+nav.navbar-votolegal .dropdown a {
+  color: #4daa59;
+  font-weight: bold;
+}
+/* line 54, ../sass/screen.scss */
+nav.navbar-votolegal .dropdown a:focus, nav.navbar-votolegal .dropdown a:hover {
+  background-color: #ffffff;
+}
+/* line 59, ../sass/screen.scss */
 nav.navbar-votolegal li > a {
   color: #777;
   background-color: transparent;
 }
-/* line 53, ../sass/screen.scss */
+/* line 63, ../sass/screen.scss */
 nav.navbar-votolegal li > a:focus, nav.navbar-votolegal li > a:hover {
   color: #777;
   background-color: transparent;
 }
 
-/* line 59, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .navbar-divider {
   height: 10px;
   margin-top: 10px;
@@ -65,24 +74,24 @@ nav.navbar-votolegal li > a:focus, nav.navbar-votolegal li > a:hover {
 }
 
 /* header & slider style*/
-/* line 71, ../sass/screen.scss */
+/* line 81, ../sass/screen.scss */
 header.cover .carousel-caption {
   top: 30%;
 }
-/* line 74, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 header.cover .carousel-caption h2 {
   font-size: 42px;
 }
-/* line 77, ../sass/screen.scss */
+/* line 87, ../sass/screen.scss */
 header.cover .carousel-caption p {
   margin-top: 8%;
 }
-/* line 80, ../sass/screen.scss */
+/* line 90, ../sass/screen.scss */
 header.cover .carousel-caption p a {
   width: 70%;
   font-size: 24px;
 }
-/* line 87, ../sass/screen.scss */
+/* line 97, ../sass/screen.scss */
 header.cover .carousel-indicators {
   left: auto;
   width: 10%;
@@ -90,13 +99,13 @@ header.cover .carousel-indicators {
   right: 5%;
   bottom: 20px;
 }
-/* line 94, ../sass/screen.scss */
+/* line 104, ../sass/screen.scss */
 header.cover .carousel-indicators li {
   margin: 0px 5px;
   border: none;
   background-color: #fff;
 }
-/* line 100, ../sass/screen.scss */
+/* line 110, ../sass/screen.scss */
 header.cover .carousel-indicators .active {
   width: 10px;
   height: 10px;
@@ -104,17 +113,17 @@ header.cover .carousel-indicators .active {
   background-color: #70ca81 !important;
 }
 
-/* line 109, ../sass/screen.scss */
+/* line 119, ../sass/screen.scss */
 section#howto-works {
   padding-top: 50px;
   padding-bottom: 50px;
 }
-/* line 113, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline {
   padding: 0px;
   /* horizontal bar */
 }
-/* line 117, ../sass/screen.scss */
+/* line 127, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline::before {
   left: 0;
   position: absolute;
@@ -126,21 +135,21 @@ section#howto-works ul.howto-works-timeline::before {
   z-index: -1;
   margin-left: 15px;
 }
-/* line 129, ../sass/screen.scss */
+/* line 139, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline li {
   width: 20%;
   float: left;
   list-style: none;
 }
-/* line 137, ../sass/screen.scss */
+/* line 147, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline .active .howto-works-pill a {
   border-color: #3fb82c;
 }
-/* line 139, ../sass/screen.scss */
+/* line 149, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline .active .howto-works-text {
   color: #444;
 }
-/* line 145, ../sass/screen.scss */
+/* line 155, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline .howto-works-pill a {
   width: 14px;
   height: 14px;
@@ -151,15 +160,15 @@ section#howto-works ul.howto-works-timeline .howto-works-pill a {
   z-index: 10;
   cursor: default;
 }
-/* line 155, ../sass/screen.scss */
+/* line 165, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline .howto-works-pill a:hover {
   text-decoration: none;
 }
-/* line 160, ../sass/screen.scss */
+/* line 170, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline .howto-works-pill:last-child {
   background-color: #fff;
 }
-/* line 164, ../sass/screen.scss */
+/* line 174, ../sass/screen.scss */
 section#howto-works ul.howto-works-timeline .howto-works-text {
   font-weight: bold;
   color: #a1a1a1;
@@ -168,25 +177,106 @@ section#howto-works ul.howto-works-timeline .howto-works-text {
 }
 
 /* media styles */
-/* line 175, ../sass/screen.scss */
+/* line 185, ../sass/screen.scss */
 section#media {
   padding: 30px 0px;
   background: linear-gradient(#e5e5e5, #ffffff);
 }
-/* line 179, ../sass/screen.scss */
+/* line 189, ../sass/screen.scss */
 section#media h2 {
   color: #999999;
 }
+/* line 193, ../sass/screen.scss */
+section#media .img-thumbnail {
+  background-color: transparent;
+  border: none;
+}
+/* line 197, ../sass/screen.scss */
+section#media .carousel-control.left,
+section#media .carousel-control.right {
+  background-image: none;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+/* line 203, ../sass/screen.scss */
+section#media .carousel-control.left {
+  background-image: url(../img/home/before.png);
+  background-position: left center;
+}
+/* line 207, ../sass/screen.scss */
+section#media .carousel-control.right {
+  background-image: url(../img/home/after.png);
+  background-position: right center;
+}
 
 /* footer style */
-/* line 187, ../sass/screen.scss */
-footer > div:first-child {
-  min-height: 300px;
+/* line 214, ../sass/screen.scss */
+footer#footer {
+  color: #ffffff;
+  font-size: 12px;
+  padding: 50px 0px;
   background-color: #29673e;
+}
+/* line 220, ../sass/screen.scss */
+footer#footer a {
+  color: #ffffff;
+}
+/* line 223, ../sass/screen.scss */
+footer#footer a:hover {
+  color: #68ff6e;
+  text-decoration: none;
+}
+/* line 229, ../sass/screen.scss */
+footer#footer h4 {
+  color: #34cb64;
+  font-size: 16px;
+}
+/* line 234, ../sass/screen.scss */
+footer#footer .social-buttons {
+  text-align: center;
+}
+/* line 237, ../sass/screen.scss */
+footer#footer .social-buttons h4 {
+  color: #fff;
+  font-size: 14px;
+  font-weight: bolder;
+}
+/* line 243, ../sass/screen.scss */
+footer#footer .social-buttons ul {
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  list-style: none;
+}
+/* line 251, ../sass/screen.scss */
+footer#footer .social-buttons ul li {
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  line-height: 45px;
+  background-color: #43ac45;
+  padding-top: 3px;
+  border-radius: 30px;
+}
+/* line 261, ../sass/screen.scss */
+footer#footer .social-buttons ul li a {
+  color: #ffffff;
+}
+/* line 263, ../sass/screen.scss */
+footer#footer .social-buttons ul li a:hover {
+  color: #ffffff;
+}
+/* line 271, ../sass/screen.scss */
+footer#footer .copyright {
+  text-align: center;
+  margin: 40px 0px;
 }
 
 /* custom styles */
-/* line 195, ../sass/screen.scss */
+/* line 279, ../sass/screen.scss */
 .section-title {
   color: #4ab855;
   margin: 50px 0px !important;
