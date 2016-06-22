@@ -1,25 +1,50 @@
-require 'compass/import-once/activate'
-# Require any additional compass plugins here.
+###
+# Page options, layouts, aliases and proxies
+###
 
-# Set this to the root of your project when deployed:
-http_path = "/"
-css_dir = "css"
-sass_dir = "sass"
-images_dir = "img"
-javascripts_dir = "js"
+# Per-page layout changes:
+#
+# With no layout
+page '/*.xml', layout: false
+page '/*.json', layout: false
+page '/*.txt', layout: false
 
-# You can select your preferred output style here (can be overridden via the command line):
-# output_style = :expanded or :nested or :compact or :compressed
+# With alternative layout
+# page "/path/to/file.html", layout: :otherlayout
 
-# To enable relative paths to assets via compass helper functions. Uncomment:
-# relative_assets = true
+# Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
+# proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
+#  which_fake_page: "Rendering a fake page with a local variable" }
 
-# To disable debugging comments that display the original location of your selectors. Uncomment:
-# line_comments = false
+# General configuration
 
+# Reload the browser automatically whenever files change
+configure :development do
+  activate :livereload
+end
 
-# If you prefer the indented syntax, you might want to regenerate this
-# project again passing --syntax sass, or you can uncomment this:
-# preferred_syntax = :sass
-# and then run:
-# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+###
+# Helpers
+###
+
+# Methods defined in the helpers block are available in templates
+# helpers do
+#   def some_helper
+#     "Helping"
+#   end
+# end
+
+# Build-specific configuration
+configure :build do
+  # hostname
+  config[:host] = "http://www.votolegal.org.br"
+
+  # Append a hash to asset urls (make sure to use the url helpers)
+  activate :asset_hash
+
+  # Minify CSS on build
+  activate :minify_css
+
+  # Minify Javascript on build
+  activate :minify_javascript
+end

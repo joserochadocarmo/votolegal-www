@@ -16,8 +16,27 @@ $txt_black: #000;
 /* background color */
 $bg_color: #fff; 
 
+/* font defaults */
+@mixin font-normal() {
+  font-family: 'Open Sans', sans-serif !important;
+  font-weight: 300;
+}
+@mixin font-light() {
+  font-family: 'Open Sans', sans-serif !important;
+  font-weight: 400;
+}
+@mixin font-bold() {
+  font-family: 'Open Sans', sans-serif !important;
+  font-weight: 700;
+}
+
+
+html {
+  @include font-normal();
+}
 
 body {
+  @include font-normal();
   color: $txt_color;
   padding-top: 20px;
   background-color: $bg_color;
@@ -46,13 +65,46 @@ nav.navbar-votolegal {
       line-height: 20px;
   }
 
-  .dropdown a {
-    color: #4daa59;
-    font-weight: bold;
+  .open {
+    border-top: solid 1px #ccc !important;
+    border-left: solid 1px #ccc !important;
+    border-right: solid 1px #ccc !important;
+
+    a {
+      color: #4daa59;
+    }
   }
   .dropdown {
-    a:focus, a:hover {
-      background-color: #ffffff;
+    background-color: transparent;
+    border:solid 1px transparent;
+
+    a {
+      color: #4daa59;
+      font-weight: bold;
+      background-color: transparent;
+    }
+
+    a:focus, 
+    a:hover {
+      color: #4daa59;
+      background-color: transparent;
+    }
+    ul.dropdown-menu {
+      right: 0;
+      left: 0;
+      margin: 0px -1px;
+      border-radius: 0px;
+      border-top: solid 1px transparent;
+      border-left: solid 1px #ccc;
+      border-right: solid 1px #ccc;
+
+      li {
+        padding: 5px 5px;
+
+        a {
+          padding: 0px;
+        }
+      }
     }
   }
 
@@ -70,7 +122,7 @@ nav.navbar-votolegal {
   height: 10px;
   margin-top:10px;
   background-color: #62d35d;
-  background-image: url(../img/home/barra.png);
+  background-image: url(../images/home/barra.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -116,10 +168,11 @@ header.cover {
   }
 }
 
-section#howto-works {
-  padding-top: 50px;
-  padding-bottom: 50px;
+section {
+  padding: 75px 0px;
+}
 
+section#howto-works {
   ul.howto-works-timeline {
     padding: 0px;
 
@@ -183,7 +236,7 @@ section#howto-works {
 
 /* media styles */
 section#media {
-  padding: 30px 0px;
+  padding: 40px 0px;
   background: linear-gradient( #e5e5e5, #ffffff);
 
   h2 {
@@ -201,11 +254,11 @@ section#media {
     opacity: 1;
   }
   .carousel-control.left {
-    background-image: url(../img/home/before.png);
+    background-image: url(../images/home/before.png);
     background-position: left center;
   }
   .carousel-control.right {
-    background-image: url(../img/home/after.png);
+    background-image: url(../images/home/after.png);
     background-position: right center;
   }
 }
@@ -274,10 +327,134 @@ footer#footer {
   }
 }
 
+section#pre-register {
+  p {
+    margin-bottom: 30px;
+  }
+  img {
+    margin-bottom: 20px;
+  }
+}
+
+section#register-docs {
+  ul {
+    list-style: outside none none;
+    padding: 0px;
+
+    i {
+      color: #63d35c;
+      margin-right: 15px;
+    }
+  }
+}
+
+section#about {
+}
+
+section#faq {
+  .search-field {
+    color: #ffffff;
+    font-size: 16px;
+    padding: 5px 10px;
+    background: #4cba59;
+
+    input[type=text]{
+      text-align: center;
+      border-color: transparent;
+      background: transparent;
+      border-radius: 0px;
+      font-family: 'fontawesome';
+
+    }
+  }
+  .panel-default {
+    border-radius: 0px;
+    .panel-heading {
+      background-color: transparent;
+    }
+  }
+}
+
+section#contact {
+}
+
+
+
+/* bootstrap custom */
+.label {
+  padding: 4px 15px;
+  border-radius: 10px;
+}
+
+
 
 /* custom styles */
 .section-title {
   color: #4ab855;
   margin: 50px 0px !important;
+}
+
+.section-subtitle {
+  margin-top: 30px;
+  color: #63d35c;
+}
+
+.page-title {
+  @include font-light();
+  font-weight: 100;
+  display: inline-block;
+  padding-bottom: 5px;
+  position: relative;
+  margin: 50px 0px 30px;
+
+  &:before{
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 3px;
+    bottom: 0;
+    left: 10%;
+    border-bottom: 3px solid #63d35c;
+  }
+}
+
+.label-status {
+  font-size: 14px;
+}
+
+a {
+  color: #63d35c;
+}
+
+.video-container {
+  position:relative;
+  padding-bottom:56.25%;
+  padding-top:30px;
+  height:0;
+  overflow:hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+.icon-left {
+  position: relative;
+
+  i {
+    left: 0px;
+    color: #4cba59; 
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+  }
+
+  input, textarea, select {
+    padding-left: 30px;
+  }
 }
 
