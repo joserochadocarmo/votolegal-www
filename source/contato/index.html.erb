@@ -10,7 +10,7 @@ title:  Contato
       </div>
       <div class="col-md-offset-3 col-md-6">
 
-        <form action="">
+        <% content_tag :form, :action => "/contato/success" do %>
           <div class="form-group icon-left">
             <i class="fa fa-user"></i>    
             <input class="form-control" type="text" placeholder="Nome completo">
@@ -40,7 +40,7 @@ title:  Contato
             <!-- input class="form-control" type="text" placeholder="Tipo de contato" -->
           </div>
           <div class="form-group icon-left">
-            <i class="fa fa-envelope-square"></i>    
+            <i class="fa fa-envelope-square"></i>
             <input class="form-control" type="text" placeholder="Assunto">
           </div>
           <div class="form-group icon-left">
@@ -50,7 +50,7 @@ title:  Contato
           <div class="form-group">
             <button class="btn btn-success btn-lg btn-block">Enviar</button>
           </div>
-        </form>
+        <% end %>
 
       </div>
     </div>

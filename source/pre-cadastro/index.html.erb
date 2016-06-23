@@ -1,19 +1,124 @@
 ---
-title:  Pré-cadastro do candidato
+title:  Pré-cadastro
 ---
 
-<section id="pre-register">
+<section id="contact">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <span class="label label-status label-default">Pré-cadastro</span>
-        <span class="label label-status label-success">Análise</span>
+        <span class="label label-status label-success">Pré-cadastro</span>
+        <span class="label label-status label-default">Análise</span>
         <span class="label label-status label-default">Cadastro completo</span>
       </div>
-      <div class="col-md-12">
-        <h1 class="page-title">
-          Pré-cadastro
-        </h1>
+      <div class="col-md-12 text-center" style="margin-top: 40px;">
+        <h1 class="page-title">Pré-cadastro</h1>
+      </div>
+      <div class="col-md-offset-3 col-md-6">
+
+        <% content_tag :form, :action => "/pre-cadastro/success" do %>
+          <div class="form-group icon-left">
+            <i class="fa fa-sign-out"></i>    
+            <input class="form-control" type="text" placeholder="seunome.votolegal.org.br">
+          </div>
+          <div class="form-group icon-left">
+            <i class="fa fa-envelope"></i>    
+            <input class="form-control" type="text" placeholder="E-mail">
+          </div>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 2px 0px 0px;">
+            <i class="fa fa-sign-out"></i>    
+            <input class="form-control" type="text" placeholder="Senha">
+          </div>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 0px 0px 0px;">
+            <i class="fa fa-lock"></i>    
+            <input class="form-control" type="text" placeholder="Confirmar senha">
+          </div>
+          <div class="form-group icon-left">
+            <i class="fa fa-user"></i>    
+            <input class="form-control" type="text" placeholder="Nome completo">
+          </div>
+          <div class="form-group icon-left">
+            <i class="fa fa-user"></i>    
+            <input class="form-control" type="text" placeholder="Nome como candidato">
+          </div>
+          <div class="form-group icon-left">
+            <i class="fa fa-user"></i>    
+            <input class="form-control" type="text" placeholder="CPF">
+          </div>
+          <div class="form-group icon-left">
+            <i class="fa fa-user"></i>    
+            <input class="form-control" type="text" placeholder="CNPJ">
+          </div>
+          <div class="form-group icon-left">
+            <i class="fa fa-flag"></i>    
+            <select class="form-control" placeholder="Partido">
+              <option>Partido</option>
+            </select>
+          </div>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 2px 0px 0px;">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="CEP">
+          </div>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 0px 0px 0px;">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="Estado">
+          </div>
+          <div class="form-group icon-left">
+            <i class="fa fa-home"></i>
+            <input class="form-control" type="text" placeholder="Cidade">
+          </div>
+          <div class="form-group icon-left">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="Endereço">
+          </div>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 2px 0px 0px;">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="Número">
+          </div>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 0px 0px 0px;">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="Complemento">
+          </div>
+          <div class="form-group">
+            <div class="col-md-3" style="padding:0px;">
+              <span>Ficha limpa?</span>
+            </div>
+            <div class="col-md-9">
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" value="option1"> Sim
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" value="option2"> Não
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-3" style="padding:0px">
+              <span>Reeleição?</span>
+            </div>
+            <div class="col-md-9">
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" value="option1"> Sim
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" value="option2"> Não
+              </label>
+            </div>
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="inlineCheckbox1" value="option1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois. 
+            </label>
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="inlineCheckbox1" value="option1"> Ao fazer o cadastro eu declaro-me de acordo com os termos de uso e as <%= link_to 'políticas de privacidade', '/politica-e-privacidade', :target => '_blank' %> do Voto Legal.
+            </label>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success btn-lg btn-block">Enviar</button>
+          </div>
+        <% end %>
+
       </div>
     </div>
   </div>
