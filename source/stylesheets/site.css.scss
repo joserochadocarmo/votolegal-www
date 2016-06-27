@@ -1,13 +1,7 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-
 /**
 * VotoLegal - http://votolegal.org.br
 * author: @eokoeit
 */
-
 
 /* text color */
 $txt_color: #777;
@@ -371,6 +365,26 @@ section#faq {
     border-radius: 0px;
     .panel-heading {
       background-color: transparent;
+    }
+  }
+}
+
+section#works {
+  .doador-panel{
+    margin: 30px 0px;
+
+    div {
+      float: left;
+      width: 20%;
+      text-align: center;
+
+      &:not(:last-child){
+        padding-right: 15px;
+      }
+
+      i {
+        font-size: 52px;
+      }
     }
   }
 }

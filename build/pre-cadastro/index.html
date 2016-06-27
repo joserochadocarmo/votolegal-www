@@ -10,10 +10,12 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
   <!-- website stylesheet -->
-  <link href="/stylesheets/site-2de1a044.css" rel="stylesheet" />
+  <link href="/stylesheets/site-c95a0013.css" rel="stylesheet" />
+  <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
 </head>
 <body class="pre-cadastro pre-cadastro_index">
@@ -35,9 +37,9 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">O projeto</a></li>
+              <li><a href="/projeto">O projeto</a></li>
               <li class="hide"><a href="#">Explore</a></li>
-              <li><a href="#">Como funciona?</a></li>
+              <li><a href="/como-funciona">Como funciona?</a></li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                   Portal do candidato <span class="caret"></span>
@@ -119,37 +121,69 @@
             <input class="form-control" type="text" placeholder="CNPJ">
           </div>
           <div class="form-group icon-left">
-            <i class="fa fa-user"></i>    
+            <i class="fa fa-flag"></i>    
             <select class="form-control" placeholder="Partido">
               <option>Partido</option>
             </select>
           </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-phone"></i>    
-            <input class="form-control" type="text" placeholder="Telefone">
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 2px 0px 0px;">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="CEP">
+          </div>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 0px 0px 0px;">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="Estado">
           </div>
           <div class="form-group icon-left">
-            <i class="fa fa-list"></i>    
-            <select class="form-control" placeholder="Tipo de contato">
-              <option>Tipo de contato</option>
-            </select>
-            <!-- input class="form-control" type="text" placeholder="Tipo de contato" -->
+            <i class="fa fa-home"></i>
+            <input class="form-control" type="text" placeholder="Cidade">
           </div>
           <div class="form-group icon-left">
-            <i class="fa fa-envelope-square"></i>
-            <input class="form-control" type="text" placeholder="Assunto">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="Endereço">
           </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-paper-plane"></i>    
-            <textarea id="" class="form-control" name="" cols="30" rows="10" placeholder="Mensagem"></textarea>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 2px 0px 0px;">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="Número">
+          </div>
+          <div class="col-md-6 form-group icon-left" style="padding: 0px 0px 0px 0px;">
+            <i class="fa fa-home"></i>    
+            <input class="form-control" type="text" placeholder="Complemento">
           </div>
           <div class="form-group">
-            <span>Você é candidato?</span>
-            <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Sim
+            <div class="col-md-3" style="padding:0px;">
+              <span>Ficha limpa?</span>
+            </div>
+            <div class="col-md-9">
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" value="option1"> Sim
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" value="option2"> Não
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-3" style="padding:0px">
+              <span>Reeleição?</span>
+            </div>
+            <div class="col-md-9">
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" value="option1"> Sim
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" value="option2"> Não
+              </label>
+            </div>
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="inlineCheckbox1" value="option1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois. 
             </label>
-            <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Não
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="inlineCheckbox1" value="option1"> Ao fazer o cadastro eu declaro-me de acordo com os termos de uso e as <a href="/politica-e-privacidade" target="_blank">políticas de privacidade</a> do Voto Legal.
             </label>
           </div>
           <div class="form-group">
