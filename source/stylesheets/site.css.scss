@@ -496,3 +496,13 @@ a {
   }
 }
 
+.faq-link-title {
+  text-decoration: none;
+
+  &:hover{ text-decoration: none; }
+
+  i.fa {
+    color: #63d35c;
+  }
+}
+

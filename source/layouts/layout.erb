@@ -143,16 +143,30 @@
     <%= javascript_include_tag 'angular-ng_mask' %>
     <%= javascript_include_tag 'sweetalert' %>
     <%= javascript_include_tag 'all' %>
-    <!-- script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script -->
-    <!-- script src="https://code.jquery.com/jquery.min.js"></script -->
-    <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script -->
     
     <script>
+      // TODO: colocar todo esse js em um arquivo separado
       $(function(){
+
+        /**
+         * Change color of 
+         */
         $('.howto-works-timeline').on('mouseover', '.howto-works-text, .howto-works-pill', function(){
           $('.howto-works-timeline li').removeClass('active');
           $(this).parent().addClass('active');
         });
+
+    
+        /**
+         * Faq chevrom image change
+         */
+        $('#accordion').on('show.bs.collapse', function (e) {
+          $(e.target).parent().find('i.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+        });
+        $('#accordion').on('hide.bs.collapse', function (e) {
+          $(e.target).parent().find('i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+        });
+
       });
     </script>
 
