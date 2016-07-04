@@ -43,8 +43,9 @@ title:  Contato
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-list"></i>    
-              <select class="form-control" name="contact_type" ng-model="message.contact_type"  placeholder="Tipo de contato">
-                <option>Tipo de contato</option>
+              <select class="form-control" name="type" ng-model="message.type"  placeholder="Tipo de contato">
+                <option value="" disabled selected ng-selected="selected">Tipo de contato</option>
+                <option ng-repeat="type in ['Reclamação', 'Sugestão', 'Dúvidas', 'Imprensa', 'Outros']" value="{{type.id}}">{{type}}</option>
               </select>
             </div>
           </div>
