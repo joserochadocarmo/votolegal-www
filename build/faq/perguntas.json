@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "title":"Como realizar adesão na plataforma?",
+      "description": "Para um candidato utilizar a plataforma basta realizar o cadastro na plataforma, preencher todos os dados, concordar com os termos de uso e política de privacidade, depois desta etapa é realizada uma validação dos documentos exigidos pela equipe do Voto Legal."
+    },
+    {
+      "title":"A plataforma é gratuita?",
+      "description": "Ela é totalmente gratuita, os códigos fontes são abertos para serem utilizados por qualquer um e também são livres, o que significa que não há custos de licenciamento. Para obter a hospedagem gratuita é necessário realizar adesão na plataforma disponibilizada pela equipe do VotoLegal."
+    },
+    {
+      "title":"Quais checagens são realizadas pela equipe do VotoLegal ?",
+      "description": "Ser ficha limpa (apresentar as certidões criminais e civeis)<br> Se comprometer com uma campanha transparente, etica e que não vai utilizar caixa dois de campanha.<br> O candidato também deve assinar um contrato com uma processadora de cartão de crédito."
+    }
+  ]
+}
+

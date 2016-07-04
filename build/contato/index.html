@@ -11,7 +11,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <!-- website stylesheet -->
-  <link href="/stylesheets/site-e1f9bcd3.css" rel="stylesheet" />
+  <link href="/stylesheets/site-e6835f3d.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
   <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
@@ -109,7 +109,7 @@
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-phone"></i>    
-              <input class="form-control" type="text" name="phone" ng-model="message.phone" placeholder="Telefone">
+              <input class="form-control" type="text" name="phone" ng-model="message.phone" placeholder="Telefone" mask="(99)d?9999-9999" mask-restrict="reject" mask-clean="false">
             </div>
           </div>
           <div class="row">
