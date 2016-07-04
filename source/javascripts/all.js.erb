@@ -171,6 +171,10 @@
           var res = response.data.form_error;
           console.log(res);
 
+          var f = function(field){
+            return document.querySelector('form[name=candidateForm] *[name='+field+']');
+          };
+
           // error messages
           var error_msg  = function(token){
             var msg_list = {
@@ -184,8 +188,7 @@
           // setting error message
           $scope.error_list = [];
           for(var field in res){
-            var el = document.querySelector('*[name='+field+']');
-            var name = el.attributes['placeholder'].value;
+            var name = f(field).attributes['placeholder'].value;
             $scope.error_list.push(name + error_msg(res[field]));
           }
 
@@ -258,9 +261,11 @@
     $scope.load_offices();
     $scope.load_parties();
   }]);
+
+
   /**
-   * PreCadastro controller
-   * Register a new candidate to be moderated by admin team
+   * Contato controller
+   * Register a new contact message
    */ 
   app.controller('ContatoController', 
     ['$scope', '$http', 'serialize', function($scope, $http, serialize){
@@ -285,16 +290,15 @@
         // success callback
         function(response){
           var res = response.data;
-          console.log(res);
+          document.location = '/contato/success';
           return false;
         },
         // error callback
         function(response){
           var res = response.data.form_error;
-          console.log(res);
 
           var f = function(field){
-            return document.querySelector('*[name='+field+']');
+            return document.querySelector('form[name=contactForm] *[name='+field+']');
           };
 
           // error messages
