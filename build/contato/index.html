@@ -11,7 +11,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <!-- website stylesheet -->
-  <link href="/stylesheets/site-a25dd80f.css" rel="stylesheet" />
+  <link href="/stylesheets/site-e1f9bcd3.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
   <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
@@ -93,10 +93,10 @@
             <div class="form-group icon-left col-md-12">
               <span>Você é candidato?</span>
               <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Sim
+                <input type="radio" name="" ng-model="message.is_candidate" placeholder="'Você é um candidato?'" value="1"> Sim
               </label>
               <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Não
+                <input type="radio" name="" ng-model="message.is_candidate" placeholder="'Você é um candidato?'" value="0"> Não
               </label>
             </div>
           </div>
@@ -115,8 +115,9 @@
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-list"></i>    
-              <select class="form-control" name="contact_type" ng-model="message.contact_type"  placeholder="Tipo de contato">
-                <option>Tipo de contato</option>
+              <select class="form-control" name="type" ng-model="message.type"  placeholder="Tipo de contato">
+                <option value="" disabled selected ng-selected="selected">Tipo de contato</option>
+                <option ng-repeat="type in ['Reclamação', 'Sugestão', 'Dúvidas', 'Imprensa', 'Outros']" value="{{type.id}}">{{type}}</option>
               </select>
             </div>
           </div>
@@ -216,17 +217,31 @@
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-b38ecc1d.js"></script>
-    <!-- script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script -->
-    <!-- script src="https://code.jquery.com/jquery.min.js"></script -->
-    <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script -->
+    <script src="/javascripts/all-ab1a51a6.js"></script>
     
     <script>
+      // TODO: colocar todo esse js em um arquivo separado
       $(function(){
+
+        /**
+         * Change color of 
+         */
         $('.howto-works-timeline').on('mouseover', '.howto-works-text, .howto-works-pill', function(){
           $('.howto-works-timeline li').removeClass('active');
           $(this).parent().addClass('active');
         });
+
+    
+        /**
+         * Faq chevrom image change
+         */
+        $('#accordion').on('show.bs.collapse', function (e) {
+          $(e.target).parent().find('i.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+        });
+        $('#accordion').on('hide.bs.collapse', function (e) {
+          $(e.target).parent().find('i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+        });
+
       });
     </script>
 
