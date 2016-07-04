@@ -37,7 +37,7 @@ title:  Contato
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-phone"></i>    
-              <input class="form-control" type="text" name="phone" ng-model="message.phone" placeholder="Telefone">
+              <input class="form-control" type="text" name="phone" ng-model="message.phone" placeholder="Telefone" mask="(99)d?9999-9999" mask-restrict="reject" mask-clean="false">
             </div>
           </div>
           <div class="row">
