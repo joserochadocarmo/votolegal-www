@@ -2,7 +2,7 @@
 title:  Pré-cadastro
 ---
 
-<section id="contact">
+<section id="contact" ng-controller="PreCadastroController as precadastro">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -15,107 +15,135 @@ title:  Pré-cadastro
       </div>
       <div class="col-md-offset-3 col-md-6">
 
-        <% content_tag :form, :action => "/pre-cadastro/success" do %>
-          <div class="form-group icon-left">
-            <i class="fa fa-sign-out"></i>    
-            <input class="form-control" type="text" placeholder="seunome.votolegal.org.br">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-envelope"></i>    
-            <input class="form-control" type="text" placeholder="E-mail">
-          </div>
-          <div class="col-md-6 form-group icon-left" style="padding: 0px 2px 0px 0px;">
-            <i class="fa fa-sign-out"></i>    
-            <input class="form-control" type="text" placeholder="Senha">
-          </div>
-          <div class="col-md-6 form-group icon-left" style="padding: 0px 0px 0px 0px;">
-            <i class="fa fa-lock"></i>    
-            <input class="form-control" type="text" placeholder="Confirmar senha">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-user"></i>    
-            <input class="form-control" type="text" placeholder="Nome completo">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-user"></i>    
-            <input class="form-control" type="text" placeholder="Nome como candidato">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-user"></i>    
-            <input class="form-control" type="text" placeholder="CPF">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-user"></i>    
-            <input class="form-control" type="text" placeholder="CNPJ">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-flag"></i>    
-            <select class="form-control" placeholder="Partido">
-              <option>Partido</option>
-            </select>
-          </div>
-          <div class="col-md-6 form-group icon-left" style="padding: 0px 2px 0px 0px;">
-            <i class="fa fa-home"></i>    
-            <input class="form-control" type="text" placeholder="CEP">
-          </div>
-          <div class="col-md-6 form-group icon-left" style="padding: 0px 0px 0px 0px;">
-            <i class="fa fa-home"></i>    
-            <input class="form-control" type="text" placeholder="Estado">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-home"></i>
-            <input class="form-control" type="text" placeholder="Cidade">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-home"></i>    
-            <input class="form-control" type="text" placeholder="Endereço">
-          </div>
-          <div class="col-md-6 form-group icon-left" style="padding: 0px 2px 0px 0px;">
-            <i class="fa fa-home"></i>    
-            <input class="form-control" type="text" placeholder="Número">
-          </div>
-          <div class="col-md-6 form-group icon-left" style="padding: 0px 0px 0px 0px;">
-            <i class="fa fa-home"></i>    
-            <input class="form-control" type="text" placeholder="Complemento">
-          </div>
-          <div class="form-group">
-            <div class="col-md-3" style="padding:0px;">
-              <span>Ficha limpa?</span>
+        <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit': "create(candidateForm.$valid)", novalidate: '' do %>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-sign-out"></i>    
+              <input class="form-control" type="text" name="username" placeholder="seunome.votolegal.org.br" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false" required>
             </div>
-            <div class="col-md-9">
-              <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" value="option1"> Sim
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" value="option2"> Não
-              </label>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-envelope"></i>    
+              <input class="form-control" type="text" name="email" placeholder="E-mail" ng-model="candidate.email" >
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-md-3" style="padding:0px">
-              <span>Reeleição?</span>
+          <div class="row">
+            <div class="col-md-6 form-group icon-left">
+              <i class="fa fa-sign-out"></i>    
+              <input class="form-control" type="password" name="password" placeholder="Senha" ng-model="candidate.password" >
             </div>
-            <div class="col-md-9">
-              <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" value="option1"> Sim
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" value="option2"> Não
-              </label>
+            <div class="col-md-6 form-group icon-left">
+              <i class="fa fa-lock"></i>    
+              <input class="form-control" type="password" name="confirm_password" placeholder="Confirmar senha" ng-model="candidate.confirm_password" >
             </div>
           </div>
-          <div class="checkbox">
-            <label class="checkbox-inline">
-              <input type="checkbox" id="inlineCheckbox1" value="option1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois. 
-            </label>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-user"></i>    
+              <input class="form-control" type="text" name="name" placeholder="Nome completo" ng-model="candidate.name" >
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-user"></i>    
+              <input class="form-control" type="text" name="popular_name" placeholder="Nome como candidato" ng-model="candidate.popular_name" >
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-user"></i>    
+              <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-user"></i>    
+              <input class="form-control" type="text" name="cnpj" placeholder="CNPJ" ng-model="candidate.cnpj" mask="99.999.999/9999-99" mask-restrict="reject" mask-clean="true" >
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-flag"></i>    
+              <select class="form-control" name="office_id" placeholder="Cargo" ng-model="candidate.office_id">
+                <option value="" disabled selected ng-selected="selected">Cargo</option>
+                <option ng-repeat="office in office_list" value="{{office.id}}">{{office.name}}</option>
+              </select>
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-flag"></i>    
+              <select class="form-control" name="party_id" placeholder="Partido" ng-model="candidate.party_id">
+                <option value="" disabled selected ng-selected="selected">Partido</option>
+                <option ng-repeat="party in party_list" value="{{party.id}}">{{party.acronym}}</option>
+              </select>
+            </div>
           </div>
-          <div class="checkbox">
-            <label class="checkbox-inline">
-              <input type="checkbox" id="inlineCheckbox1" value="option1"> Ao fazer o cadastro eu declaro-me de acordo com os termos de uso e as <%= link_to 'políticas de privacidade', '/politica-e-privacidade', :target => '_blank' %> do Voto Legal.
-            </label>
+          <div class="row">
+            <div class="col-md-6 form-group icon-left">
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_zipcode" placeholder="CEP" ng-blur="address_by_zipcode($event)" ng-model="candidate.address_zipcode" mask="99999-999" mask-restrict="reject" mask-clean="false" >
+            </div>
+            <div class="col-md-6 form-group icon-left">
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_state" placeholder="Estado" ng-model="candidate.address_state" >
+            </div>
           </div>
-          <div class="form-group">
-            <button class="btn btn-success btn-lg btn-block">Enviar</button>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-home"></i>
+              <input class="form-control" type="text" name="address_city" placeholder="Cidade" ng-model="candidate.address_city" >
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_street" placeholder="Endereço" ng-model="candidate.address_street" >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group icon-left">
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_house_number" placeholder="Número" ng-model="candidate.address_house_number" mask="9" mask-repeat="5" >
+            </div>
+            <div class="col-md-6 form-group icon-left">
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_complement" placeholder="Complemento">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <div class="col-md-3" style="padding:0px;">
+                <span>Ficha limpa?</span>
+              </div>
+              <div class="col-md-9">
+                <label class="radio-inline">
+                  <input type="radio" name="" value=""> Sim
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="" value=""> Não
+                </label>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="col-md-3" style="padding:0px">
+                <span>Reeleição?</span>
+              </div>
+              <div class="col-md-9">
+                <label class="radio-inline">
+                  <input type="radio" name="reelection" placeholder="Reeleição" ng-model="candidate.reelection" value="1"> Sim
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="reelection" placeholder="Reeleição" ng-model="candidate.reelection" value="0"> Não
+                </label>
+              </div>
+            </div>
+            <div class="checkbox col-md-12">
+              <label class="checkbox-inline">
+                <input type="checkbox" name="transparent_campaign" ng-model="transparent_campaign" value="1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois. 
+              </label>
+            </div>
+            <div class="checkbox col-md-12">
+              <label class="checkbox-inline">
+                <input type="checkbox" name="accept_terms" ng-model="accept_terms" value="1"> Ao fazer o cadastro eu declaro-me de acordo com os termos de uso e as <%= link_to 'políticas de privacidade', '/politica-e-privacidade', :target => '_blank' %> do Voto Legal.
+              </label>
+            </div>
+            <div class="form-group col-md-12">
+              <button type="submit" class="btn btn-success btn-lg btn-block">Enviar</button>
+              <div ng-show="error_list" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+                <h4>Os seguinte campos precisam ser corrigidos:</h4>
+                <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+                  <li>{{error}}</li>
+                </ul>
+              </div>
+            </div>
           </div>
         <% end %>
 

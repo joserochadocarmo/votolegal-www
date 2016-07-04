@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html ng-app="votolegal">
 <head>
   <meta charset="utf-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -12,8 +11,9 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <!-- website stylesheet -->
-  <link href="/stylesheets/site-c95a0013.css" rel="stylesheet" />
+  <link href="/stylesheets/site-a25dd80f.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
+  <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
@@ -37,7 +37,7 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/projeto">O projeto</a></li>
+              <li><a href="/sobre">O projeto</a></li>
               <li class="hide"><a href="#">Explore</a></li>
               <li><a href="/como-funciona">Como funciona?</a></li>
               <li class="dropdown">
@@ -269,20 +269,25 @@
     
 
     <!-- javascript -->
-    <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/javascripts/angular.min-022f3ec8.js"></script>
+    <script src="/javascripts/jquery.min-1797d73e.js"></script>
+    <script src="/javascripts/bootstrap.min-791aa054.js"></script>
+    <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
+    <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
+    <script src="/javascripts/all-6f6d8d09.js"></script>
+    <!-- script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script -->
+    <!-- script src="https://code.jquery.com/jquery.min.js"></script -->
+    <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script -->
     
     <script>
       $(function(){
-        //$('.howto-works-timeline').on('.howto-works-pill .howto-works-text', 'click', function(){
         $('.howto-works-timeline').on('mouseover', '.howto-works-text, .howto-works-pill', function(){
           $('.howto-works-timeline li').removeClass('active');
           $(this).parent().addClass('active');
         });
       });
     </script>
-    <script src="/javascripts/all-4abf6d7e.js"></script>
+
 
         <!-- Google Analytics -->
     <script>

@@ -1,4 +1,4 @@
-###
+##
 # Page options, layouts, aliases and proxies
 ###
 
@@ -20,6 +20,13 @@ page '/*.txt', layout: false
 
 # Reload the browser automatically whenever files change
 configure :development do
+  # api host address
+  # config[:api_host] = "http://127.0.0.1:3000/api"
+  config[:api_host] = "http://45.55.50.43/api"
+
+  # webapp host address
+  config[:host] = "http://www.votolegal.org.br"
+
   activate :livereload
 end
 
@@ -36,7 +43,10 @@ end
 
 # Build-specific configuration
 configure :build do
-  # hostname
+  # api host address
+  config[:api_host] = "http://45.55.50.43/api"
+
+  # webapp host address
   config[:host] = "http://www.votolegal.org.br"
 
   # Append a hash to asset urls (make sure to use the url helpers)

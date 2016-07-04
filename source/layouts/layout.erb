@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html ng-app="votolegal">
 <head>
   <meta charset="utf-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -12,8 +11,9 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <!-- website stylesheet -->
-  <%= stylesheet_link_tag :site %>
-  <%= stylesheet_link_tag :flaticon %>
+  <%= stylesheet_link_tag "site" %>
+  <%= stylesheet_link_tag "flaticon" %>
+  <%= stylesheet_link_tag "sweetalert" %>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
@@ -37,7 +37,7 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/projeto">O projeto</a></li>
+              <li><a href="/sobre">O projeto</a></li>
               <li class="hide"><a href="#">Explore</a></li>
               <li><a href="/como-funciona">Como funciona?</a></li>
               <li class="dropdown">
@@ -137,20 +137,25 @@
     
 
     <!-- javascript -->
-    <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <%= javascript_include_tag 'angular.min.js' %>
+    <%= javascript_include_tag 'jquery.min.js' %>
+    <%= javascript_include_tag 'bootstrap.min.js' %>
+    <%= javascript_include_tag 'angular-ng_mask' %>
+    <%= javascript_include_tag 'sweetalert' %>
+    <%= javascript_include_tag 'all' %>
+    <!-- script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script -->
+    <!-- script src="https://code.jquery.com/jquery.min.js"></script -->
+    <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script -->
     
     <script>
       $(function(){
-        //$('.howto-works-timeline').on('.howto-works-pill .howto-works-text', 'click', function(){
         $('.howto-works-timeline').on('mouseover', '.howto-works-text, .howto-works-pill', function(){
           $('.howto-works-timeline li').removeClass('active');
           $(this).parent().addClass('active');
         });
       });
     </script>
-    <%= javascript_include_tag :all %>
+
 
     <%= partial "partial/ga" %>
   </body>

@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html ng-app="votolegal">
 <head>
   <meta charset="utf-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -12,8 +11,9 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <!-- website stylesheet -->
-  <link href="/stylesheets/site-c95a0013.css" rel="stylesheet" />
+  <link href="/stylesheets/site-a25dd80f.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
+  <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
@@ -37,7 +37,7 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/projeto">O projeto</a></li>
+              <li><a href="/sobre">O projeto</a></li>
               <li class="hide"><a href="#">Explore</a></li>
               <li><a href="/como-funciona">Como funciona?</a></li>
               <li class="dropdown">
@@ -75,7 +75,7 @@
     </div>
 
 
-    <section id="contact">
+    <section id="contact" ng-controller="ContatoController as contato">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
@@ -83,49 +83,65 @@
       </div>
       <div class="col-md-offset-3 col-md-6">
 
-<form action="/contato/success">          <div class="form-group icon-left">
-            <i class="fa fa-user"></i>    
-            <input class="form-control" type="text" placeholder="Nome completo">
-          </div>
-          <div class="form-group">
-            <span>Você é candidato?</span>
-            <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Sim
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Não
-            </label>
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-envelope"></i>    
-            <input class="form-control" type="text" placeholder="E-mail">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-phone"></i>    
-            <input class="form-control" type="text" placeholder="Telefone">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-list"></i>    
-            <select class="form-control" placeholder="Tipo de contato">
-              <option>Tipo de contato</option>
-            </select>
-            <!-- input class="form-control" type="text" placeholder="Tipo de contato" -->
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-envelope-square"></i>
-            <input class="form-control" type="text" placeholder="Assunto">
-          </div>
-          <div class="form-group icon-left">
-            <i class="fa fa-paper-plane"></i>    
-            <textarea id="" class="form-control" name="" cols="30" rows="10" placeholder="Mensagem"></textarea>
-          </div>
-          <div id="message-panel" class="form-group">
-            <div class="alert alert-danger">
-              Mensagem de erro aqui
+<form name="contactForm" class="angular-form" ng-submit="create(contactForm.$valid)" novalidate="novalidate">          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-user"></i>    
+              <input class="form-control" type="text" name="name" ng-model="message.name" placeholder="Nome completo">
             </div>
           </div>
-          <div class="form-group">
-            <button class="btn btn-success btn-lg btn-block">Enviar</button>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <span>Você é candidato?</span>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Sim
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Não
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-envelope"></i>    
+              <input class="form-control" type="text" name="email" ng-model="message.email" placeholder="E-mail">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-phone"></i>    
+              <input class="form-control" type="text" name="phone" ng-model="message.phone" placeholder="Telefone">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-list"></i>    
+              <select class="form-control" name="contact_type" ng-model="message.contact_type"  placeholder="Tipo de contato">
+                <option>Tipo de contato</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-envelope-square"></i>
+              <input class="form-control" type="text" name="subject" ng-model="message.subject" placeholder="Assunto">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-paper-plane"></i>    
+              <textarea id="" class="form-control" name="message" ng-model="message.message" cols="30" rows="10" placeholder="Mensagem"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <button class="btn btn-success btn-lg btn-block">Enviar</button>
+              <div ng-show="error_list" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+                <h4>Os seguinte campos precisam ser corrigidos:</h4>
+                <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+                  <li>{{error}}</li>
+                </ul>
+              </div>
+            </div>
           </div>
 </form>
       </div>
@@ -195,20 +211,25 @@
     
 
     <!-- javascript -->
-    <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/javascripts/angular.min-022f3ec8.js"></script>
+    <script src="/javascripts/jquery.min-1797d73e.js"></script>
+    <script src="/javascripts/bootstrap.min-791aa054.js"></script>
+    <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
+    <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
+    <script src="/javascripts/all-6f6d8d09.js"></script>
+    <!-- script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script -->
+    <!-- script src="https://code.jquery.com/jquery.min.js"></script -->
+    <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script -->
     
     <script>
       $(function(){
-        //$('.howto-works-timeline').on('.howto-works-pill .howto-works-text', 'click', function(){
         $('.howto-works-timeline').on('mouseover', '.howto-works-text, .howto-works-pill', function(){
           $('.howto-works-timeline li').removeClass('active');
           $(this).parent().addClass('active');
         });
       });
     </script>
-    <script src="/javascripts/all-4abf6d7e.js"></script>
+
 
         <!-- Google Analytics -->
     <script>
