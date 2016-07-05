@@ -7,16 +7,21 @@
   <title>VotoLegal - Perguntas Frequentes</title>
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
-
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
 
   <!-- website stylesheet -->
   <link href="/stylesheets/site-e6835f3d.css" rel="stylesheet" />
+
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
-  <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
 </head>
 <body class="faq faq_index">
 
@@ -75,7 +80,7 @@
     </div>
 
 
-    <section id="faq">
+    <section id="faq" ng-controller="FaqController as faq">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
@@ -84,167 +89,48 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <div class="search-field"><input type="text" placeholder="&#xf002; Procurar por..."></div>
+        <div class="search-field"><input type="text" placeholder="&#xf002; Procurar por..."  ng-change="search_answer(search_query)" ng-model="search_query"></div>
       </div>
       <div class="col-md-8">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-1">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-up pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-1">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
+          <div class="panel panel-default"  ng-repeat="i in faq_list">
+            <div class="panel-heading" role="tab" id="heading-{{ $index }}">
+              <h4 class="panel-title">
+                <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ $index }}" aria-expanded="true" aria-controls="collapse-{{ $index }}">
+                  {{ i.title }}
+                  <i class="fa fa-chevron-down pull-right"></i>
+                </a>
+              </h4>
+            </div>
+            <div id="collapse-{{ $index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{ $index }}">
+              <div class="panel-body">
+                <p ng-bind-html="i.content"></p>
               </div>
             </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-2">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-2" aria-expanded="true" aria-controls="collapse-2">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-2">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-3">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-3" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-3">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-4">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-4" aria-expanded="true" aria-controls="collapse-4">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-4" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-4">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-5">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-5" aria-expanded="true" aria-controls="collapse-5">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-5" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-5">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-6">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-6" aria-expanded="true" aria-controls="collapse-6">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-6" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-6">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-7">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-7" aria-expanded="true" aria-controls="collapse-7">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-7" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-7">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-8">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-8" aria-expanded="true" aria-controls="collapse-8">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-8" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-8">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-9">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-9" aria-expanded="true" aria-controls="collapse-9">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-9" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-9">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="heading-10">
-                <h4 class="panel-title">
-                  <a class="faq-link-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-10" aria-expanded="true" aria-controls="collapse-10">
-                    Lorem ipsum dolor sit amet?
-                    <i class="fa fa-chevron-down pull-right"></i>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse-10" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-10">
-                <div class="panel-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-              </div>
-            </div>
+          </div>
 
         </div>
+
+        <div class="alert alert-warning" ng-if="!faq_list.length">
+          <strong>Não foi encontrado nenhum resultado para o termo "{{search_query}}".</strong>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  var faq_list = [
+    { title: "Quais os principais objetivos do Voto Legal ?", content: "- Promover Campanhas políticas mais baratas e transparentes;<br>- Garantir a transparência entre doadores pessoa física e candidatos;<br>- Oferecer uma forma mais ágil no processo de doação;<br>- Exigir FICHA LIMPA dos candidatos;<br>- Fortalecer o engajamento de pessoas físicas em campanhas políticas;<br>- Promover a prestação de contas dos candidatos e o monitoramento cidadão.<br>"},
+    { title: "Quem pode participar do Voto Legal?", content: "- Candidatos ao executivo (prefeito) e legislativo (vereador);<br>- Qualquer cidadão que deseja financiar seu candidato;<br>- Qualquer cidadão que deseja realizar o monitoramento dos candidatos durante o período eleitoral.<br>"},
+    { title: "Como realizar adesão na plataforma?", content: "Para um candidato utilizar a plataforma basta realizar o cadastro na plataforma, preencher todos os dados, concordar com os termos de uso e política de privacidade. Depois desta etapa é realizada uma validação do perfil antes de ser publicado."},
+    { title: "A plataforma é gratuita?", content: "Ela é totalmente gratuita, os códigos fontes são abertos para serem utilizados por qualquer um e também são livres, o que significa que não há custos de licenciamento. "},
+    { title: "Quais compromissos assume o candidato que utiliza o VotoLegal ?", content: "Ser ficha limpa (autodeclarado);<br>Se comprometer com uma campanha transparente, ética e que não vai utilizar caixa dois de campanha;<br>O candidato também deve assinar um contrato com uma processadora de cartão de crédito.<br>"},
+    { title: "O que é um candidato ficha limpa?", content: "A Lei Complementar n° 135/2010, chamada Lei da Ficha Limpa, foi criada por meio de iniciativa popular (CF/88, art. 61, § 2°) com o intuito de combater a corrupção eleitoral. Essa lei alterou a Lei Complementar n° 64/1990 incluindo nesta hipóteses de inelegibilidade que visam proteger a probidade administrativa e a moralidade no exercício do mandato.<br>Sancionada em 19 de maio de 2010 pelo Congresso Nacional e publicada em junho do mesmo ano no Diário Oficial da União, a lei contou com 1,3 milhão de assinaturas de cidadãos de todos os estados brasileiros e do Distrito Federal.<br>Dentre aqueles que não podem ter a candidatura registrada segundo a Lei da Ficha Limpa, destacam-se:<br>os condenados por corrupção eleitoral;<br>os ocupantes de cargos eletivos que abdicarem de seus mandatos para escaparem de processo por violar dispositivo da Constituição Federal, de Constituição estadual ou de lei orgânica;<br>os condenados à suspensão dos direitos políticos por ato doloso de improbidade administrativa;<br>os excluídos do exercício da profissão, por decisão do órgão profissional competente, em decorrência de infração ético-profissional;<br>os condenados em razão de terem desfeito ou simulado desfazer vínculo conjugal ou de união estável para evitar caracterização de inelegibilidade;<br>os demitidos do serviço público em decorrência de processo administrativo ou judicial;<br>a pessoa física e os dirigentes de pessoa jurídica responsável por doações eleitorais tidas por ilegais;<br>os magistrados e os membros do Ministério Público que forem aposentados compulsoriamente por decisão sancionatória ou que tenham perdido o cargo por sentença ou que tenham pedido exoneração ou aposentadoria voluntária na pendência de processo administrativo disciplinar.<br>Para saber mais sobre essa matéria, acesse:<br>http://www.tse.jus.br/legislacao/codigo-eleitoral/lei-de-inelegibilidade/lei-de-inelegibilidade-lei-complementar-nb0-64-de-18-de-maio-de-1990"},
+  ];
+</script>
 
 
 
@@ -306,14 +192,17 @@
       </div>
     </footer>
     
+    <!-- styles -->
+    <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
     <!-- javascript -->
     <script src="/javascripts/angular.min-022f3ec8.js"></script>
+    <script src="/javascripts/angular-sanitize-6b8d3cf9.js"></script>
     <script src="/javascripts/jquery.min-1797d73e.js"></script>
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-ab1a51a6.js"></script>
+    <script src="/javascripts/all-f151c5ef.js"></script>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado
