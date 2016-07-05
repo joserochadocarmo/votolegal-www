@@ -10,8 +10,11 @@ title:  Perguntas Frequentes
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
-        <div class="search-field"><input type="text" placeholder="&#xf002; Procurar por..."  ng-change="search_answer(search_query)" ng-model="search_query"></div>
+      <div class="col-md-3">
+        <div class="search-field form-group icon-left col-md-12">
+          <i class="fa fa-search"></i>    
+          <input type="text" placeholder="Procurar por..."  ng-change="search_answer(search_query)" ng-model="search_query">
+        </div>
       </div>
       <div class="col-md-8">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

@@ -368,13 +368,18 @@
    * Controller of faq page
    */
   app.controller('FaqController', ['$scope', '$sce', function($scope, $sce){
+    // defaults
+    $scope.highlight = true;
+
+    // getting list
     $scope.faq_list = faq_list;
     
     $scope.search_answer = function(q){
       // check if faq-item contains string 
-      var test = faq_list.map(function(i){
-        if(i.title.match(new RegExp(q, "ig")) || i.content.match(new RegExp(q, "gi")) ) 
+      var list = faq_list.map(function(i){
+        if(i.title.match(new RegExp(q, "ig")) || i.content.match(new RegExp(q, "gi")) ){
           return i;
+        } 
       });
       
       // define array/list filter 
@@ -384,9 +389,9 @@
           if(list[i] !== undefined) l.push(list[i]);
         return l;
       };
-      
+
       // update list
-      $scope.faq_list = clean_list(test);
+      $scope.faq_list = clean_list(list);
       return false;
     };
   }]);

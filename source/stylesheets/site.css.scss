@@ -349,16 +349,27 @@ section#faq {
   .search-field {
     color: #ffffff;
     font-size: 16px;
-    padding: 5px 10px;
-    background: #4cba59;
+    background-color: #4cba59;
+    line-height: 30px;
 
-    input[type=text]{
-      text-align: center;
+    i { color: #fff }
+
+    input[type=text], 
+    input[type=text]:focus, 
+    input[type=text]:hover {
+      color: #ffffff;
+      width: 100%;
+      text-align: left;
+      outline: none;
       border-color: transparent;
       background: transparent;
       border-radius: 0px;
-      font-family: 'fontawesome';
+      font-weight: bolder;
 
+      &::-webkit-input-placeholder { color: #ffffff; }
+      &:-moz-placeholder { color: #ffffff; }
+      &::-moz-placeholder { color: #ffffff; }
+      &:-ms-input-placeholder { color: #ffffff; }
     }
   }
   .panel-default {
