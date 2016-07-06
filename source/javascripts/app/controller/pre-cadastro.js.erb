@@ -16,7 +16,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     $scope.error_list = [];
 
     // password confirmation error
-    if($scope.candidate.password != $scope.candidate.confirm_password){
+    if(!$scope.candidate.password || ($scope.candidate.password != $scope.candidate.confirm_password)){
       $scope.error_list.push("Os campos de senha devem ser iguais.");
       return false;
     }
