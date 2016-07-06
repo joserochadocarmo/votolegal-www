@@ -10,7 +10,7 @@
   <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
 
   <!-- website stylesheet -->
-  <link href="/stylesheets/site-e6835f3d.css" rel="stylesheet" />
+  <link href="/stylesheets/site-a208ad8d.css" rel="stylesheet" />
 
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
 
@@ -88,8 +88,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
-        <div class="search-field"><input type="text" placeholder="&#xf002; Procurar por..."  ng-change="search_answer(search_query)" ng-model="search_query"></div>
+      <div class="col-md-3">
+        <div class="search-field form-group icon-left col-md-12">
+          <i class="fa fa-search"></i>    
+          <input type="text" placeholder="Procurar por..."  ng-change="search_answer(search_query)" ng-model="search_query">
+        </div>
       </div>
       <div class="col-md-8">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -152,7 +155,7 @@
             <p><a href="/termos-de-uso">Termos de uso</a></p>
             <p><a href="/politica-e-privacidade">Políticas e privacidade</a></p>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 hide">
             <h4>Como funciona?</h4>
             <br class="divider">
             <p><a href="/selos">Selos em uso</a></p>
@@ -166,27 +169,26 @@
             <p><a href="/contato">Contato</a></p>
             <p><a href="/documentos-para-cadastro">Documentos para cadastro</a></p>
           </div>
-          <div class="col-md-offset-4 col-md-2">
+          <div class="col-md-offset-6 col-md-2">
             <a href="/"><img src="/images/logo-negative-102fd831.png" alt="VotoLegal"></a>
           </div>
 
           <div class="social-buttons col-md-12">
             <h4>Siga-nos</h4>
             <ul>
-              <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-tumblr fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li>
+              <li><a href="https://facebook.com/votolegal"><i class="fa fa-facebook fa-2x"></i></a></li>
+              <li class="hide"><a href="#"><i class="fa fa-tumblr fa-2x"></i></a></li>
+              <li class="hide"><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
+              <li><a href="https://twitter.com/search?q=VotoLegal&src=typd"><i class="fa fa-twitter fa-2x"></i></a></li>
+              <li><a href="https://www.youtube.com/watch?v=xZKg2w3iOMo"><i class="fa fa-youtube fa-2x"></i></a></li>
+              <li class="hide"><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
+              <li class="hide"><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li>
             </ul>
           </div>
           
           <div class="copyright col-md-12">
             <p>Voto Legal é uma plataforma livre e não se responsabiliza pelas informações fornecidas pelos candidatos, bem como a prestação de contas do mesmo.</p>
-            <p>Copyright &copy; 2016 - by Eokoe</p>
+            <p>Copyright &copy; 2016 - by <a href="http://www.eokoe.com" target="_blank">Eokoe</a></p>
           </div>
         </div>
       </div>
@@ -202,7 +204,7 @@
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-f151c5ef.js"></script>
+    <script src="/javascripts/all-51134045.js"></script>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado

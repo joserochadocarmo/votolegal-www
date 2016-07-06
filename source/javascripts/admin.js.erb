@@ -1,0 +1,186 @@
+
+(function(){
+  "use strict";
+
+
+  /**
+   * Serializer
+   */
+  var Serializer = function(){
+    this.from_object = function(data){
+      var buffer = [];
+      
+      if (typeof data !== 'object')
+        throw new Error('Param to be serializer isnt a object');
+      
+      for (var name in data) {
+        if (!data.hasOwnProperty(name)) {
+          continue;
+        }
+        var value = data[name];
+        buffer.push(
+          encodeURIComponent(name) + "=" +
+          encodeURIComponent( ( value == null ) ? "" : value )
+        );
+      }
+
+      return buffer.join( "&" ).replace(/%20/g, "+");
+    };
+
+    this.from_form = function(element_id){
+      var f = document.forms[element_id];
+      
+      var buffer = {};
+      for(var i in f.elements){
+        if(f.elements[i].type !== undefined)
+          buffer[f.elements[i].name] = f.elements[i].value;
+      }
+      return this.from_object(buffer);
+    };
+
+    this.to_json = function(data){
+      return JSON.stringify(data);
+    };
+  };
+
+  var app = angular.module('admin', ['angular-storage']);
+  app.config(['$httpProvider', function($httpProvider) {
+    delete $httpProvider.defaults.headers.common["X-Requested-With"];
+    $httpProvider.defaults.headers.common["Content-Type"] = 'application/x-www-form-urlencoded';
+  }]);
+
+  /**
+   * Serializer Service
+   */ 
+  app.factory('serialize', function(){
+    return new Serializer();
+  });
+
+
+  /**
+   * AdminApproval controller
+   * Controller to get pre-cadastro registers to moderate
+   */ 
+  app.controller('AdminApprovalController', ['$scope', '$http', 'serialize', function($scope, $http, serialize){
+
+    // TODO: check if user is signed in
+
+    $scope.approval_list = function(){
+
+      // TODO: get this data from login/sessionStorage
+      var params = {
+        api_key: ''
+      };
+
+      $http({
+        method: 'GET', 
+        url: '<%= config[:api_host] %>/admin/candidate/list?api_key=' + params.api_key, 
+      })
+      .then(
+        function(response){
+          console.log(response.data);
+        },
+        function(response){
+          var data = response.data;
+
+          // TODO: simulate more errors and show here
+
+          // error: access denied
+          if(data.error === "access denied") 
+            document.location = '/admin/signin';
+          
+          return false;
+        }
+      );
+    };
+
+    // load parties from api
+    $scope.approval_list();
+  }]);
+
+  /**
+   * Auth controller
+   * Controller to make authentication things
+   */ 
+  app.controller('AuthController', ['$scope', '$http', 'serialize', 'store', function($scope, $http, serialize, store){
+    // defaults
+    $scope.signin = {};
+
+    // getting form params
+    $scope.signin_params = function(){
+      return $scope.signin;
+    };
+
+    // authenticate an user
+    $scope.authenticate = function(){
+      var params = $scope.signin_params();
+
+      $http({
+        method: 'POST',
+        url: '<%= config[:api_host] %>/login',
+        data: serialize.from_object(params),
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+      })
+      .then(
+        function(response){
+          var res = response.data;
+
+          // store user data
+          store.set('user', {
+            id: res.user_id, api_key: res.api_key
+          });
+
+          for(var i in res.roles){
+            if(res.roles[i] === 'admin'){
+              document.location = '/admin';
+              break;
+            }
+          }
+
+          return false;
+        },
+        function(response){
+          var res = response.data;
+          $scope.error_list = [];
+
+          if(res.hasOwnProperty('error')){
+            var msg_list = {
+               "Bad email or password.": "E-mail ou senha incorretos."
+            };
+            $scope.error_list.push(msg_list[res.error]);
+          }
+          
+          if(res.form_error){
+            var f = function(field){
+              return document.querySelector('form[name=authForm] *[name='+field+']');
+            };
+
+            // error messages
+            var error_msg  = function(token){
+              var msg_list = {
+                "missing": " não foi preenchido.",
+                "already exists": " já foi cadastrado.",
+                "invalid" : " está inválido."
+              };
+              return msg_list[token];
+            };
+
+            // setting error message
+            for(var field in res){
+              var name = f(field).attributes['placeholder'].value;
+              $scope.error_list.push(name + error_msg(res[field]));
+            }
+          }
+
+          // throw an exception
+          throw new Error("ERROR_POST_SIGNIN_USER");
+          return false;
+        }
+      );
+      return false;
+    };
+
+  }]);
+
+
+})();

@@ -10,7 +10,7 @@
   <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
 
   <!-- website stylesheet -->
-  <link href="/stylesheets/site-e6835f3d.css" rel="stylesheet" />
+  <link href="/stylesheets/site-a208ad8d.css" rel="stylesheet" />
 
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
 
@@ -96,7 +96,7 @@
 <form name="candidateForm" class="angular-form" ng-submit="create(candidateForm.$valid)" novalidate="novalidate">          <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-sign-out"></i>    
-              <input class="form-control" type="text" name="username" placeholder="seunome.votolegal.org.br" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false" required>
+              <input class="form-control" type="text" name="username" placeholder="seunome.votolegal.org.br" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-envelope"></i>    
@@ -105,7 +105,7 @@
           </div>
           <div class="row">
             <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-sign-out"></i>    
+              <i class="fa fa-lock"></i>    
               <input class="form-control" type="password" name="password" placeholder="Senha" ng-model="candidate.password" >
             </div>
             <div class="col-md-6 form-group icon-left">
@@ -168,7 +168,7 @@
           <div class="row">
             <div class="col-md-6 form-group icon-left">
               <i class="fa fa-home"></i>    
-              <input class="form-control" type="text" name="address_house_number" placeholder="Número" ng-model="candidate.address_house_number" mask="9" mask-repeat="5" >
+              <input class="form-control" type="text" name="address_house_number" placeholder="Número" ng-model="candidate.address_house_number" mask="d" mask-repeat="5" mask-restrict="reject" mask-validate="false" mask-clean="true">
             </div>
             <div class="col-md-6 form-group icon-left">
               <i class="fa fa-home"></i>    
@@ -248,7 +248,7 @@
             <p><a href="/termos-de-uso">Termos de uso</a></p>
             <p><a href="/politica-e-privacidade">Políticas e privacidade</a></p>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 hide">
             <h4>Como funciona?</h4>
             <br class="divider">
             <p><a href="/selos">Selos em uso</a></p>
@@ -262,27 +262,26 @@
             <p><a href="/contato">Contato</a></p>
             <p><a href="/documentos-para-cadastro">Documentos para cadastro</a></p>
           </div>
-          <div class="col-md-offset-4 col-md-2">
+          <div class="col-md-offset-6 col-md-2">
             <a href="/"><img src="/images/logo-negative-102fd831.png" alt="VotoLegal"></a>
           </div>
 
           <div class="social-buttons col-md-12">
             <h4>Siga-nos</h4>
             <ul>
-              <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-tumblr fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube fa-2x"></i></a></li>
-              <li><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li>
+              <li><a href="https://facebook.com/votolegal"><i class="fa fa-facebook fa-2x"></i></a></li>
+              <li class="hide"><a href="#"><i class="fa fa-tumblr fa-2x"></i></a></li>
+              <li class="hide"><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
+              <li><a href="https://twitter.com/search?q=VotoLegal&src=typd"><i class="fa fa-twitter fa-2x"></i></a></li>
+              <li><a href="https://www.youtube.com/watch?v=xZKg2w3iOMo"><i class="fa fa-youtube fa-2x"></i></a></li>
+              <li class="hide"><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
+              <li class="hide"><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li>
             </ul>
           </div>
           
           <div class="copyright col-md-12">
             <p>Voto Legal é uma plataforma livre e não se responsabiliza pelas informações fornecidas pelos candidatos, bem como a prestação de contas do mesmo.</p>
-            <p>Copyright &copy; 2016 - by Eokoe</p>
+            <p>Copyright &copy; 2016 - by <a href="http://www.eokoe.com" target="_blank">Eokoe</a></p>
           </div>
         </div>
       </div>
@@ -298,7 +297,7 @@
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-f151c5ef.js"></script>
+    <script src="/javascripts/all-51134045.js"></script>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado

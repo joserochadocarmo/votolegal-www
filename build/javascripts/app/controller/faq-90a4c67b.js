@@ -1,0 +1,1 @@
+app.votolegal.controller("FaqController",["$scope","$sce",function(t){t.highlight=!0,t.faq_list=faq_list,t.search_answer=function(n){var e=faq_list.map(function(t){return t.title.match(new RegExp(n,"ig"))||t.content.match(new RegExp(n,"gi"))?t:void 0}),i=function(t){var n=[];for(var e in t)void 0!==t[e]&&n.push(t[e]);return n};return t.faq_list=i(e),!1}}]);

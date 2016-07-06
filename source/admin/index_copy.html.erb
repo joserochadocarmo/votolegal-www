@@ -1,86 +1,4 @@
 <!DOCTYPE html>
-<html ng-app="admin">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>VotoLegal - Painel Administrativo</title>
-
-  <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
-  <link href="/stylesheets/admin-71ad8347.css" rel="stylesheet" />
-  <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  </head>
-  <body class="admin admin_index_copy">
-
-    <div id="wrapper">
-
-        <!-- navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/admin">
-                  <img src="/images/logo-negative-102fd831.png" alt="VotoLegal" height="30px">
-                </a>
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Notificações <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Novos pré-cadastrados</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Home</a>
-                    </li>
-                    <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Lista Pré-Cadastro</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-
-        <div id="page-wrapper">
-          <div class="container-fluid">
-
-            <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -91,8 +9,8 @@
 
   <title>VotoLegal - Painel Administrativo</title>
 
-  <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
-  <link href="/stylesheets/admin-71ad8347.css" rel="stylesheet" />
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "admin" %>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
@@ -104,7 +22,7 @@
   <![endif]-->
 
 </head>
-<body class="admin admin_index_copy">
+<body class="<%= page_classes %>">
 
     <div id="wrapper">
 
@@ -118,7 +36,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/admin">
-                  <img src="/images/logo-negative-102fd831.png" alt="VotoLegal" height="30px">
+                  <img src="/images/logo-negative.png" alt="VotoLegal" height="30px">
                 </a>
             </div>
             <!-- Top Menu Items -->
@@ -547,24 +465,8 @@
     <!-- /#wrapper -->
 
     <!-- javascript -->
-    <script src="/javascripts/angular.min-022f3ec8.js"></script>
-    <script src="/javascripts/jquery.min-1797d73e.js"></script>
-    <script src="/javascripts/bootstrap.min-791aa054.js"></script>
-  </body>
-</html>
-
-
-          </div><!-- /.container-fluid -->
-        </div> <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- javascript -->
-    <script src="/javascripts/angular.min-022f3ec8.js"></script>
-    <script src="/javascripts/jquery.min-1797d73e.js"></script>
-    <script src="/javascripts/bootstrap.min-791aa054.js"></script>
-    <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/admin-2695a3ce.js"></script>
+    <%= javascript_include_tag 'angular.min.js' %>
+    <%= javascript_include_tag 'jquery.min.js' %>
+    <%= javascript_include_tag 'bootstrap.min.js' %>
   </body>
 </html>
