@@ -54,7 +54,11 @@ configure :build do
   config[:host] = "//www.votolegal.org.br"
 
   # Append a hash to asset urls (make sure to use the url helpers)
-  activate :asset_hash
+  #activate :asset_hash
+  activate :asset_hash do |opts|
+    # ignore email header
+    opts.ignore = /email\/header\.jpg/i
+  end
 
   # Minify CSS on build
   activate :minify_css
