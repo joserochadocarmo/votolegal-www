@@ -90,7 +90,7 @@
    */ 
   app.votolegal.factory('postmon', ['$http', function($http){
     return function(zipcode) {
-      return $http.get('http://api.postmon.com.br/v1/cep/' + zipcode, {cache: false});
+      return $http.get('//api.postmon.com.br/v1/cep/' + zipcode, {cache: false});
     }
   }]);
 
