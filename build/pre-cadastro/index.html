@@ -8,7 +8,7 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
   <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
-  <link href="/stylesheets/site-7071e9fe.css" rel="stylesheet" />
+  <link href="/stylesheets/site-f33ab602.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -134,10 +134,6 @@
               <i class="fa fa-user"></i>    
               <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
             </div>
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-user"></i>    
-              <input class="form-control" type="text" name="cnpj" placeholder="CNPJ" ng-model="candidate.cnpj" mask="99.999.999/9999-99" mask-restrict="reject" mask-clean="true" >
-            </div>
             <div class="form-group _icon-left col-md-12">
               <i class="fa fa-flag hide"></i>    
               <select class="form-control" name="office_id" placeholder="Cargo" ng-model="candidate.office_id">
@@ -221,8 +217,8 @@
               </label>
             </div>
             <div class="form-group col-md-12">
-              <button type="submit" class="btn btn-success btn-lg btn-block">Enviar</button>
-              <div ng-show="error_list" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+              <button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="btn btn-success btn-lg btn-block">Enviar</button>
+              <div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
                 <h4>Os seguinte campos precisam ser corrigidos:</h4>
                 <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
                   <li>{{error}}</li>
@@ -304,7 +300,7 @@
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-da4f6ef4.js"></script>
+    <script src="/javascripts/all-65f7855a.js"></script>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado

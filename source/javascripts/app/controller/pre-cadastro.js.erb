@@ -4,6 +4,7 @@
  */ 
 app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon', 'serialize', function($scope, $http, postmon, serialize){
   $scope.candidate = {};
+  $scope.submit_disabled = false;
 
   // getting form params
   $scope.register_params = function(){
@@ -21,11 +22,12 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
       return false;
     }
     if (!$scope.accept_terms && !$scope.transparent_campaign){
-      if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
+      if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso e a política de privacidade.");
       if(!$scope.transparent_campaign) $scope.error_list.push("Você deve aceitar fazer uma campanha transparente.");
       return false;
     }
 
+    $scope.submit_disabled = true;
     $http({
       method: 'POST', 
       url: '<%= config[:api_host] %>/register', 
@@ -72,6 +74,9 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
           if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
           if(!$scope.transparent_campaign) $scope.error_list.push("Você deve aceitar fazer uma campanha transparente.");
         }
+
+        // enable submit
+        $scope.submit_disabled = false;
 
         // throw an exception
         throw new Error("ERROR_POST_NEW_CADIDATE");
