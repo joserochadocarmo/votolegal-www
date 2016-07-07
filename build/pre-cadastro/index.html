@@ -8,10 +8,7 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
   <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
-
-  <!-- website stylesheet -->
-  <link href="/stylesheets/site-a208ad8d.css" rel="stylesheet" />
-
+  <link href="/stylesheets/site-888f79d9.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -26,53 +23,55 @@
 <body class="pre-cadastro pre-cadastro_index">
 
     <!-- Static navbar -->
-    <div id="nav" class="container">
-      <nav class="navbar navbar-votolegal">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-              <img src="/images/logo-2227954f.png" alt="VotoLegal">
-            </a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="/sobre">O projeto</a></li>
-              <li class="hide"><a href="#">Explore</a></li>
-              <li><a href="/como-funciona">Como funciona?</a></li>
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  Portal do candidato <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <input type="text" class="form-control" placeholder="Login">
-                  </li>
-                  <li>
-                    <input type="password" class="form-control" placeholder="Senha">
-                  </li>
-                  <li class="text-center">
-                    <small><a href="/esqueci">Esqueci minha senha</a></small>
-                  </li>
-                  <li class="text-center">
-                    <button class="btn btn-success" type="submit">Entrar</button>
-                  </li>
-                  <li class="text-center">
-                    <small>É candidato e não possui cadastro? <a href="/pre-cadastro">Clique aqui</a></small>
-                  </li>
-                </ul>
-              </li>
+    <div id="nav" class="navbar-fixed-top">
+      <div class="container">
+        <nav class="navbar navbar-votolegal">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">
+                <img src="/images/logo-2227954f.png" alt="VotoLegal">
+              </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/sobre">O projeto</a></li>
+                <li class="hide"><a href="#">Explore</a></li>
+                <li><a href="/como-funciona">Como funciona?</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    Portal do candidato <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <input type="text" class="form-control" placeholder="Login" disabled>
+                    </li>
+                    <li>
+                      <input type="password" class="form-control" placeholder="Senha" disabled>
+                    </li>
+                    <li class="text-center">
+                      <small><a href="#">Esqueci minha senha</a></small>
+                    </li>
+                    <li class="text-center">
+                      <button class="btn btn-success" type="submit" disabled>Entrar</button>
+                    </li>
+                    <li class="text-center">
+                      <small>É candidato e não possui cadastro? <a href="/pre-cadastro">Clique aqui</a></small>
+                    </li>
+                  </ul>
+                </li>
 
-              <li class="hide"><a href="#">Portal do candidato</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </nav>
+                <li class="hide"><a href="#">Portal do candidato</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+      </div><!--/.container -->
     </div><!--/.container -->
 
     <div class="container-fluid">
@@ -83,20 +82,27 @@
     <section id="contact" ng-controller="PreCadastroController as precadastro">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <span class="label label-status label-success">Pré-cadastro</span>
-        <span class="label label-status label-default">Análise</span>
-        <span class="label label-status label-default">Cadastro completo</span>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <br class="divider">
+        <span class="badge badge-status badge-success">Pré-cadastro</span><br class="hidden-lg hidden-md hidden-sm">
+        <span class="badge badge-status badge-default">Análise</span><br class="hidden-lg hidden-md hidden-sm">
+        <span class="badge badge-status badge-default">Cadastro completo</span>
       </div>
-      <div class="col-md-12 text-center" style="margin-top: 40px;">
+      <div class="col-md-12 text-center">
         <h1 class="page-title">Pré-cadastro</h1>
       </div>
       <div class="col-md-offset-3 col-md-6">
+        <p>
+          Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo. Após a aprovação dos candidatos pelo TSE, sua conta será liberada para a realização do cadastro completo.
+        </p>
 
 <form name="candidateForm" class="angular-form" ng-submit="create(candidateForm.$valid)" novalidate="novalidate">          <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-sign-out"></i>    
               <input class="form-control" type="text" name="username" placeholder="seunome.votolegal.org.br" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
+              <a class="btn-info" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: seunome.votolegal.org">
+                <i class="fa fa-info"></i>
+              </a>
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-envelope"></i>    
@@ -240,48 +246,47 @@
     <footer id="footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-2">
-            <h4>O projeto?</h4>
-            <br class="divider">
+          <div class="col-md-2 col-sm-3 col-xs-12">
+            <h4>O projeto</h4>
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/sobre">Sobre</a></p>
             <p><a href="/parceiros">Parceiros</a></p>
             <p><a href="/termos-de-uso">Termos de uso</a></p>
             <p><a href="/politica-e-privacidade">Políticas e privacidade</a></p>
           </div>
-          <div class="col-md-2 hide">
+          <div class="col-md-2 col-sm-3 col-xs-12 hide">
             <h4>Como funciona?</h4>
-            <br class="divider">
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/selos">Selos em uso</a></p>
             <p><a href="/selos/use">Use o selo</a></p>
             <p><a href="/selos/obtenha">Obtenha certificação</a></p>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-sm-3 col-xs-12">
             <h4>Ajuda</h4>
-            <br class="divider">
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/faq">Perguntas frequentes</a></p>
             <p><a href="/contato">Contato</a></p>
             <p><a href="/documentos-para-cadastro">Documentos para cadastro</a></p>
           </div>
-          <div class="col-md-offset-6 col-md-2">
+          <div class="col-md-offset-6 col-sm-offset-3 col-md-2 col-sm-3 col-xs-12">
             <a href="/"><img src="/images/logo-negative-102fd831.png" alt="VotoLegal"></a>
           </div>
 
-          <div class="social-buttons col-md-12">
+          <div class="social-buttons col-md-12 col-sm-12 col-xs-12">
             <h4>Siga-nos</h4>
             <ul>
-              <li><a href="https://facebook.com/votolegal"><i class="fa fa-facebook fa-2x"></i></a></li>
+              <li><a href="https://www.facebook.com/MCCEFichaLimpa"><i class="fa fa-facebook fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-tumblr fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
-              <li><a href="https://twitter.com/search?q=VotoLegal&src=typd"><i class="fa fa-twitter fa-2x"></i></a></li>
-              <li><a href="https://www.youtube.com/watch?v=xZKg2w3iOMo"><i class="fa fa-youtube fa-2x"></i></a></li>
+              <li><a href="https://twitter.com/fichalimpa"><i class="fa fa-twitter fa-2x"></i></a></li>
+              <li><a href="https://www.youtube.com/user/CANALMCCE"><i class="fa fa-youtube fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li>
             </ul>
           </div>
           
-          <div class="copyright col-md-12">
+          <div class="copyright col-md-12 col-sm-12 col-xs-12">
             <p>Voto Legal é uma plataforma livre e não se responsabiliza pelas informações fornecidas pelos candidatos, bem como a prestação de contas do mesmo.</p>
-            <p>Copyright &copy; 2016 - by <a href="http://www.eokoe.com" target="_blank">Eokoe</a></p>
           </div>
         </div>
       </div>
@@ -297,7 +302,7 @@
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-51134045.js"></script>
+    <script src="/javascripts/all-da4f6ef4.js"></script>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado
@@ -321,6 +326,9 @@
         $('#accordion').on('hide.bs.collapse', function (e) {
           $(e.target).parent().find('i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
         });
+
+        // start popover elements
+        $('[data-toggle="popover"]').popover();
 
       });
     </script>

@@ -8,10 +8,7 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
   <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
-
-  <!-- website stylesheet -->
-  <link href="/stylesheets/site-a208ad8d.css" rel="stylesheet" />
-
+  <link href="/stylesheets/site-888f79d9.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -26,53 +23,55 @@
 <body class="index">
 
     <!-- Static navbar -->
-    <div id="nav" class="container">
-      <nav class="navbar navbar-votolegal">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-              <img src="/images/logo-2227954f.png" alt="VotoLegal">
-            </a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="/sobre">O projeto</a></li>
-              <li class="hide"><a href="#">Explore</a></li>
-              <li><a href="/como-funciona">Como funciona?</a></li>
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  Portal do candidato <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <input type="text" class="form-control" placeholder="Login">
-                  </li>
-                  <li>
-                    <input type="password" class="form-control" placeholder="Senha">
-                  </li>
-                  <li class="text-center">
-                    <small><a href="/esqueci">Esqueci minha senha</a></small>
-                  </li>
-                  <li class="text-center">
-                    <button class="btn btn-success" type="submit">Entrar</button>
-                  </li>
-                  <li class="text-center">
-                    <small>É candidato e não possui cadastro? <a href="/pre-cadastro">Clique aqui</a></small>
-                  </li>
-                </ul>
-              </li>
+    <div id="nav" class="navbar-fixed-top">
+      <div class="container">
+        <nav class="navbar navbar-votolegal">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">
+                <img src="/images/logo-2227954f.png" alt="VotoLegal">
+              </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/sobre">O projeto</a></li>
+                <li class="hide"><a href="#">Explore</a></li>
+                <li><a href="/como-funciona">Como funciona?</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    Portal do candidato <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <input type="text" class="form-control" placeholder="Login" disabled>
+                    </li>
+                    <li>
+                      <input type="password" class="form-control" placeholder="Senha" disabled>
+                    </li>
+                    <li class="text-center">
+                      <small><a href="#">Esqueci minha senha</a></small>
+                    </li>
+                    <li class="text-center">
+                      <button class="btn btn-success" type="submit" disabled>Entrar</button>
+                    </li>
+                    <li class="text-center">
+                      <small>É candidato e não possui cadastro? <a href="/pre-cadastro">Clique aqui</a></small>
+                    </li>
+                  </ul>
+                </li>
 
-              <li class="hide"><a href="#">Portal do candidato</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </nav>
+                <li class="hide"><a href="#">Portal do candidato</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+      </div><!--/.container -->
     </div><!--/.container -->
 
     <div class="container-fluid">
@@ -84,13 +83,12 @@
     <!-- cover -->
     <header class="cover">
       <div class="container-fluid">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <div id="carousel-example-generic" class="carousel slide carousel-fade-off" data-ride="carousel">
 
           <ol class="carousel-indicators">
             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
           </ol>
 
           <!-- images -->
@@ -98,16 +96,7 @@
             <div class="item active"> 
               <img data-holder-rendered="true" src="/images/home/slide01-f718791e.jpg" width="100%" alt="First slide [900x500]"> 
               <div class="carousel-caption">
-                <h2>Já é Ficha Limpa? Seja agora VotoLegal!</h2>
-                <p>
-                  <a href="/pre-cadastro" class="btn btn-success">Cadastrar</a>
-                </p>
-              </div>
-            </div>
-            <div class="item"> 
-              <img data-holder-rendered="true" src="/images/home/slide02-2f661227.jpg" width="100%" alt="First slide [900x500]"> 
-              <div class="carousel-caption">
-                <h2>Faça parte de um time transparente de candidatos</h2>
+                <h2>Já é Ficha Limpa? Seja agora Voto Legal!</h2>
                 <p>
                   <a href="/pre-cadastro" class="btn btn-success">Cadastrar</a>
                 </p>
@@ -116,7 +105,7 @@
             <div class="item"> 
               <img data-holder-rendered="true" src="/images/home/slide03-5b2a9b52.jpg" width="100%" alt="First slide [900x500]"> 
               <div class="carousel-caption">
-                <h2>Arrecade doações de pessoas físicas para a sua campanha</h2>
+                <h2>Arrecade doações de pessoas físicas para sua campanha</h2>
                 <p>
                   <a href="/pre-cadastro" class="btn btn-success">Cadastrar</a>
                 </p>
@@ -125,7 +114,7 @@
             <div class="item"> 
               <img data-holder-rendered="true" src="/images/home/slide04-844bd38a.jpg" width="100%" alt="First slide [900x500]"> 
               <div class="carousel-caption">
-                <h2>Faça parte da transformação no processo democrático</h2>
+                <h2>Voto Legal é fácil, seguro e transparente</h2>
                 <p>
                   <a href="/pre-cadastro" class="btn btn-success">Cadastrar</a>
                 </p>
@@ -178,34 +167,51 @@
             <h2>Realização</h2>
             <p>
               <a href="#"><img src="/images/home/mcce_logo-1335563a.png" alt="MCCE" height="100px"></a>&nbsp;
-              <a href="#"><img src="/images/home/appcivico_logo-c5bc68f2.png" alt="APPCívico" height="100px"></a>
+              <a href="#"><img src="/images/home/appcivico_logo-a5316a6d.png" alt="APPCívico" height="100px"></a>
             </p>
           </div>
           <div class="col-md-7">
             <h2>Na mídia</h2>
-            <div class="carousel slide" data-ride="carousel">
+            <div id="carousel-media" class="carousel slide" data-ride="carousel">
               <!-- Wrapper for slides -->
               <div class="carousel-inner">
+
                 <div class="item active">
                   <div class="row">
-                    <div class="col-md-offset-1 col-md-10">
-                      <div class="col-md-4">
-                        <img src="/images/home/estadao-logo-4ed9645e.png" class="img-thumbnail" alt="">
+                    <div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="/images/home/estadao-logo-1234ae41.png" class="img-thumbnail" alt="">
                       </div>
-                      <div class="col-md-4">
-                        <img src="/images/home/globo-logo-926fced3.png" class="img-thumbnail" alt="">
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="/images/home/globo-logo-7a812a72.png" class="img-thumbnail" alt="">
                       </div>
-                      <div class="col-md-4">
-                        <img src="/images/home/terra-logo-f9f269e4.png" class="img-thumbnail" alt="">
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="/images/home/folha-logo-645889ce.png" class="img-thumbnail" alt="">
                       </div>
                     </div>
                   </div>
                 </div>
+
+
+                <div class="item">
+                  <div class="row">
+                    <div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="/images/home/nexo-logo-288b44cf.png" class="img-thumbnail" alt="">
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
               <!-- Controls -->
-              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"></a>
-              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"></a>
+              <a class="left carousel-control" href="#carousel-media" role="button" data-slide="prev"></a>
+              <a class="right carousel-control" href="#carousel-media" role="button" data-slide="next"></a>
             </div>
           </div>
         </div>
@@ -224,48 +230,47 @@
     <footer id="footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-2">
-            <h4>O projeto?</h4>
-            <br class="divider">
+          <div class="col-md-2 col-sm-3 col-xs-12">
+            <h4>O projeto</h4>
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/sobre">Sobre</a></p>
             <p><a href="/parceiros">Parceiros</a></p>
             <p><a href="/termos-de-uso">Termos de uso</a></p>
             <p><a href="/politica-e-privacidade">Políticas e privacidade</a></p>
           </div>
-          <div class="col-md-2 hide">
+          <div class="col-md-2 col-sm-3 col-xs-12 hide">
             <h4>Como funciona?</h4>
-            <br class="divider">
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/selos">Selos em uso</a></p>
             <p><a href="/selos/use">Use o selo</a></p>
             <p><a href="/selos/obtenha">Obtenha certificação</a></p>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-sm-3 col-xs-12">
             <h4>Ajuda</h4>
-            <br class="divider">
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/faq">Perguntas frequentes</a></p>
             <p><a href="/contato">Contato</a></p>
             <p><a href="/documentos-para-cadastro">Documentos para cadastro</a></p>
           </div>
-          <div class="col-md-offset-6 col-md-2">
+          <div class="col-md-offset-6 col-sm-offset-3 col-md-2 col-sm-3 col-xs-12">
             <a href="/"><img src="/images/logo-negative-102fd831.png" alt="VotoLegal"></a>
           </div>
 
-          <div class="social-buttons col-md-12">
+          <div class="social-buttons col-md-12 col-sm-12 col-xs-12">
             <h4>Siga-nos</h4>
             <ul>
-              <li><a href="https://facebook.com/votolegal"><i class="fa fa-facebook fa-2x"></i></a></li>
+              <li><a href="https://www.facebook.com/MCCEFichaLimpa"><i class="fa fa-facebook fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-tumblr fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
-              <li><a href="https://twitter.com/search?q=VotoLegal&src=typd"><i class="fa fa-twitter fa-2x"></i></a></li>
-              <li><a href="https://www.youtube.com/watch?v=xZKg2w3iOMo"><i class="fa fa-youtube fa-2x"></i></a></li>
+              <li><a href="https://twitter.com/fichalimpa"><i class="fa fa-twitter fa-2x"></i></a></li>
+              <li><a href="https://www.youtube.com/user/CANALMCCE"><i class="fa fa-youtube fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li>
             </ul>
           </div>
           
-          <div class="copyright col-md-12">
+          <div class="copyright col-md-12 col-sm-12 col-xs-12">
             <p>Voto Legal é uma plataforma livre e não se responsabiliza pelas informações fornecidas pelos candidatos, bem como a prestação de contas do mesmo.</p>
-            <p>Copyright &copy; 2016 - by <a href="http://www.eokoe.com" target="_blank">Eokoe</a></p>
           </div>
         </div>
       </div>
@@ -281,7 +286,7 @@
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/angular-ng_mask-eb54aea8.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-51134045.js"></script>
+    <script src="/javascripts/all-da4f6ef4.js"></script>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado
@@ -305,6 +310,9 @@
         $('#accordion').on('hide.bs.collapse', function (e) {
           $(e.target).parent().find('i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
         });
+
+        // start popover elements
+        $('[data-toggle="popover"]').popover();
 
       });
     </script>
