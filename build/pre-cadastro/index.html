@@ -8,7 +8,7 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
   <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
-  <link href="/stylesheets/site-feb50a84.css" rel="stylesheet" />
+  <link href="/stylesheets/site-7071e9fe.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -97,9 +97,11 @@
         </p>
 
 <form name="candidateForm" class="angular-form" ng-submit="create(candidateForm.$valid)" novalidate="novalidate">          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-sign-out"></i>    
-              <input class="form-control" type="text" name="username" placeholder="seunome.votolegal.org.br" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
+            <div class="form-group _icon-left col-md-12">
+              <div class="input-group">
+                <input type="text" class="form-control" name="username" placeholder="seunome" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
+                <span class="input-group-addon" id="basic-addon2">.votolegal.org.br</span>
+              </div>
               <a class="btn-info" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: seunome.votolegal.org">
                 <i class="fa fa-info"></i>
               </a>
@@ -136,15 +138,15 @@
               <i class="fa fa-user"></i>    
               <input class="form-control" type="text" name="cnpj" placeholder="CNPJ" ng-model="candidate.cnpj" mask="99.999.999/9999-99" mask-restrict="reject" mask-clean="true" >
             </div>
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-flag"></i>    
+            <div class="form-group _icon-left col-md-12">
+              <i class="fa fa-flag hide"></i>    
               <select class="form-control" name="office_id" placeholder="Cargo" ng-model="candidate.office_id">
                 <option value="" disabled selected ng-selected="selected">Cargo</option>
                 <option ng-repeat="office in office_list" value="{{office.id}}">{{office.name}}</option>
               </select>
             </div>
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-flag"></i>    
+            <div class="form-group _icon-left col-md-12">
+              <i class="fa fa-flag hide"></i>    
               <select class="form-control" name="party_id" placeholder="Partido" ng-model="candidate.party_id">
                 <option value="" disabled selected ng-selected="selected">Partido</option>
                 <option ng-repeat="party in party_list" value="{{party.id}}">{{party.acronym}}</option>
@@ -188,10 +190,10 @@
               </div>
               <div class="col-md-9">
                 <label class="radio-inline">
-                  <input type="radio" name="" value=""> Sim
+                  <input type="radio" name="ficha_limpa" placeholder="Ficha Limpa" ng-model="candidate.ficha_limpa" value="1"> Sim
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="" value=""> Não
+                  <input type="radio" name="ficha_limpa" placeholder="Ficha Limpa" ng-model="candidate.ficha_limpa" value="0"> Não
                 </label>
               </div>
             </div>
