@@ -26,10 +26,10 @@ page "/admin/*.html", :layout => :admin
 configure :development do
   # api host address
   # config[:api_host] = "http://127.0.0.1:3000/api"
-  config[:api_host] = "http://45.55.50.43/api"
+  config[:api_host] = "//45.55.50.43/api"
 
   # webapp host address
-  config[:host] = "http://www.votolegal.org.br"
+  config[:host] = "//www.votolegal.org.br"
 
   activate :livereload
 end
@@ -48,10 +48,10 @@ end
 # Build-specific configuration
 configure :build do
   # api host address
-  config[:api_host] = "http://45.55.50.43/api"
+  config[:api_host] = "/api"
 
   # webapp host address
-  config[:host] = "http://www.votolegal.org.br"
+  config[:host] = "//www.votolegal.org.br"
 
   # Append a hash to asset urls (make sure to use the url helpers)
   activate :asset_hash

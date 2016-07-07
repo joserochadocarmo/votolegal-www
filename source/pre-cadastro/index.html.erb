@@ -5,21 +5,28 @@ title:  Pré-cadastro
 <section id="contact" ng-controller="PreCadastroController as precadastro">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <span class="label label-status label-success">Pré-cadastro</span>
-        <span class="label label-status label-default">Análise</span>
-        <span class="label label-status label-default">Cadastro completo</span>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <br class="divider">
+        <span class="badge badge-status badge-success">Pré-cadastro</span><br class="hidden-lg hidden-md hidden-sm">
+        <span class="badge badge-status badge-default">Análise</span><br class="hidden-lg hidden-md hidden-sm">
+        <span class="badge badge-status badge-default">Cadastro completo</span>
       </div>
-      <div class="col-md-12 text-center" style="margin-top: 40px;">
+      <div class="col-md-12 text-center">
         <h1 class="page-title">Pré-cadastro</h1>
       </div>
       <div class="col-md-offset-3 col-md-6">
+        <p>
+          Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo. Após a aprovação dos candidatos pelo TSE, sua conta será liberada para a realização do cadastro completo.
+        </p>
 
         <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit': "create(candidateForm.$valid)", novalidate: '' do %>
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-sign-out"></i>    
               <input class="form-control" type="text" name="username" placeholder="seunome.votolegal.org.br" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
+              <a class="btn-info" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: seunome.votolegal.org">
+                <i class="fa fa-info"></i>
+              </a>
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-envelope"></i>    
