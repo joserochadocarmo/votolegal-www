@@ -8,10 +8,7 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
   <%= stylesheet_link_tag "bootstrap.min" %>
-
-  <!-- website stylesheet -->
   <%= stylesheet_link_tag "site" %>
-
   <%= stylesheet_link_tag "flaticon" %>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -51,16 +48,16 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <input type="text" class="form-control" placeholder="Login">
+                    <input type="text" class="form-control" placeholder="Login" disabled>
                   </li>
                   <li>
-                    <input type="password" class="form-control" placeholder="Senha">
+                    <input type="password" class="form-control" placeholder="Senha" disabled>
                   </li>
                   <li class="text-center">
-                    <small><%= link_to 'Esqueci minha senha', '/esqueci' %></small>
+                    <small><%= link_to 'Esqueci minha senha', '#' %></small>
                   </li>
                   <li class="text-center">
-                    <button class="btn btn-success" type="submit">Entrar</button>
+                    <button class="btn btn-success" type="submit" disabled>Entrar</button>
                   </li>
                   <li class="text-center">
                     <small>É candidato e não possui cadastro? <% link_to '/pre-cadastro' do %>Clique aqui<% end %></small>
@@ -92,46 +89,46 @@
     <footer id="footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-2 col-sm-3 col-xs-12">
             <h4>O projeto?</h4>
-            <br class="divider">
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/sobre">Sobre</a></p>
             <p><a href="/parceiros">Parceiros</a></p>
             <p><a href="/termos-de-uso">Termos de uso</a></p>
             <p><a href="/politica-e-privacidade">Políticas e privacidade</a></p>
           </div>
-          <div class="col-md-2 hide">
+          <div class="col-md-2 col-sm-3 col-xs-12 hide">
             <h4>Como funciona?</h4>
-            <br class="divider">
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/selos">Selos em uso</a></p>
             <p><a href="/selos/use">Use o selo</a></p>
             <p><a href="/selos/obtenha">Obtenha certificação</a></p>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-sm-3 col-xs-12">
             <h4>Ajuda</h4>
-            <br class="divider">
+            <br class="divider hidden-sm hidden-xs">
             <p><a href="/faq">Perguntas frequentes</a></p>
             <p><a href="/contato">Contato</a></p>
             <p><a href="/documentos-para-cadastro">Documentos para cadastro</a></p>
           </div>
-          <div class="col-md-offset-6 col-md-2">
+          <div class="col-md-offset-6 col-sm-offset-3 col-md-2 col-sm-3 col-xs-12">
             <a href="/"><img src="/images/logo-negative.png" alt="VotoLegal"></a>
           </div>
 
-          <div class="social-buttons col-md-12">
+          <div class="social-buttons col-md-12 col-sm-12 col-xs-12">
             <h4>Siga-nos</h4>
             <ul>
-              <li><a href="https://facebook.com/votolegal"><i class="fa fa-facebook fa-2x"></i></a></li>
+              <li><a href="https://www.facebook.com/MCCEFichaLimpa"><i class="fa fa-facebook fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-tumblr fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
-              <li><a href="https://twitter.com/search?q=VotoLegal&src=typd"><i class="fa fa-twitter fa-2x"></i></a></li>
-              <li><a href="https://www.youtube.com/watch?v=xZKg2w3iOMo"><i class="fa fa-youtube fa-2x"></i></a></li>
+              <li><a href="https://twitter.com/fichalimpa"><i class="fa fa-twitter fa-2x"></i></a></li>
+              <li><a href="https://www.youtube.com/user/CANALMCCE"><i class="fa fa-youtube fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
               <li class="hide"><a href="#"><i class="fa fa-google-plus fa-2x"></i></a></li>
             </ul>
           </div>
           
-          <div class="copyright col-md-12">
+          <div class="copyright col-md-12 col-sm-12 col-xs-12">
             <p>Voto Legal é uma plataforma livre e não se responsabiliza pelas informações fornecidas pelos candidatos, bem como a prestação de contas do mesmo.</p>
             <p>Copyright &copy; 2016 - by <a href="http://www.eokoe.com" target="_blank">Eokoe</a></p>
           </div>

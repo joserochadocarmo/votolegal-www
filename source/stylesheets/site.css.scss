@@ -122,13 +122,27 @@ nav.navbar-votolegal {
   background-repeat: no-repeat;
 }
 
+/* $max-screen: 'max-device-width'; */
+$max-screen: 'max-device-width';
+$max-screen: 'max-device-width';
+$min-screen: 'min-device-width';
+
 /* header & slider style*/
 header.cover {
   .carousel-caption {
     top: 30%;
+    @media all and ($max-screen : 480px) {
+      top: -30px !important;
+    }
+    @media all and ($min-screen : 480px) and ($max-screen : 800px) {
+      top: 0% !important;
+    }
 
     h2 {
       font-size: 42px;
+      @media all and ($max-screen : 480px) {
+        font-size: 20px !important;
+      }
     }
     p {
       margin-top: 8%;
@@ -147,6 +161,10 @@ header.cover {
     right: 5%;
     bottom: 20px;
 
+    @media all and ($min-screen : 436px) and ($max-screen : 800px) {
+      width: 20%;
+    }
+
     li {
       margin: 0px 5px;
       border: none;
@@ -164,6 +182,9 @@ header.cover {
 
 section {
   padding: 75px 0px;
+  @media all and ($max-screen : 480px) {
+    padding: 0px 0px;
+  }
 }
 
 section#howto-works {
@@ -171,26 +192,35 @@ section#howto-works {
     padding: 0px;
 
     /* horizontal bar */
-    &::before {
-      left: 0;
-      position: absolute;
-      content: " ";
-      width:80%;
-      height: 2px;
-      background-color: #e5e5e5;
-      top: 10px;
-      z-index: -1;
-      margin-left: 15px;
+    @media all and ($min-screen: 768px) {
+      &::before {
+        left: 0;
+        position: absolute;
+        content: " ";
+        width:80%;
+        height: 2px;
+        background-color: #e5e5e5;
+        top: 10px;
+        z-index: -1;
+        margin-left: 15px;
+      }
     }
 
     li {
       width: 20%;
       float: left;
       list-style: none;
+
+      @media all and ($max-screen : 768px) {
+        width: 100%;
+      }
     }
     
     .active {
       .howto-works-pill {
+        @media all and ($max-screen : 768px) {
+          text-align: center;
+        }
         a { border-color: #3fb82c; }
       }
       .howto-works-text {
@@ -199,6 +229,11 @@ section#howto-works {
     }
 
     .howto-works-pill {
+      @media all and ($max-screen : 768px) {
+        text-align: center;
+        background-color: #fff;
+      }
+
       a { 
         width: 14px;
         height: 14px;
@@ -208,6 +243,19 @@ section#howto-works {
         padding: 0px 10px;
         z-index: 10;
         cursor: default;
+
+        @media all and ($max-screen : 768px) {
+          display: inline-block;
+          width: 15px;
+          height: 15px;
+          text-indent: -999px;
+          cursor: pointer;
+          background-color: #000;
+          background-color: rgba(0,0,0,0);
+          border: 3px solid #c6c6c6;
+          border-radius: 10px;
+          padding: 0px;
+        }
 
         &:hover {
           text-decoration: none;
@@ -223,6 +271,12 @@ section#howto-works {
       color: #a1a1a1;
       padding-right: 20px;
       cursor: default;
+
+
+      @media all and ($max-screen : 480px) {
+        text-align: center;
+        margin-bottom: 40px;
+      }
     }
   }
 
@@ -233,13 +287,19 @@ section#media {
   padding: 40px 0px;
   background: linear-gradient( #e5e5e5, #ffffff);
 
-  h2 {
-    color: #999999;
+  @media all and ($max-screen : 991px) {
+    text-align: center;
   }
 
-  .img-thumbnail {
-    background-color: transparent;
+  h2 { color: #999999 }
+
+  img {
     border: none;
+    background-color: transparent !important;
+
+    .img-thumbnail {
+      border: none;
+    }
   }
   .carousel-control.left,
   .carousel-control.right {
@@ -343,6 +403,11 @@ section#register-docs {
 }
 
 section#about {
+  @media all and ($max-screen : 480px) {
+    text-align: center;
+
+    p { text-align: left; }
+  }
 }
 
 section#faq {
@@ -441,11 +506,17 @@ section#contact {
 .section-title {
   color: #4ab855;
   margin: 50px 0px !important;
+  @media all and ($max-screen : 480px) {
+    text-align: center;
+  }
 }
 
 .section-subtitle {
   margin-top: 30px;
   color: #63d35c;
+  @media all and ($max-screen : 480px) {
+    text-align: center;
+  }
 }
 
 .page-title {
@@ -455,6 +526,10 @@ section#contact {
   padding-bottom: 5px;
   position: relative;
   margin: 0px 0px 30px;
+
+  @media all and ($max-screen : 480px) {
+    margin-top: 50px;
+  }
 
   &:before{
     content: "";
@@ -518,3 +593,34 @@ a {
   }
 }
 
+.carousel-fade {
+  .carousel-inner {
+    .item {
+      opacity: 0;
+      -webkit-transition-property: opacity;
+      -moz-transition-property: opacity;
+      -o-transition-property: opacity;
+      transition-property: opacity;
+    }
+
+    .active {
+      opacity: 1;
+    }
+
+    .active.left,
+    .active.right {
+      left: 0;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .next.left,
+    .prev.right {
+      opacity: 1;
+    }
+  }
+
+  .carousel-control {
+    z-index: 2;
+  }
+}
