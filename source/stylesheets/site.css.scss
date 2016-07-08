@@ -493,6 +493,14 @@ section#works {
   }
 }
 
+section#pre-candidate {
+  @media all and ($min-screen : 800px) {
+    .modal-dialog {
+      width: 90% !important;
+    }
+  }
+}
+
 section#contact {
 }
 
