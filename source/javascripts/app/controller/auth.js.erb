@@ -1,0 +1,93 @@
+/**
+ * Auth Controller
+ */
+app.votolegal.controller('AuthController', ["$scope", "auth_service", function($scope, auth_service){
+  // defaults
+  $scope.signin = {};
+  $scope.error_list = [];
+
+  // getting form params
+  $scope.signin_params = function(){
+    return $scope.signin;
+  };
+
+  // authenticate an user
+  $scope.authenticate = function(isValid){
+    var params = $scope.signin_params();
+
+    auth_service.authenticate(params.email, params.password)
+    .then(
+      // success callback
+      function(response){
+        var res = response.data;
+
+        // save session
+        var session = auth_service.session(); 
+        session.set(
+          auth_service.session_key, { id: res.user_id, api_key: res.api_key }
+        );
+
+        // check roles
+        if(res.roles.length == 0) {
+          document.location = '/admin/signin';
+          return false;
+        }
+
+        for(var i in res.roles){
+          if(res.roles[i] === 'admin') document.location = '/admin';
+        }
+
+        return false;
+      },
+      // error callback
+      function(response){
+        $scope.error_list = [];
+        var res = response.data;
+
+        if(res.form_error){
+          var res = res.form_error;
+
+          var f = function(field){
+            return document.querySelector('form[name=signinForm] *[name='+field+']');
+          };
+
+          // error messages
+          var error_msg  = function(token){
+            var msg_list = {
+              "missing": " não foi preenchido.",
+              "invalid" : " está inválido."
+            };
+            return msg_list[token];
+          };
+
+          // setting error message
+          for(var field in res){
+            var name = f(field).attributes['placeholder'].value;
+            $scope.error_list.push(name + error_msg(res[field]));
+          }
+        }
+        else {
+          // error messages
+          var error_msg  = function(token){
+            var msg_list = {
+              "missing": " não foi preenchido.",
+              "invalid" : " está inválido.",
+              "Bad email or password.": "E-mail ou senha inválidos."
+            };
+            return msg_list[token];
+          };
+
+          $scope.error_list.push(error_msg(res.error));
+        }
+
+        console.log(response);
+        throw new Error('ERROR_AUTH_USER');
+      }
+    );
+    return false;
+  };
+
+
+  // validate user
+  auth_service.validate_user();
+}]);

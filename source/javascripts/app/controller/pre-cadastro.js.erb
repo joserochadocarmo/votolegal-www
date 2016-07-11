@@ -104,7 +104,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
         // error callback
         function(response){
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Por gentileza preencha os campos manualmente." });
-          throw new Exception("ERROR_GET_ZIPCODE");
+          throw new Error("ERROR_GET_ZIPCODE");
         }
       );
     }
@@ -117,7 +117,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     $http.get('<%= config[:api_host] %>/party')
     .then(
       function(response){ $scope.party_list = response.data.party; },
-      function(response){ $scope.party_list = []; throw new Exception("ERROR_GET_PARTY_LIST"); }
+      function(response){ $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST"); }
     );
   };
 
@@ -126,7 +126,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     $http.get('<%= config[:api_host] %>/office')
     .then(
       function(response){ $scope.office_list = response.data.office; },
-      function(response){ $scope.office_list = []; throw new Exception("ERROR_GET_OFFICE_LIST"); }
+      function(response){ $scope.office_list = []; throw new Error("ERROR_GET_OFFICE_LIST"); }
     );
   };
   
