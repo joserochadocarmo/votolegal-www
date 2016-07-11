@@ -71,10 +71,14 @@
   /**
    * VotoLegal Project App
    */
-  app.votolegal = angular.module('votolegal', ['ngMask', 'ngSanitize']);
-  app.votolegal.config(['$httpProvider', function($httpProvider) {
+  app.votolegal = angular.module('votolegal', ['ngMask', 'ngSanitize', 'angular-storage', 'idf.br-filters']);
+  app.votolegal.config(['$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
+    // http configurations
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
     $httpProvider.defaults.headers.common["Content-Type"] = 'application/x-www-form-urlencoded';
+
+    // location configurations
+    $locationProvider.html5Mode(true);
   }]);
 
   /**
@@ -100,9 +104,59 @@
   app.votolegal.factory('serialize', function(){ return new Serializer() });
 
 
+  /**
+   * Authentication Service
+   */ 
+  app.votolegal.factory('auth_service', ['$http', 'serialize', 'store', function($http, serialize, store){ 
+    return {
+      // attributes
+      session_key: 'user',
+      sign_page: '/admin/signin',
+      admin_page: '/admin',
+
+      // methods
+      authenticate: function(username, password) {
+        return $http({
+          method: 'POST',
+          url: '<%= config[:api_host] %>/login',
+          data: serialize.from_object({"email": username, "password": password}),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+      },
+
+      // store wrapper
+      session: function(){
+        return store;
+      },
+
+      // load user data
+      current_user: function(){
+        return this.session().get(this.session_key);
+      },
+
+      // validate user
+      validate_user: function(opts){
+        var user = this.current_user();
+        if(document.location.href.indexOf(this.sign_page) == -1){
+          // not signin page and not user signed in -> redirect to signin page
+          if(user == undefined) document.location = this.sign_page;
+        }
+        else {
+          // signin page and user signed in -> redirect to admin page
+          if(user != undefined) document.location = this.admin_page;
+        }
+        return false;
+      }
+    }
+  }]);
+
+
   // load votolegal controllers
   <%= partial "javascripts/app/controller/pre-cadastro.js" %>
   <%= partial "javascripts/app/controller/contato.js" %>
   <%= partial "javascripts/app/controller/faq.js" %>
+  <%= partial "javascripts/app/controller/auth.js" %>
+  <%= partial "javascripts/app/controller/dashboard.js" %>
+  <%= partial "javascripts/app/controller/pre-candidate.js" %>
 
 })(window.app = window.app || {});
