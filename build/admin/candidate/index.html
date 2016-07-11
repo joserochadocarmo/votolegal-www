@@ -25,7 +25,7 @@
   <![endif]-->
 
   </head>
-  <body class="admin admin_index">
+  <body class="admin admin_candidate admin_candidate_index">
     <div id="wrapper">
 
         <!-- navigation -->
@@ -60,66 +60,80 @@
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
-      Dashboard <small>Overview do sistema</small>
+      Pré-candidato <small>Informações de Pré-candidatos</small>
     </h1>
     <ol class="breadcrumb">
-      <li class="active">
-        <i class="fa fa-dashboard"></i> Dashboard /
-      </li>
+      <li> <i class="fa fa-dashboard"></i> Dashboard</li>
+      <li class="active"> Pré-cantidato</li>
     </ol>
   </div>
 </div>
 <!-- /.row -->
 
 
-<div class="row" ng-controller="DashboardController">
+<div class="row" ng-controller="PreCandidateController">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-list fa-fw"></i> Últimos Candidatos Pré-Cadastrados</h3>
+      <fieldset>
+        <legend>Dados do pré-candidato - #{{model.id}}</legend>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">ID</label>
+            <div class="col-sm-10">
+              <span>{{model.id}}</span>
             </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#ID</th>
-                                <th>Nome</th>
-                                <th>CPF</th>
-                                <th>Cargo</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="i in list | orderBy: 'id'">
-                              <td>{{ i.id }}</td>
-                              <td title="{{ i.popular_name }}"><a href="/admin/candidate/?id={{ i.id }}"> <i class="fa fa-user"></i> {{ i.name }}</a></td>
-                              <td>{{ i.cpf | brCpf }}</td>
-                              <td><span class="label label-{{ (i.office_id == 1) ? 'primary' : 'default' }}">{{ (i.office_id == 1) ? 'Prefeito' : 'Vereador' }}</span></td>
-                              <td class="text-danger">{{ i.status == 'pending' ? 'Pendente' : (i.status == 'deactivated' ? 'Inativo' : (i.status == 'activated' ? 'Ativo' : '') ) }}</td>
-                              <td>
-                                <a class="btn btn-xs btn-primary" href="#" ng-click="allow(i)">
-                                  <i class="fa fa-check"></i> Autorizar
-                                </a>
-                                <a class="btn btn-xs btn-danger" href="#" ng-click="deny(i)">
-                                  <i class="fa fa-close"></i> Negar
-                                </a>
-                              </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row hide">
-                  <div class="col-md-12 text-right">
-                    <a class="btn btn-primary" href="/admin/pre-cadastro"> 
-                      <i class="fa fa-list"></i>
-                      Lista completa
-                    </a>
-                  </div>
-                </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Nome de usuário</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <input class="form-control" placeholder="seunome" ng-model="model.username" type="text" disabled>
+                <span class="input-group-addon" id="basic-addon2">.votolegal.org.br</span>
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Nome</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" ng-model="model.name" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">E-mail Publico</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" ng-model="model.public_email" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Status do Cadastro</label>
+            <div class="col-sm-10">
+              <span class="label label-warning">{{ model.status == 'pending' ? 'Pendente' : (model.status == 'deactivated' ? 'Inativo' : (model.status == 'activated' ? 'Ativo' : '') ) }}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Cargo Político</label>
+            <div class="col-sm-10">
+              <span class="label label-default">{{ model.office_id == 1 ? 'Prefeito' : 'Vereador' }}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Partido</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" ng-model="model.party.acronym" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Reeleição</label>
+            <div class="col-sm-10">
+              <span class="label label-default">{{ model.reelection == 1 ? 'Sim' : 'Não' }}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="button" class="btn btn-primary" ng-click="window.back(-1)">Voltar</button>
+            </div>
+          </div>
+        </form>
+      </fieldset>
     </div>
 </div>
 <!-- /.row -->
