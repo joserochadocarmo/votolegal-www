@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="admin">
+<html ng-app="votolegal">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +8,8 @@
   <meta name="author" content="">
 
   <title>VotoLegal - Painel Administrativo</title>
+
+  <base href="/">
 
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag :admin %>
@@ -24,7 +26,6 @@
 
   </head>
   <body class="<%= page_classes %>">
-
     <div id="wrapper">
 
         <!-- navigation -->
@@ -40,37 +41,11 @@
                   <img src="/images/logo-negative.png" alt="VotoLegal" height="30px">
                 </a>
             </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Notificações <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Novos pré-cadastrados</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
                         <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Home</a>
-                    </li>
-                    <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Lista Pré-Cadastro</a>
                     </li>
                 </ul>
             </div>
@@ -90,9 +65,13 @@
 
     <!-- javascript -->
     <%= javascript_include_tag 'angular.min.js' %>
+    <%= javascript_include_tag 'angular-sanitize.js' %>
+    <%= javascript_include_tag 'angular-storage.js' %>
+    <%= javascript_include_tag 'angular-ng_mask' %>
+    <%= javascript_include_tag 'angular-br-filters.min.js' %>
     <%= javascript_include_tag 'jquery.min.js' %>
     <%= javascript_include_tag 'bootstrap.min.js' %>
     <%= javascript_include_tag 'sweetalert' %>
-    <%= javascript_include_tag :admin %>
+    <%= javascript_include_tag 'all' %>
   </body>
 </html>
