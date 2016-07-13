@@ -111,7 +111,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
         },
         // error callback
         function(response){
-          swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Por gentileza preencha os campos manualmente." });
+          swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
           throw new Error("ERROR_GET_ZIPCODE");
         }
       );
