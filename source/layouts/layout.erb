@@ -50,16 +50,16 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <input type="text" class="form-control" placeholder="Login" disabled>
+                      <input type="text" class="form-control" ng-model="signin.email" placeholder="Login">
                     </li>
                     <li>
-                      <input type="password" class="form-control" placeholder="Senha" disabled>
+                      <input type="password" class="form-control" ng-model="sigin.email" placeholder="Senha">
                     </li>
                     <li class="text-center">
-                      <small><%= link_to 'Esqueci minha senha', '#' %></small>
+                      <small><%= link_to 'Esqueci minha senha', '/conta/recuperar-senha' %></small>
                     </li>
                     <li class="text-center">
-                      <button class="btn btn-success" type="submit" disabled>Entrar</button>
+                      <button class="btn btn-success" type="submit">Entrar</button>
                     </li>
                     <li class="text-center">
                       <small>É candidato e não possui cadastro? <% link_to '/pre-cadastro' do %>Clique aqui<% end %></small>

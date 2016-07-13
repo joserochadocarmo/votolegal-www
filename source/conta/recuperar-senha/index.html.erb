@@ -1,0 +1,38 @@
+---
+title:  Esqueci minha senha
+---
+
+<section id="forgot-password">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 class="page-title">
+          Esqueci minha senha
+        </h1>
+      </div>
+      <div class="col-md-offset-4 col-md-4">
+        <p>Digite seu e­mail de cadastro para recuperar sua senha. </p>
+        <% content_tag :form, name: 'signinForm', class: 'angular-form', 'ng-submit': "forgot_password(signinForm.$valid)", novalidate: '' do %>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-envelope"></i>    
+              <input class="form-control" type="text" name="email" ng-model="signin.email" placeholder="E-mail">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12 text-right">
+              <button class="btn btn-success" onclick="document.location='/conta/recuperar-senha/success'">Enviar</button>
+              <div ng-show="error_list" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+                <h4>Os seguinte campos precisam ser corrigidos:</h4>
+                <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+                  <li>{{error}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
