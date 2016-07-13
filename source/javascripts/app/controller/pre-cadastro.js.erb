@@ -96,14 +96,22 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
         // success callback
         function(response) {
           var res = response.data, $f = $scope.candidate;
-          $f.address_city = res.cidade;
-          $f.address_state = res.estado_info.nome;
-          if(res.bairro && res.logradouro) 
-            $f.address_street = res.logradouro + " - " + res.bairro;
+          $f.address_city   = res.cidade;
+          $f.address_state  = res.estado_info.nome;
+          
+          var street = document.querySelector('form[name=candidateForm] *[name=address_street]');
+          if(res.bairro && res.logradouro) {
+            $f.address_street = res.logradouro + " - " + res.bairro; 
+            street.disabled = true
+          }
+          else {
+            $f.address_street = ""; 
+            street.disabled = false;
+          }
         },
         // error callback
         function(response){
-          swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Por gentileza preencha os campos manualmente." });
+          swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
           throw new Error("ERROR_GET_ZIPCODE");
         }
       );

@@ -154,20 +154,21 @@
             <div class="col-md-6 form-group icon-left">
               <i class="fa fa-home"></i>    
               <input class="form-control" type="text" name="address_zipcode" placeholder="CEP" ng-blur="address_by_zipcode($event)" ng-model="candidate.address_zipcode" mask="99999-999" mask-restrict="reject" mask-clean="false" >
+              <span class="help-block">Não sabe seu <code>CEP</code>? <a class="" target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui</a> </span>
             </div>
             <div class="col-md-6 form-group icon-left">
               <i class="fa fa-home"></i>    
-              <input class="form-control" type="text" name="address_state" placeholder="Estado" ng-model="candidate.address_state" >
+              <input class="form-control" type="text" name="address_state" placeholder="Estado" ng-model="candidate.address_state" disabled >
             </div>
           </div>
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-home"></i>
-              <input class="form-control" type="text" name="address_city" placeholder="Cidade" ng-model="candidate.address_city" >
+              <input class="form-control" type="text" name="address_city" placeholder="Cidade" ng-model="candidate.address_city" disabled >
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-home"></i>    
-              <input class="form-control" type="text" name="address_street" placeholder="Endereço" ng-model="candidate.address_street" >
+              <input class="form-control" type="text" name="address_street" placeholder="Endereço" ng-model="candidate.address_street" disabled >
             </div>
           </div>
           <div class="row">
@@ -498,7 +499,7 @@
     <script src="/javascripts/jquery.min-1797d73e.js"></script>
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-325f8fe1.js"></script>
+    <script src="/javascripts/all-63eb53eb.js"></script>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado
