@@ -1,0 +1,1 @@
+(function(){jQuery(document).ready(function(){"Hello application"})}).call(this);

@@ -5,11 +5,11 @@
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
   <title>VotoLegal - Pré-cadastro</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon"/> 
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/> 
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
   <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
-  <link href="/stylesheets/site-1707aae8.css" rel="stylesheet" />
+  <link href="/stylesheets/site-221a29e4.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -50,16 +50,16 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <input type="text" class="form-control" placeholder="Login" disabled>
+                      <input type="text" class="form-control" ng-model="signin.email" placeholder="Login">
                     </li>
                     <li>
-                      <input type="password" class="form-control" placeholder="Senha" disabled>
+                      <input type="password" class="form-control" ng-model="sigin.email" placeholder="Senha">
                     </li>
                     <li class="text-center">
-                      <small><a href="#">Esqueci minha senha</a></small>
+                      <small><a href="/conta/recuperar-senha">Esqueci minha senha</a></small>
                     </li>
                     <li class="text-center">
-                      <button class="btn btn-success" type="submit" disabled>Entrar</button>
+                      <button class="btn btn-success" type="submit">Entrar</button>
                     </li>
                     <li class="text-center">
                       <small>É candidato e não possui cadastro? <a href="/pre-cadastro">Clique aqui</a></small>
@@ -478,7 +478,7 @@
           </div>
           
           <div class="copyright col-md-12 col-sm-12 col-xs-12">
-            <p>Voto Legal é uma plataforma livre e não se responsabiliza pelas informações fornecidas pelos candidatos, bem como a prestação de contas do mesmo.</p>
+            <p>Voto Legal é uma plataforma aberta e baseada em software livre os realizadores não se responsabilizam pelas informações fornecidas pelos candidatos, nem pelo comportamento deles durante o período eleitoral, e se eleitos, durante seus respectivos mandatos.</p>
             <p>Este projeto é distribuido sob a licença <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank"><em>Affero General Public License</em></a>.</p>
           </div>
 

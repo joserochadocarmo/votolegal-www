@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
-  <title>VotoLegal - Documentos para cadastro</title>
+  <title>VotoLegal - Redefinir senha</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/> 
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
@@ -21,7 +21,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="documentos-para-cadastro documentos-para-cadastro_index">
+<body class="conta conta_trocar-senha conta_trocar-senha_index">
 
     <!-- Static navbar -->
     <div id="nav" class="navbar-fixed-top">
@@ -80,38 +80,39 @@
     </div>
 
 
-    <section id="register-docs">
+    <section id="forgot-password">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
-        <h1 class="page-title">Documentos para cadastro</h1>
+        <h1 class="page-title">
+          Redefinir senha
+        </h1>
       </div>
-      <div class="col-md-12">
-        <br class="divider">
-        <p>Após ter o pré-cadastro aprovado o candidato precisa preencher as demais informações para ter sua página gerada e receber doações de pessoas físicas.<br>
-        Providencie as informações listadas abaixo antes de começar a preencher seu cadastro. Os itens com asterisco (*) são obrigatórios:</p>
-        <ul>
-          <li><i class="fa fa-circle"></i>&nbsp;Foto para perfil (preferência para fotos com fundo branco)*</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Link do video (youtube, vimeo ou similar) da sua campanha*</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Links das suas mídias sociais (Facebook, Twitter, Instagram)</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Link do seu website (se houver)</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Quanto quer arrecadar*</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Planilha simplificada de gastos da campanha *</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Link TSE</li>
-          <li><i class="fa fa-circle"></i>&nbsp;E-mail de contato para eleitores</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Nome do responsável pelo cadastro</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Telefone do responsável pelo cadastro</li>
-          <li><i class="fa fa-circle"></i>&nbsp;E-mail do responsável pelo cadastro</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Breve apresentação da campanha (máximo 400 caracteres)*</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Sobre você (mini biografia)*</li>
-          <li><i class="fa fa-circle"></i>&nbsp;4 temas prioritários da campanha*</li>
-          <li><i class="fa fa-circle"></i>&nbsp;Agenda programática (título e breve descrição do projeto)*</li>
-        </ul>
-      </div>
-      <div class="col-md-12">
-        <h3 class="section-subtitle">Duvidas?</h3>
-        <p>Acesse a pagina <a href="/faq">Perguntas Frequentes</a> ou entre em <a href="/contato">contato</a>.</p>
-      </div>
+      <div class="col-md-offset-4 col-md-4" style="min-height:200px;">
+<form name="signinForm" class="angular-form" ng-submit="forgot_password(signinForm.$valid)" novalidate="novalidate">          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-lock"></i>    
+              <input class="form-control" type="password" name="password" ng-model="signin.password" placeholder="Nova senha">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-lock"></i>    
+              <input class="form-control" type="password" name="confirmar_senha" ng-model="signin.confirmar_senha" placeholder="Confirmar senha">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group icon-left col-md-12 text-right">
+              <button class="btn btn-success btn-block" onclick="document.location='/conta/trocar-senha/success'">Enviar</button>
+              <div ng-show="error_list" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+                <h4>Os seguinte campos precisam ser corrigidos:</h4>
+                <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+                  <li>{{error}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+</form>      </div>
     </div>
   </div>
 </section>
