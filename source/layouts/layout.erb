@@ -10,9 +10,10 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "site" %>
+  <%= stylesheet_link_tag "font-awesome.min" %>
   <%= stylesheet_link_tag "flaticon" %>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,23 +49,28 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     Portal do candidato <span class="caret"></span>
                   </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <input type="text" class="form-control" ng-model="signin.email" placeholder="Login">
-                    </li>
-                    <li>
-                      <input type="password" class="form-control" ng-model="sigin.email" placeholder="Senha">
-                    </li>
-                    <li class="text-center">
-                      <small><%= link_to 'Esqueci minha senha', '/conta/recuperar-senha' %></small>
-                    </li>
-                    <li class="text-center">
-                      <button class="btn btn-success" type="submit">Entrar</button>
-                    </li>
-                    <li class="text-center">
-                      <small>É candidato e não possui cadastro? <% link_to '/pre-cadastro' do %>Clique aqui<% end %></small>
-                    </li>
-                  </ul>
+                    <ul class="dropdown-menu">
+                      <li ng-controller="AuthController">
+                        <% content_tag :form, name: 'signinForm', class: 'angular-form', 'ng-submit': "authenticate(signinForm.$valid)", novalidate: '' do %>
+
+                        <p class="text-center">
+                          <input type="text" class="form-control" name="email" ng-model="signin.email" placeholder="Login" autofocus required>
+                        </p>
+                        <p class="text-center">
+                          <input type="password" class="form-control" name="password" ng-model="signin.password" placeholder="Senha" required>
+                        </p>
+                        <p class="text-center">
+                          <small><%= link_to 'Esqueci minha senha', '/conta/recuperar-senha' %></small>
+                        </p>
+                        <p class="text-center">
+                          <button class="btn btn-success" type="submit">Entrar</button>
+                        </p>
+                        <p class="text-center">
+                          <small>É candidato e não possui cadastro? <% link_to '/pre-cadastro' do %>Clique aqui<% end %></small>
+                        </p>
+                        <% end %>
+                      </li>
+                    </ul>
                 </li>
 
                 <li class="hide"><a href="#">Portal do candidato</a></li>
@@ -150,6 +156,12 @@
     <%= javascript_include_tag 'bootstrap.min.js' %>
     <%= javascript_include_tag 'sweetalert' %>
     <%= javascript_include_tag 'all' %>
+
+    <!-- image plugin -->
+    <%= stylesheet_link_tag 'ekko-lightbox.css' %>
+    <%= javascript_include_tag 'ekko-lightbox.min.js' %>
+
+    <%= javascript_include_tag 'application' %>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado
@@ -177,9 +189,25 @@
         // start popover elements
         $('[data-toggle="popover"]').popover();
 
+				// delegate calls to data-toggle="lightbox"
+				$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+					event.preventDefault();
+					return $(this).ekkoLightbox({ always_show_close: true });
+				});
+
       });
     </script>
 
+    <script> 
+    var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2}; 
+    function $buo_f(){ 
+     var e = document.createElement("script"); 
+     e.src = "//browser-update.org/update.min.js"; 
+     document.body.appendChild(e);
+    };
+    try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+    catch(e){window.attachEvent("onload", $buo_f)}
+    </script> 
 
     <%= partial "partial/ga" %>
   </body>

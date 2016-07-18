@@ -45,22 +45,11 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
       function(response){
         swal('Pré-candidato aprovado com sucesso');
         $scope.approval_list();
-        return false;
       },
       // error callback
       function(response){
         var res = response.data;
-        // error messages
-        var error_msg  = function(token){
-          var msg_list = {
-            "access denied": "Acesso negado!",
-          };
-          return msg_list[token] || '';
-        };
-
-        // show message
         swal(error_msg(res.error));
-        return false;
       }
     );
     return false;
@@ -83,15 +72,6 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
       // error callback
       function(response){
         var res = response.data;
-        // error messages
-        var error_msg  = function(token){
-          var msg_list = {
-            "access denied": "Acesso negado!",
-          };
-          return msg_list[token] || '';
-        };
-
-        // show message
         swal(error_msg(res.error));
         return false;
       }
@@ -103,5 +83,5 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
   $scope.approval_list();
 
   // validate user
-  auth_service.validate_user();
+  auth_service.validate_user({role: 'admin'});
 }]);

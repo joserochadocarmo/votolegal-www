@@ -1,0 +1,112 @@
+/**
+ * Cadastro controller
+ * Register a new candidate
+ */ 
+app.votolegal.controller('CadastroController', ['$scope', '$http', 'auth_service', 'serialize', function($scope, $http, auth_service, serialize){
+  $scope.candidate = {};
+  $scope.form_tab  = 'personal';
+  $scope.submit_disabled = false;
+  $scope.progress  =  {
+    percent: 0
+  };
+
+  // getting form params
+  $scope.register_params = function(){
+    return $scope.candidate;
+  };
+
+  // update candidate
+  $scope.update = function(isValid){
+    var params = $scope.register_params();
+    $scope.error_list = [];
+
+    console.log(angular.toJson(params));
+
+    // getting current user candidate
+    var user = auth_service.current_user();
+    params['api_key'] = user.api_key;
+
+    //var fd = new FormData();
+    ////fd.append("file", $scope.file);
+
+    //for(var p in params){
+    //  fd.append(p.toString(), params[p]);
+    //}
+
+    console.log(params);
+    $scope.submit_disabled = true;
+
+    //var request = new XMLHttpRequest();
+    //request.open("PUT", '<%= config[:api_host] %>/candidate/' + user.id);
+    //request.onload = function(event) {
+    //  console.log(event);
+    //  if (request.status == 200) {
+    //    console.log(request.status);
+    //  } else {
+    //    console.log(request.status);
+    //  }
+    //};
+    //var res = request.send(fd);
+
+
+    //$http.put('http://localhost:1234/candidate/' + user.id, params, {
+    $http.put('<%= config[:api_host] %>/candidate/' + user.id + "?api_key=" + params.api_key, serialize.from_object(params), {
+      //headers: { 'Content-Type': false },
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      //transformRequest: function (data) {
+      //  var fd = new FormData();
+
+      //  for (var p in data)
+      //    fd.append(p, data[p]);
+
+      //  // TODO: add image upload
+
+      //  return fd;
+      //}
+      //headers: {'Content-Type': undefined},
+      //data: serialize.from_object(params)
+      //headers: {'Content-Type': 'enctype="multipart/form-data'}
+      //headers: {'Content-Type': 'multipart/form-data'}
+      //transformRequest: angular.identity
+    });
+    //.then(
+    //  // success callback
+    //  function(response){
+    //    if($scope.error_list.length == 0) document.location = '/cadastro-completo/success';
+    //  },
+    //  // error callback
+    //  function(response){
+    //    var res = response.data.form_error;
+
+    //    console.log(response);
+
+    //    var f = function(field){
+    //      return document.querySelector('form[name=candidateForm] *[name='+field+']');
+    //    };
+
+    //    // setting error message
+    //    for(var field in res){
+    //      var name = f(field).attributes['placeholder'].value;
+    //      $scope.error_list.push(name + error_msg(res[field]));
+    //    }
+
+    //    // enable submit
+    //    $scope.submit_disabled = false;
+
+    //    // throw an exception
+    //    throw new Error("ERROR_PUT_CADIDATE");
+    //  }
+    //);
+    return false;
+  };
+
+
+  // reset form fields
+  $scope.reset = function(){
+    $scope.candidate = {};
+  };
+
+
+  // validate user
+  auth_service.validate_user({role: 'user'});
+}]);

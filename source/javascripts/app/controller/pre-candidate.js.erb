@@ -31,5 +31,5 @@ app.votolegal.controller('PreCandidateController', ["$scope", "$http", "$locatio
   $scope.load($scope.params.id);
 
   // validate user
-  auth_service.validate_user();
+  auth_service.validate_user({role: 'admin'});
 }]);

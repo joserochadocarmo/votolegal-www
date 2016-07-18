@@ -50,16 +50,6 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
           return document.querySelector('form[name=candidateForm] *[name='+field+']');
         };
 
-        // error messages
-        var error_msg  = function(token){
-          var msg_list = {
-            "missing": " não foi preenchido.",
-            "already exists": " já foi cadastrado.",
-            "invalid" : " está inválido."
-          };
-          return msg_list[token];
-        };
-
         // setting error message
         for(var field in res){
           var name = f(field).attributes['placeholder'].value;

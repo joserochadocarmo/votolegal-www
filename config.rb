@@ -26,7 +26,8 @@ page "/admin/*.html", :layout => :admin
 configure :development do
   # api host address
   # config[:api_host] = "http://127.0.0.1:3000/api"
-  config[:api_host] = "//45.55.50.43/api"
+  #config[:api_host] = "//45.55.50.43/api"
+  config[:api_host] = "//192.168.1.39:3000/api/"
 
   # webapp host address
   config[:host] = "//www.votolegal.org.br"

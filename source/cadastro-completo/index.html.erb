@@ -2,151 +2,131 @@
 title:  Complete seu cadastro
 ---
 
-<section id="pre-candidate" ng-controller="PreCadastroController as precadastro">
+<section id="pre-candidate" ng-controller="CadastroController" ng-init="form_tab = 'personal'">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
         <h1 class="page-title">Complete seu cadastro</h1>
       </div>
       <div class="col-md-3">
-        <a class="tab-register tab-register-success" href="#">
-          <i class="fa fa-user"></i> Informações pessoais
-        </a>
-        <a class="tab-register tab-register-default" href="#">
-          <i class="fa fa-user"></i> Informações da campanha
-        </a>
-        <a class="tab-register tab-register-default" href="#">
-          <i class="fa fa-user"></i> Projetos prioritários
-        </a>
+        <!-- tab buttons -->
+        <div>
+          <a class="tab-register tab-register-success" href="#">
+            <i class="fi flaticon-personal-credentials"></i> Informações pessoais
+          </a>
+          <a class="tab-register tab-register-default" href="#">
+            <i class="fi flaticon-square"></i> Informações da campanha
+          </a>
+          <a class="tab-register tab-register-default" href="#">
+            <i class="fi flaticon-curriculum-1"></i> Projetos prioritários
+          </a>
+        </div>
+        
+        <div class="side-panel">
+          <h3>Status do preenchimento</h3>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{progress.percent}}%">
+              {{progress.percent}}%
+            </div>
+          </div>
+          <p><small>Perfil 58% preenchido.</small></p>
+          <p><small>Seu perfil pode ser preenchido e editado até o dia 14.08.2016.</small></p>
+        </div>
+
+        <div class="side-panel">
+          <h3 class="text-danger">
+            <i class="fi flaticon-information-button"></i> ATENÇÃO
+          </h3>
+          <p><small>Em <strong>13 dias</strong> encerrará seu o prazo para finalização e edição do seu cadastro.</small></p>
+          <p><small>À partir do dia <strong>14.08.2016</strong> não será permitida a realização de novas edições.</small></p>
+          <p><small>No dia <strong>15.08.2016</strong> os perfis que estiverem com todos os <strong>campos obrigatórios preenchidos</strong> serão publicados e estarão disponíveis para receber doações. </small></p>
+        </div>
+
+        <div class="side-panel">
+          <h3>Visualize o template do perfil do candidato</h3>
+          <p class="text-center">
+            <a href="/images/cadastro/profile-exemple.jpg" data-toggle="lightbox">
+              <img src="/images/cadastro/profile-exemple-thumb.jpg" alt="Exemplo Perfil" title="Exemplo de Perfil" class="drop-shadow-15">
+            </a>
+          </p>
+        </div>
+
+
       </div>
       <div class="col-md-6">
         <h4>Informações pessoais</h4>
         <br class="divider">
 
-        <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit': "create(candidateForm.$valid)", novalidate: '' do %>
+        <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit': "update(candidateForm.$valid)", novalidate: '' do %>
           <div class="row">
             <div class="form-group _icon-left col-md-12">
-              <div class="input-group">
-                <input type="text" class="form-control" name="username" placeholder="seunome" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
-                <span class="input-group-addon" id="basic-addon2">.votolegal.org.br</span>
-              </div>
-              <a class="btn-info" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: seunome.votolegal.org">
+              <div class="input-group image-preview">
+                <input type="text" class="form-control image-preview-filename" placeholder="Enviar foto para perfil" disabled="disabled"> 
+                <span class="input-group-btn">
+                  <!-- image-preview-clear button -->
+                  <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                      <span class="glyphicon glyphicon-remove"></span> Limpar
+                  </button>
+                  <!-- image-preview-input -->
+                  <div class="btn btn-default image-preview-input">
+                    <span class="fa fa-folder"></span>
+                    <span class="image-preview-input-title">Adicionar Foto</span>
+                    <input type="file" accept="image/png, image/jpeg, image/gif" placeholder="Imagem" name="image" ng-model="candidate.image"/> <!-- rename it -->
+                  </div>
+                </span>
+              </div><!-- /input-group image-preview [TO HERE]--> 
+
+              <a class="btn-info" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Preferência para fotos com fundo branco.">
                 <i class="fa fa-info"></i>
               </a>
             </div>
             <div class="form-group icon-left col-md-12">
+              <i class="fa fa-video-camera"></i>    
+              <input class="form-control" type="text" placeholder="Link do video (youtube ou vimeo)" name="video_url" ng-model="candidate.video_url" required>
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-facebook"></i>    
+              <input class="form-control" type="text" placeholder="Link página Facebook" name="facebook_url" ng-model="candidate.facebook_url">
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-twitter"></i>    
+              <input class="form-control" type="text" placeholder="Link página Twitter" name="twitter_url" ng-model="candidate.twitter_url">
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-instagram"></i>    
+              <input class="form-control" type="text" placeholder="Link página Instagram" name="instagram_url" ng-model="candidate.instagram_url">
+            </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-link"></i>    
+              <input class="form-control" type="text" placeholder="Link Website" name="website_url" ng-model="candidate.website_url" required>
+            </div>
+            <div class="form-group icon-left col-md-12">
               <i class="fa fa-envelope"></i>    
-              <input class="form-control" type="text" name="email" placeholder="E-mail" ng-model="candidate.email" >
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-lock"></i>    
-              <input class="form-control" type="password" name="password" placeholder="Senha" ng-model="candidate.password" >
-            </div>
-            <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-lock"></i>    
-              <input class="form-control" type="password" name="confirm_password" placeholder="Confirmar senha" ng-model="candidate.confirm_password" >
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-user"></i>    
-              <input class="form-control" type="text" name="name" placeholder="Nome completo" ng-model="candidate.name" >
+              <input class="form-control" type="text" placeholder="E-mail de contato para eleitores" name="public_email" ng-model="candidate.public_email" required>
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>    
-              <input class="form-control" type="text" name="popular_name" placeholder="Nome como candidato" ng-model="candidate.popular_name" >
+              <textarea class="form-control" cols="30" rows="6" placeholder="Breve apresentação pessoal e da campanha" name="summary" ng-model="candidate.summary" required></textarea>
+              <span class="help-block text-right">Máximo 400 caracteres</span>
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>    
-              <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
-            </div>
-            <div class="form-group _icon-left col-md-12">
-              <i class="fa fa-flag hide"></i>    
-              <select class="form-control" name="office_id" placeholder="Cargo" ng-model="candidate.office_id">
-                <option value="" disabled selected ng-selected="selected">Cargo</option>
-                <option ng-repeat="office in office_list" value="{{office.id}}">{{office.name}}</option>
-              </select>
-            </div>
-            <div class="form-group _icon-left col-md-12">
-              <i class="fa fa-flag hide"></i>    
-              <select class="form-control" name="party_id" placeholder="Partido" ng-model="candidate.party_id">
-                <option value="" disabled selected ng-selected="selected">Partido</option>
-                <option ng-repeat="party in party_list" value="{{party.id}}">{{party.acronym}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-home"></i>    
-              <input class="form-control" type="text" name="address_zipcode" placeholder="CEP" ng-blur="address_by_zipcode($event)" ng-model="candidate.address_zipcode" mask="99999-999" mask-restrict="reject" mask-clean="false" >
-            </div>
-            <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-home"></i>    
-              <input class="form-control" type="text" name="address_state" placeholder="Estado" ng-model="candidate.address_state" >
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-home"></i>
-              <input class="form-control" type="text" name="address_city" placeholder="Cidade" ng-model="candidate.address_city" >
+              <textarea class="form-control" cols="30" rows="6" placeholder="Sobre você (biografia)" name="biography" ng-model="candidate.biography"></textarea>
+              <span class="help-block text-right">Máximo 400 caracteres</span>
             </div>
             <div class="form-group icon-left col-md-12">
-              <i class="fa fa-home"></i>    
-              <input class="form-control" type="text" name="address_street" placeholder="Endereço" ng-model="candidate.address_street" >
+              <i class="fa fa-user"></i>    
+              <input class="form-control" type="text" placeholder="Nome do responsável pelo cadastro" name="responsible_name" ng-model="candidate.responsible_name" required>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-home"></i>    
-              <input class="form-control" type="text" name="address_house_number" placeholder="Número" ng-model="candidate.address_house_number" mask="d" mask-repeat="5" mask-restrict="reject" mask-validate="false" mask-clean="true">
-            </div>
-            <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-home"></i>    
-              <input class="form-control" type="text" name="address_complement" placeholder="Complemento">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <div class="col-md-3" style="padding:0px;">
-                <span>Ficha limpa?</span>
-              </div>
-              <div class="col-md-9">
-                <label class="radio-inline">
-                  <input type="radio" name="ficha_limpa" placeholder="Ficha Limpa" ng-model="candidate.ficha_limpa" value="1"> Sim
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="ficha_limpa" placeholder="Ficha Limpa" ng-model="candidate.ficha_limpa" value="0"> Não
-                </label>
-              </div>
+            <div class="form-group icon-left col-md-12">
+              <i class="fa fa-envelope"></i>    
+              <input class="form-control" type="text" placeholder="E-mail do responsável pelo cadastro" name="responsible_email" ng-model="candidate.responsible_email">
             </div>
             <div class="form-group col-md-12">
-              <div class="col-md-3" style="padding:0px">
-                <span>Reeleição?</span>
-              </div>
-              <div class="col-md-9">
-                <label class="radio-inline">
-                  <input type="radio" name="reelection" placeholder="Reeleição" ng-model="candidate.reelection" value="1"> Sim
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="reelection" placeholder="Reeleição" ng-model="candidate.reelection" value="0"> Não
-                </label>
-              </div>
-            </div>
-            <div class="checkbox col-md-12">
-              <label class="checkbox-inline">
-                <input type="checkbox" name="transparent_campaign" ng-model="transparent_campaign" value="1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois. 
-              </label>
-            </div>
-            <div class="checkbox col-md-12">
-              <label class="checkbox-inline">
-                <input type="checkbox" name="accept_terms" ng-model="accept_terms" value="1"> Ao fazer o cadastro eu declaro-me de acordo com os <%= link_to 'termos de uso', '#', :target => '_blank', 'data-toggle' => "modal", 'data-target' => "#termos_modal" %> do Voto Legal.
-              </label>
-            </div>
-            <div class="form-group col-md-12">
-              <button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="btn btn-success btn-lg btn-block">Enviar</button>
-              <div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+              <p class="text-right">
+                <button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="btn btn-success btn-lg">Gravar</button>
+              </p>
+              <div ng-show="error_list.length > 0" class="ng-hide" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
                 <h4>Os seguinte campos precisam ser corrigidos:</h4>
                 <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
                   <li>{{error}}</li>
@@ -156,25 +136,6 @@ title:  Complete seu cadastro
           </div>
         <% end %>
 
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="termos_modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">VotoLegal - Termos de uso</h4>
-        </div>
-        <div class="modal-body">
-          <%= partial 'partial/termo_de_uso' %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        </div>
       </div>
     </div>
   </div>

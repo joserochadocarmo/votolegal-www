@@ -2,7 +2,7 @@
 title:  Redefinir senha
 ---
 
-<section id="forgot-password">
+<section id="forgot-password" ng-controller="AuthController">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
@@ -11,24 +11,26 @@ title:  Redefinir senha
         </h1>
       </div>
       <div class="col-md-offset-4 col-md-4" style="min-height:200px;">
-        <% content_tag :form, name: 'signinForm', class: 'angular-form', 'ng-submit': "forgot_password(signinForm.$valid)", novalidate: '' do %>
+        <% content_tag :form, name: 'changePasswordForm', class: 'angular-form', 'ng-submit': "change_password(changePasswordForm.$valid)", novalidate: '' do %>
+          <input type="hidden" name="token" ng-model="signin.token" placeholder="Token" value="">
+          
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-lock"></i>    
-              <input class="form-control" type="password" name="password" ng-model="signin.password" placeholder="Nova senha">
+              <input class="form-control" type="password" name="password" ng-model="signin.password" placeholder="Nova senha" required>
             </div>
           </div>
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-lock"></i>    
-              <input class="form-control" type="password" name="confirmar_senha" ng-model="signin.confirmar_senha" placeholder="Confirmar senha">
+              <input class="form-control" type="password" name="confirm_password" ng-model="signin.confirm_password" placeholder="Confirmar senha" required>
             </div>
           </div>
           <div class="row">
             <div class="form-group icon-left col-md-12 text-right">
-              <button class="btn btn-success btn-block" onclick="document.location='/conta/trocar-senha/success'">Enviar</button>
-              <div ng-show="error_list" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
-                <h4>Os seguinte campos precisam ser corrigidos:</h4>
+              <button class="btn btn-success btn-block" type="submit">Enviar</button>
+              <div ng-show="error_list.length > 0"  class="ng-hide text-left" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+                <h5>Os seguinte campos precisam ser corrigidos:</h5>
                 <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
                   <li>{{error}}</li>
                 </ul>
