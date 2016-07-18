@@ -9,10 +9,11 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
   <link href="/stylesheets/bootstrap.min-8eb176c7.css" rel="stylesheet" />
-  <link href="/stylesheets/site-221a29e4.css" rel="stylesheet" />
-  <link href="/stylesheets/flaticon-6b9afe27.css" rel="stylesheet" />
+  <link href="/stylesheets/site-388d32bb.css" rel="stylesheet" />
+  <link href="/stylesheets/font-awesome.min-8c15c6bd.css" rel="stylesheet" />
+  <link href="/stylesheets/flaticon-0eb48cf0.css" rel="stylesheet" />
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,23 +49,26 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     Portal do candidato <span class="caret"></span>
                   </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <input type="text" class="form-control" ng-model="signin.email" placeholder="Login">
-                    </li>
-                    <li>
-                      <input type="password" class="form-control" ng-model="sigin.email" placeholder="Senha">
-                    </li>
-                    <li class="text-center">
-                      <small><a href="/conta/recuperar-senha">Esqueci minha senha</a></small>
-                    </li>
-                    <li class="text-center">
-                      <button class="btn btn-success" type="submit">Entrar</button>
-                    </li>
-                    <li class="text-center">
-                      <small>É candidato e não possui cadastro? <a href="/pre-cadastro">Clique aqui</a></small>
-                    </li>
-                  </ul>
+                    <ul class="dropdown-menu">
+                      <li ng-controller="AuthController">
+<form name="signinForm" class="angular-form" ng-submit="authenticate(signinForm.$valid)" novalidate="novalidate">
+                        <p class="text-center">
+                          <input type="text" class="form-control" name="email" ng-model="signin.email" placeholder="Login" autofocus required>
+                        </p>
+                        <p class="text-center">
+                          <input type="password" class="form-control" name="password" ng-model="signin.password" placeholder="Senha" required>
+                        </p>
+                        <p class="text-center">
+                          <small><a href="/conta/recuperar-senha">Esqueci minha senha</a></small>
+                        </p>
+                        <p class="text-center">
+                          <button class="btn btn-success" type="submit">Entrar</button>
+                        </p>
+                        <p class="text-center">
+                          <small>É candidato e não possui cadastro? <a href="/pre-cadastro">Clique aqui</a></small>
+                        </p>
+</form>                      </li>
+                    </ul>
                 </li>
 
                 <li class="hide"><a href="#">Portal do candidato</a></li>
@@ -289,7 +293,13 @@
     <script src="/javascripts/jquery.min-1797d73e.js"></script>
     <script src="/javascripts/bootstrap.min-791aa054.js"></script>
     <script src="/javascripts/sweetalert-20d5cdb9.js"></script>
-    <script src="/javascripts/all-63eb53eb.js"></script>
+    <script src="/javascripts/all-79526243.js"></script>
+
+    <!-- image plugin -->
+    <link href="/stylesheets/ekko-lightbox-4eb40265.css" rel="stylesheet" />
+    <script src="/javascripts/ekko-lightbox.min-5e9e021e.js"></script>
+
+    <script src="/javascripts/application-630bc0d5.js"></script>
     
     <script>
       // TODO: colocar todo esse js em um arquivo separado
@@ -317,9 +327,25 @@
         // start popover elements
         $('[data-toggle="popover"]').popover();
 
+				// delegate calls to data-toggle="lightbox"
+				$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+					event.preventDefault();
+					return $(this).ekkoLightbox({ always_show_close: true });
+				});
+
       });
     </script>
 
+    <script> 
+    var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2}; 
+    function $buo_f(){ 
+     var e = document.createElement("script"); 
+     e.src = "//browser-update.org/update.min.js"; 
+     document.body.appendChild(e);
+    };
+    try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+    catch(e){window.attachEvent("onload", $buo_f)}
+    </script> 
 
         <!-- Google Analytics -->
     <script>
