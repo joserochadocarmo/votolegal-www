@@ -48,38 +48,93 @@ title:  Perguntas Frequentes
 
 <script>
   var faq_list = [
-    { title: "Quais os principais objetivos do Voto Legal ?", content: "- Promover Campanhas políticas mais baratas e transparentes;<br>- Garantir a transparência entre doadores pessoa física e candidatos;<br>- Oferecer uma forma mais ágil no processo de doação;<br>- Exigir FICHA LIMPA dos candidatos;<br>- Fortalecer o engajamento de pessoas físicas em campanhas políticas;<br>- Promover a prestação de contas dos candidatos e o monitoramento cidadão.<br>"},
-    { title: "Quem pode participar do Voto Legal?", content: "- Candidatos ao executivo (prefeito) e legislativo (vereador);<br>- Qualquer cidadão que deseja financiar seu candidato;<br>- Qualquer cidadão que deseja realizar o monitoramento dos candidatos durante o período eleitoral.<br>"},
-    { title: "Como realizar adesão na plataforma?", content: "Para um candidato utilizar a plataforma basta realizar o cadastro na plataforma, preencher todos os dados, concordar com os termos de uso e política de privacidade. Depois desta etapa é realizada uma validação do perfil antes de ser publicado."},
-    { title: "A plataforma é gratuita?", content: "Ela é totalmente gratuita, os códigos fontes são abertos para serem utilizados por qualquer um e também são livres, o que significa que não há custos de licenciamento. "},
-    { title: "Quais compromissos assume o candidato que utiliza o VotoLegal ?", content: "Ser ficha limpa (autodeclarado);<br>Se comprometer com uma campanha transparente, ética e que não vai utilizar caixa dois de campanha;<br>O candidato também deve assinar um contrato com uma processadora de cartão de crédito.<br>"},
-    { title: "O que é um candidato ficha limpa?", content: "A Lei Complementar n° 135/2010, chamada Lei da Ficha Limpa, foi criada por meio de iniciativa popular (CF/88, art. 61, § 2°) com o intuito de combater a corrupção eleitoral. Essa lei alterou a Lei Complementar n° 64/1990 incluindo nesta hipóteses de inelegibilidade que visam proteger a probidade administrativa e a moralidade no exercício do mandato.<br>Sancionada em 19 de maio de 2010 pelo Congresso Nacional e publicada em junho do mesmo ano no Diário Oficial da União, a lei contou com 1,3 milhão de assinaturas de cidadãos de todos os estados brasileiros e do Distrito Federal.<br>Dentre aqueles que não podem ter a candidatura registrada segundo a Lei da Ficha Limpa, destacam-se:<br>os condenados por corrupção eleitoral;<br>os ocupantes de cargos eletivos que abdicarem de seus mandatos para escaparem de processo por violar dispositivo da Constituição Federal, de Constituição estadual ou de lei orgânica;<br>os condenados à suspensão dos direitos políticos por ato doloso de improbidade administrativa;<br>os excluídos do exercício da profissão, por decisão do órgão profissional competente, em decorrência de infração ético-profissional;<br>os condenados em razão de terem desfeito ou simulado desfazer vínculo conjugal ou de união estável para evitar caracterização de inelegibilidade;<br>os demitidos do serviço público em decorrência de processo administrativo ou judicial;<br>a pessoa física e os dirigentes de pessoa jurídica responsável por doações eleitorais tidas por ilegais;<br>os magistrados e os membros do Ministério Público que forem aposentados compulsoriamente por decisão sancionatória ou que tenham perdido o cargo por sentença ou que tenham pedido exoneração ou aposentadoria voluntária na pendência de processo administrativo disciplinar.<br>Para saber mais sobre essa matéria, acesse:<br>http://www.tse.jus.br/legislacao/codigo-eleitoral/lei-de-inelegibilidade/lei-de-inelegibilidade-lei-complementar-nb0-64-de-18-de-maio-de-1990"},
-    { title: "O que é necessário para processar os pagamentos on-line?", content: "<p>Assinatura de contrato com alguma processadora de cartão de crédito. Já foi realizada uma validação com a Cielo e conforme encontrarmos outras empresas que realizam o mesmo serviço, vamos disponibilizar a informação na plataforma. Caso tenha alguma para indicar, por favor, entre em contato com a equipe do VotoLegal.</p> <p>No caso da Cielo, cada candidato irá realizar um contrato com o seu CNPJ e o prazo médio para liberação da conta é de até 5 dias úteis. </p> <p>Eventualmente as empresas prestadoras destes serviços poderão cobrar taxas.</p>"},
+    { title: "Quais os principais objetivos do Voto Legal ?", 
+    content: "- Promover Campanhas políticas mais baratas, limpas e transparentes;<br> - Garantir a transparência entre doadores pessoa física e candidatos;<br> - Oferecer uma forma mais ágil no processo de doação;<br> - Fortalecer o engajamento de pessoas físicas em campanhas políticas;<br> - Promover a prestação de contas dos candidatos e o monitoramento cidadão.<br>" }, 
 
+    { title: "Quem pode participar do Voto Legal?", 
+    content: "- Candidatos ao executivo (prefeito) e legislativo (vereador) do Brasil;<br> - Qualquer cidadão que deseja financiar seu candidato;<br> - Qualquer cidadão que deseja realizar o monitoramento dos candidatos durante o período eleitoral.<br>" }, 
 
+    { title: "Como realizar adesão na plataforma?", 
+    content: "Para um candidato utilizar a plataforma basta realizar o cadastro na plataforma, preencher todos os dados, concordar com os termos de uso da plataforma e assumir o compromisso de realizar uma campanha transparente, ética e que não utilizá caixa dois. Depois desta etapa, é realizada uma validação do perfil antes de ser publicado." }, 
 
-    { title: "Como serão realizadas as doações pela Internet?", content: "Apenas através de cartão de crédito." },
-    { title: "A plataforma realiza intermediação financeira entre o doador e o candidato?", content: "Nenhuma, nós utilizamos o token de contrato do candidato para processar os pagamentos da plataforma. A doação é realizada diretamente do doador para a conta de campanha do candidato. Voto Legal não cobra taxas e não tem nenhuma responsabilidade sobre a transação." },
-    { title: "Como serão emitidos os recibos de doação?", content: "Será enviado um e-mail com um recibo de doação. Não é necessária a assinatura do doador no recibo como acontece na doação fora da Internet." },
-    { title: "Quais serão os números presentes no recibo da doação?", content: "É necessário reservar uma série de números para a plataforma e isto deve ser coordenada com o comité da campanha, por exemplo os recibos entre 9.000 até 9.999 serão utilizadas para emitir os recibos de doação via Internet." },
-    { title: "O que muda na prestação de contas no sistema do TSE?", content: "Nada. O candidato deve justificar da mesma maneira, como qualquer outra doação." },
-    { title: "A plataforma irá suportar doações através da conta do partido?", content: "Não, apenas doações na conta/CNPJ da candidatura que estará registrada no TSE, e que será cruzada com os dados oficiais do TSE em http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais." },
-    { title: "Quais são os limites de recebimento através da plataforma?", content: "Os limites de gastos por cargo eletivo serão atualizados no site do TSE até 20/07. O arquivo atual está em http://www.tse.jus.br/legislacao-tse/res/2015/23459.xls que é encontrado no link http://www.tse.jus.br/imprensa/noticias-tse/2016/Janeiro/limites-de-gastos-para-eleicoes-2016-podem-ser-consultados-no-site-do-tse" }, 
-    { title: "Qual será o nível de transparência da plataforma ?", content: "Todos os dados serão registrados em uma rede pública descentralizada baseado em blockchain, permitindo desta maneira o acompanhamento de qualquer doação da plataforma de maneira aberta, transparente e praticamente em tempo real." },
-    { title: "Caso um cidadão ultrapasse o limite estabelecido para doações, qual a responsabilidade do candidato?", content: "Será apresentado um aviso (com destaque) com os critérios e limites de doação na página de doação. Entretanto a responsabilidade pelo valor da doação é exclusivamente do doador. Por esse motivo, o cidadão poderá realizar a doação, mesmo ultrapassando o limite estabelecido, e esta será contabilizada e apresentada no relatório de prestação de contas. <br>Nem o Voto Legal, nem o candidato se responsabilizam por futuras penalidades perante o TSE." },
-    { title: "O que acontece se o cidadão quiser o dinheiro da doação de volta?", content: "O comite deverá realizar o processo de estorno do dinheiro, como já é previsto na lei para qualquer doação já realizada." },
-    { title: "O Voto Legal vai continuar funcionando após a campanha?", content: "Por enquanto, temos como foco o período de campanha. Estamos trabalhando para manter às informações públicas permitindo que outros desenvolvedores possam integrar seus aplicativos com soluções e dados já existentes." },
-    { title: "Existe a possibilidade de “robôs” atacarem a plataforma?", content: "Utilizamos as mais modernas tecnologias de hospedagem e segurança na plataforma Voto Legal." },
-    { title: "É uma plataforma que visa o lucro?", content: "O Voto Legal não visa o lucro. O software livre tem uma finalidade estritamente pública, oferecendo as mesmas oportunidades a todos os candidatos de realizarem captação de recursos via internet para suas campanhas, e oferecendo as mais modernas tecnologias de transparência e prestação de contas." },
-    { title: "O servidor/provedor é nacional?", content: "Sim, o servidor fica no Brasil. A plataforma Voto Legal está hospedada na Amazon no Brasil." },
-    { title: "As doações vão cair direto na conta? Em quantos dias?", content: "As doações no Voto Legal serão realizadas com cartão de crédito. O recurso cai diretamente na conta do candidato e pode ser utilizado um mês após realizada a doação. O candidato também tem a possibilidade de antecipar o recebimento pagando as taxas correspondentes." },
-    { title: "Qual o limite de doação para um candidato?", content: "O limite de 10% de seus rendimentos brutos referentes ao ano anterior às eleições do IR. Não respeitado este limite, a sanção é de multa pecuniária e com o efeito de inelegibilidade do doador pelo prazo de oito anos, não cabendo o argumento de desconhecimento da legislação por parte do doador para a afastar a aplicação da sanção." },
-    { title: "Quando um doador é isento no imposto de renda, qual é o limite de doação ?", content: "<p>Na resolução 23.463 do TSE de 15 de dezembro de 2015, sobre a arrecadação e os gastos de recursos por partidos políticos e candidatos e sobre a prestação de contas nas eleições de 2016. (http://www.tse.jus.br/legislacao-tse/res/2015/RES234632015.html), diz que:</p> <p>§ 7º A aferição do limite de doação do contribuinte dispensado da apresentação de Declaração de Ajuste Anual do Imposto de Renda deve ser realizada com base no limite de isenção previsto para o ano-calendário de 2016.</p> <p>Na receita há informações de quem é isento no Brasil, que o limite é de R$ 28.123,91, ou seja o limite para isentos é de R$ 2.812,39 para doações.</p>" },
-    { title: "Posso doar para quantos candidatos eu quiser ?", content: "Sim, desde que o total de doações não ultrapasse os 10% do rendimentos declarados no imposto de renda." },
-    { title: "Os dados do meu cartão de crédito são gravados em algum local ?", content: "Não, todo o processo é realizado através de canais seguros direto com a processadora de cartão de crédito e não armazenamos os dados do cartão de crédito do doador." },
-    { title: "Como movimentos sociais podem colaborar com o projeto?", content: "<p>Um dos principais desafios desta eleição será o envolvimento dos cidadãos no processo eleitoral, principalmente na realização de doações para os candidatos. As organizações da sociedade civil e os cidadãos interessados no sucesso do Voto Legal podem ajudar:</p> <p>- Divulgando a plataforma para suas redes de contatos;</p> <p>- Apresentando a plataforma para os candidatos;</p> <p>- Acompanhando e monitorando o comportamento dos candidatos durante a campanha;</p> <p>- Doando e estimulando seus pares a doarem para as campanhas dos seus candidatos.</p>" },
-    { title: "Onde está o código fonte ?", content: "http://www.github.com/appcivico" },
-    { title: "Como participar da comunidade de desenvolvedores ?", content: "Temos um canal no telegram para discutir sobre os próximos passos do desenvolvimento, assim como definições que serão adotadas na plataforma. <br> https://telegram.me/joinchat/AOHjCj8EXRWzfCb8juSd_g" },
+    { title: "A plataforma tem algum custo?", 
+    content: "Os códigos fonte são abertos e gratuitos, podem ser utilizados por qualquer um e não há custos de licenciamento, pois é software livre (AGPLv3). Os candidatos que desejam utilizar a plataforma Voto Legal (instancia executada e mantida pelo MCCE, em parceria com o APPCIVICO e com o apoio do Instituto Arapyau), deverão pagar os custos de hospedagem e infraestrutura, em único pagamento de 99 reais para as eleições de 2016.   " }, 
+
+    { title: "Quais compromissos assume o candidato que utiliza o VotoLegal ?", 
+    content: "Ser ficha limpa (autodeclarado);<br> Se comprometer com uma campanha transparente, ética e que utilizará caixa dois de campanha;<br> O candidato também deve assinar um contrato com uma processadora de cartão de crédito para a realização das transferências financeiras diretamente na conta de campanha.<br>" }, 
+
+    { title: "O que é um candidato ficha limpa?", 
+    content: "A Lei Complementar n° 135/2010, chamada Lei da Ficha Limpa, foi criada por meio de iniciativa popular (CF/88, art. 61, § 2°) com o intuito de combater a corrupção eleitoral. Essa lei alterou a Lei Complementar n° 64/1990 incluindo nesta hipóteses de inelegibilidade que visam proteger a probidade administrativa e a moralidade no exercício do mandato.<br> Sancionada em 19 de maio de 2010 pelo Congresso Nacional e publicada em junho do mesmo ano no Diário Oficial da União, a lei contou com 1,3 milhão de assinaturas de cidadãos de todos os estados brasileiros e do Distrito Federal.<br> Dentre aqueles que não podem ter a candidatura registrada segundo a Lei da Ficha Limpa, destacam-se:<br> <ul> <li>os condenados por corrupção eleitoral;</li> <li>os ocupantes de cargos eletivos que abdicarem de seus mandatos para escaparem de processo por violar dispositivo da Constituição Federal, de Constituição estadual ou de lei orgânica;</li> <li>os condenados à suspensão dos direitos políticos por ato doloso de improbidade administrativa;</li> <li>os excluídos do exercício da profissão, por decisão do órgão profissional competente, em decorrência de infração ético-profissional;</li> <li>os condenados em razão de terem desfeito ou simulado desfazer vínculo conjugal ou de união estável para evitar caracterização de inelegibilidade;</li> <li>os demitidos do serviço público em decorrência de processo administrativo ou judicial;</li> <li>a pessoa física e os dirigentes de pessoa jurídica responsável por doações eleitorais tidas por ilegais;</li> <li>os magistrados e os membros do Ministério Público que forem aposentados compulsoriamente por decisão sancionatória ou que tenham perdido o cargo por sentença ou que tenham pedido exoneração ou aposentadoria voluntária na pendência de processo administrativo disciplinar.</li> </ul> Para saber mais sobre essa matéria, acesse:<br> http://www.tse.jus.br/legislacao/codigo-eleitoral/lei-de-inelegibilidade/lei-de-inelegibilidade-lei-complementar-nb0-64-de-18-de-maio-de-1990<br>" }, 
+
+    { title: "O que é necessário para processar os pagamentos on-line?", 
+    content: "A assinatura do contrato com alguma processadora de cartão de crédito. A equipe do Voto Legal irá disponibilizar no site as informações das operadores que oferecem este serviço. Caso tenha alguma para indicar, por favor, entre em contato com a equipe do VotoLegal. Eventualmente as empresas prestadoras destes serviços poderão cobrar taxas. " }, 
+
+    { title: "As doações vão cair direto na conta do Candidato? ", 
+    content: "As doações no Voto Legal serão realizadas com cartão de crédito. O recurso cai diretamente na conta do candidato, sem nenhuma intermediação do Voto Legal no processo. " }, 
+
+    { title: "A plataforma realiza intermediação financeira entre o doador e o candidato?", 
+    content: "Nenhuma, nós utilizamos apenas o token de contrato do candidato para processar os pagamentos da plataforma. A doação é realizada diretamente do doador para a conta de campanha do candidato. O Voto Legal não cobra taxas pelas transferências e não tem nenhuma responsabilidade sobre a transação. " }, 
+
+    { title: "Como serão emitidos os recibos de doação?", 
+    content: "Cada equipe de campanha deverá enviar para os doadores por e-mail ou por correio o recibo da doação. O Voto Legal vai oferecer as informações sistematizadas e no formato adequado para facilitar esta operação. Será enviado um e-mail com um recibo de doação. <br> Não é necessária a assinatura do doador no recibo como acontece na doação fora da Internet.<br>" }, 
+
+    { title: "Quais serão os números presentes no recibo da doação?", 
+    content: "É necessário reservar uma série de números para a plataforma e isto deve ser coordenada com o comité da campanha, por exemplo os recibos entre 9.000 até 9.999 serão utilizadas para emitir os recibos de doação via Internet." }, 
+
+    { title: "O que muda na prestação de contas no sistema do TSE?", 
+    content: "Nada. O candidato deve justificar as doações via cartão de crédito, da mesma maneira que qualquer outra doação, o software do VotoLegal tem a conveniência de gerar um arquivo de importação no formato que é exigido pelo sistema utilizado pelo TSE para facilitar o processo de justificativa das doações realizadas via cartão de crédito." }, 
+
+    { title: "A plataforma irá suportar doações através da conta do partido ?", 
+    content: "Não, apenas doações na conta/CNPJ da candidatura que estará registrada no TSE, e que será cruzada com os dados oficiais do TSE em: http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais." }, 
+
+    { title: "Quais são os limites de recebimento através da plataforma ?", 
+    content: "Os limites de gastos por cargo eletivo serão atualizados no site do TSE até 20/07. O arquivo atual está em http://www.tse.jus.br/legislacao-tse/res/2015/23459.xls que é encontrado no link http://www.tse.jus.br/imprensa/noticias-tse/2016/Janeiro/limites-de-gastos-para-eleicoes-2016-podem-ser-consultados-no-site-do-tse" }, 
+
+    { title: "Qual será o nível de transparência da plataforma ?", 
+    content: "Todos os dados serão registrados em uma rede pública descentralizada baseado em blockchain e disponibilizados em formatos abertos, permitindo desta maneira o acompanhamento de qualquer doação da plataforma de maneira aberta, transparente e praticamente em tempo real." }, 
+
+    { title: "Caso um cidadão ultrapasse o limite estabelecido para doações, qual a responsabilidade do candidato?", 
+    content: "Será apresentado um aviso (com destaque) com os critérios e limites de doação na página de doação. Entretanto a responsabilidade pelo valor da doação é exclusivamente do doador. Por esse motivo, será possível realizar a doação, mesmo ultrapassando o limite estabelecido, e esta será contabilizada e apresentada no relatório de prestação de contas. <br> Nem o Voto Legal, nem o candidato se responsabilizam por futuras penalidades do doadoro perante o TSE.<br>" }, 
+
+    { title: "O que acontece se o cidadão quiser o dinheiro da doação de volta?", 
+    content: "O comitê deverá realizar o processo de estorno do dinheiro, como já é previsto na lei para qualquer doação realizada." }, 
+
+    { title: "O Voto Legal vai continuar funcionando após a campanha?", 
+    content: "Por enquanto, temos como foco o período de campanha. Estamos trabalhando para manter às informações públicas permitindo que outros desenvolvedores possam integrar suas plataformas e aplicativos com soluções e dados já existentes." }, 
+
+    { title: "Existe a possibilidade de “robôs” atacarem a plataforma?", 
+    content: "Utilizamos as mais modernas tecnologias de hospedagem e segurança na plataforma Voto Legal. Não existe nenhuma plataforma 100% segura." }, 
+
+    { title: "É uma plataforma que visa o lucro?", 
+    content: "O Voto Legal não visa o lucro. O software livre tem uma finalidade estritamente pública, oferecendo as mesmas oportunidades a todos os candidatos de realizarem captação de recursos via internet para suas campanhas, e oferecendo as mais modernas tecnologias de transparência e prestação de contas." }, 
+
+    { title: "O servidor/provedor é nacional?", 
+    content: "Sim, o servidor fica no Brasil. A plataforma Voto Legal está hospedada na Amazon do Brasil." }, 
+
+    { title: "Qual o limite de doação para um candidato ?", 
+    content: "O limite de 10% de seus rendimentos brutos referentes ao ano anterior às eleições do IR. Não respeitado este limite, a sanção é de multa pecuniária e com o efeito de inelegibilidade do doador pelo prazo de oito anos, não cabendo o argumento de desconhecimento da legislação por parte do doador para a afastar a aplicação da sanção." }, 
+
+    { title: "Quando um doador é isento no imposto de renda, qual é o limite de doação ?", 
+    content: "Na resolução 23.463 do TSE de 15 de dezembro de 2015, sobre a arrecadação e os gastos de recursos por partidos políticos e candidatos e sobre a prestação de contas nas eleições de 2016. (http://www.tse.jus.br/legislacao-tse/res/2015/RES234632015.html), diz que:<br> <br> <blockquote>§ 7º A aferição do limite de doação do contribuinte dispensado da apresentação de Declaração de Ajuste Anual do Imposto de Renda deve ser realizada com base no limite de isenção previsto para o ano-calendário de 2016.</blockquote><br> <br> Segundo a receita federal o limite para doações de cidadãos isentos no Brasil é de R$ 28.123,91.<br>" }, 
+
+    { title: "Posso doar para quantos candidatos eu quiser ?", 
+    content: "Sim, desde que o total de doações não ultrapasse os 10% do rendimentos declarados no imposto de renda ou 10% de R$ 28.123,91 no caso de contribuintes isentos." }, 
+
+    { title: "Os dados do meu cartão de crédito são gravados em algum local ?", 
+    content: "Não, todo o processo é realizado através de canais seguros, direto com a processadora de cartão de crédito e não armazenamos os dados do cartão de crédito do doador." }, 
+
+    { title: "Como organizações sociais ou cidadãos interessados podem colaborar com o projeto?", 
+    content: "Um dos principais desafios desta eleição será o envolvimento dos cidadãos no processo eleitoral, principalmente na realização de doações para os candidatos. As organizações da sociedade civil e os cidadãos interessados no sucesso do Voto Legal podem ajudar:<br> - Divulgando a plataforma para suas redes de contatos;<br> - Apresentando a plataforma para os candidatos;<br> - Acompanhando e monitorando o comportamento dos candidatos durante a campanha;<br> - Doando e estimulando seus pares a doarem para as campanhas dos seus candidatos.<br>" }, 
+
+    { title: "Onde está o código fonte ?", 
+    content: "http://www.github.com/appcivico" }, 
+
+    { title: "Sobre os Códigos Fonte", 
+    content: "Os códigos fonte são abertos e gratuitos, podem ser utilizados por qualquer um e não há custos de licenciamento. A licença utilizada é  Affero General Public License." }, 
+
+    { title: "Como participar da comunidade de desenvolvedores ?", 
+    content: "Temos um canal no Telegram para discutir sobre os próximos passos do desenvolvimento, assim como definições que serão adotadas na plataforma.<br>  https://telegram.me/joinchat/AOHjCj8EXRWzfCb8juSd_g" }, 
+
   ];
 </script>
 
