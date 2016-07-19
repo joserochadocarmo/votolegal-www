@@ -694,42 +694,53 @@ a {
 }
 
 .tab-register {
-  padding: 4px 0px;
-  margin-bottom: 5px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  border-radius: 0px;
-  text-align: left !important;
-  display: block;
-  width: 100%;
-  border:solid 1px;
+  a {
+    padding: 4px 0px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 0px;
+    text-align: left !important;
+    display: block;
+    width: 100%;
+    border:solid 1px;
 
-  &:hover { text-decoration: none; }
-}
+    &:hover, &:active, &:visited, &:focus { text-decoration: none; }
 
-.tab-register-default {
-  color: #fff;
-  background-color: #bbb;
-  border-color: #ccc;
+    i {
+      padding-right: 10px
+    }
 
-  &:hover {
+    &.tab-register-default {
+      color: #fff;
+      background-color: #bbb;
+      border-color: #ccc;
+
+      &:hover, &:active, &:visited, &:focus { color: #fff; }
+    }
+
+    &.tab-register-success {
+      color: #fff;
+      background-color: #5cb85c;
+      border-color: #4cae4c;
+
+      &:hover, &:active, &:visited, &:focus { color: #fff; }
+    }
+  }
+
+  .active {
     color: #fff;
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+
+    &:hover, &:active, &:visited, &:focus { color: #fff; }
   }
 }
 
-.tab-register-success {
-  color: #fff;
-  background-color: #5cb85c;
-  border-color: #4cae4c;
-
-  &:hover {
-    color: #fff;
-  }
-}
 
 .btn-info {
   float: right;

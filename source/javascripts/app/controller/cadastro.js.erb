@@ -1,14 +1,36 @@
+if(document.location.href.indexOf('/cadastro-completo') >= 0){
+  app.votolegal.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.
+    when('/dados-pessoais', {
+      templateUrl: '/javascripts/app/view/cadastro/dados-pessoais.tmpl',
+      controller: 'CadastroController'
+    }).
+    when('/dados-campanha', {
+      templateUrl: '/javascripts/app/view/cadastro/dados-campanha.tmpl',
+      controller: 'CadastroController'
+    }).
+    when('/projetos', {
+      templateUrl: '/javascripts/app/view/cadastro/projetos.tmpl',
+      controller: 'CadastroController'
+    }).
+    otherwise({
+      redirectTo: '/dados-pessoais'
+    });
+  }]);
+}
+
 /**
  * Cadastro controller
  * Register a new candidate
  */ 
-app.votolegal.controller('CadastroController', ['$scope', '$http', 'auth_service', 'serialize', function($scope, $http, auth_service, serialize){
-  $scope.candidate = {};
-  $scope.form_tab  = 'personal';
+app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 'auth_service', 'serialize', function($scope, $http, $location, auth_service, serialize){
+  $scope.issues     = {};
+  $scope.candidate  = {};
+  $scope.projects   = [1, 2, 3, 4].map(function(){ return {title: '', description: ''}; });
+  $scope.tabname    = '';
   $scope.submit_disabled = false;
-  $scope.progress  =  {
-    percent: 0
-  };
+  $scope.progress   = { percent: 0 };
+  $scope.issue_list = []; 
 
   // getting form params
   $scope.register_params = function(){
@@ -20,39 +42,17 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', 'auth_service
     var params = $scope.register_params();
     $scope.error_list = [];
 
-    console.log(angular.toJson(params));
-
     // getting current user candidate
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    //var fd = new FormData();
-    ////fd.append("file", $scope.file);
-
-    //for(var p in params){
-    //  fd.append(p.toString(), params[p]);
-    //}
-
-    console.log(params);
     $scope.submit_disabled = true;
-
-    //var request = new XMLHttpRequest();
-    //request.open("PUT", '<%= config[:api_host] %>/candidate/' + user.id);
-    //request.onload = function(event) {
-    //  console.log(event);
-    //  if (request.status == 200) {
-    //    console.log(request.status);
-    //  } else {
-    //    console.log(request.status);
-    //  }
-    //};
-    //var res = request.send(fd);
-
-
-    //$http.put('http://localhost:1234/candidate/' + user.id, params, {
-    $http.put('<%= config[:api_host] %>/candidate/' + user.id + "?api_key=" + params.api_key, serialize.from_object(params), {
+    //$http.put('<%= config[:api_host] %>/candidate/' + user.id + '?api_key=' + user.api_key, params, {
+    $http.put('<%= config[:api_host] %>/candidate/' + user.id, serialize.from_object(params), {
       //headers: { 'Content-Type': false },
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
       //transformRequest: function (data) {
       //  var fd = new FormData();
 
@@ -100,13 +100,66 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', 'auth_service
     return false;
   };
 
+  $scope._get_candidate = function(){
+    var params = $scope.register_params();
 
-  // reset form fields
-  $scope.reset = function(){
-    $scope.candidate = {};
+    var user = auth_service.current_user();
+    params['api_key'] = user.api_key;
+
+    $http.get('<%= config[:api_host] %>/candidate/' + user.id, serialize.from_object(params))
+    .then(
+      function(response){
+        var res = response.data.candidate;
+        $scope.candidate = res;
+      },
+      function(response){
+        console.log(response);
+      }
+    );
+    return false;
   };
 
+  $scope.count_checked = function(el){
+    var list = $scope.issue_list.filter(function(i){
+      if(i.selected) return true;
+    });
+
+    if(list.length > 4){
+      el.i.selected = false
+      swal('Selecione apena 4 assuntos');
+    }
+  };
+
+  $scope.add_project = function(){
+    $scope.projects.push({title: '', description: ''});
+    return false;
+  };
+
+  // getting issue priority
+  $scope.get_issues_priority = function(){
+    $http.get('<%= config[:api_host] %>/issue_priority').
+    then(
+      function(response){
+        var list = response.data.issue_priority;
+        $scope.issue_list = list;
+      },
+      function(response){
+        throw new Error('ERROR_GET_ISSUE_PRIORITY');
+      }
+    );
+  };
+
+  // getting route
+  $scope._get_tabname = function(){
+    var route = $location.path();
+    if(route == '/dados-pessoais') return 'pessoal';
+    if(route == '/dados-campanha') return 'campanha';
+    if(route == '/projetos') return 'projetos';
+  };
 
   // validate user
   auth_service.validate_user({role: 'user'});
+  $scope.tabname = $scope._get_tabname();
+  $scope._get_candidate();
+  $scope.get_issues_priority();
 }]);

@@ -116,7 +116,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", f
         // save session
         var session = auth_service.session(); 
         session.set(
-          auth_service.session_key, { id: res.user_id, api_key: res.api_key, role: role_list[0] || null }
+          auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, role: role_list[0] || null }
         );
 
         // check roles

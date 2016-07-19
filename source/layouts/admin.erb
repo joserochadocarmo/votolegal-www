@@ -9,8 +9,6 @@
 
   <title>VotoLegal - Painel Administrativo</title>
 
-  <base href="/">
-
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag :admin %>
   <%= stylesheet_link_tag :sweetalert %>
@@ -45,7 +43,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Home</a>
+                        <a href="/admin"><i class="fa fa-fw fa-dashboard"></i> Home</a>
                     </li>
                 </ul>
             </div>
@@ -65,6 +63,7 @@
 
     <!-- javascript -->
     <%= javascript_include_tag 'angular.min.js' %>
+    <%= javascript_include_tag 'angular-route.min.js' %>
     <%= javascript_include_tag 'angular-sanitize.js' %>
     <%= javascript_include_tag 'angular-storage.js' %>
     <%= javascript_include_tag 'angular-ng_mask' %>

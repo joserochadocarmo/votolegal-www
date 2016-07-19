@@ -148,6 +148,7 @@
 
     <!-- javascript -->
     <%= javascript_include_tag 'angular.min.js' %>
+    <%= javascript_include_tag 'angular-route.min.js' %>
     <%= javascript_include_tag 'angular-sanitize.js' %>
     <%= javascript_include_tag 'angular-storage.js' %>
     <%= javascript_include_tag 'angular-ng_mask' %>
@@ -199,14 +200,14 @@
     </script>
 
     <script> 
-    var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2}; 
-    function $buo_f(){ 
-     var e = document.createElement("script"); 
-     e.src = "//browser-update.org/update.min.js"; 
-     document.body.appendChild(e);
-    };
-    try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
-    catch(e){window.attachEvent("onload", $buo_f)}
+      var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2}; 
+      function $buo_f(){ 
+       var e = document.createElement("script"); 
+       e.src = "//browser-update.org/update.min.js"; 
+       document.body.appendChild(e);
+      };
+      try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+      catch(e){window.attachEvent("onload", $buo_f)}
     </script> 
 
     <%= partial "partial/ga" %>

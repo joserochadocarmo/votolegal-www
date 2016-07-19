@@ -10,15 +10,11 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
   $scope.approval_list = function(){
     var user = auth_service.current_user();
 
-    $http({
-      method: 'GET', 
-      url: '<%= config[:api_host] %>/admin/candidate/list?api_key=' + user.api_key, 
-    })
+    $http.get('<%= config[:api_host] %>/admin/candidate/list?api_key=' + user.api_key)
     .then(
       function(response){
         var res = response.data;
         $scope.list = res;
-        return false;
       },
       function(response){
         var data = response.data;
@@ -26,56 +22,86 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
         // error: access denied
         if(data.error === "access denied") 
           document.location = auth_service.sign_page;
-
-        return false;
-      }
-    );
-  };
-
-
-  $scope.allow = function(model){
-    var user = auth_service.current_user();
-
-    $http({
-      method: 'PUT',
-      url: '<%= config[:api_host] %>/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
-    }).
-    then(
-      // success callback
-      function(response){
-        swal('Pré-candidato aprovado com sucesso');
-        $scope.approval_list();
-      },
-      // error callback
-      function(response){
-        var res = response.data;
-        swal(error_msg(res.error));
       }
     );
     return false;
   };
 
+  $scope.allow = function(model){
+    var user = auth_service.current_user();
+
+    swal({
+      title: "Tem certeza?",
+      text: "Você tem certeza que deseja autorizar este pré-candidato?",
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      cancelButtonText: "Não",
+      closeOnConfirm: false,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $http({
+          method: 'PUT',
+          url: '<%= config[:api_host] %>/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
+        }).
+        then(
+          // success callback
+          function(response){
+            swal({
+              title: "Aprovado!",
+              text: "O pré-candidato foi aprovado para utilizar o sistema!",
+            });
+            $scope.approval_list();
+          },
+          // error callback
+          function(response){
+            var res = response.data;
+            swal(error_msg(res.error));
+          }
+        );
+      }
+    });
+
+    return false;
+  };
+
+
   $scope.deny = function(model){
     var user = auth_service.current_user();
 
-    $http({
-      method: 'PUT',
-      url: '<%= config[:api_host] %>/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
-    }).
-    then(
-      // success callback
-      function(response){
-        swal('Pré-candidato rejeitado com sucesso');
-        $scope.approval_list();
-        return false;
-      },
-      // error callback
-      function(response){
-        var res = response.data;
-        swal(error_msg(res.error));
-        return false;
+    swal({
+      title: "Tem certeza?",
+      text: "Você tem certeza que deseja rejeitar este pré-candidato?",
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      cancelButtonText: "Não",
+      closeOnConfirm: false,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $http({
+          method: 'PUT',
+          url: '<%= config[:api_host] %>/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
+        }).
+        then(
+          // success callback
+          function(response){
+            swal({
+              title: "Rejeitado!",
+              text: "O pré-candidato foi rejeitado com sucesso!",
+            });
+            $scope.approval_list();
+          },
+          // error callback
+          function(response){
+            var res = response.data;
+            swal(error_msg(res.error));
+          }
+        );
       }
-    );
+    });
     return false;
   };
 
