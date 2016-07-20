@@ -1,0 +1,82 @@
+<div class="col-md-6" ng-init="tabname = 'pessoal'">
+  <h4>Informações pessoais</h4>
+  <br class="divider">
+
+<form name="candidateForm" class="angular-form" ng-submit="update(candidateForm.$valid)" novalidate="novalidate">    <div class="row">
+      <div class="form-group col-md-12">
+        <div class="input-group image-preview">
+          <input type="text" class="form-control image-preview-filename" placeholder="Enviar foto para perfil" disabled="disabled"> 
+          <span class="input-group-btn">
+            <!-- image-preview-clear button -->
+            <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                <span class="glyphicon glyphicon-remove"></span> Limpar
+            </button>
+            <!-- image-preview-input -->
+            <div class="btn btn-default image-preview-input">
+              <span class="fa fa-folder"></span>
+              <span class="image-preview-input-title">Adicionar Foto</span>
+              <input type="file" accept="image/png, image/jpeg, image/gif" placeholder="Imagem" name="image" ng-model="candidate.image"/> <!-- rename it -->
+            </div>
+          </span>
+        </div><!-- /input-group image-preview [TO HERE]--> 
+
+        <a class="btn-info" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Preferência para fotos com fundo branco.">
+          <i class="fa fa-info"></i>
+        </a>
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-video-camera"></i>    
+        <input class="form-control" type="text" placeholder="Link do video (youtube ou vimeo)" name="video_url" ng-model="candidate.video_url" required>
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-facebook"></i>    
+        <input class="form-control" type="text" placeholder="Link página Facebook" name="facebook_url" ng-model="candidate.facebook_url">
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-twitter"></i>    
+        <input class="form-control" type="text" placeholder="Link página Twitter" name="twitter_url" ng-model="candidate.twitter_url">
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-instagram"></i>    
+        <input class="form-control" type="text" placeholder="Link página Instagram" name="instagram_url" ng-model="candidate.instagram_url">
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-link"></i>    
+        <input class="form-control" type="text" placeholder="Link Website" name="website_url" ng-model="candidate.website_url" required>
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-envelope"></i>    
+        <input class="form-control" type="text" placeholder="E-mail de contato para eleitores" name="public_email" ng-model="candidate.public_email" required>
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-user"></i>    
+        <textarea class="form-control" cols="30" rows="6" placeholder="Breve apresentação pessoal e da campanha" name="summary" ng-model="candidate.summary" required></textarea>
+        <span class="help-block text-right">Máximo 400 caracteres</span>
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-user"></i>    
+        <textarea class="form-control" cols="30" rows="6" placeholder="Sobre você (biografia)" name="biography" ng-model="candidate.biography"></textarea>
+        <span class="help-block text-right">Máximo 400 caracteres</span>
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-user"></i>    
+        <input class="form-control" type="text" placeholder="Nome do responsável pelo cadastro" name="responsible_name" ng-model="candidate.responsible_name" required>
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-envelope"></i>    
+        <input class="form-control" type="text" placeholder="E-mail do responsável pelo cadastro" name="responsible_email" ng-model="candidate.responsible_email">
+      </div>
+      <div class="form-group col-md-12">
+        <p class="text-right">
+          <button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="btn btn-success btn-lg">Gravar</button>
+        </p>
+        <div ng-show="error_list.length > 0" class="ng-hide" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+          <h4>Os seguinte campos precisam ser corrigidos:</h4>
+          <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+            <li>{{error}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</form>
+</div>
