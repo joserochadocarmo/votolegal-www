@@ -89,7 +89,7 @@ nav.navbar-votolegal {
     background-color: transparent;
     border:solid 1px transparent;
 
-    a {
+    a:first-child {
       color: #4daa59;
       font-weight: bold;
       background-color: transparent;
@@ -101,6 +101,7 @@ nav.navbar-votolegal {
       background-color: transparent;
     }
     ul.dropdown-menu {
+      color: #888 !important;
       right: 0;
       left: 0;
       margin: 0px -1px;
@@ -110,7 +111,7 @@ nav.navbar-votolegal {
       border-right: solid 1px #ccc;
 
       li {
-        padding: 5px 5px;
+        padding: 5px 10px;
 
         a {
           padding: 0px;
@@ -198,7 +199,7 @@ header.cover {
 }
 
 section {
-  padding: 75px 0px;
+  padding: 20px 0px;
   @media all and ($max-screen : 480px) {
     padding: 0px 0px;
   }
@@ -576,7 +577,7 @@ section#contact {
   display: inline-block;
   padding-bottom: 5px;
   position: relative;
-  margin: 0px 0px 30px;
+  margin: 30px 0px 30px 0px;
 
   @media all and ($max-screen : 480px) {
     margin-top: 50px;

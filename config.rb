@@ -8,7 +8,6 @@
 page '/*.xml', layout: false
 page '/*.json', layout: false
 page '/*.txt', layout: false
-
 page '/admin/signin/index.html', layout: false
 
 # With alternative layout
@@ -57,13 +56,11 @@ configure :build do
   # Append a hash to asset urls (make sure to use the url helpers)
   #activate :asset_hash
   activate :asset_hash do |opts|
-    # ignore email header
+    # ignore email headers
     opts.ignore = /email\/header\.jpg/i
   end
 
-  # Minify CSS on build
+  activate :minify_html, remove_input_attributes: false
   activate :minify_css
-
-  # Minify Javascript on build
   activate :minify_javascript
 end

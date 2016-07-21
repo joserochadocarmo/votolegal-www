@@ -74,12 +74,12 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <input type="text" class="form-control" names="issue_name" placeholder="Nome do assunto prioritário">
+          <input type="text" class="form-control" names="issue_name" ng-model="issue_name" placeholder="Nome do assunto prioritário">
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success">Cadastrar</button>
+        <button type="button" class="btn btn-success" ng-click="create_issue()">Cadastrar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

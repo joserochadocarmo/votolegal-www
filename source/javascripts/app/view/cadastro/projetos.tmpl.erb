@@ -6,18 +6,18 @@
   perfil.</p>
   <br class="divider">
 
-  <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit': "update(candidateForm.$valid)", novalidate: '' do %>
-    <div class="row project_list" ng-repeat="i in projects">
+  <% content_tag :form, name: 'projectsForm', class: 'angular-form', 'ng-submit': "update_projects(projectsForm.$valid)", novalidate: '' do %>
+    <div class="row project-item" ng-repeat="i in projects" data-id="item-{{$index + 1}}">
       <div class="form-group icon-left col-md-12">
         <strong>Projeto {{$index + 1}}:</strong>
       </div>
       <div class="form-group icon-left col-md-12">
         <i class="fa fa-certificate"></i>    
-        <input class="form-control" type="text" placeholder="Titulo" name="" required>
+        <input class="form-control" type="text" placeholder="Titulo" name="project_title" required>
       </div>
       <div class="form-group icon-left col-md-12">
         <i class="fa fa-edit"></i>    
-        <textarea name="" class="form-control" cols="30" rows="5" placeholder="Breve descrição"></textarea>
+        <textarea name="project_content" class="form-control" cols="30" rows="5" placeholder="Breve descrição"></textarea>
       </div>
     </div>
     <div class="row">

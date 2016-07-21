@@ -2,7 +2,7 @@
 title:  Complete seu cadastro
 ---
 
-<section id="candidate-update" ng-controller="CadastroController" ng-init="form_tab = 'personal'">
+<section id="candidate-update" ng-controller="CadastroController" ng-init="tabname = 'pessoal'">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
@@ -30,7 +30,7 @@ title:  Complete seu cadastro
               {{progress.percent}}%
             </div>
           </div>
-          <p><small>Perfil 58% preenchido.</small></p>
+          <p><small>Perfil {{progress.percent}}% preenchido.</small></p>
           <p><small>Seu perfil pode ser preenchido e editado até o dia 14.08.2016.</small></p>
         </div>
 

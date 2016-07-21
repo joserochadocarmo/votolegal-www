@@ -1,3 +1,7 @@
+//= require 'angular.min.js'
+//= require 'angular-sanitize.js'
+//= require 'angular-ng_mask.js'
+
 (function(app){
 
   /**
@@ -43,7 +47,6 @@
           if (fun.call(thisArg, val, i, t)) res.push(val);
         }
       }
-
       return res;
     };
   }
@@ -160,7 +163,7 @@
     return {
       // attributes
       session_key: 'user',
-      sign_page  : '/admin/signin',
+      sign_page  : '/',
       admin_page : '/admin',
       role_list  : {
         admin: '/admin', user: '/pre-cadastro/aprovado'
@@ -212,14 +215,19 @@
         var args = arguments[0] || {};
 
         var user = this.current_user();
-        if(document.location.href.indexOf(this.sign_page) == -1){
-          // validate session
-          if(user == undefined) 
-            document.location = this.sign_page;
-          // validade role
-          if(user.role != args.role)
-            document.location = '/error/permissao-negada';
-        }
+
+        // validate session
+        if(user == undefined) 
+          document.location = this.sign_page;
+        // validade role
+        if(user.role != args.role)
+          document.location = '/error/permissao-negada';
+
+        return false;
+      },
+
+      signature_exists: function(){
+        if(this.current_user) return true;
         return false;
       },
 
@@ -230,6 +238,22 @@
         return false;
       }
     }
+  }]);
+
+
+  app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'auth_service', function($scope, $http, serialize, auth_service){ 
+    $scope.current_user = auth_service.current_user() || {};
+
+    $scope.is_admin = function(){
+      var user = auth_service.current_user();
+      if(user && user.role == 'user') return true;
+      return false;
+    };
+
+    $scope.logout = function(){
+      auth_service.logout('/');
+      return false;
+    };
   }]);
 
   /**

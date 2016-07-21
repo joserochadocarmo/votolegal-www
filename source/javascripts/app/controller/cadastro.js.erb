@@ -27,19 +27,80 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.issues     = {};
   $scope.candidate  = {};
   $scope.projects   = [1, 2, 3, 4].map(function(){ return {title: '', description: ''}; });
-  $scope.tabname    = '';
+
+  $scope.tabname    = 'pessoal';
   $scope.submit_disabled = false;
   $scope.progress   = { percent: 0 };
   $scope.issue_list = []; 
 
+
   // getting form params
-  $scope.register_params = function(){
+  $scope.candidate_params = function(){
     return $scope.candidate;
+  };
+  // getting form params
+  $scope.issues_params = function(){
+    return $scope.candidate;
+  };
+  // getting form params
+  $scope.projects_params = function(){
+    var list = [];
+    var project_list = document.querySelectorAll('.project-item');
+    for(var i=0; i < project_list.length; i++) {
+      var n = project_list[i];
+      var id      = n.getAttribute("data-id").replace('item-', ''),
+          title   = n.querySelector('input[name=project_title]').value,
+          content = n.querySelector('textarea[name=project_content]').value;
+
+      list.push({id, title, content});
+    }
+    return list;
   };
 
   // update candidate
+  $scope.update_projects = function(isValid){
+    var params       = {},
+        project_list = $scope.projects_params();
+
+    // errors
+    $scope.error_list = [];
+
+    // getting current user candidate
+    var user = auth_service.current_user();
+    params['api_key'] = user.api_key;
+
+    for(var i in params){
+      console.log(i);
+    }
+  };
+
+  // 
+  $scope.create_issue = function(isValid){
+    var issue = $scope.issue_name; 
+    var modal = $('#new-issue-priority').modal('hide');
+
+    if(issue){
+      var list = $scope.issue_list.filter(function(i){
+        if(i.selected) return true;
+      });
+
+      if(list.length >= 4) {
+        swal('Selecione apena 4 assuntos');
+      }
+      else {
+        // TODO: Ajax to save issur
+        $scope.issue_list.push({selected: true, id: 11, name: issue});
+      }
+    }
+
+    $scope.issue_name = '';
+    return false;
+  };
+
+
+  // update candidate
   $scope.update = function(isValid){
-    var params = $scope.register_params();
+    var params = $scope.candidate_params();
     $scope.error_list = [];
 
     // getting current user candidate
@@ -47,7 +108,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     params['api_key'] = user.api_key;
 
     $scope.submit_disabled = true;
-    //$http.put('<%= config[:api_host] %>/candidate/' + user.id + '?api_key=' + user.api_key, params, {
     $http.put('<%= config[:api_host] %>/candidate/' + user.id, serialize.from_object(params), {
       //headers: { 'Content-Type': false },
       headers: {
@@ -101,7 +161,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   };
 
   $scope._get_candidate = function(){
-    var params = $scope.register_params();
+    var params = $scope.candidate_params();
 
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
@@ -125,9 +185,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     });
 
     if(list.length > 4){
-      el.i.selected = false
+      if(el) el.i.selected = false;
       swal('Selecione apena 4 assuntos');
     }
+    return false;
   };
 
   $scope.add_project = function(){
@@ -156,7 +217,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     if(route == '/dados-campanha') return 'campanha';
     if(route == '/projetos') return 'projetos';
   };
-
+  
   // validate user
   auth_service.validate_user({role: 'user'});
   $scope.tabname = $scope._get_tabname();

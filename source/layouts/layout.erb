@@ -25,7 +25,7 @@
 <body class="<%= page_classes %>">
 
     <!-- Static navbar -->
-    <div id="nav" class="navbar-fixed-top">
+    <div id="nav" class="navbar-fixed-top" ng-controller="MenuController">
       <div class="container">
         <nav class="navbar navbar-votolegal">
           <div class="container-fluid">
@@ -45,7 +45,7 @@
                 <li><a href="/sobre">O projeto</a></li>
                 <li class="hide"><a href="#">Explore</a></li>
                 <li><a href="/como-funciona">Como funciona?</a></li>
-                <li class="dropdown">
+                <li class="dropdown" ng-hide="is_admin()">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     Portal do candidato <span class="caret"></span>
                   </a>
@@ -72,8 +72,18 @@
                       </li>
                     </ul>
                 </li>
+                <li class="dropdown" ng-show="is_admin()" style="min-width: 175px;">
+                 <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" role="button"'>
+                    Olá {{current_user.name}} <span class="caret"></span>
+                  </a>
+                    <ul class="dropdown-menu">
+                      <li class="text-muted"><a href="#"><i class="fa fa-caret-right"></i> Meu perfil</a></li>
+                      <li class="text-muted"><a href="/cadastro-completo"><i class="fa fa-caret-right"></i> Editar perfil</a></li>
+                      <li class="text-muted"><a href="#"><i class="fa fa-caret-right"></i> Histórico de Doações</a></li>
+                      <li><a href="javascript:void(0);" ng-click="logout()">Sair</a></li>
+                    </ul>
+                </li>
 
-                <li class="hide"><a href="#">Portal do candidato</a></li>
               </ul>
             </div><!--/.nav-collapse -->
           </div>
