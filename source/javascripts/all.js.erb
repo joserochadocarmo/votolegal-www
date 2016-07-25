@@ -66,6 +66,31 @@
     } 
   };
 
+
+  var Params = {
+    _value: undefined,
+    require: function(value){
+      if(value == null || value == undefined) 
+        throw new Error('value cannot be undefined');
+      
+      this._value = value;
+
+      return this;
+    },
+    permit: function(){
+      var _self = this;
+
+      var param_list = {};
+      angular.forEach(arguments, function(i){
+        if(_self._value.hasOwnProperty(i) && _self._value[i] != null) 
+          return param_list[i] = _self._value[i];
+      });
+
+      return param_list;
+    }
+  };
+  
+
   /**
    * Serializer
    */
@@ -123,7 +148,7 @@
   /**
    * VotoLegal Project App
    */
-  app.votolegal = angular.module('votolegal', ['ngRoute', 'ngMask', 'ngSanitize', 'angular-storage', 'idf.br-filters']);
+  app.votolegal = angular.module('votolegal', ['ngRoute', 'ngMask', 'ngSanitize', 'angular-storage', 'idf.br-filters', 'oitozero.ngSweetAlert']);
   app.votolegal.config(['$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
     // http configurations
     delete $httpProvider.defaults.headers.common["X-Requested-With"];

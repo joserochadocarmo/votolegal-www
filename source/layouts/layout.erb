@@ -73,7 +73,7 @@
                     </ul>
                 </li>
                 <li class="dropdown" ng-show="is_admin()" style="min-width: 175px;">
-                 <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" role="button"'>
+                 <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" role="button">
                     Olá {{current_user.name}} <span class="caret"></span>
                   </a>
                     <ul class="dropdown-menu">
@@ -157,15 +157,18 @@
     <%= stylesheet_link_tag "sweetalert" %>
 
     <!-- javascript -->
+    <%= javascript_include_tag 'sweetalert' %>
+
     <%= javascript_include_tag 'angular.min.js' %>
     <%= javascript_include_tag 'angular-route.min.js' %>
     <%= javascript_include_tag 'angular-sanitize.js' %>
     <%= javascript_include_tag 'angular-storage.js' %>
     <%= javascript_include_tag 'angular-ng_mask' %>
     <%= javascript_include_tag 'angular-br-filters.min.js' %>
+    <%= javascript_include_tag 'angular-sweet_alert.min.js' %>
+
     <%= javascript_include_tag 'jquery.min.js' %>
     <%= javascript_include_tag 'bootstrap.min.js' %>
-    <%= javascript_include_tag 'sweetalert' %>
     <%= javascript_include_tag 'all' %>
 
     <!-- image plugin -->
