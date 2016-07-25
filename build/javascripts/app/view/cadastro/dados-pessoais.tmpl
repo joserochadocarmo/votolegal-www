@@ -2,20 +2,16 @@
   <h4>Informações pessoais</h4>
   <br class="divider">
 
-<form name="candidateForm" class="angular-form" ng-submit="update(candidateForm.$valid)" novalidate="novalidate">    <div class="row">
+<form name="candidateForm" class="angular-form" ng-submit="save_candidate(candidateForm.$valid)" novalidate="novalidate">    <div class="row">
       <div class="form-group col-md-12">
         <div class="input-group image-preview">
           <input type="text" class="form-control image-preview-filename" placeholder="Enviar foto para perfil" disabled="disabled"> 
           <span class="input-group-btn">
-            <!-- image-preview-clear button -->
-            <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                <span class="glyphicon glyphicon-remove"></span> Limpar
-            </button>
             <!-- image-preview-input -->
             <div class="btn btn-default image-preview-input">
               <span class="fa fa-folder"></span>
               <span class="image-preview-input-title">Adicionar Foto</span>
-              <input type="file" accept="image/png, image/jpeg, image/gif" placeholder="Imagem" name="image" ng-model="candidate.image"/> <!-- rename it -->
+              <input type="file" accept="image/png, image/jpeg, image/gif" placeholder="Imagem" name="picture" ng-model="candidate.picture"/> <!-- rename it -->
             </div>
           </span>
         </div><!-- /input-group image-preview [TO HERE]--> 

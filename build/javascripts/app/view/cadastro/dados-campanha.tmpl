@@ -2,10 +2,10 @@
   <h4>Informações da campanha</h4>
   <br class="divider">
 
-<form name="candidateForm" class="angular-form" ng-submit="update(candidateForm.$valid)" novalidate="novalidate">    <div class="row">
+<form name="campaignForm" class="angular-form" ng-submit="save_campaign(campaignForm.$valid)" novalidate="novalidate">    <div class="row">
       <div class="form-group icon-left col-md-12">
         <i class="fa fa-money"></i>    
-        <input class="form-control" type="text" placeholder="Quanto quer arrecadar?" name="raising_goal" ng-model="candidate.raising_goal" required>
+        <input class="form-control" type="text" placeholder="Quanto quer arrecadar?" name="raising_goal" ng-model="candidate.raising_goal"  mask="R$ 999.999.999,99"  mask-restrict="reject" mask-validate="false" mask-clean="true" required>
       </div>
     </div>
     <div class="row">
@@ -19,14 +19,19 @@
         <div class="col-md-4" ng-repeat="i in issue_list">
           <div class="checkbox">
             <label>
-            <input type="checkbox" ng-model="i.selected" ng-change="count_checked(this)" value="{{i.id}"> {{i.name}}
+              <input type="checkbox" ng-model="i.selected" ng-change="count_checked(this)" value="{{i.id}">&nbsp; {{i.name}}
             </label>
           </div>
         </div>
       </div>
-      <div class="form-group col-md-12 text-right">
+      <div class="form-group col-md-12 text-right hide">
         <a data-toggle="modal" data-target="#new-issue-priority" href="javascript:void(0);">+ Adicionar um assunto</a>
       </div>
+
+      <div class="form-group col-md-12">
+        <br class="divider">
+      </div>
+      
 
       <div class="form-group col-md-12">
         <div class="input-group image-preview">
@@ -36,7 +41,7 @@
             <div class="btn btn-default image-preview-input">
               <span class="fa fa-folder"></span>
               <span class="image-preview-input-title">Escolher Arquivo</span>
-              <input type="file" accept="image/png, image/jpeg, image/gif" placeholder="Imagem" name="image" ng-model="candidate.image"/> <!-- rename it -->
+              <input type="file" placeholder="Planilha" name="spending_spreadsheet" ng-model="candidate.spending_spreadsheet" /> <!-- rename it -->
             </div>
           </span>
         </div>
@@ -45,7 +50,7 @@
     <div class="row">
       <div class="form-group icon-left col-md-12">
         <i class="fa fa-lock"></i>    
-          <input class="form-control" type="text" placeholder="Token Cielo" name="cielo_merchant_key" ng-model="candidate.cielo_merchant_key" required>
+          <input class="form-control" type="text" placeholder="Token operadora financeira" name="cielo_merchant_key" ng-model="candidate.cielo_merchant_key" required>
       </div>
     </div>
 
@@ -72,12 +77,12 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <input type="text" class="form-control" names="issue_name" placeholder="Nome do assunto prioritário">
+          <input type="text" class="form-control" names="issue_name" ng-model="issue_name" placeholder="Nome do assunto prioritário">
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success">Cadastrar</button>
+        <button type="button" class="btn btn-success" ng-click="create_issue()">Cadastrar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
