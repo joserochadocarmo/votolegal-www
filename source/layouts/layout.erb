@@ -74,7 +74,7 @@
                 </li>
                 <li class="dropdown" ng-show="is_admin()" style="min-width: 175px;">
                  <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" role="button">
-                    Olá {{current_user.name}} <span class="caret"></span>
+                    Olá, {{current_user.name}} <span class="caret"></span>
                   </a>
                     <ul class="dropdown-menu">
                       <li class="text-muted"><a href="#"><i class="fa fa-caret-right"></i> Meu perfil</a></li>
@@ -163,9 +163,11 @@
     <%= javascript_include_tag 'angular-route.min.js' %>
     <%= javascript_include_tag 'angular-sanitize.js' %>
     <%= javascript_include_tag 'angular-storage.js' %>
+    <%= javascript_include_tag 'angular-masks' %>
     <%= javascript_include_tag 'angular-ng_mask' %>
     <%= javascript_include_tag 'angular-br-filters.min.js' %>
     <%= javascript_include_tag 'angular-sweet_alert.min.js' %>
+    <%= javascript_include_tag 'ui-bootstrap-2.0.0.min.js' %>
 
     <%= javascript_include_tag 'jquery.min.js' %>
     <%= javascript_include_tag 'bootstrap.min.js' %>

@@ -6,7 +6,7 @@
     <div class="row">
       <div class="form-group icon-left col-md-12">
         <i class="fa fa-money"></i>    
-        <input class="form-control" type="text" placeholder="Quanto quer arrecadar?" name="raising_goal" ng-model="candidate.raising_goal"  mask="R$ 999.999.999,99"  mask-restrict="reject" mask-validate="false" mask-clean="true" required>
+        <input class="form-control" type="text" placeholder="Quanto quer arrecadar?" name="raising_goal" ng-model="candidate.raising_goal" ui-number-mask="decimals" required>
       </div>
     </div>
     <div class="row">
@@ -17,13 +17,17 @@
         <div class="text-danger" ng-if="issue_list.lenght">
           Não foi possível carregar a lista de assuntos.
         </div>
-        <div class="col-md-4" ng-repeat="i in issue_list">
+        <div class="col-md-6" style="font-size:12px;" ng-repeat="i in issue_list">
           <div class="checkbox">
             <label>
               <input type="checkbox" ng-model="i.selected" ng-change="count_checked(this)" value="{{i.id}">&nbsp; {{i.name}}
             </label>
           </div>
         </div>
+      </div>
+      <div class="form-group icon-left col-md-12">
+        <small class="help-block">Você pode fazer uma sugestão de cadastro de um novo assunto 
+        prioritário através do email <a href="mailto:contato@votolegal.org.br">contato@votolegal.org.br</a>.</small>
       </div>
       <div class="form-group col-md-12 text-right hide">
         <a data-toggle="modal" data-target="#new-issue-priority" href="javascript:void(0);">+ Adicionar um assunto</a>

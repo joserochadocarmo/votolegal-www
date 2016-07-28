@@ -2,7 +2,7 @@
 title:  Complete seu cadastro
 ---
 
-<section id="candidate-update" ng-controller="CadastroController" ng-init="tabname = 'pessoal'">
+<section id="candidate-update" ng-controller="CadastroController">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
@@ -12,13 +12,13 @@ title:  Complete seu cadastro
       <div class="col-md-3">
         <!-- tab buttons -->
         <div class="tab-register">
-          <a class="tab-register-default {{ tabname == 'pessoal' ? 'active' : '' }}" href="#/dados-pessoais" ng-click="tabname = 'pessoal'">
+          <a class="tab-register-default {{ activetab == 'pessoal' ? 'active' : '' }}" href="#/dados-pessoais" ng-click="activetab = 'pessoal'">
             <i class="fi flaticon-personal-credentials"></i> Informações pessoais
           </a>
-          <a class="tab-register-default {{ tabname == 'campanha' ? 'active' : '' }}" href="#/dados-campanha" ng-click="tabname = 'campanha'">
+          <a class="tab-register-default {{ activetab == 'campanha' ? 'active' : '' }}" href="#/dados-campanha" ng-click="activetab = 'campanha'">
             <i class="fi flaticon-square"></i> Informações da campanha
           </a>
-          <a class="tab-register-default {{ tabname == 'projetos' ? 'active' : '' }}" href="#/projetos" ng-click="tabname = 'projetos'">
+          <a class="tab-register-default {{ activetab == 'projetos' ? 'active' : '' }}" href="#/projetos" ng-click="activetab = 'projetos'">
             <i class="fi flaticon-curriculum-1"></i> Projetos prioritários
           </a>
         </div>
@@ -26,11 +26,11 @@ title:  Complete seu cadastro
         <div class="side-panel">
           <h3>Status do preenchimento</h3>
           <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{progress.percent}}%">
-              {{progress.percent}}%
+            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{progress}}%">
+              {{progress}}%
             </div>
           </div>
-          <p><small>Perfil {{progress.percent}}% preenchido.</small></p>
+          <p><small>Perfil {{progress}}% preenchido.</small></p>
           <p><small>Seu perfil pode ser preenchido e editado até o dia 14.08.2016.</small></p>
         </div>
 

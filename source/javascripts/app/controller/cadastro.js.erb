@@ -3,18 +3,22 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
     $routeProvider.
     when('/dados-pessoais', {
       templateUrl: '/javascripts/app/view/cadastro/dados-pessoais.tmpl',
-      controller: 'CadastroController'
+      controller: 'CadastroController',
+      activetab: 'pessoal'
     }).
     when('/dados-campanha', {
       templateUrl: '/javascripts/app/view/cadastro/dados-campanha.tmpl',
-      controller: 'CadastroController'
+      controller: 'CadastroController',
+      activetab: 'campanha'
     }).
     when('/projetos', {
       templateUrl: '/javascripts/app/view/cadastro/projetos.tmpl',
-      controller: 'CadastroController'
+      controller: 'CadastroController',
+      activetab: 'projetos'
     }).
     otherwise({
-      redirectTo: '/dados-pessoais'
+      redirectTo: '/dados-pessoais',
+      activetab: 'pessoal'
     });
   }]);
 }
@@ -23,25 +27,49 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
  * Cadastro controller
  * Register a new candidate
  */ 
-app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 'auth_service', 'serialize', 'SweetAlert', function($scope, $http, $location, auth_service, serialize, SweetAlert){
-  $scope.issues     = {};
-  $scope.candidate  = {};
-  $scope.projects   = [{ id: 0, title: '', scope: '', changed: true}];
+app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', '$route', '$interval', 'auth_service', 'serialize', 'SweetAlert', function($scope, $http, $location, $route, $interval, auth_service, serialize, SweetAlert){
+  $scope.activetab   = 'pessoal';
+  $scope.candidate   = {};
+  $scope.issue_list  = []; 
+  $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
 
-  $scope.tabname    = 'pessoal';
   $scope.submit_disabled = false;
-  $scope.progress   = { percent: 0 };
-  $scope.issue_list = []; 
+  $scope.progress    = 0;
 
 
-  $scope.$watch("progress", function(newValue, oldValue) {
-    $scope.progress.percent = $scope.progress.percent;
+  $scope.$watch("$scope.candidate", function(newValue, oldValue) {
+    $scope.progress = $scope.check_percent();
+  });
+  $scope.$watch("$scope.projects", function(newValue, oldValue) {
+    $scope.progress = $scope.check_percent();
   });
 
   $scope.check_percent = function(){
     var p = 0;
-    if($scope.projects.length >= 4) p += 30;
-    $scope.progress.percent = p;
+
+    // personal data
+    if($scope.candidate){
+      var $c = $scope.candidate;
+      if($c.picture && $c.picture.length) p += 4;
+      if($c.video_url && $c.video_url.length) p += 4;
+      if($c.facebook_url && $c.facebook_url.length) p += 4;
+      if($c.twitter_url && $c.twitter_url.length) p += 4;
+      if($c.instagram_url && $c.instagram_url.length) p += 4;
+      if($c.website_url && $c.website_url.length) p += 4;
+      if($c.public_email && $c.public_email.length) p += 4;
+      if($c.summary && $c.summary.length) p += 4;
+      if($c.biography && $c.biography.length) p += 4;
+      if($c.responsible_name && $c.responsible_name.length) p += 4;
+      if($c.responsible_email && $c.responsible_email.length) p += 4;
+    }
+
+    // project data
+    if($scope.projects){
+      if($scope.projects && $scope.projects.length >= 4) p += 30;
+    }
+
+
+    $scope.progress = p;
   };
 
   // mark project as changed
@@ -160,7 +188,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       });
 
       if(list.length >= 4) {
-        SweetAlert.swal('Selecione apena 4 assuntos');
+        SweetAlert.swal('Erro','Selecione apenas 4 assuntos prioritários.');
       }
       else {
         //$http.post('<%= config[:api_host]%>/candidate');
@@ -237,7 +265,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
           ).then(function(response){ 
             $scope.projects.splice(index, 1);
             swal('O projeto foi removido com sucesso!');
-            $scope.check_percent();
           }, function(response){ throw new Error('ERROR_DELETE_PROJECTS') });
         }
         else {
@@ -260,7 +287,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
     if(list.length > 4){
       if(el) el.i.selected = false;
-      swal('Selecione apena 4 assuntos');
+      swal('Selecione apenas 4 assuntos prioritários.');
     }
     return false;
   };
@@ -318,7 +345,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('<%= config[:api_host] %>/candidate/' + user.id, serialize.from_object(params))
+    $http.get('<%= config[:api_host] %>/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){ $scope.candidate = response.data.candidate },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }
@@ -334,7 +361,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     ).then( function(response){ 
       var list = response.data.projects.map(function(i){ i.changed = false; return i });
       $scope.projects = list;
-      $scope.check_percent();
     }, function(response){ throw new Error('ERROR_GET_PROJECTS') });
   };
 
@@ -360,9 +386,9 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   // getting route
   $scope._get_tabname = function(){
     var route = $location.path();
-    if(route == '/dados-pessoais') return 'pessoal';
-    if(route == '/dados-campanha') return 'campanha';
-    if(route == '/projetos') return 'projetos';
+    if(route.indexOf('/dados-pessoais') != -1) return 'pessoal';
+    if(route.indexOf('/dados-campanha') != -1) return 'campanha';
+    if(route.indexOf('/projetos') != -1) return 'projetos';
   };
 
   
@@ -370,11 +396,14 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
    * initializations
    */
   auth_service.validate_user({role: 'user'});
-  $scope.tabname = $scope._get_tabname();
+  $scope.activetab = $scope._get_tabname();
+
   $scope.get_candidate();
   $scope.get_issues_priority();
   $scope.get_projects();
 
   // check registered fields
-  $scope.check_percent();
+  var $pid = $interval(function(){ 
+    $scope.check_percent(); 
+  }, 2000);
 }]);
