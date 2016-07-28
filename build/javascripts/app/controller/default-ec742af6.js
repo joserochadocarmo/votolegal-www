@@ -1,0 +1,1 @@
+app.votolegal.controller("DefaultController",["$scope","$http","auth_service","serialize",function(e,l,o){o.validate_user({role:"user"})}]);

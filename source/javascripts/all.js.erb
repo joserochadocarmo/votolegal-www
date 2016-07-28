@@ -1,7 +1,11 @@
+//= require 'angular.min.js'
+//= require 'angular-sanitize.js'
+//= require 'angular-ng_mask.js'
+
 (function(app){
 
   /**
-   * Array map polyfill
+   * Array polyfills
    */
   if (!Array.prototype.map) {
     Array.prototype.map = function(callback, thisArg) {
@@ -25,6 +29,67 @@
       return A;
     };
   }
+  if (!Array.prototype.filter) {
+    Array.prototype.filter = function(fun) {
+      'use strict';
+
+      if (this === void 0 || this === null) throw new TypeError();
+
+      var t = Object(this);
+      var len = t.length >>> 0;
+      if (typeof fun !== 'function') throw new TypeError();
+
+      var res = [];
+      var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+      for (var i = 0; i < len; i++) {
+        if (i in t) {
+          var val = t[i];
+          if (fun.call(thisArg, val, i, t)) res.push(val);
+        }
+      }
+      return res;
+    };
+  }
+
+  var URI = {
+    absolute: function(){
+      return document.location.href;
+    },
+    query: function(name) {
+      var url = this.absolute();
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    } 
+  };
+
+
+  var Params = {
+    _value: undefined,
+    require: function(value){
+      if(value == null || value == undefined) 
+        throw new Error('value cannot be undefined');
+      
+      this._value = value;
+
+      return this;
+    },
+    permit: function(){
+      var _self = this;
+
+      var param_list = {};
+      angular.forEach(arguments, function(i){
+        if(_self._value.hasOwnProperty(i) && _self._value[i] != null) 
+          return param_list[i] = _self._value[i];
+      });
+
+      return param_list;
+    }
+  };
+  
 
   /**
    * Serializer
@@ -67,18 +132,30 @@
   };
 
 
+  // error messages translation
+  var error_msg  = function(token){
+    var msg_list = {
+      "missing"               : " não foi preenchido.",
+      "invalid"               : " está inválido.",
+      "already exists"        : " já foi cadastrado.",
+      "access denied"         : "Acesso negado!",
+      "Bad email or password.": "E-mail ou senha inválidos.",
+      "invalid token"         : " é invalido ou esta expirado."
+    };
+    return msg_list[token];
+  };
 
   /**
    * VotoLegal Project App
    */
-  app.votolegal = angular.module('votolegal', ['ngMask', 'ngSanitize', 'angular-storage', 'idf.br-filters']);
+  app.votolegal = angular.module('votolegal', ['ngRoute', 'ngMask', 'ngSanitize', 'angular-storage', 'idf.br-filters', 'oitozero.ngSweetAlert']);
   app.votolegal.config(['$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
     // http configurations
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
     $httpProvider.defaults.headers.common["Content-Type"] = 'application/x-www-form-urlencoded';
 
     // location configurations
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false);
   }]);
 
   /**
@@ -111,8 +188,11 @@
     return {
       // attributes
       session_key: 'user',
-      sign_page: '/admin/signin',
-      admin_page: '/admin',
+      sign_page  : '/',
+      admin_page : '/admin',
+      role_list  : {
+        admin: '/admin', user: '/pre-cadastro/aprovado'
+      },
 
       // methods
       authenticate: function(username, password) {
@@ -120,6 +200,26 @@
           method: 'POST',
           url: '<%= config[:api_host] %>/login',
           data: serialize.from_object({"email": username, "password": password}),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+      },
+      
+      // forgot password
+      forgot_password: function(username){
+        return $http({
+          method: 'POST',
+          url: '<%= config[:api_host] %>/login/forgot_password',
+          data: serialize.from_object({"email": username}),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+      },
+
+      // change my password
+      change_password: function(password, token){
+        return $http({
+          method: 'POST',
+          url: '<%= config[:api_host] %>/login/forgot_password/reset/' + token,
+          data: serialize.from_object({"new_password": password}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
       },
@@ -135,28 +235,62 @@
       },
 
       // validate user
-      validate_user: function(opts){
+      // usage: validate_user({role: 'admin'})
+      validate_user: function(){
+        var args = arguments[0] || {};
+
         var user = this.current_user();
-        if(document.location.href.indexOf(this.sign_page) == -1){
-          // not signin page and not user signed in -> redirect to signin page
-          if(user == undefined) document.location = this.sign_page;
-        }
-        else {
-          // signin page and user signed in -> redirect to admin page
-          if(user != undefined) document.location = this.admin_page;
-        }
+
+        // validate session
+        if(user == undefined) 
+          document.location = this.sign_page;
+        // validade role
+        if(user.role != args.role)
+          document.location = '/error/permissao-negada';
+
+        return false;
+      },
+
+      signature_exists: function(){
+        if(this.current_user) return true;
+        return false;
+      },
+
+      // logout
+      logout: function(){
+        this.session().remove(this.session_key);
+        if (arguments[0]) document.location = arguments[0];
         return false;
       }
     }
   }]);
 
 
-  // load votolegal controllers
+  app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'auth_service', function($scope, $http, serialize, auth_service){ 
+    $scope.current_user = auth_service.current_user() || {};
+
+    $scope.is_admin = function(){
+      var user = auth_service.current_user();
+      if(user && user.role == 'user') return true;
+      return false;
+    };
+
+    $scope.logout = function(){
+      auth_service.logout('/');
+      return false;
+    };
+  }]);
+
+  /**
+   * load votolegal controllers
+   */
   <%= partial "javascripts/app/controller/pre-cadastro.js" %>
   <%= partial "javascripts/app/controller/contato.js" %>
   <%= partial "javascripts/app/controller/faq.js" %>
   <%= partial "javascripts/app/controller/auth.js" %>
   <%= partial "javascripts/app/controller/dashboard.js" %>
   <%= partial "javascripts/app/controller/pre-candidate.js" %>
+  <%= partial "javascripts/app/controller/default.js" %>
+  <%= partial "javascripts/app/controller/cadastro.js" %>
 
 })(window.app = window.app || {});

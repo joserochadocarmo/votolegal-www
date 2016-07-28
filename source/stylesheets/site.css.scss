@@ -89,7 +89,7 @@ nav.navbar-votolegal {
     background-color: transparent;
     border:solid 1px transparent;
 
-    a {
+    a:first-child {
       color: #4daa59;
       font-weight: bold;
       background-color: transparent;
@@ -101,6 +101,7 @@ nav.navbar-votolegal {
       background-color: transparent;
     }
     ul.dropdown-menu {
+      color: #888 !important;
       right: 0;
       left: 0;
       margin: 0px -1px;
@@ -110,7 +111,7 @@ nav.navbar-votolegal {
       border-right: solid 1px #ccc;
 
       li {
-        padding: 5px 5px;
+        padding: 5px 10px;
 
         a {
           padding: 0px;
@@ -198,7 +199,7 @@ header.cover {
 }
 
 section {
-  padding: 75px 0px;
+  padding: 20px 0px;
   @media all and ($max-screen : 480px) {
     padding: 0px 0px;
   }
@@ -507,7 +508,29 @@ section#contact {
 
 
 /* bootstrap custom */
+.progress {
+  border: solid 1px #ccc;
+  box-shadow: none;
 
+  .progress-bar {
+    font-weight: bold;
+    box-shadow: none;
+  }
+}
+.text-success {
+  color: #49bd42;
+}
+
+/* graphic effects */
+.drop-shadow-5 {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6)
+}
+.drop-shadow-10 {
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6)
+}
+.drop-shadow-15 {
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6)
+}
 
 /* sweet alert custom */
 .sweet-alert h2 {
@@ -557,7 +580,7 @@ section#contact {
   display: inline-block;
   padding-bottom: 5px;
   position: relative;
-  margin: 0px 0px 30px;
+  margin: 30px 0px 30px 0px;
 
   @media all and ($max-screen : 480px) {
     margin-top: 50px;
@@ -674,6 +697,55 @@ a {
   }
 }
 
+.tab-register {
+  a {
+    padding: 4px 0px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 0px;
+    text-align: left !important;
+    display: block;
+    width: 100%;
+    border:solid 1px;
+
+    &:hover, &:active, &:visited, &:focus { text-decoration: none; }
+
+    i {
+      padding-right: 10px
+    }
+
+    &.tab-register-default {
+      color: #fff;
+      background-color: #bbb;
+      border-color: #ccc;
+
+      &:hover, &:active, &:visited, &:focus { color: #fff; }
+    }
+
+    &.tab-register-success {
+      color: #fff;
+      background-color: #5cb85c;
+      border-color: #4cae4c;
+
+      &:hover, &:active, &:visited, &:focus { color: #fff; }
+    }
+  }
+
+  .active {
+    color: #fff;
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+
+    &:hover, &:active, &:visited, &:focus { color: #fff; }
+  }
+}
+
+
 .btn-info {
   float: right;
   position: absolute;
@@ -711,4 +783,50 @@ a {
     padding: 0px 8px; 
     color: rgb(234, 234, 234);
   }
+}
+
+.side-panel {
+  width: 100%;
+  margin-top: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: inline-block;
+
+  .text-danger {
+    color: #ff0000;
+  }
+
+  i.fi {
+    margin-left: -20px;
+  }
+
+  h3 {
+    font-size: 16px;
+    _font-weight: bold;
+    margin: 5px 0px 20px;
+  }
+}
+
+.image-preview-input {
+    position: relative;
+    overflow: hidden;
+	margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
 }

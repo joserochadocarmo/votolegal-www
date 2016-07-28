@@ -1,11 +1,11 @@
 /**
  * PreCandidate Controller
  */
-app.votolegal.controller('PreCandidateController', ["$scope", "$http", "$location", "serialize", "auth_service", function($scope, $http, $location, serialize, auth_service){
+app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serialize", "auth_service", function($scope, $http, $location, serialize, auth_service){
   // defaults
   var user = auth_service.current_user();
   $scope.model  = {};
-  $scope.params = $location.search();
+  $scope.params = URI.query();
 
 
   $scope.load = function(id){
@@ -31,5 +31,5 @@ app.votolegal.controller('PreCandidateController', ["$scope", "$http", "$locatio
   $scope.load($scope.params.id);
 
   // validate user
-  auth_service.validate_user();
+  auth_service.validate_user({role: 'admin'});
 }]);

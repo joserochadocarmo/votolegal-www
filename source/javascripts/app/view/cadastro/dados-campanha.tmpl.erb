@@ -1,0 +1,93 @@
+<div class="col-md-6" ng-init="tabname = 'campanha'">
+  <h4>Informações da campanha</h4>
+  <br class="divider">
+
+  <% content_tag :form, name: 'campaignForm', class: 'angular-form', 'ng-submit': "save_campaign(campaignForm.$valid)", novalidate: '' do %>
+    <div class="row">
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-money"></i>    
+        <input class="form-control" type="text" placeholder="Quanto quer arrecadar?" name="raising_goal" ng-model="candidate.raising_goal"  mask="R$ 999.999.999,99"  mask-restrict="reject" mask-validate="false" mask-clean="true" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group icon-left col-md-12">
+        Quais são seus assuntos prioritarios? *Máximo 4 opções
+      </div>
+      <div class="priority-subjects--list">
+        <div class="text-danger" ng-if="issue_list.lenght">
+          Não foi possível carregar a lista de assuntos.
+        </div>
+        <div class="col-md-4" ng-repeat="i in issue_list">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="i.selected" ng-change="count_checked(this)" value="{{i.id}">&nbsp; {{i.name}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-12 text-right hide">
+        <a data-toggle="modal" data-target="#new-issue-priority" href="javascript:void(0);">+ Adicionar um assunto</a>
+      </div>
+
+      <div class="form-group col-md-12">
+        <br class="divider">
+      </div>
+      
+
+      <div class="form-group col-md-12">
+        <div class="input-group image-preview">
+          <input type="text" class="form-control image-preview-filename" placeholder="Planilhar simplificada de gastos da campanha" disabled="disabled"> 
+          <span class="input-group-btn">
+            <!-- image-preview-input -->
+            <div class="btn btn-default image-preview-input">
+              <span class="fa fa-folder"></span>
+              <span class="image-preview-input-title">Escolher Arquivo</span>
+              <input type="file" placeholder="Planilha" name="spending_spreadsheet" ng-model="candidate.spending_spreadsheet" /> <!-- rename it -->
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group icon-left col-md-12">
+        <i class="fa fa-lock"></i>    
+          <input class="form-control" type="text" placeholder="Token operadora financeira" name="cielo_merchant_key" ng-model="candidate.cielo_merchant_key" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <p class="text-right">
+          <button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="btn btn-success btn-lg">Gravar</button>
+        </p>
+        <div ng-show="error_list.length > 0" class="ng-hide" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+          <h4>Os seguinte campos precisam ser corrigidos:</h4>
+          <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+            <li>{{error}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+<div id="new-issue-priority" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Novo assunto prioritário</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="text" class="form-control" names="issue_name" ng-model="issue_name" placeholder="Nome do assunto prioritário">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" ng-click="create_issue()">Cadastrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</div>

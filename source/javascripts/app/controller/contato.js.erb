@@ -35,16 +35,6 @@ app.votolegal.controller('ContatoController', ['$scope', '$http', 'serialize', f
           return document.querySelector('form[name=contactForm] *[name='+field+']');
         };
 
-        // error messages
-        var error_msg  = function(token){
-          var msg_list = {
-            "missing": " não foi preenchido.",
-            "already exists": " já foi cadastrado.",
-            "invalid" : " está inválido."
-          };
-          return msg_list[token];
-        };
-
         // setting error message
         $scope.error_list = [];
         for(var field in res){
