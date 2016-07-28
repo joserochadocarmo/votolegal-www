@@ -330,7 +330,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
           title   = n.querySelector('input[name=project_title]').value,
           content = n.querySelector('textarea[name=project_content]').value;
 
-      list.push({id, title, content});
+      list.push({'id':id, 'title':title, 'content':content});
     }
     return list;
   };
