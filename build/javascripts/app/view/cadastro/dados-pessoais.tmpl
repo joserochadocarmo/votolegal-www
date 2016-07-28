@@ -4,6 +4,11 @@
 
 <form name="candidateForm" class="angular-form" ng-submit="save_candidate(candidateForm.$valid)" novalidate="novalidate">    <div class="row">
       <div class="form-group col-md-12">
+        <div class="text-center" ng-show="candidate.picture">
+          <img class="img-thumbnail img-circle" src="/images/cadastro/no-photo.jpg" ng-src="{{candidate.picture}}" alt="" width="100px" height="100px">
+        </div>
+      </div>
+      <div class="form-group col-md-12">
         <div class="input-group image-preview">
           <input type="text" class="form-control image-preview-filename" placeholder="Enviar foto para perfil" disabled="disabled"> 
           <span class="input-group-btn">
@@ -16,8 +21,8 @@
           </span>
         </div><!-- /input-group image-preview [TO HERE]--> 
 
-        <a class="btn-info" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Preferência para fotos com fundo branco.">
-          <i class="fa fa-info"></i>
+        <a class="btn-info" tabindex="-1" href="javascript:void(0);" uib-popover="Preferência para fotos com fundo branco." popover-placement="left" popover-trigger="click">
+          <i class="flaticon-info"></i>
         </a>
       </div>
       <div class="form-group icon-left col-md-12">
