@@ -87,6 +87,14 @@
       });
 
       return param_list;
+    },
+    normalize: function(value){
+      return name.split(/\s+/)
+        .map(function(i){ 
+          i = i.toLowerCase();
+          if(i.length >= 3) return i.charAt(0).toUpperCase() + i.slice(1);
+          if(i.length < 3) return i;
+        });
     }
   };
   

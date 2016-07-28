@@ -36,38 +36,40 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.submit_disabled = false;
   $scope.progress    = 0;
 
-
-  $scope.$watch("$scope.candidate", function(newValue, oldValue) {
-    $scope.progress = $scope.check_percent();
-  });
-  $scope.$watch("$scope.projects", function(newValue, oldValue) {
-    $scope.progress = $scope.check_percent();
-  });
-
   $scope.check_percent = function(){
     var p = 0;
 
     // personal data
     if($scope.candidate){
       var $c = $scope.candidate;
-      if($c.picture && $c.picture.length) p += 4;
-      if($c.video_url && $c.video_url.length) p += 4;
+      if($c.picture && $c.picture.length) p += 6;
+      if($c.video_url && $c.video_url.length) p += 6;
       if($c.facebook_url && $c.facebook_url.length) p += 4;
       if($c.twitter_url && $c.twitter_url.length) p += 4;
       if($c.instagram_url && $c.instagram_url.length) p += 4;
       if($c.website_url && $c.website_url.length) p += 4;
-      if($c.public_email && $c.public_email.length) p += 4;
-      if($c.summary && $c.summary.length) p += 4;
-      if($c.biography && $c.biography.length) p += 4;
+      if($c.public_email && $c.public_email.length) p += 6;
+      if($c.summary && $c.summary.length) p += 6;
+      if($c.biography && $c.biography.length) p += 6;
       if($c.responsible_name && $c.responsible_name.length) p += 4;
       if($c.responsible_email && $c.responsible_email.length) p += 4;
+
+
+      if($c.raising_goal && $c.raising_goal.length) p += 6;
+      if($c.cielo_merchant_key && $c.cielo_merchant_key.length) p += 6;
+      if($c.spending_spreadsheet && $c.spending_spreadsheet.length) p += 4;
+    }
+
+    // personal data
+    if($scope.issue_list){
+      var $i = $scope.issue_list;
+      if($i && $i.length > 0) p += 10;
     }
 
     // project data
     if($scope.projects){
-      if($scope.projects && $scope.projects.length >= 4) p += 30;
+      if($scope.projects && $scope.projects.length >= 4) p += 20;
     }
-
 
     $scope.progress = p;
   };
@@ -116,8 +118,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var user = auth_service.current_user();
     params.api_key = user.api_key;
 
-    // TODO: fix amount mask
-
     $http({
       method: 'PUT',
       url: '<%= config[:api_host]%>/candidate/'+ user.id,
@@ -137,6 +137,16 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     }).then(function (response) {
       SweetAlert.swal('Os dados da campanha foram salvos!');
     },function(response){
+      var res = response.data;
+
+      // spreadsheet invalid
+      if(res.hasOwnProperty('form_error')){
+        if(res.form_error.hasOwnProperty('spending_spreadsheet') && res.form_error.spending_spreadsheet == "invalid file")
+          SweetAlert.swal('Formato do arquivo de Planilha de Gastos inválido!');
+
+        return false;
+      }
+
       SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
       throw new Error('ERROR_SAVING_CAMPAIGN');
     });
@@ -152,7 +162,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       return false;
     }
 
-
     // build params
     var params = {title: p.title, scope: p.scope};
     if (p.hasOwnProperty('id') && p.id > 0) params.id = p.id;
@@ -167,7 +176,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     }).then(function (response) {
-      $scope.projects[index].changed = false;
+      $scope.get_projects();
+      //$scope.projects[index].changed = false;
       SweetAlert.swal('O projeto foi salvo!');
     },function(response){
       SweetAlert.swal('Error', 'O projeto não pode ser salvo!');
@@ -177,63 +187,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     return false;
   };
 
-
-  $scope.create_issue = function(isValid){
-    var issue = $scope.issue_name; 
-    var modal = $('#new-issue-priority').modal('hide');
-
-    if(issue){
-      var list = $scope.issue_list.filter(function(i){
-        if(i.selected) return true;
-      });
-
-      if(list.length >= 4) {
-        SweetAlert.swal('Erro','Selecione apenas 4 assuntos prioritários.');
-      }
-      else {
-        //$http.post('<%= config[:api_host]%>/candidate');
-        $scope.issue_list.push({selected: true, id: 11, name: issue});
-      }
-    }
-
-    $scope.issue_name = '';
-    return false;
-  };
-
-
-  // update candidate
-  $scope.update = function(isValid){
-    var params = $scope.candidate_params();
-    $scope.error_list = [];
-
-    // getting current user candidate
-    var user = auth_service.current_user();
-    params['api_key'] = user.api_key;
-
-    $scope.submit_disabled = true;
-    $http.put('<%= config[:api_host] %>/candidate/' + user.id, serialize.from_object(params), {
-      //headers: { 'Content-Type': false },
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-      //transformRequest: function (data) {
-      //  var fd = new FormData();
-
-      //  for (var p in data)
-      //    fd.append(p, data[p]);
-
-      //  // TODO: add image upload
-
-      //  return fd;
-      //}
-      //headers: {'Content-Type': undefined},
-      //data: serialize.from_object(params)
-      //headers: {'Content-Type': 'enctype="multipart/form-data'}
-      //headers: {'Content-Type': 'multipart/form-data'}
-      //transformRequest: angular.identity
-    });
-    return false;
-  };
 
   $scope.new_project = function(){
     $scope.projects.push({id: 0, title: '', scope: '', changed: true});
@@ -270,6 +223,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         else {
           $scope.projects.splice(index, 1);
         }
+      
+        $location.path('/projetos');
       }
     });
 
@@ -347,7 +302,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
     $http.get('<%= config[:api_host] %>/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
-      function(response){ $scope.candidate = response.data.candidate },
+      function(response){ 
+        $scope.candidate = response.data.candidate;
+        $scope.get_issues_priority();
+      },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }
     );
     return false;
@@ -361,6 +319,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     ).then( function(response){ 
       var list = response.data.projects.map(function(i){ i.changed = false; return i });
       $scope.projects = list;
+      $scope.check_percent(); 
     }, function(response){ throw new Error('ERROR_GET_PROJECTS') });
   };
 
@@ -377,7 +336,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
             });
           }
         } 
-        $scope.check_percent();
+
+        $scope.check_percent(); 
       },
       function(response){ throw new Error('ERROR_GET_ISSUE_PRIORITY') }
     );
@@ -398,12 +358,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   auth_service.validate_user({role: 'user'});
   $scope.activetab = $scope._get_tabname();
 
+  // load candidate data (issues are loaded into get_candidate cb)
   $scope.get_candidate();
-  $scope.get_issues_priority();
   $scope.get_projects();
-
-  // check registered fields
-  var $pid = $interval(function(){ 
-    $scope.check_percent(); 
-  }, 2000);
+  $scope.check_percent(); 
 }]);
