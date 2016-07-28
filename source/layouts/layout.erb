@@ -54,13 +54,13 @@
                         <% content_tag :form, name: 'signinForm', class: 'angular-form', 'ng-submit': "authenticate(signinForm.$valid)", novalidate: '' do %>
 
                         <p class="text-center">
-                          <input type="text" class="form-control" name="email" ng-model="signin.email" placeholder="Login" autofocus required>
+                          <input type="text" class="form-control" name="email" ng-model="signin.email" placeholder="Login" autofocus required disabled>
                         </p>
                         <p class="text-center">
-                          <input type="password" class="form-control" name="password" ng-model="signin.password" placeholder="Senha" required>
+                          <input type="password" class="form-control" name="password" ng-model="signin.password" placeholder="Senha" required disabled>
                         </p>
                         <p class="text-center">
-                          <small><%= link_to 'Esqueci minha senha', '/conta/recuperar-senha' %></small>
+                          <small><%= link_to 'Esqueci minha senha', '#' %></small>
                         </p>
                         <p class="text-center">
                           <button class="btn btn-success" type="submit">Entrar</button>
