@@ -12,13 +12,13 @@ title:  Complete seu cadastro
       <div class="col-md-3">
         <!-- tab buttons -->
         <div class="tab-register">
-          <a class="tab-register-default {{ activetab == 'pessoal' ? 'active' : '' }}" href="#/dados-pessoais" ng-click="activetab = 'pessoal'">
+          <a ng-class="{'tab-register-default': true, 'active': activetab === 'pessoal'}" href="#/dados-pessoais" ng-click="activetab = 'pessoal'">
             <i class="fi flaticon-personal-credentials"></i> Informações pessoais
           </a>
-          <a class="tab-register-default {{ activetab == 'campanha' ? 'active' : '' }}" href="#/dados-campanha" ng-click="activetab = 'campanha'">
+          <a ng-class="{'tab-register-default': true, 'active': activetab === 'campanha'}" href="#/dados-campanha" ng-click="activetab = 'campanha'">
             <i class="fi flaticon-square"></i> Informações da campanha
           </a>
-          <a class="tab-register-default {{ activetab == 'projetos' ? 'active' : '' }}" href="#/projetos" ng-click="activetab = 'projetos'">
+          <a ng-class="{'tab-register-default': true, 'active': activetab === 'projetos'}" href="#/projetos" ng-click="activetab = 'projetos'">
             <i class="fi flaticon-curriculum-1"></i> Projetos prioritários
           </a>
         </div>
@@ -31,16 +31,16 @@ title:  Complete seu cadastro
             </div>
           </div>
           <p><small>Perfil {{progress}}% preenchido.</small></p>
-          <p><small>Seu perfil pode ser preenchido e editado até o dia 14.08.2016.</small></p>
+          <p><small>Seu perfil pode ser preenchido e editado até o dia 15.08.2016.</small></p>
         </div>
 
         <div class="side-panel">
           <h3 class="text-danger">
             <i class="fi flaticon-information-button"></i> ATENÇÃO
           </h3>
-          <p><small>Em <strong>13 dias</strong> encerrará seu o prazo para finalização e edição do seu cadastro.</small></p>
-          <p><small>À partir do dia <strong>14.08.2016</strong> não será permitida a realização de novas edições.</small></p>
-          <p><small>No dia <strong>15.08.2016</strong> os perfis que estiverem com todos os <strong>campos obrigatórios preenchidos</strong> serão publicados e estarão disponíveis para receber doações. </small></p>
+          <p><small>Em <strong>{{ date_to_profile }} dias</strong> encerrará seu o prazo para finalização e edição do seu cadastro.</small></p>
+          <p><small>À partir do dia <strong>15.08.2016</strong> não será permitida a realização de novas edições.</small></p>
+          <p><small>No dia <strong>16.08.2016</strong> os perfis que estiverem com todos os <strong>campos obrigatórios preenchidos</strong> serão publicados e estarão disponíveis para receber doações. </small></p>
         </div>
 
         <div class="side-panel">
