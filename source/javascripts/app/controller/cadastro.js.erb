@@ -176,7 +176,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     }).then(function (response) {
-      $scope.get_projects();
       //$scope.projects[index].changed = false;
       SweetAlert.swal('O projeto foi salvo!');
     },function(response){
@@ -223,8 +222,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         else {
           $scope.projects.splice(index, 1);
         }
-      
-        $location.path('/projetos');
       }
     });
 
@@ -318,7 +315,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       '<%= config[:api_host] %>/candidate/' + user.id + '/projects', { api_key: user.api_key }
     ).then( function(response){ 
       var list = response.data.projects.map(function(i){ i.changed = false; return i });
-      $scope.projects = list;
+      if(list.length > 0) $scope.projects = list;
       $scope.check_percent(); 
     }, function(response){ throw new Error('ERROR_GET_PROJECTS') });
   };
@@ -349,6 +346,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     if(route.indexOf('/dados-pessoais') != -1) return 'pessoal';
     if(route.indexOf('/dados-campanha') != -1) return 'campanha';
     if(route.indexOf('/projetos') != -1) return 'projetos';
+    console.log(route);
   };
 
   

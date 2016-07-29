@@ -110,6 +110,10 @@ nav.navbar-votolegal {
       border-left: solid 1px #ccc;
       border-right: solid 1px #ccc;
 
+      .text-muted {
+        color: #ccc !important
+      }
+
       li {
         padding: 5px 10px;
 
@@ -638,6 +642,11 @@ a {
   height:100%;
 }
 
+.icon-with-label {
+  i {
+    margin-top: 25px !important;
+  }
+}
 .icon-left {
   position: relative;
 

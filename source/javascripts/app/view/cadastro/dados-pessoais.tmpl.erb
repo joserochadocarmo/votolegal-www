@@ -10,14 +10,15 @@
         </div>
       </div>
       <div class="form-group col-md-12">
+        <label>Imagem para o perfil</label>
         <div class="input-group image-preview">
-          <input type="text" class="form-control image-preview-filename" placeholder="Enviar foto para perfil" disabled="disabled"> 
+        <input type="text" class="form-control image-preview-filename" value="{{candidate.picture}}" disabled="disabled"> 
           <span class="input-group-btn">
             <!-- image-preview-input -->
             <div class="btn btn-default image-preview-input">
               <span class="fa fa-folder"></span>
               <span class="image-preview-input-title">Adicionar Foto</span>
-              <input type="file" accept="image/png, image/jpeg, image/gif" placeholder="Imagem" name="picture" ng-model="candidate.picture"/> <!-- rename it -->
+              <input type="file" accept="image/png, image/jpeg, image/gif" name="picture" ng-model="candidate.picture"/> <!-- rename it -->
             </div>
           </span>
         </div><!-- /input-group image-preview [TO HERE]--> 
@@ -26,47 +27,57 @@
           <i class="flaticon-info"></i>
         </a>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>Link do video (youtube ou vimeo)</label>
         <i class="fa fa-video-camera"></i>    
-        <input class="form-control" type="text" placeholder="Link do video (youtube ou vimeo)" name="video_url" ng-model="candidate.video_url" required>
+        <input class="form-control" type="text" name="video_url" ng-model="candidate.video_url" required>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>Link página Facebook</label>
         <i class="fa fa-facebook"></i>    
-        <input class="form-control" type="text" placeholder="Link página Facebook" name="facebook_url" ng-model="candidate.facebook_url">
+        <input class="form-control" type="text" name="facebook_url" ng-model="candidate.facebook_url">
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>Link página Twitter</label>
         <i class="fa fa-twitter"></i>    
-        <input class="form-control" type="text" placeholder="Link página Twitter" name="twitter_url" ng-model="candidate.twitter_url">
+        <input class="form-control" type="text" name="twitter_url" ng-model="candidate.twitter_url">
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>Link página Instagram</label>
         <i class="fa fa-instagram"></i>    
-        <input class="form-control" type="text" placeholder="Link página Instagram" name="instagram_url" ng-model="candidate.instagram_url">
+        <input class="form-control" type="text" name="instagram_url" ng-model="candidate.instagram_url">
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>Link Website</label>
         <i class="fa fa-link"></i>    
-        <input class="form-control" type="text" placeholder="Link Website" name="website_url" ng-model="candidate.website_url" required>
+        <input class="form-control" type="text" name="website_url" ng-model="candidate.website_url" required>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>E-mail de contato para eleitores</label>
         <i class="fa fa-envelope"></i>    
-        <input class="form-control" type="text" placeholder="E-mail de contato para eleitores" name="public_email" ng-model="candidate.public_email" required>
+        <input class="form-control" type="text" name="public_email" ng-model="candidate.public_email" required>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>Breve apresentação pessoal e da campanha</label>
         <i class="fa fa-user"></i>    
-        <textarea class="form-control" cols="30" rows="6" placeholder="Breve apresentação pessoal e da campanha" name="summary" ng-model="candidate.summary" required></textarea>
-        <span class="help-block text-right">Máximo 400 caracteres</span>
+        <textarea class="form-control" cols="30" rows="6" size="400" maxlength="400" ng-trim="false" name="summary" ng-model="candidate.summary" required></textarea>
+        <span class="help-block text-right">{{candidate.summary.length || 0}} de <strong>400</strong> caracteres</span>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>Sobre você (biografia)</label>
         <i class="fa fa-user"></i>    
-        <textarea class="form-control" cols="30" rows="6" placeholder="Sobre você (biografia)" name="biography" ng-model="candidate.biography"></textarea>
-        <span class="help-block text-right">Máximo 400 caracteres</span>
+        <textarea class="form-control" cols="30" rows="6" size="400" maxlength="400" name="biography" ng-model="candidate.biography"></textarea>
+        <span class="help-block text-right">{{candidate.biography.length || 0}} de <strong>400</strong> caracteres</span>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>Nome do responsável pelo cadastro</label>
         <i class="fa fa-user"></i>    
-        <input class="form-control" type="text" placeholder="Nome do responsável pelo cadastro" name="responsible_name" ng-model="candidate.responsible_name" required>
+        <input class="form-control" type="text" name="responsible_name" ng-model="candidate.responsible_name" required>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label>E-mail do responsável pelo cadastro</label>
         <i class="fa fa-envelope"></i>    
-        <input class="form-control" type="text" placeholder="E-mail do responsável pelo cadastro" name="responsible_email" ng-model="candidate.responsible_email">
+        <input class="form-control" type="text" name="responsible_email" ng-model="candidate.responsible_email">
       </div>
       <div class="form-group col-md-12">
         <p class="text-right">
