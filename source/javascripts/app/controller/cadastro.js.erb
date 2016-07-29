@@ -355,6 +355,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     if(route.indexOf('/projetos') != -1) return 'projetos';
   };
 
+  $scope.change_tab = function(name){
+    $scope.activetab = name;
+  };
+
   
   /**
    * initializations
