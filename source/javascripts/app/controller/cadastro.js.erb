@@ -28,7 +28,6 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
  * Register a new candidate
  */ 
 app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', '$route', '$interval', 'auth_service', 'serialize', 'SweetAlert', function($scope, $http, $location, $route, $interval, auth_service, serialize, SweetAlert){
-  $scope.activetab   = 'pessoal';
   $scope.candidate   = {};
   $scope.issue_list  = []; 
   $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
@@ -347,25 +346,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     );
   };
 
-  // getting route
-  $scope._get_tabname = function(){
-    var route = $location.path();
-    if(route.indexOf('/dados-pessoais') != -1) return 'pessoal';
-    if(route.indexOf('/dados-campanha') != -1) return 'campanha';
-    if(route.indexOf('/projetos') != -1) return 'projetos';
-  };
-
-  $scope.change_tab = function(name){
-    $scope.activetab = name;
-  };
-
   
   /**
    * initializations
    */
   auth_service.validate_user({role: 'user'});
-  $scope.activetab = $scope._get_tabname();
-  console.log($scope.activetab);
 
   // load candidate data (issues are loaded into get_candidate cb)
   $scope.get_candidate();

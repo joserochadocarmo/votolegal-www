@@ -12,13 +12,13 @@ title:  Complete seu cadastro
       <div class="col-md-3">
         <!-- tab buttons -->
         <div class="tab-register">
-          <a ng-class="{'tab-register-default': true, 'active': activetab === 'pessoal'}" href="#/dados-pessoais" ng-click="change_tab('pessoal')">
+          <a class="tab-register-default active" data-tabname="pessoal" href="#/dados-pessoais">
             <i class="fi flaticon-personal-credentials"></i> Informações pessoais
           </a>
-          <a ng-class="{'tab-register-default': true, 'active': activetab === 'campanha'}" href="#/dados-campanha" ng-click="change_tab('campanha')">
+          <a class="tab-register-default" data-tabname="campanha" href="#/dados-campanha">
             <i class="fi flaticon-square"></i> Informações da campanha
           </a>
-          <a ng-class="{'tab-register-default': true, 'active': activetab === 'projetos'}" href="#/projetos" ng-click="change_tab('projetos')">
+          <a class="tab-register-default" data-tabname="projetos" href="#/projetos">
             <i class="fi flaticon-curriculum-1"></i> Projetos prioritários
           </a>
         </div>
@@ -62,4 +62,39 @@ title:  Complete seu cadastro
 
 </section>
 
+<script>
+(function(){
 
+    var ChangeTab = (function (){
+      // set tab active
+      this.settab   = function(t){
+        var list = document.querySelectorAll('a.tab-register-default');
+        for (var i in list) if(list[i].classList) list[i].classList.remove('active');
+        
+        var tab = document.querySelector('a.tab-register-default[data-tabname='+t+']');
+        if(tab) tab.classList.add('active');
+      };
+
+      this.run = function(){
+        var $self = this;
+        var route = document.location.hash;
+        if(route.indexOf('/dados-pessoais') != -1) $self.settab('pessoal');
+        if(route.indexOf('/dados-campanha') != -1) $self.settab('campanha');
+        if(route.indexOf('/projetos') != -1)       $self.settab('projetos');
+      };
+    });
+
+    // check if browser has hashchange
+    if (! "onhashchange" in window) 
+      console.error("The browser supports the hashchange event!");
+
+    window.onhashchange = function(){
+      new ChangeTab().run();
+    };
+
+    // fallback
+    var pid = window.setInterval(function(){
+      new ChangeTab().run();
+    }, 100);
+  })();
+</script>
