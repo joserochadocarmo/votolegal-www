@@ -42,6 +42,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     return Math.round(difference/(1000*60*60*24)) + 1;
   })();
 
+  // change input-file filename
+  $scope.change_filename = function(name){
+    var filename = document.querySelector('input[name='+name+']').value;
+    document.querySelector('.'+name+'_filename').value = filename;
+  };
+
+
   $scope.check_percent = function(){
     var p = 0;
 

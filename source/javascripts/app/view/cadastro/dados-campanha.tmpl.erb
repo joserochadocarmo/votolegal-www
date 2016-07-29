@@ -45,13 +45,13 @@
 
       <div class="form-group col-md-12">
         <div class="input-group image-preview">
-        <input type="text" class="form-control image-preview-filename" value="{{candidate.spending_spreadsheet}}" disabled="disabled"> 
+        <input type="text" class="form-control image-preview-filename spending_spreadsheet_filename" value="{{candidate.spending_spreadsheet}}" disabled="disabled"> 
           <span class="input-group-btn">
             <!-- image-preview-input -->
             <div class="btn btn-default image-preview-input">
               <span class="fa fa-folder"></span>
               <span class="image-preview-input-title">Escolher Arquivo</span>
-              <input type="file" name="spending_spreadsheet" ng-model="candidate.spending_spreadsheet" /> <!-- rename it -->
+              <input type="file" name="spending_spreadsheet" ng-model="candidate.spending_spreadsheet" onchange="angular.element(this).scope().change_filename('spending_spreadsheet')" /> <!-- rename it -->
             </div>
           </span>
         </div>
