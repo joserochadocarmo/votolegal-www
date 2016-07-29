@@ -11,13 +11,13 @@
       <div class="form-group col-md-12">
         <label>Imagem para o perfil *</label>
         <div class="input-group image-preview">
-        <input type="text" class="form-control image-preview-filename" value="{{candidate.picture}}" disabled="disabled"> 
+        <input type="text" class="form-control image-preview-filename picture_filename" value="{{candidate.picture}}" disabled="disabled"> 
           <span class="input-group-btn">
             <!-- image-preview-input -->
             <div class="btn btn-default image-preview-input">
               <span class="fa fa-folder"></span>
               <span class="image-preview-input-title">Adicionar Foto</span>
-              <input type="file" accept="image/png, image/jpeg, image/gif" name="picture" ng-model="candidate.picture"/> <!-- rename it -->
+              <input type="file" accept="image/png, image/jpeg, image/gif" name="picture" ng-model="candidate.picture" onchange="angular.element(this).scope().change_filename('picture')" /> <!-- rename it -->
             </div>
           </span>
         </div><!-- /input-group image-preview [TO HERE]--> 
