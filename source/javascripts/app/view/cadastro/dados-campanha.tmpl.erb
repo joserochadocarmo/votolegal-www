@@ -5,9 +5,12 @@
   <% content_tag :form, name: 'campaignForm', class: 'angular-form', 'ng-submit': "save_campaign(campaignForm.$valid)", novalidate: '' do %>
     <div class="row">
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label>Quanto quer arrecadar? *</label>
+        <label for="raising_goal">Quanto quer arrecadar?</label>*
         <i class="fa fa-money"></i>    
-        <input class="form-control" type="text" name="raising_goal" ng-model="candidate.raising_goal" ui-money-mask required>
+        <input class="form-control" type="text" name="raising_goal" ng-model="candidate.raising_goal" ui-number-mask="2" required>
+        <p class="help-block" ng-show="error_list.length > 0">
+          <small>A quantia a ser arrecadada deve ser definida.</small>
+        </p>
       </div>
     </div>
     <div class="row">
@@ -69,10 +72,16 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-12" ng-init="submit_disabled = false">
         <p class="text-right">
-          <button type="submit" id="btn-enviar" class="btn btn-success btn-lg">Gravar</button>
+          <button type="submit" id="btn-enviar" ng-disabled="submit_disabled" class="btn btn-success btn-lg">Gravar</button>
         </p>
+        <div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+          <h4>Os seguinte campos precisam ser corrigidos:</h4>
+          <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+            <li>{{error}}</li>
+          </ul>
+        </div>
       </div>
     </div>
   <% end %>

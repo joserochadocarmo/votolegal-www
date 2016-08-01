@@ -32,6 +32,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.issue_list  = []; 
   $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
 
+  $scope.error_list  = [];
   $scope.submit_disabled = false;
   $scope.progress    = 0;
 
@@ -94,11 +95,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
   // save campaign data
   $scope.save_candidate = function(index){
+    $scope.error_list  = [];
     var params = $scope.candidate_params();
 
     var user = auth_service.current_user();
     params.api_key = user.api_key;
 
+    $scope.submit_disabled = true;
     $http({
       method: 'PUT',
       url: '<%= config[:api_host]%>/candidate/'+ user.id,
@@ -117,20 +120,41 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       }
     }).then(function (response) {
       SweetAlert.swal('Os dados da campanha foram salvos!');
+      $scope.submit_disabled = false;
     },function(response){
+      var res = response.data.form_error;
+
+      var f = function(field){
+        return document.querySelector('form[name=candidateForm] label[for='+field+']');
+      };
+
+      // setting error message
+      for(var field in res){
+        var name = f(field).innerText;
+        $scope.error_list.push(name + error_msg(res[field]));
+      }
+
+      // enable submit
+      $scope.submit_disabled = false;
+
+      // throw an exception
       SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
       throw new Error('ERROR_SAVING_CAMPAIGN');
+
+      return false;
     });
     return false;
   };
 
   // save campaign data
   $scope.save_campaign = function(index){
+    $scope.error_list = [];
     var params = $scope.campaign_params();
 
     var user = auth_service.current_user();
     params.api_key = user.api_key;
 
+    $scope.submit_disabled = true;
     $http({
       method: 'PUT',
       url: '<%= config[:api_host]%>/candidate/'+ user.id,
@@ -149,19 +173,34 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       }
     }).then(function (response) {
       SweetAlert.swal('Os dados da campanha foram salvos!');
+      $scope.submit_disabled = false;
     },function(response){
-      var res = response.data;
+      var res = response.data.form_error;
 
       // spreadsheet invalid
-      if(res.hasOwnProperty('form_error')){
-        if(res.form_error.hasOwnProperty('spending_spreadsheet') && res.form_error.spending_spreadsheet == "invalid file")
-          SweetAlert.swal('Formato do arquivo de Planilha de Gastos inválido!');
-
+      if(res.hasOwnProperty('spending_spreadsheet') && res.form_error.spending_spreadsheet == "invalid file"){
+        SweetAlert.swal('Formato do arquivo de Planilha de Gastos inválido!');
         return false;
       }
 
+      var f = function(field){
+        return document.querySelector('form[name=campaignForm] label[for='+field+']');
+      };
+
+      // setting error message
+      for(var field in res){
+        var name = f(field).innerText;
+        $scope.error_list.push(name + error_msg(res[field]));
+      }
+
+      // enable submit
+      $scope.submit_disabled = false;
+
+      // throw an exception
       SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
       throw new Error('ERROR_SAVING_CAMPAIGN');
+
+      return false;
     });
     return false;
   };
@@ -264,7 +303,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.candidate_params = function(){
     return Params
       .require($scope.candidate)
-      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'responsible_name', 'responsible_email');
+      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email');
   };
 
   $scope.campaign_params = function(){
@@ -275,9 +314,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var list = [];
     for(var i in selected_list) list.push(selected_list[i].id);
 
+    // fallback for decimal number
+    var raising_goal_field = parseFloat($scope.candidate.raising_goal);
+    if(raising_goal_field.toString().indexOf('.') != -1) raising_goal_field += '.00';
+
     var p = {
-      raising_goal: $scope.candidate.raising_goal,
-      issue_priorities: list.join(','),
+      raising_goal      : raising_goal_field,
+      issue_priorities  : list.join(','),
       cielo_merchant_key: $scope.candidate.cielo_merchant_key
     };
 
