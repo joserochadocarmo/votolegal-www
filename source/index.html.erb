@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div id="carousel-example-generic" class="carousel slide carousel-fade-off" data-ride="carousel">
 
-          <ol class="carousel-indicators">
+          <ol class="carousel-indicators hidden-xs">
             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
@@ -15,13 +15,16 @@
             <div class="item active"> 
               <img data-holder-rendered="true" src="/images/home/slide01.jpg" width="100%" alt="First slide [900x500]"> 
               <div class="carousel-caption">
-                <h2>Já é Ficha Limpa? Seja agora Voto Legal!</h2>
-                <p>
-                  <%= link_to 'Cadastrar', '/pre-cadastro', :class => "btn btn-success" %>
-                </p>
+                <h2>Conhece o ficha limpa?<br>Agora chegou o Voto Legal!</h2>
+                <div class="row">
+                  <div class="col-md-offset-3 col-md-6 home-search-box">
+                    <input type="text" class="form-control input-lg search-control bordered-control" placeholder="Procurar por nome, cidade, partido...">
+                    <i class="fa fa-search"></i>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="item"> 
+            <!-- div class="item"> 
               <img data-holder-rendered="true" src="/images/home/slide02.jpg" width="100%" alt="First slide [900x500]"> 
               <div class="carousel-caption">
                 <h2>Arrecade doações de pessoas físicas para sua campanha</h2>
@@ -38,7 +41,7 @@
                   <%= link_to 'Cadastrar', '/pre-cadastro', :class => "btn btn-success" %>
                 </p>
               </div>
-            </div>
+            </div -->
           </div>
 
           <!-- next/previous control  -->
@@ -49,31 +52,53 @@
     </header>
 
     <section id="howto-works" class="container">
+      <div class="row howto-works-realtime">
+        <h2 class="section-title">Acompanhe em tempo real</h2>
+        <div class="realtime-item no-border col-md-4">
+          <span>122</span>
+          <p>candidatos na<br> plataforma</p>
+        </div>
+        <div class="realtime-item col-md-4">
+          <span>24.312</span>
+          <p>doações <br>realizadas</p>
+        </div>
+        <div class="realtime-item col-md-4">
+          <span>50.302<small>,00</small></span>
+          <p>R$ arrecadados</p>
+        </div>
+      </div>
+
+      <br>
+
       <div class="row">
-        <h2 class="section-title">Como funciona?</h2>
+        <h2 class="section-title">Por que é importante doar?</h2>
         <div class="col-md-12">
           <ul class="howto-works-timeline">
             <li class="active">
               <p class="howto-works-pill"><a></a></p>
-              <p class="howto-works-text">Ao preencher os dados, o cadastro do pré-candidato passará por uma validação</p>
+              <p class="howto-works-text">Estimula a transparência nas eleições evitando caixa dois</p>
             </li>
             <li>
               <p class="howto-works-pill"><a></a></p>
-              <p class="howto-works-text">Com o pré-cadastro aprovado, o candidato preenche informações pessoais e de campanha</p>
+              <p class="howto-works-text">Doar pelo Voto Legal é fácil, seguro e transparente</p>
             </li>
             <li>
               <p class="howto-works-pill"><a></a></p>
-              <p class="howto-works-text">O candidato passa a receber doações diretamente na sua conta de campanha</p>
+              <p class="howto-works-text">Doador se torna protagonista no financiamento de campanhas</p>
             </li>
             <li>
               <p class="howto-works-pill"><a></a></p>
-              <p class="howto-works-text">Acompanha as informações, o histórico e o status de doações feitas para ele</p>
+              <p class="howto-works-text">Acessa o status da campanha e prestações de contas</p>
             </li>
             <li>
               <p class="howto-works-pill"><a></a></p>
-              <p class="howto-works-text">O candidato visualiza os projetos prioritários e assuntos mais votados pelos seus doadores</p>
+              <p class="howto-works-text">Doador pode votar em 3 projetos prioritários do candidato</p>
             </li>
           </ul>
+
+          <br>
+          <br>
+          
         </div>
       </div>
     </section>
