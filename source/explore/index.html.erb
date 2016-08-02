@@ -1,5 +1,7 @@
 ---
-title:  Parceiros
+title:      Candidatos
+controller: Explore
+action:     index
 ---
 
 <div class="header-filter">
@@ -17,75 +19,51 @@ title:  Parceiros
         </h1>
       </div>
 
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/avina-logo.jpg" alt="Avina">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/casadarwin-logo.jpg" alt="Casa Darwin">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/casafluminense-logo.jpg" alt="Casa Fluminense">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/catarse-logo.jpg" alt="Catarse">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/ciclocidade-logo.jpg" alt="Ciclo Cidade">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/cidadeape-logo.jpg" alt="Cidadeapé">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/cidadedossonhos-logo.jpg" alt="Cidade dos Sonhos">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/cidadesparapessoas-logo.jpg" alt="Cidades para Pessoas">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/dadocapital-logo.jpg" alt="Dado Capital">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/eokoe-logo.jpg" alt="Eokoe">
+      <style>
+.candidate-list {
+}
+.candidate-panel {
+  margin-bottom: 20px;
+} 
+
+.candidate-panel img {
+  width: 100%;
+} 
+.candidate-panel .candidate-infor {
+  color: #fff;
+  width: 100%;
+  min-height: 45px;
+  position: relative;
+  margin-top: -60px;
+  _display: inline-block;
+  background-color: rgba(56, 113, 72, 0,8);
+  _background-color: rgb(56, 113, 72);
+
+  /*debug*/
+  _border: solid 1px red;
+}
+.candidate-infor h4 {
+  font-size: 16px;
+  padding: 15px 10px;
+}
+      </style>
+      <%
+        list = ['Marcelo Carlos Abraão', 'Eliseu Guilherme Silva', 'Kuiza Beatriz Soares', 'Ligia Maria Lemes']
+      %>
+
+      <div class="candidate-list">
+        <% 3.times.each do %>
+          <% 4.times.each do |id| %>
+            <div class="candidate-panel col-md-3 col-sm-4 col-xs-6">
+              <img src="/images/mocks/user0<%= id + 1 %>.jpg" alt="Joe Doe">
+              <div class="candidate-infor">
+                <h4><%= list[id] %> o PCdoB</h4>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/instethos-logo.jpg" alt="Instituto Ethos">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/legado-logo.jpg" alt="Legado No Legislativo">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/minhasampa-logo.jpg" alt="Minha Sampa">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/opkn-logo.jpg" alt="Open Knowledge">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/paiol-logo.jpg" alt="Paiol Filmes">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/politize-logo.jpg" alt="Politize">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/questono-logo.jpg" alt="QuettoNo">
-      </div>
-
-
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/raps-logo.jpg" alt="RAPS">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/redenossasp-logo.jpg" alt="Rede Nossa SP">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/transphacker-logo.jpg" alt="Transparência Hacker">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/update-logo.jpg" alt="Update">
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <img class="img-thumbnail" src="/images/parceiros/w3c-logo.jpg" alt="W3C">
-      </div>
     </div>
   </div>
 </section>
