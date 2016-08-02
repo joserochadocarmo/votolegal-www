@@ -21,6 +21,16 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
       activetab: 'pessoal'
     });
   }]);
+
+  var pid = window.setInterval(function(){
+    if (typeof(Storage) !== "undefined") {
+      var progress = localStorage.progress;
+
+      var p = document.querySelector("div[role=progressbar]");
+      p.innerHTML = progress + "%"; 
+      p.style.width = progress + "%"; 
+    }
+  }, 1000);
 }
 
 /**
@@ -86,6 +96,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     }
 
     $scope.progress = p;
+
+    // save to session
+    var session = auth_service.session();
+    session.set('progress', p);
   };
 
   // mark project as changed
@@ -121,6 +135,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     }).then(function (response) {
       SweetAlert.swal('Os dados da campanha foram salvos!');
       $scope.submit_disabled = false;
+      $scope.check_percent();
     },function(response){
       var res = response.data.form_error;
 
@@ -174,6 +189,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     }).then(function (response) {
       SweetAlert.swal('Os dados da campanha foram salvos!');
       $scope.submit_disabled = false;
+      $scope.check_percent();
     },function(response){
       var res = response.data.form_error;
 
@@ -230,6 +246,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     }).then(function (response) {
       //$scope.projects[index].changed = false;
       SweetAlert.swal('O projeto foi salvo!');
+      $scope.check_percent();
     },function(response){
       SweetAlert.swal('Error', 'O projeto não pode ser salvo!');
       throw new Error('ERROR_SAVING_PROJECT');
@@ -269,6 +286,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
           ).then(function(response){ 
             $scope.projects.splice(index, 1);
             swal('O projeto foi removido com sucesso!');
+            $scope.check_percent();
           }, function(response){ throw new Error('ERROR_DELETE_PROJECTS') });
         }
         else {
@@ -407,3 +425,5 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_projects();
   $scope.check_percent(); 
 }]);
+
+
