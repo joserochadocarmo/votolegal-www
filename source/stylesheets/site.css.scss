@@ -561,7 +561,126 @@ div.header-filter {
   }
 }
 section#explore {
+  .candidate-list {
+    .candidate-panel {
+      padding: 0px;
+      width: 275px;
+      height: 345px;
+      cursor: pointer;
+      text-align: left;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 50px;
 
+      background: transparent url("/images/candidatos/user_general.jpg") no-repeat scroll top center;
+      background-size: cover;
+
+      .open {
+        width: 275px !important;
+        height: 345px !important;
+        z-index: 4;
+        background-color: rgba(62, 118, 83, 0.9) !important;
+        
+        h4 {
+          display: block !important;
+          background-color: transparent !important;
+          padding: 200px 10px 2px 10px !important;
+        }
+
+        i.fa {
+          color: #71c975;
+        }
+
+        p.candidate-location {
+          width: 100%;
+          display: block !important;
+          padding: 2px 10px;
+        }
+
+        ul {
+          font-size: 12px;
+          font-weight: bold;
+          position: relative;
+          display: block !important;
+
+          width: 100%;
+          height: 22px;
+          margin: 0px;
+          padding: 0px 10px;
+          list-style: none;
+
+          li {
+            float: left;
+            padding: 0px;
+            margin-right: 5px;
+          }
+
+          li:not(:last-child)::after {
+            content: ",";
+          }
+        }
+
+        .progress {
+          width: 90%;
+          height: 10px;
+          display: block !important;
+          margin-bottom:4px;
+          margin-left:auto;
+          margin-right:auto;
+          border: solid 1px #fff;
+          background-color: transparent;
+        }
+
+        div {
+          display: block !important;
+        }
+
+        span {
+          margin: 0px;
+          padding: 0px;
+        }
+        small {
+          margin: 0px;
+          padding: 0px;
+          font-size: 9px;
+          font-weight: bold;
+        }
+      }
+    
+      .candidate-infor {
+        color: #fff;
+
+        h4 {
+          font-size: 16px;
+          padding: 15px 10px;
+          _padding: 230px 10px 2px 10px !important;
+          background-color: rgba(62, 118, 83, 0.9);
+        }
+
+        i.fa {
+          color: #71c975;
+        }
+
+        ul {
+          display: none;
+        }
+
+        p.candidate-location {
+          display: none;
+        }
+
+        div.progress {
+          display: none;
+        }
+
+        div {
+          display: none;
+        }
+      }
+
+
+    }
+  }
 }
 
 
