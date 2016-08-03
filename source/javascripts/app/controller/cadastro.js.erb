@@ -120,7 +120,9 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       method: 'PUT',
       url: '<%= config[:api_host]%>/candidate/'+ user.id +"?api_key=" + user.api_key,
       data: params,
-      headers: {'Content-Type': undefined },
+      headers: {
+        'Content-Type': undefined, 'X-API-Key': user.api_key
+      },
       transformRequest: function (data) {
         var fd = new FormData();
         for (var p in data) fd.append(p, data[p]);
@@ -242,7 +244,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       method: (p.id && p.id > 0)? 'PUT' : 'POST',
       url: '<%= config[:api_host]%>/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
       data: serialize.from_object(params),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-API-Key': user.api_key
+      },
     }).then(function (response) {
       //$scope.projects[index].changed = false;
       SweetAlert.swal('O projeto foi salvo!');
