@@ -579,12 +579,16 @@ section#explore {
         width: 275px !important;
         height: 345px !important;
         z-index: 4;
+        width: 100%;
+        color: #fff;
+        margin-top: 0px !important;
+        display: inline-block;
         background-color: rgba(62, 118, 83, 0.9) !important;
         
         h4 {
           display: block !important;
           background-color: transparent !important;
-          padding: 200px 10px 2px 10px !important;
+          padding: 180px 10px 2px 10px !important;
         }
 
         i.fa {
@@ -648,7 +652,10 @@ section#explore {
       }
     
       .candidate-infor {
+        width: 100%;
         color: #fff;
+        margin-top: 288px;
+        display: inline-block;
 
         h4 {
           font-size: 16px;
