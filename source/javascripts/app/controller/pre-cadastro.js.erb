@@ -16,8 +16,6 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     var params = $scope.register_params();
     $scope.error_list = [];
 
-    console.log($scope.candidate.ficha_limpa);
-
     if (!$scope.candidate.ficha_limpa || $scope.candidate.ficha_limpa == 0){
       $scope.error_list.push("Você deve ser ficha limpa para completar seu pré-cadastro.");
       return false;
@@ -61,6 +59,11 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
 
         // setting error message
         for(var field in res){
+          if(field == 'cpf' && res[field] == 'already exists'){
+            $scope.error_list.push("CPF já cadastrado! Para completar o seu cadastro, por favor faça o login.");
+            return false;
+          }
+          
           var name = f(field).attributes['placeholder'].value;
           $scope.error_list.push(name + error_msg(res[field]));
         }
