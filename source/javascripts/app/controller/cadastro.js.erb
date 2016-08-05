@@ -56,7 +56,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   // change input-file filename
   $scope.change_filename = function(name){
     var filename = document.querySelector('input[name='+name+']').value;
-    filename = filename.split('/')[-1];
+    filename = filename.split(/\/|\\/g).reverse()[0];
     document.querySelector('.'+name+'_filename').value = filename;
   };
 
@@ -148,6 +148,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
       // setting error message
       for(var field in res){
+        if(field == 'picture' && res[field] === 'invalid image'){
+          $scope.error_list.push("Arquivo de imagem inválido!");
+          return false;
+        }
+
         var name = f(field).innerText;
         $scope.error_list.push(name + error_msg(res[field]));
       }
