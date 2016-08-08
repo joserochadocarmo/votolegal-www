@@ -690,6 +690,55 @@ section#explore {
   }
 }
 
+section#candidate {
+  .nome-candidato {
+    color: #999;
+    font-weight: 300;
+
+    .fa {
+      font-size: 12px;
+      display: inline-block;
+      vertical-align: middle;
+      color: rgb(78, 170, 91);
+    }
+  }
+  .assuntos {
+    font-weight: bold;
+  }
+  .cidade {
+      color: rgb(78, 170, 91);
+  }
+
+  .profile-image {
+    margin-bottom: -150px;
+    position: relative;
+    display: inline-block;
+    border: 15px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    margin-top: 15px;
+    width: 175px;
+    height: 175px;
+  }
+  .profile-stamp {
+    margin-bottom: -150px;
+    position: relative;
+    display: inline-block;
+    border: 8px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    margin-top: 20px;
+    width: 75px;
+    height: 75px;
+  }
+}
+
+
+.degrade-default {
+  background: #dddfe3; /* Old browsers */
+  background: -moz-linear-gradient(top,  #dddfe3 0%, #e0e0e0 0%, #ffffff 19%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #dddfe3 0%,#e0e0e0 0%,#ffffff 19%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #dddfe3 0%,#e0e0e0 0%,#ffffff 19%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddfe3', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
 
 /* bootstrap custom */
 .progress {
