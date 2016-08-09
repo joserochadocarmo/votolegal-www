@@ -184,6 +184,23 @@
   }]);
 
   /**
+   * Troublesoting Service
+   * Connect to the Postmon service API to get zipcode informations
+   */ 
+  app.votolegal.factory('trouble', ['$http', function($http){
+    return {
+      shoot: function(params) {
+        if(!params.hasOwnProperty('route')) console.log('route param for troubleshoot is required');
+        if(!params.hasOwnProperty('error')) console.log('error param for troubleshoot is required');
+
+        if(params.hasOwnProperty('route') && params.hasOwnProperty('error')){
+          $http.post('<%= config[:api_host]%>/troubleshoot', params);
+        }
+      }
+    }
+  }]);
+
+  /**
    * Serializer Service
    */ 
   app.votolegal.factory('serialize', function(){ return new Serializer() });

@@ -37,7 +37,7 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
  * Cadastro controller
  * Register a new candidate
  */ 
-app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', '$route', '$interval', 'auth_service', 'serialize', 'SweetAlert', function($scope, $http, $location, $route, $interval, auth_service, serialize, SweetAlert){
+app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', '$route', '$interval', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, $location, $route, $interval, auth_service, serialize, SweetAlert, trouble){
   $scope.candidate   = {};
   $scope.issue_list  = []; 
   $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
@@ -117,7 +117,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     $scope.projects[index].changed = true;
   };
 
-  // save campaign data
+  // save candidate data
   $scope.save_candidate = function(index){
     $scope.error_list  = [];
     var params = $scope.candidate_params();
@@ -160,7 +160,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
         if(!res.data){
           SweetAlert.swal('Erro ao salvar os dados!');
-          console.error(res);
+          // send generic error
+          trouble.shoot({ 
+            route: '/cadastro-completo#/dados-pessoais', error: JSON.stringify(res)
+          });
           return false
         }
 
@@ -186,7 +189,12 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
         // throw an exception
         //SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
-        throw new Error('ERROR_SAVING_CAMPAIGN');
+        throw new Error('ERROR_SAVING_CANDIDATE');
+
+        // send generic error
+        trouble.shoot({ 
+          route: '/cadastro-completo#/dados-pessoais', error: JSON.stringify(res.data)
+        });
 
         return false;
       });
