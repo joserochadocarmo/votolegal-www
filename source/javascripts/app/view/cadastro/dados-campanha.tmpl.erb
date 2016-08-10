@@ -2,7 +2,7 @@
   <h4>Informações da campanha</h4>
   <br class="divider">
 
-  <% content_tag :form, name: 'campaignForm', class: 'angular-form', 'ng-submit': "save_campaign(campaignForm.$valid)", novalidate: '' do %>
+  <% content_tag :form, name: 'campaignForm', class: 'angular-form', 'ng-submit' => "save_campaign(campaignForm.$valid)", novalidate: '' do %>
     <div class="row">
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="raising_goal">Quanto quer arrecadar?</label>*

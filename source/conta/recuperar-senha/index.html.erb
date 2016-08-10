@@ -12,7 +12,7 @@ title:  Esqueci minha senha
       </div>
       <div class="col-md-offset-4 col-md-4" style="min-height: 200px">
         <p>Digite seu e­mail de cadastro para recuperar sua senha. </p>
-        <% content_tag :form, name: 'forgotForm', class: 'angular-form', 'ng-submit': "forgot_password(forgotForm.$valid)", novalidate: '' do %>
+        <% content_tag :form, name: 'forgotForm', class: 'angular-form', 'ng-submit' => "forgot_password(forgotForm.$valid)", novalidate: '' do %>
           <div class="row">
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-envelope"></i>    
