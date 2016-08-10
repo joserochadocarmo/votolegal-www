@@ -158,12 +158,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       },function(response){
         var res = response;
 
+        // send generic error
+        trouble.shoot({ 
+          route: '/cadastro-completo#/dados-pessoais', error: JSON.stringify(res)
+        });
+
         if(!res.data){
           SweetAlert.swal('Erro ao salvar os dados!');
-          // send generic error
-          trouble.shoot({ 
-            route: '/cadastro-completo#/dados-pessoais', error: JSON.stringify(res)
-          });
           return false
         }
 
@@ -190,11 +191,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         // throw an exception
         //SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
         throw new Error('ERROR_SAVING_CANDIDATE');
-
-        // send generic error
-        trouble.shoot({ 
-          route: '/cadastro-completo#/dados-pessoais', error: JSON.stringify(res.data)
-        });
 
         return false;
       });
