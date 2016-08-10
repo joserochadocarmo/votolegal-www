@@ -51,7 +51,7 @@
                   </a>
                     <ul class="dropdown-menu">
                       <li ng-controller="AuthController">
-                        <% content_tag :form, name: 'signinForm', class: 'angular-form', 'ng-submit': "authenticate(signinForm.$valid)", novalidate: '' do %>
+                        <% content_tag :form, name: 'signinForm', class: 'angular-form', 'ng-submit' => "authenticate(signinForm.$valid)", novalidate: '' do %>
 
                         <p class="text-center">
                           <input type="text" class="form-control" name="email" ng-model="signin.email" placeholder="Login" autofocus required>

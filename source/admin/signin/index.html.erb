@@ -120,7 +120,7 @@ body {
                   <div class="img-avatar">
                     <i class="fa fa-user"></i>
                   </div>
-                  <% content_tag :form, name: 'signinForm', class: 'form-signin angular-form', 'ng-submit': "authenticate(signinForm.$valid)", novalidate: '' do %>
+                  <% content_tag :form, name: 'signinForm', class: 'form-signin angular-form', 'ng-submit' => "authenticate(signinForm.$valid)", novalidate: '' do %>
                   <input type="text" name="email" ng-model="signin.email" class="form-control" placeholder="E-mail" required autofocus>
                   <input type="password" name="password" ng-model="signin.password" class="form-control" placeholder="Password" required>
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
