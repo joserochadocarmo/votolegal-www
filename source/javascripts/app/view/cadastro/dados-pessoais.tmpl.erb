@@ -27,46 +27,37 @@
         <a class="btn-info" tabindex="-1" href="javascript:void(0);" uib-popover="Preferência para fotos com fundo branco." popover-placement="left" popover-trigger="click">
           <i class="flaticon-info"></i>
         </a>
+        <small>Sua imagem deve ter o tamanho máximo de <code>1MB</code> e conter uma das seguintes extenções: <code>.jpg</code>, <code>.png</code>, <code>.gif</code> ou <code>.bmp</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="video_url">Link do video (youtube ou vimeo)</label>*
         <i class="fa fa-video-camera"></i>    
         <input class="form-control" type="text" name="video_url" ng-model="candidate.video_url" required>
-        <p class="help-block" ng-show="error_list.length > 0">
-          <small>O endereço do youtube ou do vimeo deve seguir o seguinte modelo: <code>https://www.youtube.com/watch?v=xZKg2w3iOMo</code>.</small>
-        </p>
+        <small>O endereço do youtube ou do vimeo deve seguir o seguinte modelo: <code>https://www.youtube.com/watch?v=xZKg2w3iOMo</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="facebook_url">Link página Facebook</label>
         <i class="fa fa-facebook"></i>    
         <input class="form-control" type="text" name="facebook_url" ng-model="candidate.facebook_url">
-        <p class="help-block" ng-show="error_list.length > 0">
-          <small>O endereço da página do facebook deve seguir o seguinte modelo: <code>https://www.facebook.com/MCCEFichaLimpa</code>.</small>
-        </p>
+        <small>O endereço da página do facebook deve seguir o seguinte modelo: <code>https://www.facebook.com/MCCEFichaLimpa</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="twitter_url">Link página Twitter</label>
         <i class="fa fa-twitter"></i>    
         <input class="form-control" type="text" name="twitter_url" ng-model="candidate.twitter_url">
-        <p class="help-block" ng-show="error_list.length > 0">
-          <small>O endereço da página do twitter deve seguir o seguinte modelo: <code>http://twitter.com/fichalimpa</code>.</small>
-        </p>
+        <small>O endereço da página do twitter deve seguir o seguinte modelo: <code>http://twitter.com/fichalimpa</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="instagram_url">Link página Instagram</label>
         <i class="fa fa-instagram"></i>    
         <input class="form-control" type="text" name="instagram_url" ng-model="candidate.instagram_url">
-        <p class="help-block" ng-show="error_list.length > 0">
-          <small>O endereço do instagram deve seguir o seguinte modelo: <code>https://www.instagram.com/seu_username</code>.</small>
-        </p>
+        <small>O endereço do instagram deve seguir o seguinte modelo: <code>https://www.instagram.com/seu_username</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="website_url">Link Website</label>
         <i class="fa fa-link"></i>    
         <input class="form-control" type="text" name="website_url" ng-model="candidate.website_url" required>
-        <p class="help-block" ng-show="error_list.length > 0">
-          <small>O endereço do seu website deve seguir o seguinte modelo: <code>http://www.seu-site.com.br</code>.</small>
-        </p>
+        <small>O endereço do seu website deve seguir o seguinte modelo: <code>http://www.seu-site.com.br</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="public_email">E-mail de contato para eleitores</label>
