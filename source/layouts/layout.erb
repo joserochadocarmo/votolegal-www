@@ -5,9 +5,9 @@
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
   <title><%= current_page.data.title ? "VotoLegal - #{current_page.data.title}" : "VotoLegal" %></title>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon"/> 
-  
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "site" %>
   <%= stylesheet_link_tag "font-awesome.min" %>
@@ -51,7 +51,7 @@
                   </a>
                     <ul class="dropdown-menu">
                       <li ng-controller="AuthController">
-                        <% content_tag :form, name: 'signinForm', class: 'angular-form', 'ng-submit': "authenticate(signinForm.$valid)", novalidate: '' do %>
+                        <% content_tag :form, name: 'signinForm', class: 'angular-form', 'ng-submit' => "authenticate(signinForm.$valid)", novalidate: '' do %>
 
                         <p class="text-center">
                           <input type="text" class="form-control" name="email" ng-model="signin.email" placeholder="Login" autofocus required>
@@ -143,7 +143,7 @@
               <li><a href="//github.com/AppCivico" title="Github" target="_blank"><i class="fa fa-github fa-2x"></i></a></li>
             </ul>
           </div>
-          
+
           <div class="copyright col-md-12 col-sm-12 col-xs-12">
             <p>Voto Legal é uma plataforma aberta e baseada em software livre os realizadores não se responsabilizam pelas informações fornecidas pelos candidatos, nem pelo comportamento deles durante o período eleitoral, e se eleitos, durante seus respectivos mandatos.</p>
             <p>Este projeto é distribuido sob a licença <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank"><em>Affero General Public License</em></a>.</p>
@@ -152,7 +152,7 @@
         </div>
       </div>
     </footer>
-    
+
     <!-- styles -->
     <%= stylesheet_link_tag "sweetalert" %>
 
@@ -180,20 +180,20 @@
     <%= javascript_include_tag 'ekko-lightbox.min.js' %>
 
     <%= javascript_include_tag 'application' %>
-    
+
     <script>
       // TODO: colocar todo esse js em um arquivo separado
       $(function(){
 
         /**
-         * Change color of 
+         * Change color of
          */
         $('.howto-works-timeline').on('mouseover', '.howto-works-text, .howto-works-pill', function(){
           $('.howto-works-timeline li').removeClass('active');
           $(this).parent().addClass('active');
         });
 
-    
+
         /**
          * Faq chevrom image change
          */
@@ -216,16 +216,16 @@
       });
     </script>
 
-    <script> 
-      var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2}; 
-      function $buo_f(){ 
-       var e = document.createElement("script"); 
-       e.src = "//browser-update.org/update.min.js"; 
+    <script>
+      var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2};
+      function $buo_f(){
+       var e = document.createElement("script");
+       e.src = "//browser-update.org/update.min.js";
        document.body.appendChild(e);
       };
       try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
       catch(e){window.attachEvent("onload", $buo_f)}
-    </script> 
+    </script>
 
     <%= partial "partial/ga" %>
   </body>
