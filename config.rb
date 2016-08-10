@@ -43,6 +43,12 @@ end
 #   end
 # end
 
+
+# Sprockets
+activate :sprockets do |c|
+  c.expose_middleman_helpers = true
+end
+
 # Build-specific configuration
 configure :build do
   # api host address
