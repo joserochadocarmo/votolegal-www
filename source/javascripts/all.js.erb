@@ -82,8 +82,8 @@
 
       var param_list = {};
       angular.forEach(arguments, function(i){
-        if(_self._value.hasOwnProperty(i) && _self._value[i] != null) 
-          return param_list[i] = _self._value[i];
+        if(_self._value.hasOwnProperty(i)) 
+          return param_list[i] = _self._value[i] || "";
       });
 
       return param_list;
