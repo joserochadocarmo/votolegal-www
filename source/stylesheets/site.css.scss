@@ -8,7 +8,8 @@ $txt_color: #777;
 $txt_black: #000;
 
 /* background color */
-$bg_color: #fff; 
+$bg_color: #fff;
+$fundo-cinza-claro: #e0e0e0;
 
 /* font defaults */
 @mixin font-normal() {
@@ -55,7 +56,7 @@ nav.navbar {
   padding-top: 20px;
 }
 
-nav.navbar-votolegal { 
+nav.navbar-votolegal {
   /* debug */
   border: none;
   border-radius: 0px;
@@ -95,7 +96,7 @@ nav.navbar-votolegal {
       background-color: transparent;
     }
 
-    a:focus, 
+    a:focus,
     a:hover {
       color: #4daa59;
       background-color: transparent;
@@ -275,7 +276,7 @@ section#howto-works {
         width: 100%;
       }
     }
-    
+
     .active {
       .howto-works-pill {
         @media all and ($max-screen : 768px) {
@@ -294,7 +295,7 @@ section#howto-works {
         background-color: #fff;
       }
 
-      a { 
+      a {
         width: 14px;
         height: 14px;
         border-radius: 30px;
@@ -424,7 +425,7 @@ footer#footer {
         background-color: #43ac45;
         padding-top: 3px;
         border-radius: 30px;
-        
+
         a {
           color: #ffffff;
           &:hover {
@@ -485,8 +486,8 @@ section#faq {
 
     i { color: #fff }
 
-    input[type=text], 
-    input[type=text]:focus, 
+    input[type=text],
+    input[type=text]:focus,
     input[type=text]:hover {
       color: #ffffff;
       width: 100%;
@@ -584,7 +585,7 @@ section#explore {
         margin-top: 0px !important;
         display: inline-block;
         background-color: rgba(62, 118, 83, 0.9) !important;
-        
+
         h4 {
           display: block !important;
           background-color: transparent !important;
@@ -650,7 +651,7 @@ section#explore {
           font-weight: bold;
         }
       }
-    
+
       .candidate-infor {
         width: 100%;
         color: #fff;
@@ -881,7 +882,7 @@ a {
 
   i {
     left: 0px;
-    color: #4cba59; 
+    color: #4cba59;
     position: absolute;
     padding: 10px 10px 10px 25px;
     pointer-events: none;
@@ -1001,9 +1002,9 @@ a {
   }
 
   i {
-    margin: 0px; 
-    line-height: 20px; 
-    padding: 0px 8px; 
+    margin: 0px;
+    line-height: 20px;
+    padding: 0px 8px;
   }
 }
 
@@ -1033,10 +1034,10 @@ a {
 .image-preview-input {
     position: relative;
     overflow: hidden;
-	margin: 0px;    
+	margin: 0px;
     color: #333;
     background-color: #fff;
-    border-color: #ccc;    
+    border-color: #ccc;
 }
 .image-preview-input input[type=file] {
 	position: absolute;
@@ -1071,3 +1072,53 @@ a {
   border: solid 1px #fff;
 }
 
+section#votacao-projetos{
+  .confirma-doacao{
+    text-align: center;
+    .confirmado-title{
+      font-size: 36px; font-weight: 300; color: #999;
+      &:before{
+        width: 100px; height: 2px; border-top: 2px solid #62d35d; display: block
+      }
+    }
+    .depois-confirmado{
+      border-top: 3px solid #62d35d; width: 150px; margin-top: 0;
+    }
+    .c-d-mensagem-wrap{
+      padding: 20px;
+      background: $fundo-cinza-claro;
+    }
+  }
+  .votacao-projetos-wrap{
+    margin: 50px 0 0;
+    .txt-explica-votacao{
+      color: #62d35d; font-weight: 700; font-size: 15px
+    }
+    .form-vota-prj-wrap{
+      margin: 50px 0 0;
+      color:#777!important;
+      .votacao-projetos-form{
+        input[type='checkbox']{
+          margin: 0 10px 0 0;
+        }
+        .panel-heading{
+          font-weight: 700;
+          background: none !important;
+        }
+      }
+      a.colapsa-proj{
+        color: #999;
+        outline: 0;
+        &:hover, &:focus, &:active{
+          color: #62d35d;
+        }
+      }
+    }
+    .foto-candidato-wrap{
+      .cand-img-redondo{width: 242px; height: 242px; overflow: hidden; border-radius: 100%;
+        img{width: 100%; height: auto;}
+      }
+    }
+  }
+
+}
