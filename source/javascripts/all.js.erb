@@ -163,6 +163,12 @@
   }]);
 
   /**
+   * Serializer Service
+   */ 
+  app.votolegal.factory('serialize', function(){ return new Serializer() });
+
+
+  /**
    * Show String as HTML
    */
   app.votolegal.filter('unsafe', ['$sce', function($sce){
@@ -183,23 +189,23 @@
    * Troublesoting Service
    * Connect to the Postmon service API to get zipcode informations
    */ 
-  app.votolegal.factory('trouble', ['$http', function($http){
+  app.votolegal.factory('trouble', ['$http', 'serialize', function($http, serialize){
     return {
       shoot: function(params) {
         if(!params.hasOwnProperty('route')) console.log('route param for troubleshoot is required');
         if(!params.hasOwnProperty('error')) console.log('error param for troubleshoot is required');
 
-        if(params.hasOwnProperty('route') && params.hasOwnProperty('error')){
-          $http.post('<%= config[:api_host]%>/troubleshoot', params);
+        if(params.route && params.error){
+          $http({
+            method: 'POST', 
+            url: '<%= config[:api_host]%>/troubleshoot', 
+            data: serialize.from_object(params), 
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          });
         }
       }
     }
   }]);
-
-  /**
-   * Serializer Service
-   */ 
-  app.votolegal.factory('serialize', function(){ return new Serializer() });
 
 
   /**

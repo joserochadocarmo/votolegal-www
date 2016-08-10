@@ -160,7 +160,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
         // send generic error
         trouble.shoot({ 
-          route: '/cadastro-completo#/dados-pessoais', error: JSON.stringify(res)
+          route: "/cadastro-completo#/dados-pessoais", error: JSON.stringify(res)
         });
 
         if(!res.data){
@@ -382,7 +382,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
     return Params
       .require($scope.candidate)
-      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email')
+      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj')
   };
 
   $scope.campaign_params = function(){
