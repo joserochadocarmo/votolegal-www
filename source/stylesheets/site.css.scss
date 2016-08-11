@@ -11,6 +11,7 @@ $txt_black: #000;
 $bg_color: #fff;
 $fundo-cinza-claro: #e0e0e0;
 $verde-arvore: #3faf47;
+$verde-escuro: #29673e;
 
 /* font defaults */
 @mixin font-normal() {
@@ -1164,5 +1165,83 @@ section#votacao-projetos{
         }
       }
     }
+    .pessoas-doaram, .meta-de-doacao{
+      width: 50%;
+      display: block;
+      float: left;
+    }
+    .meta-de-doacao{
+      &:after{
+        display: block; width: 100%;height: 1px; clear: both;
+      }
+    }
+    span.pessoas-doaram-txt, span.meta-doa-txt{
+      font-size: 10px;
+      color: $verde-arvore;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .pessoas-doaram-num, .meta-doa-num{
+      font-size: 20px
+    }
+  }
+  .download-hist-doa-container{
+    margin: 50px 0 20px;
+    .download-hist-doa{
+      margin-right: 10px;
+    }
+    .download-hist-doa:hover, .imprime-hist-doa:hover{
+      color: $verde-escuro;
+    }
+    .imprime-hist-doa{
+      margin-left: 10px;
+    }
   }
 }
+.tabela-hist-doa{
+  thead{
+    background: #62d35d;
+    color: white;
+    th{
+      border-top: 1px solid #62d35d!important;
+      border-bottom:1px solid #62d35d!important;
+      padding: 12px 8px!important;
+      font-weight: 400;
+      font-size: 16px;
+      &:not(:last-child){border-right: 1px solid #29673e!important;}
+      &:first-child{border-left: 1px solid #62d35d!important; }
+      &:last-child{border-right: 1px solid #62d35d!important; }
+    }
+  }
+  tbody{
+    tr{
+      &:nth-child(odd){
+        background: #e0e0e0;
+      }
+      td{
+        border: 1px solid #29673e!important;
+      }
+
+    }
+  }
+
+}
+.quadro-verde{height: 12px; width: 12px; background: $verde-escuro; display: inline-block; line-height: 13px; margin: 0 0 0 15px;}
+.carrega-mais-hist-container{
+  text-align: center;
+  margin: 40px 0 20px;
+  .btn{display: inline-block; border-radius: 10px; color: #777;}
+}
+.proj-mais-vot{
+  display: block;
+  .proj-title{width: 50%; float: left; font-size: 16px; line-height: 40px; margin: 10px 0;}
+  .pro-mais-vot-porcent{
+    float: left; width: 50%; margin: 10px 0px;
+    .prog-bar-cont{
+      width: calc(100% - 100px); float: right;
+      .proj-mais-vot-porcent-bar{height: 8px; margin: 16px 0px;}
+    }
+    .porcent-txt-info{ width: 100px; float:right; text-align: right;}
+  }
+}
+.proj-mais-vot-title{color: $verde-arvore;}
