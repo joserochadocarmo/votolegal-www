@@ -1076,15 +1076,7 @@ a {
 section#votacao-projetos{
   .confirma-doacao{
     text-align: center;
-    .confirmado-title{
-      font-size: 36px; font-weight: 300; color: #999;
-      &:before{
-        width: 100px; height: 2px; border-top: 2px solid #62d35d; display: block
-      }
-    }
-    .depois-confirmado{
-      border-top: 3px solid #62d35d; width: 150px; margin-top: 0;
-    }
+
     .c-d-mensagem-wrap{
       padding: 20px;
       background: $fundo-cinza-claro;
@@ -1127,4 +1119,50 @@ section#votacao-projetos{
   }
 
 }
+.confirmado-title, .titulo-pagina{
+  font-size: 36px; font-weight: 300; color: #999;
+  &:before{
+    width: 100px; height: 2px; border-top: 2px solid #62d35d; display: block
+  }
+}
+.depois-confirmado, .depois-hist-doacoes{
+  border-top: 3px solid #62d35d;margin-top: 0;
+}
+.depois-confirmado{width: 150px;}
+.depois-hist-doacoes{width: 250px}
 .btn-verde-arvore{background: $verde-arvore; color: white; width: 100%;display: inline-block; font-size: 20px;font-weight: 200; border-radius: 10px; margin: 50px 0;}
+#historico-doacoes{
+  .num-gerais-wrap{
+    span.total-arr{
+      color: $verde-arvore;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    span.total-arr-em-num{
+      font-size: 30px
+    }
+    .total-arr-progress-bar{
+      height: 10px!important;
+      margin-bottom: 2px!important;
+    }
+    .total-arr-baixo-prog-bar{
+      span.porcent-em-numero{
+        width: 50%;
+        text-align: left;
+        float: left;
+      }
+      span.dias-faltam{
+        width: 50%;
+        text-align: right;
+        float: left;
+        &:after{
+          display: block;
+          height: 1px;
+          width: 100%;
+          clear: both;
+        }
+      }
+    }
+  }
+}
