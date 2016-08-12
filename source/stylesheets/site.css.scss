@@ -690,7 +690,9 @@ section#explore {
   }
 }
 
-section#candidate {
+
+
+.candidate-header {
   .nome-candidato {
     color: #999;
     font-weight: 300;
@@ -728,6 +730,124 @@ section#candidate {
     margin-top: 20px;
     width: 75px;
     height: 75px;
+  }
+}
+section#candidate {
+  .candidate-video {
+    p {
+      color: #444 !important;
+    }
+
+    .share-button {
+      .nav {
+        strong {
+          padding: 10px 15px;
+          position: relative;
+          display: block;
+          color: #999;
+        }
+      }
+      .nav-pills {
+        a {
+          color: #888;
+          font-weight: bold;
+          border-radius: 0px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  .candidate-campaign {
+    h4 {
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: bold; 
+      margin-bottom: 0px;
+    }
+    small {
+      color: #888;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .donated {
+      color: #444;
+      font-size: 48px;
+      font-weight: 300;
+    }
+    .progress {
+      margin-bottom: 0px;
+      border-radius: 15px;
+    }
+    .donator-number {
+      font-size: 32px;
+      font-weight: 500;
+    }
+    .raising-goal {
+      font-size: 32px;
+      font-weight: 500;
+    }
+    .btn-donate {
+      font-size: 26px;
+    }
+  }
+  .candidate-tabs {
+    ul.nav-tabs {
+      border-top: 1px solid #ddd;
+      border-bottom: none;
+    
+      li>a {
+        color: #999;
+        font-size: 16px;
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: none;
+        border-top: 3px solid transparent;
+        border-radius: 0px;
+      }
+      li>a:hover {
+        background-color: #eaeaea;
+      }
+      li.active>a, li.active>a:focus, li.active>a:hover {
+        color: #333;
+        cursor: default;
+        background-color: #fff;
+        border: none;
+        border-top: 3px solid #5cb85c;
+      }
+    }
+  }
+
+  .candidate-tabs {
+    .project-votes {
+      .tab-pane {
+        padding-top: 20px;
+      }
+      .progress {
+        height: 10px;
+      }
+    }
+
+    .table {
+      thead {
+        color: #fff;
+        font-weight: 300;
+        background-color: #5cb85c;
+      }
+    }
+
+    #tab-sobre {
+      i {
+        font-size: 12px;
+        display: inline-block;
+        vertical-align: middle;
+        color: #4eaa5b;
+      }
+    }
+
+    .btn-link {
+      color: #5cb85c;
+    }
   }
 }
 
