@@ -90,7 +90,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 
       if($c.raising_goal && $c.raising_goal.length) p += 6;
-      if($c.cielo_merchant_key && $c.cielo_merchant_key.length) p += 6;
+      if($c.merchant_key && $c.merchant_key.length) p += 6;
       if($c.spending_spreadsheet && $c.spending_spreadsheet.length) p += 4;
     }
 
@@ -384,12 +384,12 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var p = {
       raising_goal      : raising_goal_field,
       issue_priorities  : list.join(','),
-      cielo_merchant_key: $scope.candidate.cielo_merchant_key
+      merchant_key: $scope.candidate.merchant_key
     };
 
     return Params
       .require(p)
-      .permit('raising_goal', 'issue_priorities', 'cielo_merchant_key');
+      .permit('raising_goal', 'issue_priorities', 'merchant_key');
   };
 
   $scope.projects_params = function(){
