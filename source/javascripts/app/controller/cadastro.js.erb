@@ -364,22 +364,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
    * form params
    */
   $scope.candidate_params = function(){
-    if($scope.candidate.video_url && $scope.candidate.video_url.indexOf('http') !== 0)
-      $scope.candidate.video_url = 'http://' + $scope.candidate.video_url;
-
-    if($scope.candidate.facebook_url && $scope.candidate.facebook_url.indexOf('http') !== 0)
-      $scope.candidate.facebook_url = 'http://' + $scope.candidate.facebook_url;
-
-    if($scope.candidate.twitter_url && $scope.candidate.twitter_url.indexOf('http') !== 0)
-      $scope.candidate.twitter_url = 'http://' + $scope.candidate.twitter_url;
-
-    if($scope.candidate.instagram_url && $scope.candidate.instagram_url.indexOf('http') !== 0)
-      $scope.candidate.instagram_url = 'http://' + $scope.candidate.instagram_url;
-
-    if($scope.candidate.website_url && $scope.candidate.website_url.indexOf('http') !== 0)
-      $scope.candidate.website_url = 'http://' + $scope.candidate.website_url;
-
-
     return Params
       .require($scope.candidate)
       .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj')
