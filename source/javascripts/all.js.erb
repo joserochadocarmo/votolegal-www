@@ -63,16 +63,16 @@
       if (!results) return null;
       if (!results[2]) return '';
       return decodeURIComponent(results[2].replace(/\+/g, " "));
-    } 
+    }
   };
 
 
   var Params = {
     _value: undefined,
     require: function(value){
-      if(value == null || value == undefined) 
+      if(value == null || value == undefined)
         throw new Error('value cannot be undefined');
-      
+
       this._value = value;
 
       return this;
@@ -82,7 +82,7 @@
 
       var param_list = {};
       angular.forEach(arguments, function(i){
-        if(_self._value.hasOwnProperty(i) && _self._value[i] != null) 
+        if(_self._value.hasOwnProperty(i) && _self._value[i] != null)
           return param_list[i] = _self._value[i];
       });
 
@@ -90,14 +90,14 @@
     },
     normalize: function(value){
       return name.split(/\s+/)
-        .map(function(i){ 
+        .map(function(i){
           i = i.toLowerCase();
           if(i.length >= 3) return i.charAt(0).toUpperCase() + i.slice(1);
           if(i.length < 3) return i;
         });
     }
   };
-  
+
 
   /**
    * Serializer
@@ -105,10 +105,10 @@
   var Serializer = function(){
     this.from_object = function(data){
       var buffer = [];
-      
+
       if (typeof data !== 'object')
         throw new Error('Param to be serializer isnt a object');
-      
+
       for (var name in data) {
         if (!data.hasOwnProperty(name)) {
           continue;
@@ -125,7 +125,7 @@
 
     this.from_form = function(element_id){
       var f = document.forms[element_id];
-      
+
       var buffer = {};
       for(var i in f.elements){
         if(f.elements[i].type !== undefined)
@@ -176,7 +176,7 @@
   /**
    * Postmon Service
    * Connect to the Postmon service API to get zipcode informations
-   */ 
+   */
   app.votolegal.factory('postmon', ['$http', function($http){
     return function(zipcode) {
       return $http.get('//api.postmon.com.br/v1/cep/' + zipcode, {cache: false});
@@ -185,14 +185,14 @@
 
   /**
    * Serializer Service
-   */ 
+   */
   app.votolegal.factory('serialize', function(){ return new Serializer() });
 
 
   /**
    * Authentication Service
-   */ 
-  app.votolegal.factory('auth_service', ['$http', 'serialize', 'store', function($http, serialize, store){ 
+   */
+  app.votolegal.factory('auth_service', ['$http', 'serialize', 'store', function($http, serialize, store){
     return {
       // attributes
       session_key: 'user',
@@ -211,7 +211,7 @@
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
       },
-      
+
       // forgot password
       forgot_password: function(username){
         return $http({
@@ -250,7 +250,7 @@
         var user = this.current_user();
 
         // validate session
-        if(user == undefined) 
+        if(user == undefined)
           document.location = this.sign_page;
         // validade role
         if(user.role != args.role)
@@ -274,7 +274,7 @@
   }]);
 
 
-  app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'auth_service', function($scope, $http, serialize, auth_service){ 
+  app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'auth_service', function($scope, $http, serialize, auth_service){
     $scope.current_user = auth_service.current_user() || {};
 
     $scope.is_admin = function(){
@@ -302,3 +302,14 @@
   <%= partial "javascripts/app/controller/cadastro.js" %>
 
 })(window.app = window.app || {});
+
+/**
+* Grafic interface and style interactions
+*/
+$(document).ready(function(){
+  $('input.opcao_doar_radio').click(function(){
+    $('.valor-doa-container').removeClass('doa-container-active');
+    $(this).closest('.valor-doa-container').addClass('doa-container-active');
+  });
+  $('input.opcao_doar_radio:checked').trigger('click');
+});

@@ -1017,7 +1017,9 @@ a {
   border: 1px solid #ccc;
   border-radius: 10px;
   display: inline-block;
-
+  hr{
+    margin: 5px 0;
+  }
   .text-danger {
     color: #ff0000;
   }
@@ -1245,3 +1247,81 @@ section#votacao-projetos{
   }
 }
 .proj-mais-vot-title{color: $verde-arvore;}
+
+.valor-doa-container{
+  padding: 0 10px 5px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0);
+  .doa-radio-btn-cont{
+    width: 20px;
+    margin: 0 15px 0 0;
+    display: block;
+    float: left;
+    height: 53px;
+    input{display: inline-block; margin: 30px 0 0 0;}
+  }
+  .valor-doa-txt-nbr{
+    width: calc( 100% - 35px);
+    display: block;
+    float: left;
+    .doar-txt{
+      font-size: 10px;
+      color: $verde-arvore;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .doar-number{
+      font-size: 30px;
+      line-height: 32px;
+    }
+    .doar-number-diferente{
+      border: none;
+      font-size: 30px;
+      width: 150px;
+      line-height: 32px;
+      margin: 0 0 0 6px;
+    }
+  }
+  .doar-btn-cont{
+    height: 53px;
+  }
+  .btn-verde-doar{
+    background: #3faf47;
+    color: white;
+    font-size: 15px;
+    font-weight: 200;
+    border-radius: 10px;
+    margin: 12px 0 0 0;
+    opacity: 0;
+    display: none;
+  }
+}
+.doa-container-active{
+  border: 1px solid $verde-arvore!important;
+  .btn-verde-doar{
+    opacity: 1!important;
+    display: inline-block!important;
+  }
+}
+.regra-doa-container{
+  margin: 10px 0 20px;
+  .espac-icone-danger{
+    color: red;
+    width: 20px;
+    line-height: 40px;
+    float: left;
+    margin-right: 10px;
+    [class*=" flaticon-"]::before{
+      margin-left: 0!important;
+    }
+  }
+  .espac-regra-txt{
+    width: calc(100% - 30px);
+    float: left;
+  }
+}
+.duvidas-reg-doa-contaner{
+  padding: 10px 5px;
+}
+.reg-doa-side-p{margin-top: 10px!important;}
