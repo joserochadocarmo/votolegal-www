@@ -8,7 +8,7 @@ title:      Candidatos
   </h2>
 </div>
 
-<section id="explore">
+<section id="explore" ng-controller="ExploreController">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
@@ -19,44 +19,29 @@ title:      Candidatos
 
       <style>
       </style>
-      <%
-        list = ['Marcelo Carlos Abraão', 'Eliseu Guilherme Silva', 'Kuiza Beatriz Soares', 'Ligia Maria Lemes']
-      %>
 
       <div class="candidate-list">
-        <% 3.times.each do %>
-          <% 4.times.each do |id| %>
-            <div class="col-md-3 col-sm-6 col-xs-12 text-center">
-              <div class="candidate-panel" onmouseover="this.querySelector('.candidate-infor').classList.add('open')" onmouseout="this.querySelector('.candidate-infor').classList.remove('open')"  style="background-image: url(/images/mocks/user0<%= id + 1 %>.jpg);">
-                <!-- img src="/images/mocks/user0<%= id + 1 %>.jpg" alt="Joe Doe" -->
-                <div class="candidate-infor">
-                  <h4><%= list[id] %> <i class="fa fa-circle" style="font-size: 9px;"></i> PCdoB</h4>
-                  <ul>
-                    <li>Meio ambiente</li>
-                    <li>Educação</li>
-                    <li>Saúde</li>
-                  </ul>
-                  <p class="candidate-location">
-                    <i class="fa fa-map-marker"></i> São Paulo
-                  </p>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" style="width: 60%;">
-                    </div>
-                  </div>
-                  <div class="col-md-6 text-left">
-                    <span>108</span><br>
-                    <small>Pessoas ja doaram</small>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <span>R$ 190.321</span><br>
-                    <small>Total arrecadado</small>
-                  </div>
 
-                </div>
-              </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center" ng-repeat="i in list">
+          <div class="candidate-panel" onmouseover="this.querySelector('.candidate-infor').classList.add('open')" onmouseout="this.querySelector('.candidate-infor').classList.remove('open')" ng-click="redirect_to(i.username)"  style="background-image: url({{i.picture || '/images/candidatos/user_general.jpg' }});">
+            <div class="candidate-infor">
+              <h4>{{i.popular_name}} <i class="fa fa-circle" style="font-size: 9px;"></i> {{i.party}}</h4>
+              <ul>
+                <li>Meio ambiente</li>
+                <li>Educação</li>
+                <li>Saúde</li>
+              </ul>
+              <p class="candidate-location">
+                <i class="fa fa-map-marker"></i> {{i.address_city}}
+              </p>
+              <%# div class="progress"> <div class="progress-bar progress-bar-success" role="progressbar" style="width: 60%;"> </div> </div %>
+              <%# div class="col-md-6 text-left"> <span>108</span><br> <small>Pessoas ja doaram</small> </div %>
+              <%# div class="col-md-6 text-right"> <span>R$ 190.321</span><br> <small>Total arrecadado</small> </div %>
+
             </div>
-          <% end %>
-        <% end %>
+          </div>
+        </div>
       </div>
 
     </div>

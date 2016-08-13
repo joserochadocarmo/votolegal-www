@@ -1,0 +1,35 @@
+/**
+ * Explore Controller
+ */
+app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service", "serialize", "SweetAlert", "trouble", function($scope, $http, auth_service, serialize, SweetAlert, trouble){
+  // defaults
+  $scope.list = [];
+
+  // methods
+  $scope.redirect_to = function(username){
+    document.location = '//'+ username +'.votolegal.org.br/candidato';
+    return false;
+  };
+
+  $scope.load_list = function(term){
+    $http.post('<%= config[:api_host] %>/search', {})
+    .then(
+      function(response){
+        $scope.list = response.data;
+        console.log($scope.list); // DEBUG
+      },
+      function(response){
+        var data = response.data;
+        console.log(response); // DEBUG
+        SweetAlert.swal('Erro inesperado', 'Não foi possivel carregar a lista de usuários!');
+        trouble({
+          route: '/explore', error: JSON.stringify(response)
+        });
+      }
+    );
+    return false;
+  };
+
+  // load candidate list
+  $scope.load_list();
+}]);
