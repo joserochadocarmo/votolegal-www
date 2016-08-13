@@ -1,35 +1,71 @@
 /**
- * PreCandidate Controller
+ * Candidate Controller
  */
-app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serialize", "auth_service", function($scope, $http, $location, serialize, auth_service){
+app.votolegal.controller('CandidateController', ["$scope", "$http", "serialize", "auth_service", function($scope, $http, $location, serialize, auth_service){
   // defaults
-  var user = auth_service.current_user();
-  $scope.model  = {};
-  $scope.params = URI.query();
+  $scope.candidate  = {};
+  // getting candidate name from url
+  $scope.name = (function get_subdomain(){
+    var url = document.location.href;
+    url = url.split(/\//)[2].split('.')[0];
+    if(url !== 'localhost') return url;
+  })();
 
 
-  $scope.load = function(id){
-    try{ id = parseInt(id); }
-    catch(e){ throw new Error('Parametro id é inválido'); }
+  // methods
+  $scope.issues_priorities_decorator = function(separator){
+    console.log($scope.candidate.candidate_issue_priorities
+      .map(function(i){ return i.name })
+      .join(separator || ', '));
+    return $scope.candidate.candidate_issue_priorities
+      .map(function(i){ return i.name })
+      .join(separator || ', ')
+  };
 
+  $scope.candidate_by_name = function(name){
     $http({
       method: 'GET',
-      url: '<%= config[:api_host]%>/candidate/'+ id +'?api_key=' + user.api_key,
+      url: '<%= config[:api_host]%>/candidate/'+ name,
     }).
     then(
       function(response){
         var res = response.data.candidate;
-        $scope.model = res;
+        $scope.candidate = res;
+        document.querySelector('title').innerText += (" " + $scope.candidate.popular_name);
+
+        // load projects
+        $scope.candidate.projects = [];
+        $scope.candidate_projects(res);
       },
       function(response){
+        trouble({
+          route: document.location.href, error: JSON.stringify(response)
+        });
         throw new Error('Model is invalid or cannot be found!');
       }
     );
     return false;
   };
 
-  $scope.load($scope.params.id);
+  $scope.candidate_projects = function(candidate){
+    $http({
+      method: 'GET',
+      url: '<%= config[:api_host]%>/candidate/'+ candidate.id +'/projects',
+    }).
+    then(
+      function(response){
+        var res = response.data.projects;
+        $scope.candidate.projects = res;
+      },
+      function(response){
+        trouble({
+          route: document.location.href, error: JSON.stringify(response)
+        });
+        throw new Error('Project list is invalid or cannot be found!');
+      }
+    );
+    return false;
+  };
 
-  // validate user
-  auth_service.validate_user({role: 'admin'});
+  $scope.candidate_by_name($scope.name);
 }]);

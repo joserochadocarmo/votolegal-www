@@ -1,5 +1,5 @@
 ---
-title:  Candidato(a) John Smith
+title:  Candidato(a) 
 ---
 
 <section id="candidate" ng-controller="CandidateController">
@@ -8,18 +8,18 @@ title:  Candidato(a) John Smith
     <div class="row">
       <div class="col-md-6 text-left">
         <h1 class="nome-candidato">
-          <span class="nome">John Smith</span>
+          <span class="nome">{{candidate.popular_name}}</span>
           <i class="fa fa-circle"></i>
-          <span class="partido">PCdoB</span>
+          <span class="partido">{{candidate.party.acronym}}</span>
         </h1>
-        <p class="assuntos">Assunto 1, Assunto 2, Assunto 3, Assunto 4</p>
-        <p class="cidade">São Paulo - SP</p>
+        <p class="assuntos">{{issues_priorities_decorator()}}</p>
+        <p class="cidade">{{candidate.address_city}} - {{candidate.address_state}}</p>
       </div>
       <div class="col-md-6 text-right">
+        <%# img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
         <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
         <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
-        <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
-        <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
+        <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="" %>
         <img src="/images/mocks/candidate-profile.png" class="profile-image" alt="">
       </div>
     </div>
@@ -30,7 +30,7 @@ title:  Candidato(a) John Smith
       <div class="row" style="min-height: 500px; margin-bottom: 30px">
         <div class="candidate-video col-md-7">
           <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/xZKg2w3iOMo" frameborder="0" allowfullscreen></iframe>
+            <iframe width="560" height="315" ng-src="{{candidate.video_url}}" frameborder="0" allowfullscreen></iframe>
           </div>
           <br class="divider">
           <div class="share-button">
@@ -44,12 +44,11 @@ title:  Candidato(a) John Smith
             </ul>
           </div>
           <br class="divider">
-          <p>Est dolore esse voluptatum est. Vero facilis omnis magni sed sed. Quia illum asperiores pariatur et et rem. Aut ad quas vel esse accusantium recusandae. Id quisquam libero non quia. Modi sit atque possimus assumenda doloremque debitis.</p>
-          <p>Et exercitationem sequi maiores sed quidem voluptatibus. Ratione et eligendi consequatur asperiores doloremque sint est. Voluptatem nam adipisci itaque voluptas. Ipsam vel est beatae repudiandae voluptatem rerum. Non quia vitae maiores magni quaerat.</p>
+          <p>{{candidate.summary}}</p>
         </div>
         <div class="candidate-campaign col-md-5">
           <h4 class="text-success">Total arrecadado</h4>
-          <p class="donated">R$ 90.000</p>
+          <p class="donated">R$ {{candidate.raising_goal}}</p>
 
           <div class="row">
             <div class="col-md-12">
@@ -94,13 +93,10 @@ title:  Candidato(a) John Smith
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="tab-projetos">
               <div class="row">
-                <% 4.times.each do |i| %>
-                <div class="col-md-12">
-                  <h5>Projeto <%= i + 1 %>) <%= lorem.words 5 %></h5>
-                  <p><%= lorem.paragraph %>.</p>
-                  <p><%= lorem.paragraph %>.</p>
+                <div class="col-md-12" ng-repeat="p in candidate.projects">
+                  <h5>Projeto {{$index + 1}}) {{p.title}}</h5>
+                  <p>{{p.scope}}</p>
                 </div>
-                <% end %>
 
                 <br class="divider">
               </div>
@@ -112,20 +108,20 @@ title:  Candidato(a) John Smith
                   <h4 class="text-success">Projetos de lei mais votados:</h4>
                 </div>
 
-              <% 4.times.each do |i| %>
-                <div class="col-md-6">
-                  <span class="text-muted">Projeto <%= i + 1 %>) <%= lorem.words 5 %></span>
-                </div>
-                <div class="col-md-4">
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" style="width: <%= Random.rand(100)%>%">
+                <div class="row" ng-repeat="p in candidate.projects">
+                  <div class="col-md-6">
+                    <span class="text-muted">Projeto {{$index + 1}}) {{p.title}}</span>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" role="progressbar" style="width: <%= Random.rand(100)%>%">
+                      </div>
                     </div>
                   </div>
+                  <div class="col-md-2">
+                    <small>51 votos (58%)</small>
+                  </div>
                 </div>
-                <div class="col-md-2">
-                  <small>51 votos (58%)</small>
-                </div>
-              <% end %>
 
               </div>
             </div>

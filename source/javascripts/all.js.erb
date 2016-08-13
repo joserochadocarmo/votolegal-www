@@ -189,6 +189,30 @@
   app.votolegal.factory('serialize', function(){ return new Serializer() });
 
 
+
+  /**
+   * Troublesoting Service
+   * Connect to the Postmon service API to get zipcode informations
+   */ 
+  app.votolegal.factory('trouble', ['$http', 'serialize', function($http, serialize){
+    return {
+      shoot: function(params) {
+        if(!params.hasOwnProperty('route')) console.log('route param for troubleshoot is required');
+        if(!params.hasOwnProperty('error')) console.log('error param for troubleshoot is required');
+
+        if(params.route && params.error){
+          $http({
+            method: 'POST', 
+            url: '<%= config[:api_host]%>/troubleshoot', 
+            data: serialize.from_object(params), 
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          });
+        }
+      }
+    }
+  }]);
+
+
   /**
    * Authentication Service
    */ 
@@ -300,5 +324,7 @@
   <%= partial "javascripts/app/controller/pre-candidate.js" %>
   <%= partial "javascripts/app/controller/default.js" %>
   <%= partial "javascripts/app/controller/cadastro.js" %>
+  <%= partial "javascripts/app/controller/explore.js" %>
+  <%= partial "javascripts/app/controller/candidate.js" %>
 
 })(window.app = window.app || {});
