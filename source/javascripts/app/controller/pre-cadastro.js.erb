@@ -15,11 +15,6 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
   $scope.create = function(isValid){
     var params = $scope.register_params();
     $scope.error_list = [];
-
-    if (!$scope.candidate.ficha_limpa || $scope.candidate.ficha_limpa == 0){
-      $scope.error_list.push("Você deve ser ficha limpa para completar seu pré-cadastro.");
-      return false;
-    }
       
     if (!$scope.accept_terms && !$scope.transparent_campaign){
       if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
