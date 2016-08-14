@@ -1,7 +1,24 @@
+if(document.location.href.indexOf('/candidato') >= 0){
+  app.votolegal.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.
+    when('/', {
+      //templateUrl: '/javascripts/app/view/candidato/index.tmpl',
+      controller: 'CandidateController',
+    }).
+    when('/doar', {
+      //templateUrl: '/javascripts/app/view/candidato/doar.tmpl',
+      controller: 'CandidateController',
+    }).
+    otherwise({
+      redirectTo: '/',
+    });
+  }]);
+}
+
 /**
  * Candidate Controller
  */
-app.votolegal.controller('CandidateController', ["$scope", "$http", "serialize", "auth_service", function($scope, $http, $location, serialize, auth_service){
+app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", function($scope, $http, $sce, serialize, auth_service){
   // defaults
   $scope.candidate  = {};
   // getting candidate name from url
@@ -13,10 +30,16 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "serialize",
 
 
   // methods
-  $scope.issues_priorities_decorator = function(separator){
-    console.log($scope.candidate.candidate_issue_priorities
-      .map(function(i){ return i.name })
-      .join(separator || ', '));
+  $scope.make_percent = function(number, total){
+    if(total === 0) return '0%';
+    return ((number/total) * 100).toFixed(2) + '%'
+  };
+
+  $scope.render_video = function(src){
+    return '<iframe id="candidate_video" src="' + $sce.trustAsResourceUrl(src) + '" width="560" height="315" allowfullscreen></iframe>';
+  };
+
+  $scope._issues_priorities_decorator = function(separator){
     return $scope.candidate.candidate_issue_priorities
       .map(function(i){ return i.name })
       .join(separator || ', ')
@@ -32,6 +55,19 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "serialize",
         var res = response.data.candidate;
         $scope.candidate = res;
         document.querySelector('title').innerText += (" " + $scope.candidate.popular_name);
+
+        // header issues list
+        $scope.candidate.issues_decorator = $scope._issues_priorities_decorator();
+
+        // default total donated
+        $scope.candidate.total_donated = $scope.candidate.total_donated || 0.0;
+        $scope.candidate.raising_goal = parseFloat($scope.candidate.raising_goal) || 0.0;
+
+        // video renderer
+        (function(){
+          var v = document.querySelector('#video-renderer');
+          v.innerHTML = $scope.render_video(res.video_url);
+        })();
 
         // load projects
         $scope.candidate.projects = [];
@@ -55,6 +91,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "serialize",
     then(
       function(response){
         var res = response.data.projects;
+        
+        (function(){
+          var total = 0; res.map(function(p){ total += p.votes });
+          res = res.map(function(i){ i.total = total; return i });
+        })();
+
         $scope.candidate.projects = res;
       },
       function(response){

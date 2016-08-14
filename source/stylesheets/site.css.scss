@@ -849,6 +849,19 @@ section#candidate {
       color: #5cb85c;
     }
   }
+
+  // FIXME: inferred repetition
+  .candidate-panel {
+    padding: 0px;
+    width: 225px;
+    height: 275px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    background: transparent url("/images/candidatos/user_general.jpg") no-repeat scroll top center;
+    background-size: cover;
+  }
 }
 
 
