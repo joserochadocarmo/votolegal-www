@@ -99,7 +99,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         $scope.candidate_projects(res);
       },
       function(response){
-        trouble({
+        trouble.shoot({
           route: document.location.href, error: JSON.stringify(response)
         });
         throw new Error('Model is invalid or cannot be found!');
@@ -125,7 +125,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         $scope.candidate.projects = res;
       },
       function(response){
-        trouble({
+        trouble.shoot({
           route: document.location.href, error: JSON.stringify(response)
         });
         throw new Error('Project list is invalid or cannot be found!');
