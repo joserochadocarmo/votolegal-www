@@ -105,9 +105,9 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
     return false;
   };
 
-  // load parties from api
-  $scope.approval_list();
-
   // validate user
   auth_service.validate_user({role: 'admin'});
+
+  // load parties from api
+  $scope.approval_list();
 }]);

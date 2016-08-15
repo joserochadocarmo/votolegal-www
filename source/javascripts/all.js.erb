@@ -186,6 +186,12 @@
   }]);
 
   /**
+   * Serializer Service
+   */ 
+  app.votolegal.factory('serialize', function(){ return new Serializer() });
+
+
+  /**
    * Show String as HTML
    */
   app.votolegal.filter('unsafe', ['$sce', function($sce){
@@ -289,7 +295,7 @@
       validate_user: function(){
         var args = arguments[0] || {};
 
-        var user = this.current_user();
+        var user = this.current_user() || undefined;
 
         // validate session
         if(user == undefined)

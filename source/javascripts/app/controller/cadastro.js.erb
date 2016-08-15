@@ -21,13 +21,23 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
       activetab: 'pessoal'
     });
   }]);
+
+  var pid = window.setInterval(function(){
+    if (typeof(Storage) !== "undefined") {
+      var progress = localStorage.progress;
+
+      var p = document.querySelector("div[role=progressbar]");
+      p.innerHTML = progress + "%"; 
+      p.style.width = progress + "%"; 
+    }
+  }, 1000);
 }
 
 /**
  * Cadastro controller
  * Register a new candidate
  */ 
-app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', '$route', '$interval', 'auth_service', 'serialize', 'SweetAlert', function($scope, $http, $location, $route, $interval, auth_service, serialize, SweetAlert){
+app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', '$route', '$interval', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, $location, $route, $interval, auth_service, serialize, SweetAlert, trouble){
   $scope.candidate   = {};
   $scope.issue_list  = []; 
   $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
@@ -45,8 +55,18 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
   // change input-file filename
   $scope.change_filename = function(name){
-    var filename = document.querySelector('input[name='+name+']').value;
-    document.querySelector('.'+name+'_filename').value = filename;
+    var filename = document.querySelector('input[name='+name+']');
+    var value = filename.value.split(/\/|\\/g).reverse()[0];
+    document.querySelector('.'+name+'_filename').value = value;
+
+    if(name === 'picture' && filename.files.length > 0){
+      var file = filename.files[0];
+      if((Math.round(file.size * 100 / (1024 * 1024)) / 100) > 1){
+        SweetAlert.swal("Sua imagem de perfil é muito grande", "A imagem deve ter no máximo 1MB de tamanho!");
+        throw new Error('IMAGE_MAXSIZE_ERROR');
+        return false;
+      }
+    }
   };
 
 
@@ -87,6 +107,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     }
 
     $scope.progress = p;
+
+    // save to session
+    var session = auth_service.session();
+    session.set('progress', p);
   };
 
   // mark project as changed
@@ -94,7 +118,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     $scope.projects[index].changed = true;
   };
 
-  // save campaign data
+  // save candidate data
   $scope.save_candidate = function(index){
     $scope.error_list  = [];
     var params = $scope.candidate_params();
@@ -103,47 +127,80 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     params.api_key = user.api_key;
 
     $scope.submit_disabled = true;
-    $http({
-      method: 'PUT',
-      url: '<%= config[:api_host]%>/candidate/'+ user.id,
-      data: params,
-      headers: {'Content-Type': undefined },
-      transformRequest: function (data) {
-        var fd = new FormData();
-        for (var p in data) fd.append(p, data[p]);
-        // add file to form_data
-        var file_field = document.querySelector('input[name=picture]');
-        if(file_field.files.length > 0){
-          var file = file_field.files[0];
-          fd.append("picture", file, file.name);
+    try {
+      $http({
+        method: 'PUT',
+        url: '<%= config[:api_host]%>/candidate/'+ user.id +"?api_key=" + user.api_key,
+        data: params,
+        headers: {
+          'Content-Type': undefined, 'X-API-Key': user.api_key
+        },
+        transformRequest: function (data) {
+          var fd = new FormData();
+          for (var p in data) fd.append(p, data[p]);
+          // add file to form_data
+          var file_field = document.querySelector('input[name=picture]');
+          if(file_field.files.length > 0){
+            var file = file_field.files[0];
+            fd.append("picture", file, file.name);
+
+            if((Math.round(file.size * 100 / (1024 * 1024)) / 100) > 1){
+              SweetAlert.swal("Sua imagem de perfil é muito grande", "A imagem deve ter no máximo 1MB de tamanho!");
+              $scope.submit_disabled = false;
+              return new FormData();
+            }
+          }
+          return fd;
         }
-        return fd;
-      }
-    }).then(function (response) {
-      SweetAlert.swal('Os dados da campanha foram salvos!');
+      }).then(function (response) {
+        SweetAlert.swal('Os dados da campanha foram salvos!');
+        $scope.submit_disabled = false;
+        $scope.check_percent();
+      },function(response){
+        var res = response;
+
+        // send generic error
+        trouble.shoot({ 
+          route: "/cadastro-completo#/dados-pessoais", error: JSON.stringify(res)
+        });
+
+        if(!res.data){
+          SweetAlert.swal('Erro ao salvar os dados!');
+          return false
+        }
+
+        res = response.data.form_error;
+
+        var f = function(field){
+          return document.querySelector('form[name=candidateForm] label[for='+field+']');
+        };
+
+        // setting error message
+        for(var field in res){
+          if(field == 'picture' && res[field] === 'invalid image'){
+            $scope.error_list.push("Arquivo de imagem inválido!");
+            return false;
+          }
+
+          var name = f(field).innerText;
+          $scope.error_list.push(name + error_msg(res[field]));
+        }
+
+        // enable submit
+        $scope.submit_disabled = false;
+
+        // throw an exception
+        //SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
+        throw new Error('ERROR_SAVING_CANDIDATE');
+
+        return false;
+      });
+    }
+    catch(e){
       $scope.submit_disabled = false;
-    },function(response){
-      var res = response.data.form_error;
+      console.error(e);
+    }
 
-      var f = function(field){
-        return document.querySelector('form[name=candidateForm] label[for='+field+']');
-      };
-
-      // setting error message
-      for(var field in res){
-        var name = f(field).innerText;
-        $scope.error_list.push(name + error_msg(res[field]));
-      }
-
-      // enable submit
-      $scope.submit_disabled = false;
-
-      // throw an exception
-      //SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
-      throw new Error('ERROR_SAVING_CAMPAIGN');
-
-      return false;
-    });
     return false;
   };
 
@@ -158,7 +215,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     $scope.submit_disabled = true;
     $http({
       method: 'PUT',
-      url: '<%= config[:api_host]%>/candidate/'+ user.id,
+      url: '<%= config[:api_host]%>/candidate/'+ user.id +"?api_key=" + user.api_key,
       data: params,
       headers: {'Content-Type': undefined },
       transformRequest: function (data) {
@@ -175,6 +232,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     }).then(function (response) {
       SweetAlert.swal('Os dados da campanha foram salvos!');
       $scope.submit_disabled = false;
+      $scope.check_percent();
     },function(response){
       var res = response.data.form_error;
 
@@ -225,12 +283,16 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     
     $http({
       method: (p.id && p.id > 0)? 'PUT' : 'POST',
-      url: '<%= config[:api_host]%>/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : ''),
+      url: '<%= config[:api_host]%>/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
       data: serialize.from_object(params),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-API-Key': user.api_key
+      },
     }).then(function (response) {
       //$scope.projects[index].changed = false;
       SweetAlert.swal('O projeto foi salvo!');
+      $scope.check_percent();
     },function(response){
       SweetAlert.swal('Error', 'O projeto não pode ser salvo!');
       throw new Error('ERROR_SAVING_PROJECT');
@@ -270,6 +332,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
           ).then(function(response){ 
             $scope.projects.splice(index, 1);
             swal('O projeto foi removido com sucesso!');
+            $scope.check_percent();
           }, function(response){ throw new Error('ERROR_DELETE_PROJECTS') });
         }
         else {
@@ -304,7 +367,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.candidate_params = function(){
     return Params
       .require($scope.candidate)
-      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email');
+      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj')
   };
 
   $scope.campaign_params = function(){
@@ -409,3 +472,5 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_projects();
   $scope.check_percent(); 
 }]);
+
+
