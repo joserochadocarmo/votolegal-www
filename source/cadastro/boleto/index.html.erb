@@ -1,0 +1,137 @@
+---
+title:  Gerar boleto
+---
+
+<% if build? %>
+  <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+<% else %>
+  <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+<% end %>
+
+<section id="boleto" ng-controller="BoletoController">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 class="page-title">
+          Gerar boleto
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color:#eaeaea;padding:20px 0px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <h4 class="text-center">Para gerar seu boleto, por favor, verifique suas informações abaixo e preencha o(s) campo(s) incompleto(s):</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container" style="margin-top:50px;">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+
+        <% content_tag :form, name: 'boletoForm', class: 'angular-form', 'ng-submit' => "generate()", novalidate: '' do %>
+          <div class="row">
+
+            <div class="form-group icon-left icon-with-label col-md-6">
+              <label for="facebook_url">CEP</label>
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_zipcode" ng-model="candidate.address_zipcode" ng-blur="address_by_zipcode($event)" mask="99999-999" mask-restrict="reject" mask-clean="true" placeholder="00000-000" >
+            </div>
+            <div class="form-group icon-left icon-with-label col-md-6">
+              <label for="address_state">Estado</label>
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_state" ng-model="candidate.address_state" placeholder="Estado" disabled>
+            </div>
+
+
+            <div class="form-group icon-left icon-with-label col-md-12">
+              <label for="address_city">Cidade</label>
+              <i class="fa fa-home"></i>
+              <input class="form-control" type="text" name="address_city" placeholder="Cidade" ng-model="candidate.address_city" disabled>
+            </div>
+            <div class="form-group icon-left icon-with-label col-md-12">
+              <label for="address_city">Endereço</label>
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_street" placeholder="Endereço" ng-model="candidate.address_street" disabled>
+            </div>
+            <div class="form-group icon-left icon-with-label col-md-12">
+              <label for="address_city">Bairro</label>
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_district" placeholder="Bairro" ng-model="candidate.address_district" disabled>
+            </div>
+
+
+            <div class="form-group icon-left icon-with-label col-md-6">
+              <label for="facebook_url">Número</label>
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_house_number" ng-model="candidate.address_house_number" mask="d" mask-repeat="5" mask-restrict="reject" mask-validate="false" mask-clean="true">
+            </div>
+            <div class="form-group icon-left icon-with-label col-md-6">
+              <label for="address_state">Complemento</label>
+              <i class="fa fa-home"></i>    
+              <input class="form-control" type="text" name="address_complement" ng-model="candidate.address_complement">
+            </div>
+
+
+            <div class="form-group icon-left icon-with-label col-md-12">
+              <label for="address_city">Telefone</label>
+              <i class="fa fa-phone"></i>    
+              <input class="form-control" type="text" name="phone" ng-model="candidate.phone" mask="(99)d?9999-9999" mask-restrict="reject" mask-clean="true">
+            </div>
+
+
+            <div class="form-group icon-left col-md-12">
+              <blockquote>
+                <h3>Dados bancários</h3>
+                <small>Necessários para gerarmos o seu arquivo de prestação de contas</small>
+              </blockquote>
+            </div>
+
+            <div class="form-group icon-left icon-with-label col-md-12">
+              <label for="address_city">Nome do Banco</label>
+              <i class="fa fa-money"></i>    
+              <input class="form-control" type="text" name="bank_name" ng-model="payment.bank_name">
+            </div>
+
+
+            <div class="form-group icon-left icon-with-label col-md-6">
+              <label for="address_city">Conta corrente</label>
+              <i class="fa fa-money"></i>    
+              <input class="form-control" type="text" name="bank_account" placeholder="0000" ng-model="payment.bank_account">
+            </div>
+            <div class="form-group icon-left icon-with-label col-md-6">
+              <label for="address_city">Dígito verificador</label>
+              <i class="fa fa-money"></i>    
+              <input class="form-control" type="text" name="bank_account_digit" placeholder="0" ng-model="payment.bank_account_digit">
+            </div>
+
+
+            <div class="checkbox col-md-12">
+              <label class="checkbox-inline">
+                <input type="checkbox" name="accept_terms" ng-model="accept_terms" value="1"> Ao clicar em "Gerar boleto" aceito os <%= link_to 'termos de contrato', '#', :target => '_blank', 'data-toggle' => "modal", 'data-target' => "#termos_modal" %> do Voto Legal.
+              </label>
+            </div>
+            <div class="form-group col-md-12">
+              <button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="btn btn-success btn-lg btn-block">Gerar boleto</button>
+              <div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+                <h4>Os seguinte campos precisam ser corrigidos:</h4>
+                <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+                  <li>{{error}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
