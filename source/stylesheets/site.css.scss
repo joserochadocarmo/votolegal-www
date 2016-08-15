@@ -557,9 +557,18 @@ div.header-filter {
   text-align: center;
   background-image: url(../images/home/back_header.jpg);
 
+  ::-webkit-input-placeholder { color: #fff; }
+  :-moz-placeholder { color: #fff;  }
+  ::-moz-placeholder {  color: #fff;  }
+  :-ms-input-placeholder {  color: #fff;  }
+
   h2 {
     color: #fff;
     cursor: pointer;
+    padding: 50px 0px;
+  }
+
+  #filters {
     padding: 50px 0px;
   }
 }
