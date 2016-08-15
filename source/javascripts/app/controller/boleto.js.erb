@@ -4,77 +4,12 @@
 app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, postmon, auth_service, serialize, SweetAlert, trouble){
   $scope.candidate = {};
   $scope.payment   = {};
+  $scope.accept_terms = 0;
   $scope.submit_disabled = false;
 
   // getting form params
   $scope.register_params = function(){
     return $scope.candidate;
-  };
-
-  // create a new cadidate
-  $scope.create = function(isValid){
-    var params = $scope.register_params();
-    $scope.error_list = [];
-
-    // password confirmation error
-    if(!$scope.candidate.password || ($scope.candidate.password != $scope.candidate.confirm_password)){
-      $scope.error_list.push("Os campos de senha devem ser iguais.");
-      return false;
-    }
-    if (!$scope.accept_terms && !$scope.transparent_campaign){
-      if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
-      if(!$scope.transparent_campaign) $scope.error_list.push("Você deve aceitar fazer uma campanha transparente.");
-      return false;
-    }
-
-    $scope.submit_disabled = true;
-    $http({
-      method: 'POST', 
-      url: '<%= config[:api_host] %>/register', 
-      data: serialize.from_object(params),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    })
-    .then(
-      // success callback
-      function(response){
-        if($scope.error_list.length == 0)
-          document.location = '/pre-cadastro/success';
-
-        return false;
-      },
-      // error callback
-      function(response){
-        var res = response.data.form_error;
-
-        var f = function(field){
-          return document.querySelector('form[name=candidateForm] *[name='+field+']');
-        };
-
-        // setting error message
-        for(var field in res){
-          var name = f(field).attributes['placeholder'].value;
-          $scope.error_list.push(name + error_msg(res[field]));
-        }
-
-        // password confirmation error
-        if($scope.candidate.password && ($scope.candidate.password != $scope.candidate.confirm_password)){
-          $scope.error_list.push("Os campos de senha devem ser iguais.");
-        }
-        if (!$scope.accept_terms && !$scope.transparent_campaign){
-          if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
-          if(!$scope.transparent_campaign) $scope.error_list.push("Você deve aceitar fazer uma campanha transparente.");
-        }
-
-        // enable submit
-        $scope.submit_disabled = false;
-
-        // throw an exception
-        throw new Error("ERROR_POST_NEW_CADIDATE");
-        return false;
-      }
-    );
-
-    return false;
   };
 
   // load zipcode meta informations
@@ -115,6 +50,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 
     return false;
   };
+
+
   // getting session
   $scope.get_session = function(){
     var user = auth_service.current_user();
@@ -135,6 +72,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     });
     return false
   };
+
+
   $scope.load_candidate = function(){
     var user = auth_service.current_user();
     $http({
@@ -167,18 +106,20 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     );
     return false;
   };
+
+
   $scope.generate = function(){
     var sender = PagSeguroDirectPayment.getSenderHash();
     var user = auth_service.current_user();
 
+    if(!$scope.accept_terms || $scope.accept_terms == 0){
+      SweetAlert.swal('Error', 'Você deve aceitar o termo de contrato!');
+      return false;
+    }
+
     var params = Params
       .require($scope.candidate)
       .permit('phone', 'address_zipcode', 'address_city', 'address_state', 'address_street', 'address_house_number', 'address_district');
-
-    //params['address_zipcode'] = params['address_zipcode'].replace(/-/, '');
-    //params['address_zipcode'] = params['address_zipcode'].replace(/-/, '');
-
-    console.log(params);
 
     $http({
       method: 'PUT',
@@ -193,11 +134,46 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).
       then(
-          function(response){ console.log(response); }, 
-          function(response){ console.log(response); }
+        function(response){
+          var url = response.data.url;
+          //var e = document.createElement("meta");
+          //e.setAttribute('http-equiv', 'refresh');
+          //e.setAttribute('content', '0;url=' + url);
+          //document.head.appendChild(e);
+
+          document.location = url;
+        }, 
+        function(response){ 
+          trouble.shoot({
+            route: document.location.href, error: JSON.stringify([response, user])
+          });
+          SweetAlert.swal('Erro Inesperado', 'Não foi possivel emitir o boleto!');
+          throw new Error('ERROR_GET_BOLETO');
+        }
       );
     }, function(response){
-      console.log(response);
+      var res = response.data.form_error;
+
+      trouble.shoot({
+        route: document.location.href, error: JSON.stringify([response, user])
+      });
+
+      var f = function(field){
+        return document.querySelector('form[name=boletoForm] *[name='+field+']');
+      };
+
+      // setting error message
+      for(var field in res){
+        var name = f(field).attributes['data-name'].value;
+        $scope.error_list.push(name + error_msg(res[field]));
+      }
+
+      // enable submit
+      $scope.submit_disabled = false;
+
+      // throw an exception
+      throw new Error("ERROR_PUT_CADIDATE");
+      return false;
     });
     return false;
   };
