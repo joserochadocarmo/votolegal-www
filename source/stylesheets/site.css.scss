@@ -735,6 +735,7 @@ section#explore {
     height: 75px;
   }
 }
+
 section#candidate {
   .candidate-video {
     p {
@@ -1457,4 +1458,21 @@ section#votacao-projetos{
 .duvidas-reg-doa-contaner{
   padding: 10px 5px;
 }
-.reg-doa-side-p{margin-top: 10px!important;}
+.reg-doa-side-p{
+  margin-top: 10px!important;
+  .reg-doa-title {
+    color: #49bd42;
+  }
+  .reg-doa-amount-big {
+    font-size: 44px;
+    line-height: 54px;
+
+    a {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 54px;
+
+      &:hover { cursor:pointer; text-decoration: none; }
+    }
+  }
+}

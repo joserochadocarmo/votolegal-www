@@ -2,17 +2,29 @@ if(document.location.href.indexOf('/candidato') >= 0){
   app.votolegal.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/', {
-      //templateUrl: '/javascripts/app/view/candidato/index.tmpl',
+      templateUrl: '/javascripts/app/view/candidato/index.tmpl',
       controller: 'CandidateController',
     }).
     when('/doar', {
-      //templateUrl: '/javascripts/app/view/candidato/doar.tmpl',
+      templateUrl: '/javascripts/app/view/candidato/doar.tmpl',
       controller: 'CandidateController',
     }).
     otherwise({
       redirectTo: '/',
     });
   }]);
+
+  /**
+   * Grafic interface and style interactions
+   */
+  $(document).ready(function(){
+    $('body').on('click', 'input.opcao_doar_radio', function(e){
+      e.preventDefault;
+      $('.valor-doa-container').removeClass('doa-container-active');
+      $(this).closest('.valor-doa-container').addClass('doa-container-active');
+    });
+    $('input.opcao_doar_radio:checked').trigger('click');
+  });
 }
 
 /**
@@ -21,6 +33,8 @@ if(document.location.href.indexOf('/candidato') >= 0){
 app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", function($scope, $http, $sce, serialize, auth_service){
   // defaults
   $scope.candidate  = {};
+  $scope.doar       = {};
+  $scope.payment    = {};
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
     var url = document.location.href;
@@ -34,6 +48,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     if(total === 0) return '0%';
     return ((number/total) * 100).toFixed(2) + '%'
   };
+
+  //$scope.active_tab = function(href){
+  //  var list = document.querySelectorAll('a[role=tab]').map(function(a){
+  //    a.parentNode.classList.remove('active');
+  //  });
+  //};
 
   $scope.render_video = function(src){
     return '<iframe id="candidate_video" src="' + $sce.trustAsResourceUrl(src) + '" width="560" height="315" allowfullscreen></iframe>';
@@ -54,7 +74,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       function(response){
         var res = response.data.candidate;
         $scope.candidate = res;
-        document.querySelector('title').innerText += (" " + $scope.candidate.popular_name);
+
+        (function(){
+          var title = document.querySelector('title');
+          if(title.innerText === 'VotoLegal - Candidato(a)') 
+            title.innerText += (" " + $scope.candidate.popular_name);
+        })();
 
         // header issues list
         $scope.candidate.issues_decorator = $scope._issues_priorities_decorator();
@@ -66,7 +91,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         // video renderer
         (function(){
           var v = document.querySelector('#video-renderer');
-          v.innerHTML = $scope.render_video(res.video_url);
+          if(v) v.innerHTML = $scope.render_video(res.video_url);
         })();
 
         // load projects
@@ -106,6 +131,38 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         throw new Error('Project list is invalid or cannot be found!');
       }
     );
+    return false;
+  };
+
+  /* doação */
+  $scope.doar_continue = function(amount){
+    document.getElementById('amount-review').classList.remove('hide');
+    var list = document.querySelectorAll('.valor-doa-container');
+    for(var i in list) {
+      if(list[i] && list[i].classList) list[i].classList.add('hide');
+    }
+    document.getElementById('doar-form').classList.remove('hide');
+    $scope.get_session();
+  };
+  $scope.doar_edit = function(amount){
+    document.getElementById('amount-review').classList.add('hide');
+    var list = document.querySelectorAll('.valor-doa-container');
+    for(var i in list) {
+      if(list[i] && list[i].classList) list[i].classList.remove('hide');
+    }
+    document.getElementById('doar-form').classList.add('hide');
+  };
+  // session
+  $scope.get_session = function(){
+    var id = $scope.candidate.id || 0;
+    $http({
+      url: '<%= config[:api_host] %>/candidate/'+id+'/donate/session'
+    }).
+    then(function(response){
+      console.log(response);
+    }, function(response){
+      console.log(response);
+    });
     return false;
   };
 
