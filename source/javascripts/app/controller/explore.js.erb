@@ -12,7 +12,12 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
   };
 
   $scope.load_list = function(term){
-    $http.post('<%= config[:api_host] %>/search', {})
+    $http({
+      method: 'post',
+      url: '<%= config[:api_host] %>/search', 
+      data: serialize.from_object({ name: term }),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    })
     .then(
       function(response){
         $scope.list = response.data;
@@ -31,5 +36,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
   };
 
   // load candidate list
-  $scope.load_list();
+  var term = URI.query('q') || undefined;
+  console.log(term);
+  $scope.load_list(term);
 }]);
