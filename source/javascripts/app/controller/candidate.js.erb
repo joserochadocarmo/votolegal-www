@@ -237,6 +237,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     // sender
     var teste = PagSeguroDirectPayment.getSenderHash();
 
+    /*
+    // payment methods
     PagSeguroDirectPayment.getPaymentMethods({
       amount: parseFloat($scope.doar.amount),
       success: function(response){
@@ -251,6 +253,22 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       },
       complete: function(response){ }
     });
+
+    // card token
+    PagSeguroDirectPayment.createCardToken({
+      cardNumber: ''
+      brand: '',
+      cvv: '',
+      expirationMonth: '',
+      expirationYear: '',
+      success: function(response){
+      },
+      error: function(response){
+      },
+      complete: function(response){
+      }
+      });
+    */
   };
 
   $scope.donation_params = function(){
