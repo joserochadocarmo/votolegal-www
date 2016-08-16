@@ -8,16 +8,11 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
   $scope.accept_terms = 0;
   $scope.submit_disabled = false;
 
-  // getting form params
-  $scope.register_params = function(){
-    return $scope.candidate;
-  };
-
   // load zipcode meta informations
   $scope.address_by_zipcode = function(event){
     var zipcode = $scope.candidate.address_zipcode;
 
-    if(zipcode.length == 9){
+    if(zipcode.length == 8){
       postmon(zipcode).then(
         // success callback
         function(response) {
@@ -103,14 +98,17 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
       function(response){
         var res = response.data.candidate;
 
+        if(!res.address_district) document.querySelector('form[name=boletoForm] *[name=address_district]').disabled = false;
+
         (function(){
           var list = res.address_street.split(' - ');
           if(list.length == 2){
             if(list[0]) res.address_street   = list[0];
-            else document.querySelector('*[name=address_street]').disabled = false;
+            else document.querySelector('form[name=boletoForm] *[name=address_street]').disabled = false;
+            console.log(document.querySelector('form[name=boletoForm] *[name=address_street]'));
 
             if(list[1]) res.address_district = list[1];
-            else document.querySelector('*[name=address_district]').disabled = false;
+            else document.querySelector('form[name=boletoForm] *[name=address_district]').disabled = false;
           }
         })();
 
