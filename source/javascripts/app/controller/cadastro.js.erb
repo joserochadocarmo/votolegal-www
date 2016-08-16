@@ -421,6 +421,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     .then(
       function(response){ 
         $scope.candidate = response.data.candidate;
+        console.log($scope.candidate.status);
         $scope.get_issues_priority();
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }

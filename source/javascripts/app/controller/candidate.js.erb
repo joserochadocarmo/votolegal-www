@@ -20,6 +20,11 @@ if(document.location.href.indexOf('/candidato') >= 0){
   $(document).ready(function(){
     $('body').on('click', 'input.opcao_doar_radio', function(e){
       e.preventDefault;
+      if ($(this).hasClass('opcao_doar_diff')){
+        $(this).closest('.valor-doa-container').find('.doar-number-diferente').attr('disabled', false);
+      }else{
+        $('.doar-number-diferente').attr('disabled', true);
+      }
       $('.valor-doa-container').removeClass('doa-container-active');
       $(this).closest('.valor-doa-container').addClass('doa-container-active');
     });
