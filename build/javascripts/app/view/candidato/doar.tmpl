@@ -58,18 +58,17 @@
                   <input type="radio" name="opcao_doar" class="opcao_doar_radio" id="opcao_doar_30">
                 </div>
                 <div class="valor-doa-txt-nbr">
-                  <span class="doar-txt">Doar um valor diferente</span><br/><span class="doar-number">R$</span><input type="text" name="opcao_doar_diferente" ng-model="doar.amount" class="doar-number-diferente" ui-number-mask="2" placeholder="00,00" />
+                  <span class="doar-txt">Doar um valor diferente</span><br/><span class="doar-number">R$</span><input type="text" name="opcao_doar_diferente" ng-model="doar.amount_diff" class="doar-number-diferente" ui-number-mask="2" placeholder="00,00" />
                 </div>
                 <div class="clearfix"></div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right">
-                <button id="btn_opcao_doar_30" class="btn btn-verde-doar" ng-click="doar_continue(doar.amount)">Continuar</button>
+                <button id="btn_opcao_doar_30" class="btn btn-verde-doar" ng-click="doar_continue(doar.amount_diff)">Continuar</button>
               </div>
             </div>
           </div>
 
-          <form id="doar-form" class="hide" ng-submit="send_donation()" method="post">
-            <div class="row">
+<form name="doarForm" id="doar-form" class="angular-form hide" ng-submit="send_donation()" novalidate="novalidate">            <div class="row">
               <input type="hidden" name="amount" ng-model="doar.amount" placeholder="Valor">
               <input type="hidden" name="sender_hash" ng-model="doar.sender_hash">
               <input type="hidden" name="credit_card_token" ng-model="doar.credit_card_token">
@@ -88,53 +87,53 @@
               <div class="form-group icon-left icon-with-label col-md-12">
                 <label for="email">E-mail</label>
                 <i class="fa fa-user"></i>
-                <input class="form-control" type="email" ng-model="doar.email" placeholder="">
+                <input class="form-control" type="email" ng-model="doar.email">
               </div>
               <div class="form-group icon-left icon-with-label col-md-12">
                 <label for="phone">Telefone</label>
                 <i class="fa fa-user"></i>
-                <input class="form-control" type="text" ng-model="doar.phone" placeholder="">
+                <input class="form-control" type="text" ng-model="doar.phone" mask="(99)d?9999-9999" mask-restrict="reject" mask-clean="true">
               </div>
               <div class="form-group icon-left icon-with-label col-md-12">
                 <label for="birthdate">Data de nascimento</label>
                 <i class="fa fa-user"></i>
-                <input class="form-control" type="text" ng-model="doar.birthdate" placeholder="00/00/0000">
+                <input class="form-control" type="text" ng-model="doar.birthdate" placeholder="00/00/0000" mask="99/99/9999" mask-restrict="reject" mask-clean="false">
               </div>
               
               <!-- address -->
               <div class="form-group icon-left icon-with-label col-md-6">
                 <label for="address_zipcode">CEP</label>
                 <i class="fa fa-home"></i>
-                <input class="form-control" type="text" ng-model="doar.address_zipcode" placeholder="00000-000">
+                <input class="form-control" type="text" name="address_zipcode" ng-model="doar.address_zipcode"  ng-blur="address_by_zipcode($event)" placeholder="00000-000" mask="99999-999" mask-restrict="reject" mask-clean="false">
                 <span class="help-block">
-                  Não sabe seu <code>CEP</code>? <a class="" target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui</a>
+                  Não sabe seu <code>CEP</code>? <a target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui</a>
                 </span>
               </div>
               <div class="form-group icon-left icon-with-label col-md-6">
                 <label for="address_state">Estado</label>
                 <i class="fa fa-home"></i>
-                <input class="form-control" type="text" ng-model="doar.address_state" placeholder="">
+                <input class="form-control" type="text" name="address_state" ng-model="doar.address_state" placeholder="" disabled>
               </div>
 
               <div class="form-group icon-left icon-with-label col-md-12">
                 <label for="address_city">Cidade</label>
                 <i class="fa fa-home"></i>
-                <input class="form-control" type="text" ng-model="doar.address_city" placeholder="">
+                <input class="form-control" type="text" name="address_city" ng-model="doar.address_city" disabled>
               </div>
               <div class="form-group icon-left icon-with-label col-md-12">
                 <label for="address_street">Endereço</label>
                 <i class="fa fa-home"></i>
-                <input class="form-control" type="text" ng-model="doar.address_street" placeholder="">
+                <input class="form-control" type="text" name="address_street" ng-model="doar.address_street" disabled>
               </div>
               <div class="form-group icon-left icon-with-label col-md-6">
                 <label for="address_district">Bairro</label>
                 <i class="fa fa-home"></i>
-                <input class="form-control" type="text" ng-model="doar.address_district" placeholder="">
+                <input class="form-control" type="text" name="address_district" ng-model="doar.address_district" disabled>
               </div>
               <div class="form-group icon-left icon-with-label col-md-6">
                 <label for="address_house_number">Número</label>
                 <i class="fa fa-home"></i>
-                <input class="form-control" type="text" ng-model="doar.address_house_number" placeholder="" mask="d" 
+                <input class="form-control" type="text" name="address_house_number" ng-model="doar.address_house_number" mask="d" 
                 mask-repeat="5" mask-restrict="reject" mask-validate="false" mask-clean="true">
               </div>
 
@@ -159,8 +158,7 @@
               </div>
             </div>
 
-          </form>
-
+</form>
         </div>
 
         <!-- right side panel -->

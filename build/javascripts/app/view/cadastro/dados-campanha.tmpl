@@ -60,18 +60,38 @@
         </div>
       </div>
     </div>
-    <div class="row hide">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <h3 class="text-success">Terminal de captura</h3>
+        <small>Dados da conta da operadora financeira para recebimento de doações</small>
+      </div>
       <div class="form-group col-md-12">
         <label>Token operadora financeira</label>
         <span class="help-block">Após sua candidatura ser aprovada pelo <em class="text-warning" title="Trinunal Superior Eleitoral">TSE</em> você deverá assinar um contrato com alguma <em class="text-warning">operadora financeira</em> para poder receber doações na sua conta de campanha. Insira aqui o Token enviado pela da operadora.</span>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="merchant_id">Id de pagamento</label>
         <i class="fa fa-lock"></i>    
         <input class="form-control" type="text" name="merchant_id" ng-model="candidate.merchant_id" placeholder="Id de pagamento" required>
       </div>
-      <div class="form-group icon-left col-md-12">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="merchant_key">Token de pagamento</label>
         <i class="fa fa-lock"></i>    
         <input class="form-control" type="text" name="merchant_key" ng-model="candidate.merchant_key" placeholder="Token de pagamento" required>
+      </div>
+
+      <!-- recibos -->
+      <div class="form-group col-md-12">
+        <h3 class="text-success">Numeração dos recibos</h3>
+        <small>Essa numeração é utilizada para a prestação de contas</small>
+      </div>
+      <div class="form-group _icon-left icon-with-label col-md-6">
+        <label for="receipt_min">Número mínimo</label>
+        <input class="form-control" type="text" name="receipt_min" ng-model="candidate.receipt_min" required>
+      </div>
+      <div class="form-group icon-left col-md-6">
+        <label for="receipt_max">Número máximo</label>
+        <input class="form-control" type="text" name="receipt_max" ng-model="candidate.receipt_max" required>
       </div>
     </div>
 
