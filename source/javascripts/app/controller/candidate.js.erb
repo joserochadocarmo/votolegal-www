@@ -46,6 +46,16 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     url = url.split(/\//)[2].split('.')[0];
     if(url !== 'localhost') return url;
   })();
+  $scope.month_list = (function(){
+    list = [];
+    for(var i=1; i<=12; i++) { list.push(i); }
+    return list;
+  })();
+  $scope.year_list = (function(){
+    list = [];
+    for (var i = 2016; i<=2030; i++) { list.push(i); }
+    return list;
+  })();
 
 
   // methods
@@ -53,12 +63,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     if(total === 0) return '0%';
     return ((number/total) * 100).toFixed(2) + '%'
   };
-
-  //$scope.active_tab = function(href){
-  //  var list = document.querySelectorAll('a[role=tab]').map(function(a){
-  //    a.parentNode.classList.remove('active');
-  //  });
-  //};
 
   $scope.render_video = function(src){
     return '<iframe id="candidate_video" src="' + $sce.trustAsResourceUrl(src) + '" width="560" height="315" allowfullscreen></iframe>';
@@ -233,49 +237,106 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     return false
   };
 
+  /* sender donartion */
   $scope.send_donation = function(){
     // sender
-    var teste = PagSeguroDirectPayment.getSenderHash();
+    var sender = PagSeguroDirectPayment.getSenderHash();
+    console.log('SENDER: '+ sender);
 
-    /*
-    // payment methods
-    PagSeguroDirectPayment.getPaymentMethods({
-      amount: parseFloat($scope.doar.amount),
-      success: function(response){
-        console.log(response);
+
+    // getting card
+    var card = $scope.card_params();
+    console.log(card);
+
+
+    // getting card brand
+    $scope.card_brand({
+      // 6 first digits
+      bin: card.card_number.slice(0, 6),
+
+      // success callback
+      success_cb: function(response){
+        var brand = (response.brand)? response.brand: undefined;
+
+        if(brand){
+          $scope.card_token({
+            // credit card data
+            card_number: card.card_number,
+            brand:       brand.name,
+            cvv:         card.card_cvv,
+            month:       card.card_month,
+            year:        card.card_year,
+
+            // success callback
+            success_cb: function(response){
+              console.log(response);
+            },
+
+            // error callback
+            error_cb: function(response){
+              SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
+              throw new Error('CARDBRAND_GET_ERROR');
+            },
+          });
+        }
       },
-      error: function(response){
-        SweetAlert.swal('Erro', 'Não foi possível obter os métodos de pagamento!');
-        trouble.shoot({
-          route: document.location.href, error: JSON.stringify(response);
-        })
-        throw new Error('PAGSEGURO_GET_PAYMENTMETHODS');
-      },
-      complete: function(response){ }
+
+      // error callback
+      error_cb: function(response){
+        SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
+        throw new Error('CARDBRAND_GET_ERROR');
+      }
     });
 
-    // card token
-    PagSeguroDirectPayment.createCardToken({
-      cardNumber: ''
-      brand: '',
-      cvv: '',
-      expirationMonth: '',
-      expirationYear: '',
-      success: function(response){
-      },
-      error: function(response){
-      },
-      complete: function(response){
-      }
-      });
-    */
   };
+
+  /* payment methods */
+  $scope.payment_method = function(opts){
+    PagSeguroDirectPayment.getPaymentMethods({
+      amount:   parseFloat(opts.amount),
+      success:  opts.success_cb,
+      error:    opts.error_cb,
+      complete: opts.complete_cb
+    });
+  };
+
+  // card brand
+  $scope.card_brand = function(opts){
+    PagSeguroDirectPayment.getBrand({
+      cardBin:  opts.bin,
+      success:  opts.success_cb  || function(){},
+      error:    opts.error_cb    || function(){},
+      complete: opts.complete_cb || function(){}
+    });
+  };
+
+  // card token
+  $scope.card_token = function(opts){
+    PagSeguroDirectPayment.createCardToken({
+      cardNumber:       opts.card_number,
+      brand:            opts.brand,
+      cvv:              opts.cvv,
+      expirationMonth:  opts.month,
+      expirationYear:   opts.year,
+      success:          opts.success_cb   || function(){},
+      error:            opts.error_cb     || function(){},
+      complete:         opts.complete_cb  || function(){}
+    });
+  };
+  
 
   $scope.donation_params = function(){
     return Params
-      .required($scope.doar)
+      .require($scope.doar)
       .permit('')
   };
+
+  $scope.card_params = function(){
+    return Params
+      .require($scope.payment)
+      .permit('card_number', 'card_month', 'card_year', 'card_cvv')
+  };
+
 
   $scope.candidate_by_name($scope.name);
 }]);
