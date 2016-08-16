@@ -422,6 +422,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     .then(
       function(response){ 
         $scope.candidate = response.data.candidate;
+        
+        (function(){
+          var boleto = document.querySelector('#show-boleto');
+          if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
+          console.log($scope.candidate.status);
+        })();
+
         $scope.get_issues_priority();
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }

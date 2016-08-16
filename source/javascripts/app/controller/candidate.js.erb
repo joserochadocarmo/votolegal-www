@@ -221,10 +221,9 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       url: '<%= config[:api_host] %>/candidate/'+id+'/donate/session'
     }).
     then(function(response){
-      $scope.payment.session = response.data.id || 0;
-      try{ 
-        PagSeguroDirectPayment.setSessionId(response.data.id);
-      } catch(e){}
+      $scope.payment.session = response.data.id;
+      console.log('SESSION: '+ response.data.id);
+      PagSeguroDirectPayment.setSessionId(response.data.id);
     }, function(response){
       trouble.shoot({
         route: '/cadastro/boleto', error: JSON.stringify(response)
@@ -232,6 +231,32 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       throw new Error("ERROR_GET_SESSION");
     });
     return false
+  };
+
+  $scope.send_donation = function(){
+    // sender
+    var teste = PagSeguroDirectPayment.getSenderHash();
+
+    PagSeguroDirectPayment.getPaymentMethods({
+      amount: parseFloat($scope.doar.amount),
+      success: function(response){
+        console.log(response);
+      },
+      error: function(response){
+        SweetAlert.swal('Erro', 'Não foi possível obter os métodos de pagamento!');
+        trouble.shoot({
+          route: document.location.href, error: JSON.stringify(response);
+        })
+        throw new Error('PAGSEGURO_GET_PAYMENTMETHODS');
+      },
+      complete: function(response){ }
+    });
+  };
+
+  $scope.donation_params = function(){
+    return Params
+      .required($scope.doar)
+      .permit('')
   };
 
   $scope.candidate_by_name($scope.name);
