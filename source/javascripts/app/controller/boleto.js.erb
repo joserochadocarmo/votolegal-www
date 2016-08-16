@@ -4,6 +4,7 @@
 app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, postmon, auth_service, serialize, SweetAlert, trouble){
   $scope.candidate = {};
   $scope.payment   = {};
+  $scope.bank_list = [];
   $scope.accept_terms = 0;
   $scope.submit_disabled = false;
 
@@ -72,6 +73,24 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     });
     return false
   };
+
+  // getting session
+  $scope.get_banks = function(){
+    $http({
+      method: 'GET',
+      url: '<%= config[:api_host]%>/bank',
+    }).
+    then(function(response){
+      $scope.bank_list = response.data.bank;
+    }, function(response){
+      trouble.shoot({
+        route: '/cadastro/boleto', error: JSON.stringify(response)
+      });
+      throw new Error("ERROR_GET_BANK");
+    });
+    return false
+  };
+  
 
 
   $scope.load_candidate = function(){
@@ -184,5 +203,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
    */
   auth_service.validate_user({role: 'user'});
   $scope.load_candidate();
+  $scope.get_banks();
+
   $scope.get_session();
 }]);

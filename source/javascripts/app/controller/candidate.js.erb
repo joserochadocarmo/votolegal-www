@@ -30,7 +30,7 @@ if(document.location.href.indexOf('/candidato') >= 0){
 /**
  * Candidate Controller
  */
-app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", function($scope, $http, $sce, serialize, auth_service){
+app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", function($scope, $http, $sce, serialize, auth_service, SweetAlert){
   // defaults
   $scope.candidate  = {};
   $scope.doar       = {};
@@ -136,6 +136,14 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
   /* doação */
   $scope.doar_continue = function(amount){
+
+
+    console.log(amount);
+    if(!amount || amount < 10.00){
+      SweetAlert.swal('Preencha um valor superior a 10,00 reais.');
+      return false;
+    }
+
     document.getElementById('amount-review').classList.remove('hide');
     var list = document.querySelectorAll('.valor-doa-container');
     for(var i in list) {

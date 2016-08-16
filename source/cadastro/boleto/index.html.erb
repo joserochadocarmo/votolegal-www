@@ -5,7 +5,8 @@ title:  Gerar boleto
 <% if build? %>
   <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 <% else %>
-  <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+  <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+  <!-- script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script -->
 <% end %>
 
 <section id="boleto" ng-controller="BoletoController">
@@ -94,21 +95,28 @@ title:  Gerar boleto
             </div>
 
             <div class="form-group icon-left icon-with-label col-md-12">
-              <label for="address_city">Nome do Banco</label>
-              <i class="fa fa-money"></i>    
-              <input class="form-control" type="text" name="bank_name" ng-model="payment.bank_name">
+              <label for="bank_code">Banco</label>
+              <select id="bank" name="bank_code" ng-model="candidate.bank_code" class="form-control">
+                <option value="0" selected>Selecione um banco</option>
+                <option ng-repeat="b in bank_list" value="{{b.id}}">{{b.name}}</option>
+              </select>
             </div>
 
 
-            <div class="form-group icon-left icon-with-label col-md-6">
-              <label for="address_city">Conta corrente</label>
+            <div class="form-group icon-left icon-with-label col-md-12">
+              <label for="bank_agency">Número da agência</label>
               <i class="fa fa-money"></i>    
-              <input class="form-control" type="text" name="bank_account" placeholder="0000" ng-model="payment.bank_account">
+              <input class="form-control" type="text" name="bank_agency" placeholder="0000" ng-model="candidate.bank_agency">
             </div>
-            <div class="form-group icon-left icon-with-label col-md-6">
-              <label for="address_city">Dígito verificador</label>
+            <div class="form-group icon-left icon-with-label col-md-8">
+              <label for="bank_account_dv">Conta corrente</label>
               <i class="fa fa-money"></i>    
-              <input class="form-control" type="text" name="bank_account_digit" placeholder="0" ng-model="payment.bank_account_digit">
+              <input class="form-control" type="text" name="bank_account_number" placeholder="0000" ng-model="candidate.bank_account_number">
+            </div>
+            <div class="form-group icon-left icon-with-label col-md-4">
+              <label for="bank_account_dv">Dígito</label>
+              <i class="fa"></i>    
+              <input class="form-control" type="text" name="bank_account_dv" placeholder="0" ng-model="candidate.bank_account_dv">
             </div>
 
 
