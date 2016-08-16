@@ -30,7 +30,7 @@ if(document.location.href.indexOf('/candidato') >= 0){
 /**
  * Candidate Controller
  */
-app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", function($scope, $http, $sce, serialize, auth_service, SweetAlert){
+app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
   // defaults
   $scope.candidate  = {};
   $scope.doar       = {};
@@ -108,6 +108,47 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     return false;
   };
 
+  /* fetch zip_code info */
+  $scope.address_by_zipcode = function(event){
+    var zipcode = $scope.doar.address_zipcode;
+
+    if(zipcode.length == 9){
+      postmon(zipcode).then(
+        // success callback
+        function(response) {
+          var res = response.data, $f = $scope.doar;
+          $f.address_city   = res.cidade;
+          $f.address_state  = res.estado_info.nome;
+          
+          // load district
+          var district = document.querySelector('form[name=doarForm] *[name=address_district]');
+          if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
+          else {  $f.address_district = ""; district.disabled = false }
+
+          // load street
+          var street = document.querySelector('form[name=doarForm] *[name=address_street]');
+          if(res.logradouro) { $f.address_street = res.logradouro; street.disabled = true }
+          else { $f.address_street = ""; street.disabled = false }
+        },
+        // error callback
+        function(response){
+          swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
+          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){ 
+            try{ 
+              $scope.candidate[i] = "";
+              document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
+            } catch(e) {};
+          });
+          throw new Error("ERROR_GET_ZIPCODE");
+        }
+      );
+    }
+
+    return false;
+  };
+
+
+  /* fetch candidate projects */
   $scope.candidate_projects = function(candidate){
     $http({
       method: 'GET',
@@ -134,11 +175,9 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     return false;
   };
 
-  /* doação */
+
+  /* setting donation amount */
   $scope.doar_continue = function(amount){
-
-
-    console.log(amount);
     if(!amount || amount < 10.00){
       SweetAlert.swal('Preencha um valor superior a 10,00 reais.');
       return false;
@@ -150,8 +189,16 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       if(list[i] && list[i].classList) list[i].classList.add('hide');
     }
     document.getElementById('doar-form').classList.remove('hide');
+
+    // update amount value
+    $scope.doar.amount = parseFloat(amount);
+
+    // TODO uncomment this
     $scope.get_session();
   };
+
+
+  /* doar edit method*/
   $scope.doar_edit = function(amount){
     document.getElementById('amount-review').classList.add('hide');
     var list = document.querySelectorAll('.valor-doa-container');
@@ -160,18 +207,26 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     }
     document.getElementById('doar-form').classList.add('hide');
   };
-  // session
+
+
+  /* getting session */
   $scope.get_session = function(){
     var id = $scope.candidate.id || 0;
     $http({
       url: '<%= config[:api_host] %>/candidate/'+id+'/donate/session'
     }).
     then(function(response){
-      console.log(response);
+      $scope.payment.session = response.data.id || 0;
+      try{ 
+        PagSeguroDirectPayment.setSessionId(response.data.id);
+      } catch(e){}
     }, function(response){
-      console.log(response);
+      trouble.shoot({
+        route: '/cadastro/boleto', error: JSON.stringify(response)
+      });
+      throw new Error("ERROR_GET_SESSION");
     });
-    return false;
+    return false
   };
 
   $scope.candidate_by_name($scope.name);
