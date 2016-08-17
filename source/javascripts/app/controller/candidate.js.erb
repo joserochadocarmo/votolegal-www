@@ -10,6 +10,10 @@ if(domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/) || domain.match(/vo
       templateUrl: '/javascripts/app/view/candidato/doar.tmpl',
       controller: 'CandidateController',
     }).
+    when('/doar/success', {
+      templateUrl: '/javascripts/app/view/candidato/success.tmpl',
+      controller: 'CandidateController',
+    }).
     otherwise({
       redirectTo: '/',
     });
@@ -270,7 +274,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     }).
     then(function(response){
       $scope.payment.session = response.data.id;
-      console.log('SESSION: '+ response.data.id);
       PagSeguroDirectPayment.setSessionId(response.data.id);
     }, function(response){
       trouble.shoot({
@@ -352,7 +355,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
       // success callback
       success_cb: function(response){
-        console.log('success 1');
         var brand = (response.brand)? response.brand: undefined;
 
         if(brand){
@@ -366,7 +368,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
             // success callback
             success_cb: function(response){
-              console.log('success 2');
               $scope.error_list = [];
 
               params.credit_card_token = response.card.token;
@@ -393,11 +394,9 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               }).
               then(function(response){
-                console.log('success 3');
-                SweetAlert.swal('Obrigado!', 'Sua doação foi cadastrada com sucesso');
+                document.location = '#/doar/success';
               }, function(response){
                 $scope.error_list = [];
-                console.log('error 3');
 
                 if(response && response.data && response.data.form_error){
                   var res = response.data.form_error;
@@ -503,7 +502,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
       billing_address.classList.add('hide');
     }
-    console.log($scope.doar);
     return false;
   };
   
