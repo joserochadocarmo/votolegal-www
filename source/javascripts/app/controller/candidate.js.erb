@@ -367,7 +367,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
               })();
               
               // format amount
-              $scope.doar.amount = parseInt(($scope.doar.amount * 100));
+              params.amount = parseInt((params.amount * 100));
 
               // send to backend
               $scope.error_list = [];
