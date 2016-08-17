@@ -55,10 +55,10 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="doa-radio-btn-cont">
-                  <input type="radio" name="opcao_doar" class="opcao_doar_radio" id="opcao_doar_30">
+                  <input type="radio" name="opcao_doar" class="opcao_doar_radio opcao_doar_diff" id="opcao_doar_30">
                 </div>
                 <div class="valor-doa-txt-nbr">
-                  <span class="doar-txt">Doar um valor diferente</span><br/><span class="doar-number">R$</span><input type="text" name="opcao_doar_diferente" ng-model="doar.amount_diff" class="doar-number-diferente" ui-number-mask="2" placeholder="00,00" />
+                  <span class="doar-txt">Doar um valor diferente</span><br/><span class="doar-number">R$</span><input type="text" name="opcao_doar_diferente" ng-model="doar.amount_diff" class="doar-number-diferente" ui-number-mask="2" placeholder="00,00" disabled />
                 </div>
                 <div class="clearfix"></div>
               </div>
@@ -235,7 +235,7 @@
                   <input type="checkbox"  value="1"> Permito que meu e­mail fique visível ao candidato.
                 </label>
               </div>
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-12 hide">
                 Ao fazer a doação declaro­me de acordo com os <a href="/termos-de-uso" target="_blank">termos de uso e políticas de privacidade</a> do Voto Legal. 
               </div>
               <div class="form-group text-center col-md-12">
