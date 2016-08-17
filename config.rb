@@ -13,6 +13,7 @@ page '/admin/signin/index.html', layout: false
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 page "/admin/*.html", :layout => :admin
+page "/candidato/*.html", :layout => :candidato
 
 
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)

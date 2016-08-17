@@ -206,6 +206,7 @@
               <div class="form-group icon-left icon-with-label col-md-12">
                 <h3 class="text-success">Dados do cartão</h3>
               </div>
+              <label for="amount" class="hide">Valor</label>
               <div class="form-group icon-left icon-with-label col-md-12">
                 <label for="credit_card_name">Número do Cartão <span id="card-image"></span></label>
                 <i class="fa fa-creditcard"></i>
@@ -240,6 +241,14 @@
               <div class="form-group text-center col-md-12">
                 <button class="btn btn-success btn-lg" type="submit">Efetuar doação</button>
               </div>
+              <div class="form-group text-center col-md-12">
+                <div ng-show="error_list.length > 0" style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+                  <h4>Os seguintes campos precisam ser corrigidos:</h4>
+                  <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope text-left">
+                    <li>{{error}}</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
 </form>
@@ -253,12 +262,13 @@
           </div>
           <br class="divider">
           <div class="side-panel reg-doa-side-p">
+
             <div class="regra-doa-container">
                 <div class="espac-icone-danger">
                   <i class="fa flaticon-information-button"></i>
                 </div>
                 <div class="espac-regra-txt">
-                  Só é permitido realizar doações pelo cartão de crédito próprio do doador.
+                  O limite é de 10% de seus rendimentos brutos declarados no Imposto de Renda 2015.
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -267,7 +277,7 @@
                   <i class="fa flaticon-information-button"></i>
                 </div>
                 <div class="espac-regra-txt">
-                  Só é permitido doar até <strong>10% de seus rendimentos brutos</strong> referentes ao ano anterior às eleições do IR.
+                  Caso a declaração de imposto de renda seja realizada como isento, o limite é de R$ 2.812,39. Se você declarou qualquer valor de rendimento bruto no imposto de renda em 2015, mesmo que abaixo do limite da isenção, o máximo que você pode doar é 10% do declarado.                
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -276,7 +286,16 @@
                   <i class="fa flaticon-information-button"></i>
                 </div>
                 <div class="espac-regra-txt">
-                  Só é permitido doação de pessoas físicas.
+                  É obrigatório declarar no imposto de renda a doação. Existe uma seção específica chamada: Doações para Partidos Políticos, Comitês Financeiros e Candidatos a Cargos Eletivos. Basta informar o nome e o CNPJ do candidato para quem a doação foi realizada.
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="regra-doa-container">
+                <div class="espac-icone-danger">
+                  <i class="fa flaticon-information-button"></i>
+                </div>
+                <div class="espac-regra-txt">
+                  Todo doador deve ser brasileiro, maior de idade, não possuir nenhuma concessão de serviço público e ter o CPF em situação regular junto a Receita Federal Brasileira.
                 </div>
                 <div class="clearfix"></div>
             </div>
