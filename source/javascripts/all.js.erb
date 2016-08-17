@@ -97,12 +97,10 @@
         var _self = this;
 
         var param_list = {};
-        // TODO: remove angular dependency
-        angular.forEach(arguments, function(i){
-          if(_self._value.hasOwnProperty(i) && _self._value[i] != null)
-            return param_list[i] = _self._value[i];
-        });
-
+        for(var i in arguments) {
+            param_list[arguments[i]] = _self._value[arguments[i]] || "";
+        }
+        
         return param_list;
       },
       normalize: function(value){

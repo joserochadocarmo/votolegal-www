@@ -41,6 +41,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.candidate  = {};
   $scope.doar       = {};
   $scope.payment    = {};
+  $scope.error_list = [];
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
     var url = document.location.href;
@@ -313,24 +314,36 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
   /* sender donartion */
   $scope.send_donation = function(){
+    $scope.error_list = [];
+
     // sender
     var sender = PagSeguroDirectPayment.getSenderHash();
     $scope.doar.sender_hash = sender;
-    console.log('SENDER: '+ sender); // DEBUG
 
-    // getting card
-    var card = $scope.card_params();
-    console.log(card); // DEBUG
 
     // billing address is same as address
     (function(){
       var billing_address = document.querySelector('#billing_address');
       var list = 'address_zipcode address_state address_city address_street address_district address_house_number address_complement'.split(/\s/);
-      if(!billing_address.classList.contains('hide')){
+      if(billing_address.classList.contains('hide')){
         for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
       }
     })();
 
+    var f = function(field){
+      return document.querySelector('form[name=doarForm] label[for='+field+']') || undefined;
+    };
+
+    // getting params
+    var params = $scope.donation_params();
+
+    // getting card
+    var card = $scope.card_params();
+    var card_names = { card_number: "Número do cartão", card_month: "Mês do cartão", card_year: "Ano do cartão", card_cvv: "Código do cartão" };
+    for(var field in card) {
+      if(!card[field] && card[field].length == 0) $scope.error_list.push(card_names[field] + ' é obrigatório');
+    }
+    if($scope.error_list.length > 0) return false;
 
     // getting card brand
     $scope.card_brand({
@@ -339,9 +352,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
       // success callback
       success_cb: function(response){
+        console.log('success 1');
         var brand = (response.brand)? response.brand: undefined;
-
-        console.log(brand);
 
         if(brand){
           $scope.card_token({
@@ -354,45 +366,78 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
             // success callback
             success_cb: function(response){
-              $scope.doar.credit_card_token = response.card.token;
+              console.log('success 2');
+              $scope.error_list = [];
 
-              // getting params
-              var params = $scope.donation_params();
+              params.credit_card_token = response.card.token;
 
               // format date
-              (function(){
-                var date = params.birthdate;
+              var date = params.birthdate;
+              if(date && date.length > 0){
                 var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
                 if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
-              })();
+              }
+              else {
+                params.birthdate = '';
+              }
               
               // format amount
               params.amount = parseInt((params.amount * 100));
 
+
               // send to backend
-              $scope.error_list = [];
               $http({
-                method:  'POST',
-                url :    '<%= config[:api_host] %>/candidate/'+ $scope.candidate.id +'/donate',
-                data:    serialize.from_object(params),
+                method: 'POST',
+                url : '<%= config[:api_host] %>/candidate/'+ $scope.candidate.id +'/donate',
+                data: serialize.from_object(params),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               }).
               then(function(response){
-                console.log(response);
+                console.log('success 3');
+                SweetAlert.swal('Obrigado!', 'Sua doação foi cadastrada com sucesso');
               }, function(response){
-                console.log(response);
+                $scope.error_list = [];
+                console.log('error 3');
 
-                for(var e in response.data.form_error){
-                  console.log(e);
+                if(response && response.data && response.data.form_error){
+                  var res = response.data.form_error;
+
+
+                  // setting error message
+                  for(var field in res){
+                    var name = f(field);
+                    if(name !== undefined){
+                      var text = name.innerText;
+                      if(field.match(/billing/)) text += " (endereço de cobrança) ";
+                      $scope.error_list.push(text + error_msg(res[field]));
+                    }
+                  }
+
+                  // sending troubleshoot
+                  trouble.shoot({
+                    route: document.location.href, error: JSON.stringify(response)
+                  });
+
+                  return false;
                 }
-              
+
+                // sending troubleshoot
+                trouble.shoot({
+                  route: document.location.href, error: JSON.stringify(response)
+                });
+
+                SweetAlert.swal('Erro inesperado com a doação');
+                throw new Error('DONATION_POST_ERROR');
               });
 
+              return false;
             },
 
             // error callback
             error_cb: function(response){
-              SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
+              $scope.error_list.push('Não foi possivel carregar os dados do cartão!');
+              trouble.shoot({ route: document.location.href, error: JSON.stringify(response) });
+              //SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
               throw new Error('CARDBRAND_GET_ERROR');
             },
           });
@@ -401,7 +446,9 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
       // error callback
       error_cb: function(response){
-        SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
+        $scope.error_list.push('Bandeira do cartão não pode ser idêntificada!');
+        //SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
+        trouble.shoot({ route: document.location.href, error: JSON.stringify(response) });
         throw new Error('CARDBRAND_GET_ERROR');
       }
     });

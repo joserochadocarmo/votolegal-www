@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html ng-app="votolegal">
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <title><%= current_page.data.title ? "VotoLegal - #{current_page.data.title}" : "VotoLegal" %></title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "site" %>
+  <%= stylesheet_link_tag "font-awesome.min" %>
+  <%= stylesheet_link_tag "flaticon" %>
+
+  <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="<%= page_classes %>">
+  <% if page_classes == 'candidato candidato_doar candidato_doar_compartilha candidato_doar_compartilha_index'  %>
+  <%= partial "partial/compartilha" %>
+  <% end %>
+    <!-- Static navbar -->
+    <div id="nav" class="navbar-fixed-top" ng-controller="MenuController">
+      <div class="container">
+        <nav class="navbar navbar-votolegal">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#" style="font-size: 42px !important">
+                Site do Candidato
+              </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+      </div><!--/.container -->
+    </div><!--/.container -->
+
+    <div class="container-fluid">
+      <div class="navbar-divider"></div>
+    </div>
+
+
+    <%= yield %>
+
+
+    <!-- page footer -->
+    <div class="container-fluid">
+      <div class="navbar-divider"></div>
+    </div>
+
+    <!-- footer -->
+
+    <!-- styles -->
+    <%= stylesheet_link_tag "sweetalert" %>
+
+    <!-- javascript -->
+    <%= javascript_include_tag 'classList.min.js'%>
+    <%= javascript_include_tag 'sweetalert.js' %>
+
+    <%= javascript_include_tag 'angular.all.js' %>
+    <%# javascript_include_tag 'angular.min.js' %>
+    <%# javascript_include_tag 'angular-locale_pt-br.js' %>
+    <%# javascript_include_tag 'angular-route.min.js' %>
+    <%# javascript_include_tag 'angular-sanitize.js' %>
+    <%# javascript_include_tag 'angular-storage.js' %>
+    <%# javascript_include_tag 'angular-masks' %>
+    <%# javascript_include_tag 'angular-ng_mask' %>
+    <%# javascript_include_tag 'angular-br-filters.min.js' %>
+    <%# javascript_include_tag 'angular-sweet_alert.min.js' %>
+    <%# javascript_include_tag 'ui-bootstrap-2.0.0.min.js' %>
+
+    <%= javascript_include_tag 'jquery.min.js' %>
+    <%= javascript_include_tag 'bootstrap.min.js' %>
+    <%= javascript_include_tag 'all' %>
+
+    <!-- image plugin -->
+    <%= stylesheet_link_tag 'ekko-lightbox.css' %>
+    <%= javascript_include_tag 'ekko-lightbox.min.js' %>
+
+    <%= javascript_include_tag 'application' %>
+
+    <script>
+      // TODO: colocar todo esse js em um arquivo separado
+      $(function(){
+
+        /**
+         * Change color of
+         */
+        $('.howto-works-timeline').on('mouseover', '.howto-works-text, .howto-works-pill', function(){
+          $('.howto-works-timeline li').removeClass('active');
+          $(this).parent().addClass('active');
+        });
+
+
+        /**
+         * Faq chevrom image change
+         */
+        $('#accordion').on('show.bs.collapse', function (e) {
+          $(e.target).parent().find('i.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+        });
+        $('#accordion').on('hide.bs.collapse', function (e) {
+          $(e.target).parent().find('i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+        });
+
+        // start popover elements
+        $('[data-toggle="popover"]').popover();
+
+				// delegate calls to data-toggle="lightbox"
+				$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+					event.preventDefault();
+					return $(this).ekkoLightbox({ always_show_close: true });
+				});
+
+      });
+    </script>
+
+    <script>
+      var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2};
+      function $buo_f(){
+       var e = document.createElement("script");
+       e.src = "//browser-update.org/update.min.js";
+       document.body.appendChild(e);
+      };
+      try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+      catch(e){window.attachEvent("onload", $buo_f)}
+    </script>
+
+    <%= partial "partial/ga" %>
+  </body>
+</html>
