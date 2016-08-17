@@ -134,7 +134,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         function(response) {
           var res = response.data, $f = $scope.doar;
           $f.billing_address_city   = res.cidade;
-          $f.billing_address_state  = res.estado_info.nome;
+          $f.billing_address_state  = res.estado;
           
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=billing_address_district]');
@@ -171,7 +171,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         function(response) {
           var res = response.data, $f = $scope.doar;
           $f.address_city   = res.cidade;
-          $f.address_state  = res.estado_info.nome;
+          $f.address_state  = res.estado;
           
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=address_district]');
@@ -316,20 +316,21 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     // sender
     var sender = PagSeguroDirectPayment.getSenderHash();
     $scope.doar.sender_hash = sender;
-    console.log('SENDER: '+ sender);
+    console.log('SENDER: '+ sender); // DEBUG
 
     // getting card
     var card = $scope.card_params();
-    console.log(card);
+    console.log(card); // DEBUG
 
+    // billing address is same as address
     (function(){
-      // billing address is same as address
       var billing_address = document.querySelector('#billing_address');
       var list = 'address_zipcode address_state address_city address_street address_district address_house_number address_complement'.split(/\s/);
       if(!billing_address.classList.contains('hide')){
         for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
       }
     })();
+
 
     // getting card brand
     $scope.card_brand({
@@ -358,7 +359,16 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
               // getting params
               var params = $scope.donation_params();
 
-              // TODO send to backend
+              // format date
+              (function(){
+                var date = params.birthdate;
+                var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                if(groups.length === 4){
+                  params.birthdate = [groups[3], groups[2], groups[1]].join('-');
+                }
+              })();
+
+              // send to backend
               $scope.error_list = [];
               $http({
                 method:  'POST',
