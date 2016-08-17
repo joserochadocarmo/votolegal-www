@@ -69,11 +69,13 @@
           </div>
 
 <form name="doarForm" id="doar-form" class="angular-form hide" ng-submit="send_donation()" novalidate="novalidate">            <div class="row">
-              <input type="hidden" name="amount" ng-model="doar.amount" placeholder="Valor">
               <input type="hidden" name="sender_hash" ng-model="doar.sender_hash">
               <input type="hidden" name="credit_card_token" ng-model="doar.credit_card_token">
 
               <!-- personal infor -->
+              <div class="form-group icon-left icon-with-label col-md-12">
+                <h3 class="text-success">Dados do doador</h3>
+              </div>
               <div class="form-group icon-left icon-with-label col-md-12">
                 <label for="name">Nome Completo (impresso no cartão)</label>
                 <i class="fa fa-user"></i>
@@ -99,7 +101,8 @@
                 <i class="fa fa-user"></i>
                 <input class="form-control" type="text" ng-model="doar.birthdate" placeholder="00/00/0000" mask="99/99/9999" mask-restrict="reject" mask-clean="false">
               </div>
-              
+
+
               <!-- address -->
               <div class="form-group icon-left icon-with-label col-md-6">
                 <label for="address_zipcode">CEP</label>
@@ -135,6 +138,57 @@
                 <i class="fa fa-home"></i>
                 <input class="form-control" type="text" name="address_house_number" ng-model="doar.address_house_number" mask="d" 
                 mask-repeat="5" mask-restrict="reject" mask-validate="false" mask-clean="true">
+              </div>
+
+
+              <!-- billing address -->
+              <div class="form-group col-md-12">
+                <h3 class="text-success">
+                  Endereço de cobrança
+                </h3>
+                <p id="same_billing_panel" class="hide">
+                  <label>
+                    <input type="checkbox" name="same_billing" ng-click="same_billing_addr($event)"> Utilizar mesmo endereço de declarado acima
+                  </label>
+                </p>
+
+              </div>
+              <div id="billing_address">
+                <div class="form-group icon-left icon-with-label col-md-6">
+                  <label for="billing_address_zipcode">CEP</label>
+                  <i class="fa fa-home"></i>
+                  <input class="form-control" type="text" name="billing_address_zipcode" ng-model="doar.billing_address_zipcode"  ng-blur="billing_by_zipcode($event)" placeholder="00000-000" mask="99999-999" mask-restrict="reject" mask-clean="false">
+                  <span class="help-block">
+                    Não sabe seu <code>CEP</code>? <a target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui</a>
+                  </span>
+                </div>
+                <div class="form-group icon-left icon-with-label col-md-6">
+                  <label for="billing_address_state">Estado</label>
+                  <i class="fa fa-home"></i>
+                  <input class="form-control" type="text" name="billing_address_state" ng-model="doar.billing_address_state" placeholder="" disabled>
+                </div>
+
+                <div class="form-group icon-left icon-with-label col-md-12">
+                  <label for="billing_address_city">Cidade</label>
+                  <i class="fa fa-home"></i>
+                  <input class="form-control" type="text" name="billing_address_city" ng-model="doar.billing_address_city" disabled>
+                </div>
+                <div class="form-group icon-left icon-with-label col-md-12">
+                  <label for="billing_address_street">Endereço</label>
+                  <i class="fa fa-home"></i>
+                  <input class="form-control" type="text" name="billing_address_street" ng-model="doar.billing_address_street" disabled>
+                </div>
+                <div class="form-group icon-left icon-with-label col-md-6">
+                  <label for="billing_address_district">Bairro</label>
+                  <i class="fa fa-home"></i>
+                  <input class="form-control" type="text" name="billing_address_district" ng-model="doar.billing_address_district" disabled>
+                </div>
+                <div class="form-group icon-left icon-with-label col-md-6">
+                  <label for="billing_address_house_number">Número</label>
+                  <i class="fa fa-home"></i>
+                  <input class="form-control" type="text" name="billing_address_house_number" ng-model="doar.billing_address_house_number" mask="d" 
+                  mask-repeat="5" mask-restrict="reject" mask-validate="false" mask-clean="true">
+                </div>
               </div>
 
 
