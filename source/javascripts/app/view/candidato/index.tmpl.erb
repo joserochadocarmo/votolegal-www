@@ -42,7 +42,7 @@
           <br class="divider">
 
           <h4 class="text-success">Pessoas já Doaram</h4>
-          <p class="donator-number">0</p>
+          <p class="donator-number">{{candidate.people_donated}}</p>
           <h4 class="text-success">Meta</h4>
           <p class="raising-goal">{{candidate.raising_goal.toFixed(2) | currency}}</p>
 
@@ -76,7 +76,7 @@
 
               <hr>
 
-              <div class="project-votes">
+              <div class="project-votes hide">
                 <div class="row">
                   <div class="col-md-12">
                     <h4 class="text-success">Projetos de lei mais votados:</h4>
