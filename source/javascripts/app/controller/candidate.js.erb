@@ -363,10 +363,11 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
               (function(){
                 var date = params.birthdate;
                 var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-                if(groups.length === 4){
-                  params.birthdate = [groups[3], groups[2], groups[1]].join('-');
-                }
+                if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
               })();
+              
+              // format amount
+              $scope.doar.amount = parseInt(($scope.doar.amount * 100));
 
               // send to backend
               $scope.error_list = [];
