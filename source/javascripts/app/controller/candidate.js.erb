@@ -280,6 +280,37 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     return false
   };
 
+  $scope.get_brand = function(card_number){
+    var bin = card_number.slice(0, 6);
+
+    // getting card brand
+    if(card_number.length == 6){
+      $scope.card_brand({
+        // 6 first digits
+        bin: card_number.slice(0, 6),
+
+        // success callback
+        success_cb: function(response){
+          var brand = response.brand;
+          var image = document.querySelector('#card-image');
+          if(image){
+            image.innerHTML = '<img src="//stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/'+brand.name+'.png" alt="'+brand.name+'" title="'+brand.name+'">';
+          }
+        },
+
+        // success callback
+        error_cb: function(response){
+          var image = document.querySelector('#card-image');
+          if(image){
+            image.classList.add('text-danger');
+            image.innerText = '(bandeira do cartão não encontrada)';
+          }
+        }
+      });
+    }
+    return false;
+  };
+
   /* sender donartion */
   $scope.send_donation = function(){
     // sender
@@ -300,6 +331,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       // success callback
       success_cb: function(response){
         var brand = (response.brand)? response.brand: undefined;
+
+        console.log(brand);
 
         if(brand){
           $scope.card_token({
