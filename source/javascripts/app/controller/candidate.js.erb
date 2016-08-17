@@ -118,6 +118,43 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   };
 
   /* fetch zip_code info */
+  $scope.billing_by_zipcode = function(event){
+    var zipcode = $scope.doar.billing_address_zipcode;
+
+    if(zipcode.length == 9){
+      postmon(zipcode).then(
+        // success callback
+        function(response) {
+          var res = response.data, $f = $scope.doar;
+          $f.billing_address_city   = res.cidade;
+          $f.billing_address_state  = res.estado_info.nome;
+          
+          // load district
+          var district = document.querySelector('form[name=doarForm] *[name=billing_address_district]');
+          if(res.bairro) { $f.billing_address_district = res.bairro; district.disabled = true }
+          else {  $f.billing_address_district = ""; district.disabled = false }
+
+          // load street
+          var street = document.querySelector('form[name=doarForm] *[name=billing_address_street]');
+          if(res.logradouro) { $f.billing_address_street = res.logradouro; street.disabled = true }
+          else { $f.billing_address_street = ""; street.disabled = false }
+        },
+        // error callback
+        function(response){
+          swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
+          ['billing_address_state', 'billing_address_city', 'billing_address_district', 'billing_address_street'].map(function(i){ 
+            try{ 
+              $scope.candidate[i] = "";
+              document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
+            } catch(e) {};
+          });
+          throw new Error("ERROR_GET_ZIPCODE");
+        }
+      );
+    }
+
+    return false;
+  };
   $scope.address_by_zipcode = function(event){
     var zipcode = $scope.doar.address_zipcode;
 
@@ -202,7 +239,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     // update amount value
     $scope.doar.amount = parseFloat(amount);
 
-    // TODO uncomment this
     $scope.get_session();
   };
 
@@ -241,8 +277,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.send_donation = function(){
     // sender
     var sender = PagSeguroDirectPayment.getSenderHash();
+    $scope.doar.sender_hash = sender;
     console.log('SENDER: '+ sender);
-
 
     // getting card
     var card = $scope.card_params();
@@ -269,7 +305,29 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
             // success callback
             success_cb: function(response){
-              console.log(response);
+              $scope.doar.credit_card_token = response.card.token;
+
+              // getting params
+              var params = $scope.donation_params();
+
+              // TODO send to backend
+              $scope.error_list = [];
+              $http({
+                method:  'POST',
+                url :    '<%= config[:api_host] %>/candidate/'+ $scope.candidate.id +'/donate',
+                data:    serialize.from_object(params),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              }).
+              then(function(response){
+              
+              }, function(response){
+
+                for(var e in response.data.form_error){
+                  console.log(e);
+                }
+              
+              });
+
             },
 
             // error callback
@@ -323,12 +381,27 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       complete:         opts.complete_cb  || function(){}
     });
   };
+
+  $scope.same_billing_addr = function(){
+    var billing_address = document.querySelector('#billing_address');
+    
+    if(billing_address.classList.contains('hide')){
+      billing_address.classList.remove('hide');
+    } 
+    else {
+      billing_address.classList.add('hide');
+    }
+
+    return false;
+  };
   
 
   $scope.donation_params = function(){
+    $scope.doar.credit_card_name = $scope.doar.name;
+
     return Params
       .require($scope.doar)
-      .permit('')
+      .permit('name', 'cpf', 'email', 'phone', 'birthdate', 'address_street', 'address_house_number', 'address_district', 'address_zipcode', 'address_city', 'address_state', 'billing_address_street', 'billing_address_house_number', 'billing_address_complement', 'billing_address_district', 'billing_address_zipcode', 'billing_address_city', 'billing_address_state', 'credit_card_name', 'amount', 'sender_hash', 'credit_card_token')
   };
 
   $scope.card_params = function(){
