@@ -12,7 +12,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
   $scope.address_by_zipcode = function(event){
     var zipcode = $scope.candidate.address_zipcode;
 
-    if(zipcode.length == 8){
+    if(zipcode.length == 9){
       postmon(zipcode).then(
         // success callback
         function(response) {
