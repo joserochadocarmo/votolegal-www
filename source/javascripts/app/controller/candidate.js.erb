@@ -151,7 +151,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
           ['billing_address_state', 'billing_address_city', 'billing_address_district', 'billing_address_street'].map(function(i){ 
             try{ 
-              $scope.candidate[i] = "";
+              $scope.doar[i] = "";
               document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
             } catch(e) {};
           });
@@ -188,7 +188,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
           ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){ 
             try{ 
-              $scope.candidate[i] = "";
+              $scope.doar[i] = "";
               document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
             } catch(e) {};
           });
@@ -322,6 +322,14 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     var card = $scope.card_params();
     console.log(card);
 
+    (function(){
+      // billing address is same as address
+      var billing_address = document.querySelector('#billing_address');
+      var list = 'address_zipcode address_state address_city address_street address_district address_house_number address_complement'.split(/\s/);
+      if(!billing_address.classList.contains('hide')){
+        for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
+      }
+    })();
 
     // getting card brand
     $scope.card_brand({
@@ -359,8 +367,9 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               }).
               then(function(response){
-              
+                console.log(response);
               }, function(response){
+                console.log(response);
 
                 for(var e in response.data.form_error){
                   console.log(e);
@@ -424,14 +433,19 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
   $scope.same_billing_addr = function(){
     var billing_address = document.querySelector('#billing_address');
+
+    // field list
+    var list = 'address_zipcode address_state address_city address_street address_district address_house_number address_complement'.split(/\s/);
     
     if(billing_address.classList.contains('hide')){
+      for(var i in list) $scope.doar["billing_" + list[i]] = "";
       billing_address.classList.remove('hide');
     } 
     else {
+      for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
       billing_address.classList.add('hide');
     }
-
+    console.log($scope.doar);
     return false;
   };
   
@@ -441,7 +455,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
     return Params
       .require($scope.doar)
-      .permit('name', 'cpf', 'email', 'phone', 'birthdate', 'address_street', 'address_house_number', 'address_district', 'address_zipcode', 'address_city', 'address_state', 'billing_address_street', 'billing_address_house_number', 'billing_address_complement', 'billing_address_district', 'billing_address_zipcode', 'billing_address_city', 'billing_address_state', 'credit_card_name', 'amount', 'sender_hash', 'credit_card_token')
+      .permit('name', 'cpf', 'email', 'phone', 'birthdate', 'address_street', 'address_house_number', 'address_district', 'address_zipcode', 'address_city', 'address_state', 'billing_address_street', 'billing_address_house_number', 'billing_address_complement', 'billing_address_district', 'billing_address_zipcode', 'billing_address_city', 'billing_address_state', 'credit_card_name', 'amount', 'sender_hash', 'credit_card_token', 'address_complement', 'billing_address_complement')
   };
 
   $scope.card_params = function(){
