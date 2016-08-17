@@ -236,8 +236,8 @@
                   <input type="checkbox"  value="1"> Permito que meu e­mail fique visível ao candidato.
                 </label>
               </div>
-              <div class="form-group col-md-12 hide">
-                Ao fazer a doação declaro­me de acordo com os <a href="/termos-de-uso" target="_blank">termos de uso e políticas de privacidade</a> do Voto Legal. 
+              <div class="form-group col-md-12">
+                Ao fazer a doação declaro­me de acordo com os <%= link_to 'termos de uso e políticas de privacidade', '#', :target => '_blank', 'data-toggle' => "modal", 'data-target' => "#termos_modal" %> do Voto Legal. 
               </div>
               <div class="form-group text-center col-md-12">
                 <button class="btn btn-success btn-lg" type="submit">Efetuar doação</button>
@@ -305,3 +305,21 @@
         </div>
       </div>
     </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="termos_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="width: 80%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">VotoLegal - Termos de uso</h4>
+        </div>
+        <div class="modal-body">
+          <%= partial 'partial/termo_de_uso' %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
