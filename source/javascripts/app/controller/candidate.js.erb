@@ -1,7 +1,5 @@
-//var url = document.location.href.toString();
-if(document.location.href.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/) ) { //indexOf('/candidato') >= 0){
-  console.log('DEBUG: routes');
-//if(document.location.href.indexOf('/candidato') >= 0){
+var domain = document.location.href;
+if(domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/) || domain.match(/votolegal.org.br\/candidato/)) { 
   app.votolegal.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/', {
@@ -91,6 +89,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           var title = document.querySelector('title');
           if(title.innerText === 'VotoLegal - Candidato(a)') 
             title.innerText += (" " + $scope.candidate.popular_name);
+        })();
+
+        (function(){
+          var video = $scope.candidate.video_url;
+          if(video.match('youtube'))
+            $scope.candidate.video_url = 'https://www.youtube.com/embed/' + URI.init(video).query('v')
         })();
 
         // header issues list
