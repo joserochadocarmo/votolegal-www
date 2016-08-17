@@ -1,4 +1,5 @@
-if(document.location.href.march(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/) ) { //indexOf('/candidato') >= 0){
+//var url = document.location.href.toString();
+if(document.location.href.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/) ) { //indexOf('/candidato') >= 0){
   console.log('DEBUG: routes');
 //if(document.location.href.indexOf('/candidato') >= 0){
   app.votolegal.config(['$routeProvider', function($routeProvider) {
