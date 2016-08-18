@@ -14,6 +14,7 @@ page '/admin/signin/index.html', layout: false
 # page "/path/to/file.html", layout: :otherlayout
 page "/admin/*.html", :layout => :admin
 page "/candidato/*.html", :layout => :candidato
+page '/error/config-error/index.html', layout: false
 
 
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
