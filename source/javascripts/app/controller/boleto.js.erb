@@ -136,7 +136,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 
     var params = Params
       .require($scope.candidate)
-      .permit('phone', 'address_zipcode', 'address_city', 'address_state', 'address_street', 'address_house_number', 'address_district');
+      .permit('phone', 'address_zipcode', 'address_city', 'address_state', 'address_street', 'address_house_number', 'address_district', 'bank_code', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_agency_dv');
 
     $http({
       method: 'PUT',
@@ -153,18 +153,13 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
       then(
         function(response){
           var url = response.data.url;
-          //var e = document.createElement("meta");
-          //e.setAttribute('http-equiv', 'refresh');
-          //e.setAttribute('content', '0;url=' + url);
-          //document.head.appendChild(e);
-
           document.location = url;
         }, 
         function(response){ 
           trouble.shoot({
             route: document.location.href, error: JSON.stringify([response, user])
           });
-          SweetAlert.swal('Erro Inesperado', 'Não foi possivel emitir o boleto!');
+          SweetAlert.swal('Não foi possivel emitir o boleto!', 'Por favor, verifique se você digitou todos os campos acima corretamente.');
           throw new Error('ERROR_GET_BOLETO');
         }
       );

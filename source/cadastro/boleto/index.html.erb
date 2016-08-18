@@ -2,12 +2,7 @@
 title:  Gerar boleto
 ---
 
-<% if build? %>
-  <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-<% else %>
-  <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-  <!-- script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script -->
-<% end %>
+<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
 <section id="boleto" ng-controller="BoletoController">
 
@@ -103,11 +98,17 @@ title:  Gerar boleto
             </div>
 
 
-            <div class="form-group icon-left icon-with-label col-md-12">
+            <div class="form-group icon-left icon-with-label col-md-8">
               <label for="bank_agency">Número da agência</label>
               <i class="fa fa-money"></i>    
               <input class="form-control" type="text" name="bank_agency" placeholder="0000" ng-model="candidate.bank_agency">
             </div>
+            <div class="form-group icon-left icon-with-label col-md-4">
+              <label for="bank_account_dv">Dígito</label>
+              <i class="fa"></i>    
+              <input class="form-control" type="text" name="bank_agency_dv" placeholder="0" ng-model="candidate.bank_agency_dv">
+            </div>
+
             <div class="form-group icon-left icon-with-label col-md-8">
               <label for="bank_account_dv">Conta corrente</label>
               <i class="fa fa-money"></i>    
