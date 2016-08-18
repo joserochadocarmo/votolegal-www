@@ -41,6 +41,8 @@ if(domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/) || domain.match(/vo
  * Candidate Controller
  */
 app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
+  var load   = document.querySelector('#loading');
+
   // defaults
   $scope.candidate  = {};
   $scope.doar       = {};
@@ -231,6 +233,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         throw new Error('Project list is invalid or cannot be found!');
       }
     );
+
+    load.classList.add('hide');
     return false;
   };
 

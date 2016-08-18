@@ -25,6 +25,10 @@
   <![endif]-->
 </head>
 <body class="<%= page_classes %>">
+    <div id="loading" class="load-backdrop">
+      <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i><br>
+    </div>
+
     <% if page_classes == 'candidato candidato_doar candidato_doar_compartilha candidato_doar_compartilha_index'  %>
       <%= partial "partial/compartilha" %>
     <% end %>
@@ -120,5 +124,6 @@
     </script>
 
     <%= partial "partial/ga" %>
+
   </body>
 </html>
