@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
-  <title><%= current_page.data.title ? "VotoLegal - #{current_page.data.title}" : "VotoLegal" %></title>
+  <title><%= current_page.data.title ? "#{current_page.data.title}" : "Site do candidato" %></title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -65,6 +65,13 @@
     </div>
 
     <!-- footer -->
+    <div class="container">
+      <div class="row" style="min-height: 150px;">
+        <div class="col-md-12 text-center" style="margin-top:75px">
+          <p>Este projeto é distribuido sob a licença Affero General Public License e o código esta disponível em um repositório público.</p>
+        </div>
+      </div>
+    </div>
 
     <!-- styles -->
     <%= stylesheet_link_tag "sweetalert" %>
@@ -74,16 +81,6 @@
     <%= javascript_include_tag 'sweetalert.js' %>
 
     <%= javascript_include_tag 'angular.all.js' %>
-    <%# javascript_include_tag 'angular.min.js' %>
-    <%# javascript_include_tag 'angular-locale_pt-br.js' %>
-    <%# javascript_include_tag 'angular-route.min.js' %>
-    <%# javascript_include_tag 'angular-sanitize.js' %>
-    <%# javascript_include_tag 'angular-storage.js' %>
-    <%# javascript_include_tag 'angular-masks' %>
-    <%# javascript_include_tag 'angular-ng_mask' %>
-    <%# javascript_include_tag 'angular-br-filters.min.js' %>
-    <%# javascript_include_tag 'angular-sweet_alert.min.js' %>
-    <%# javascript_include_tag 'ui-bootstrap-2.0.0.min.js' %>
 
     <%= javascript_include_tag 'jquery.min.js' %>
     <%= javascript_include_tag 'bootstrap.min.js' %>
@@ -92,8 +89,6 @@
     <!-- image plugin -->
     <%= stylesheet_link_tag 'ekko-lightbox.css' %>
     <%= javascript_include_tag 'ekko-lightbox.min.js' %>
-
-    <%= javascript_include_tag 'application' %>
 
     <script>
       // TODO: colocar todo esse js em um arquivo separado
