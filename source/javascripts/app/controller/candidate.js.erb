@@ -240,6 +240,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       SweetAlert.swal('Preencha um valor superior a 10,00 reais.');
       return false;
     }
+    if(amount > 1064.00){
+      SweetAlert.swal('Preencha um valor igual ou inferior a 1.064,00 reais.');
+      return false;
+    }
 
     document.getElementById('amount-review').classList.remove('hide');
     var list = document.querySelectorAll('.valor-doa-container');
