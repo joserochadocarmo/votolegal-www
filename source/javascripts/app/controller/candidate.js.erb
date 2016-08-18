@@ -46,6 +46,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.doar       = {};
   $scope.payment    = {};
   $scope.error_list = [];
+  $scope.donations  = [];
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
     var url = document.location.href;
@@ -232,6 +233,54 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     );
     return false;
   };
+
+  /* fetch candidate projects */
+  $scope.candidate_donations = function(candidate){
+    var table   = document.querySelector('#donations-table');
+    var loading = document.querySelector('#loading-donations');
+    var error   = document.querySelector('#donations-error');
+    if(error) error.classList.add('hide');
+    if(table) {
+      table.classList.add('hide');
+      if(loading) loading.classList.remove('hide');
+    }
+    
+    try {
+      $http({method: 'GET', url: '<%= config[:api_host]%>/candidate/'+ candidate.id +'/donates'}).
+      then(
+        function(response){
+          var res = response.data.donations;
+          $scope.donations = res;
+
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+        },
+        function(response){
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+          trouble.shoot({
+            route: document.location.href, error: JSON.stringify(response)
+          });
+
+          SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
+          throw new Error('Donation list is invalid or cannot be found!');
+        }
+      );
+    }
+    catch(e){
+      if(table) {
+        if(loading) loading.classList.add('hide');
+        table.classList.remove('hide');
+      }
+    }
+  };
+
 
 
   /* setting donation amount */
