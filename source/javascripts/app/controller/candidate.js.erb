@@ -67,7 +67,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   // methods
   $scope.make_percent = function(number, total){
     if(total === 0) return '0%';
-    return ((number/total) * 100).toFixed(2) + '%'
+    return (((number/100)/total) * 100).toFixed(2) + '%'
   };
 
   $scope.render_video = function(src){
