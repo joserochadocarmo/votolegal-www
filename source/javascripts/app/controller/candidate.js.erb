@@ -246,7 +246,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     }
     
     try {
-      $http({method: 'GET', url: '<%= config[:api_host]%>/candidate/'+ candidate.id +'/donates'}).
+      $http({method: 'GET', url: '<%= config[:api_host]%>/candidate/'+ candidate.id +'/donate'}).
       then(
         function(response){
           var res = response.data.donations;
