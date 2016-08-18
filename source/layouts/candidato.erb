@@ -15,7 +15,7 @@
   <%= stylesheet_link_tag "font-awesome.min" %>
   <%= stylesheet_link_tag "flaticon" %>
 
-  <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
+  <style> body { margin-top: -10px; } </style>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,31 +25,9 @@
   <![endif]-->
 </head>
 <body class="<%= page_classes %>">
-  <% if page_classes == 'candidato candidato_doar candidato_doar_compartilha candidato_doar_compartilha_index'  %>
-  <%= partial "partial/compartilha" %>
-  <% end %>
-    <!-- Static navbar -->
-    <div id="nav" class="navbar-fixed-top" ng-controller="MenuController">
-      <div class="container">
-        <nav class="navbar navbar-votolegal">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#" style="font-size: 42px !important">
-                Site do Candidato
-              </a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-            </div><!--/.nav-collapse -->
-          </div>
-        </nav>
-      </div><!--/.container -->
-    </div><!--/.container -->
+    <% if page_classes == 'candidato candidato_doar candidato_doar_compartilha candidato_doar_compartilha_index'  %>
+      <%= partial "partial/compartilha" %>
+    <% end %>
 
     <div class="container-fluid">
       <div class="navbar-divider"></div>
@@ -65,13 +43,18 @@
     </div>
 
     <!-- footer -->
-    <div class="container">
-      <div class="row" style="min-height: 150px;">
-        <div class="col-md-12 text-center" style="margin-top:75px">
-          <p>Este projeto é distribuido sob a licença Affero General Public License e o código esta disponível em um repositório público.</p>
+    <footer id="footer">
+      <div class="container">
+        <div class="row">
+
+          <div class="copyright col-md-12 col-sm-12 col-xs-12">
+            <p>Este projeto é distribuido sob a licença <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank"><em>Affero General Public License</em></a> e o código esta disponível em um <a href="https://github.com/appcivico" target="_blank">repositório público</a>.</p>
+          </div>
+
         </div>
       </div>
-    </div>
+    </footer>
+
 
     <!-- styles -->
     <%= stylesheet_link_tag "sweetalert" %>
