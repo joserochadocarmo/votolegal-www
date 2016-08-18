@@ -30,7 +30,7 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
       p.innerHTML = progress + "%"; 
       p.style.width = progress + "%"; 
     }
-  }, 1000);
+  }, 500);
 }
 
 /**
@@ -76,25 +76,27 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     // personal data
     if($scope.candidate){
       var $c = $scope.candidate;
-      if($c.picture && $c.picture.length) p += 6;
-      if($c.video_url && $c.video_url.length) p += 6;
-      if($c.facebook_url && $c.facebook_url.length) p += 4;
-      if($c.twitter_url && $c.twitter_url.length) p += 4;
-      if($c.instagram_url && $c.instagram_url.length) p += 4;
-      if($c.website_url && $c.website_url.length) p += 4;
-      if($c.public_email && $c.public_email.length) p += 6;
-      if($c.summary && $c.summary.length) p += 6;
-      if($c.biography && $c.biography.length) p += 6;
-      if($c.responsible_name && $c.responsible_name.length) p += 4;
-      if($c.responsible_email && $c.responsible_email.length) p += 4;
+      if($c.picture && $c.picture.length > 0)               p += 4;
+      if($c.cnpj && $c.cnpj.length > 0)                     p += 4;
+      if($c.video_url && $c.video_url.length > 0)           p += 4;
+      if($c.facebook_url && $c.facebook_url.length > 0)     p += 4;
+      if($c.twitter_url && $c.twitter_url.length > 0)       p += 4;
+      if($c.instagram_url && $c.instagram_url.length > 0)   p += 4;
+      if($c.website_url && $c.website_url.length > 0)       p += 4;
+      if($c.public_email && $c.public_email.length > 0)     p += 4;
+      if($c.summary && $c.summary.length > 0)               p += 4;
+      if($c.biography && $c.biography.length > 0)           p += 4;
+      if($c.responsible_name && $c.responsible_name.length > 0)   p += 4;
+      if($c.responsible_email && $c.responsible_email.length > 0) p += 4;
 
 
-      if($c.raising_goal && $c.raising_goal.length) p += 3;
-      if($c.receipt_min && $c.receipt_min.length) p += 2;
-      if($c.receipt_max && $c.receipt_max.length) p += 2;
-      if($c.merchant_id && $c.merchant_id.length) p += 3;
-      if($c.merchant_key && $c.merchant_key.length) p += 3;
-      if($c.spending_spreadsheet && $c.spending_spreadsheet.length) p += 3;
+
+      if($c.raising_goal && $c.raising_goal.length > 0)     p += 4;
+      if($c.merchant_id && $c.merchant_id.length > 0)       p += 4;
+      if($c.merchant_key && $c.merchant_key !== undefined)     p += 4;
+      if($c.receipt_min && $c.receipt_min !== undefined)       p += 3;
+      if($c.receipt_max && $c.receipt_max !== undefined)       p += 3;
+      if($c.spending_spreadsheet && $c.spending_spreadsheet.length > 0) p += 4;
     }
 
     // personal data
