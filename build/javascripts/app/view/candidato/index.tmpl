@@ -122,7 +122,6 @@
                     <thead>
                       <tr>
                         <th>Nome do doador:</th>
-                        <th>Id:</th>
                         <th>Valor doado:</th>
                         <th class="hide">Data:</th>
                         <th class="hide">Projetos escolhidos</th>
@@ -131,7 +130,6 @@
                     <tbody>
                       <tr ng-repeat="d in donations">
                         <td>{{d.name}}</td>
-                        <td>{{d.id}}</td>
                         <td>{{(d.amount/100) | currency}}</td>
                         <td class="hide">0</td>
                         <td class="hide">0</td>
