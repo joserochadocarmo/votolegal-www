@@ -105,13 +105,13 @@ title:  Pré-cadastro
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12 hide">
               <div class="col-md-3" style="padding:0px;">
                 <span>Ficha limpa?</span>
               </div>
               <div class="col-md-9">
                 <label class="radio-inline">
-                  <input type="radio" name="ficha_limpa" placeholder="Ficha Limpa" ng-model="candidate.ficha_limpa" value="1"> Sim
+                  <input type="radio" name="ficha_limpa" placeholder="Ficha Limpa" ng-model="candidate.ficha_limpa" value="1" checked> Sim
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="ficha_limpa" placeholder="Ficha Limpa" ng-model="candidate.ficha_limpa" value="0"> Não
@@ -131,7 +131,7 @@ title:  Pré-cadastro
                 </label>
               </div>
             </div>
-            <div class="checkbox col-md-12">
+            <div class="checkbox col-md-12 hide">
               <label class="checkbox-inline">
                 <input type="checkbox" name="transparent_campaign" ng-model="transparent_campaign" value="1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois. 
               </label>

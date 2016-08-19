@@ -1,166 +1,142 @@
-<!DOCTYPE html>
-<html ng-app="votolegal">
-<head>
-  <meta charset="utf-8">
-  <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta name="viewport" content="width=device-width">
-  <title>Acesse sua conta</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon"/> 
+ 
+    <!-- cover -->
+    <header class="cover">
+      <div class="container-fluid">
+        <div id="carousel-example-generic" class="carousel slide carousel-fade-off" data-ride="carousel">
 
-  <%= stylesheet_link_tag "bootstrap.min" %>
-  <%= stylesheet_link_tag :sweetalert %>
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <!-- li data-target="#carousel-example-generic" data-slide-to="2"></li -->
+          </ol>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-
-  <style>
-body {
-  margin-top: 150px;
-}
-.img-avatar{
-  text-align: center;
-  color: #555;
-}
-.img-avatar i {
-  font-size: 72px;
-  border-radius: 50px;
-  width: 100px;
-  height: 100px;
-  line-height: 85px;
-  border: 5px solid;
-}
-    .form-signin {
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;
-    }
-    .form-signin .form-signin-heading, .form-signin .checkbox {
-        margin-bottom: 10px;
-    }
-    .form-signin .checkbox
-    {
-        font-weight: normal;
-    }
-    .form-signin .form-control
-    {
-        position: relative;
-        font-size: 16px;
-        height: auto;
-        padding: 10px;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-    .form-signin .form-control:focus
-    {
-        z-index: 2;
-    }
-    .form-signin input[type="text"]
-    {
-        margin-bottom: -1px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-    .form-signin input[type="password"]
-    {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-    .account-wall
-    {
-        margin-top: 20px;
-        padding: 40px 0px 20px 0px;
-        background-color: #f7f7f7;
-        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    }
-    .login-title
-    {
-        color: #555;
-        font-size: 18px;
-        font-weight: 400;
-        display: block;
-    }
-    .profile-img
-    {
-        width: 96px;
-        height: 96px;
-        margin: 0 auto 10px;
-        display: block;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
-        border-radius: 50%;
-    }
-    .need-help
-    {
-        margin-top: 10px;
-    }
-    .new-account
-    {
-        display: block;
-        margin-top: 10px;
-    }
-  </style>
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-</head>
-<body class="<%= page_classes %>">
-  <div class="container" ng-controller="AuthController">
-      <div class="row">
-          <div class="col-sm-6 col-md-4 col-md-offset-4">
-              <h1 class="text-center login-title">Entre com o e-mail e senha para continuar</h1>
-
-              <div class="account-wall">
-                  <div class="img-avatar">
-                    <i class="fa fa-user"></i>
-                  </div>
-                  <% content_tag :form, name: 'signinForm', class: 'form-signin angular-form', 'ng-submit' => "authenticate(signinForm.$valid)", novalidate: '' do %>
-                  <input type="text" name="email" ng-model="signin.email" class="form-control" placeholder="E-mail" required autofocus>
-                  <input type="password" name="password" ng-model="signin.password" class="form-control" placeholder="Password" required>
-                  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-                  <label class="checkbox pull-left hide">
-                      <input type="checkbox" value="remember-me"> Lembrar-me
-                  </label>
-                  <a href="#" class="pull-right hide need-help">Ajuda? </a><span class="clearfix"></span>
-                <% end %>
+          <!-- images -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active"> 
+              <img data-holder-rendered="true" src="/images/home/slide01.jpg" width="100%" alt="First slide [900x500]"> 
+              <div class="carousel-caption">
+                <h2>Software Livre para doações eleitorais</h2>
+                <p>
+                  <%= link_to 'Fazer o Pré-cadastro', '/pre-cadastro', :class => "btn btn-success" %>
+                </p>
               </div>
-              <a href="#" class="hide text-center new-account">Create an account </a>
-              
-              <!-- error messages -->
-              <div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
-                <h5>Os seguinte campos precisam ser corrigidos:</h5>
-                <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
-                  <li>{{error}}</li>
-                </ul>
+            </div>
+            <!-- div class="item"> 
+              <img data-holder-rendered="true" src="/images/home/slide02.jpg" width="100%" alt="First slide [900x500]"> 
+              <div class="carousel-caption">
+                <h2>Arrecade doações de pessoas físicas para sua campanha</h2>
+                <p>
+                  <%= link_to 'Fazer o Pré-cadastro', '/pre-cadastro', :class => "btn btn-success" %>
+                </p>
               </div>
+            </div -->
+            <div class="item"> 
+                <img data-holder-rendered="true" src="/images/home/slide03.jpg" width="100%" alt="First slide [900x500]"> 
+              <div class="carousel-caption">
+                <h2>Transparência através de blockchain</h2>
+                <p>
+                  <%= link_to 'Fazer o Pré-cadastro', '/pre-cadastro', :class => "btn btn-success" %>
+                </p>
+              </div>
+            </div>
           </div>
+
+          <!-- next/previous control  -->
+          <a class="hide left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> 
+          <a class="hide right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> 
+        </div>
       </div>
-  </div>
+    </header>
 
-    <!-- styles -->
-    <%= stylesheet_link_tag "sweetalert" %>
+    <section id="howto-works" class="container">
+      <div class="row">
+        <h2 class="section-title">Como funciona?</h2>
+        <div class="col-md-12">
+          <ul class="howto-works-timeline">
+            <li class="active">
+              <p class="howto-works-pill"><a></a></p>
+              <p class="howto-works-text">Ao preencher os dados, o cadastro do pré-candidato passará por uma validação</p>
+            </li>
+            <li>
+              <p class="howto-works-pill"><a></a></p>
+              <p class="howto-works-text">Com o pré-cadastro aprovado, o candidato preenche informações pessoais e de campanha</p>
+            </li>
+            <li>
+              <p class="howto-works-pill"><a></a></p>
+              <p class="howto-works-text">O candidato passa a receber doações diretamente na sua conta de campanha</p>
+            </li>
+            <li>
+              <p class="howto-works-pill"><a></a></p>
+              <p class="howto-works-text">Acompanha as informações, o histórico e o status de doações feitas para ele</p>
+            </li>
+            <li>
+              <p class="howto-works-pill"><a></a></p>
+              <p class="howto-works-text">O candidato visualiza os projetos prioritários e assuntos mais votados pelos seus doadores</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <!-- javascript -->
-    <%= javascript_include_tag 'sweetalert' %>
+    <!-- media  -->
+    <section id="media">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5">
+            <h2>Realização</h2>
+            <p>
+              <img src="/images/home/mcce_logo.png" alt="MCCE" height="100px">&nbsp;
+              <img src="/images/home/appcivico_logo.png" alt="APPCívico" height="100px">&nbsp;
+              <img src="/images/home/arapyau_logo.png" alt="Arapyau" height="100px">&nbsp;
+            </p>
+          </div>
+          <div class="col-md-7">
+            <h2>Na mídia</h2>
+            <div id="carousel-media" class="carousel slide" data-ride="carousel">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
 
-    <%= javascript_include_tag 'angular.min.js' %>
-    <%= javascript_include_tag 'angular-route.min.js' %>
-    <%= javascript_include_tag 'angular-sanitize.js' %>
-    <%= javascript_include_tag 'angular-storage.js' %>
-    <%= javascript_include_tag 'angular-masks' %>
-    <%= javascript_include_tag 'angular-ng_mask' %>
-    <%= javascript_include_tag 'angular-br-filters.min.js' %>
-    <%= javascript_include_tag 'angular-sweet_alert.min.js' %>
-    <%= javascript_include_tag 'ui-bootstrap-2.0.0.min.js' %>
+                <div class="item active">
+                  <div class="row">
+                    <div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <a href="javascript:document.location='http://politica.estadao.com.br/noticias/geral,iniciativas-querem-estimular-doacoes-de-pessoa-fisica,10000053676?from=whatsapp';" target="_blank"><img src="/images/home/estadao-logo.png" class="img-thumbnail" alt="Estadão"></a>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <a href="javascript:document.location='http://m.oglobo.globo.com/brasil/sem-doacoes-privadas-candidatos-poderao-captar-recursos-via-cartao-de-credito-19647153';" target="_blank"><img src="/images/home/globo-logo.png" class="img-thumbnail" alt="O Globo"></a>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <a href="javascript:document.location='http://www1.folha.uol.com.br/tec/2016/06/1783365-por-transparencia-grupo-quer-usar-tecnologia-do-bitcoin-em-eleicoes-de-sp.shtml';" target="_blank"><img src="/images/home/folha-logo.png" class="img-thumbnail" alt="Folha de SP"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-    <%= javascript_include_tag 'jquery.min.js' %>
-    <%= javascript_include_tag 'bootstrap.min.js' %>
-    <%= javascript_include_tag 'all' %>
-  </body>
-</html>
+
+                <div class="item">
+                  <div class="row">
+                    <div class="col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <a href="javascript:document.location='http://www.nexojornal.com.br/expresso/2016/06/28/Grupos-tentam-legalizar-crowfunding-para-financiar-campanhas.-Quais-s%C3%A3o-os-entraves';" target="_blank"><img src="/images/home/nexo-logo.png" class="img-thumbnail" alt="Nexo"></a>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <a href="javascript:document.location='http://m.cbn.globoradio.globo.com/programas/cbn-rio/2016/06/07/APLICATIVO-FACILITA-DOACAO-DE-PESSOAS-FISICAS-AS-CAMPANHAS-ELEITORAIS-PARA-EVITAR-CONT.htm';" target="_blank"><img src="/images/home/cbn-logo.png" class="img-thumbnail" alt="CBN"></a>
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <a href="javascript:document.location='http://brasil.elpais.com/brasil/2016/07/08/politica/1468011468_841041.html';" target="_blank"><img src="/images/home/elpais-logo.png" class="img-thumbnail" alt="El País"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Controls -->
+              <a class="left carousel-control" href="#carousel-media" role="button" data-slide="prev"></a>
+              <a class="right carousel-control" href="#carousel-media" role="button" data-slide="next"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
