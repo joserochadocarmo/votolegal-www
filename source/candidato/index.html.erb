@@ -14,7 +14,10 @@ title:  Candidato(a)
   
   <div class="candidate-header container">
     <div class="row">
-      <div class="col-md-6 text-left">
+      <div class="col-md-12 col-xs-12 text-center hidden-lg hidden-md hidden-sm" style="min-height:175px;">
+        <img ng-src="{{candidate.picture || '/images/candidatos/user_general.jpg'}}" class="img-circle" width="175px" height="175px" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}">
+      </div>
+      <div class="col-md-6 col-sm-8 text-left">
         <h1 class="nome-candidato">
           <span class="nome">{{candidate.popular_name}}</span>
           <i class="fa fa-circle"></i>
@@ -23,7 +26,7 @@ title:  Candidato(a)
         <p class="assuntos">{{candidate.issues_decorator}}</p>
         <p class="cidade">{{candidate.address_city}} - {{candidate.address_state}} - CNPJ: {{candidate.cnpj}}</p>
       </div>
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 col-sm-4 text-right hidden-xs">
         <%# img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
         <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
         <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
