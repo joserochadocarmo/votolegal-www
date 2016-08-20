@@ -401,46 +401,46 @@ footer#footer {
     font-size: 16px;
   }
 
-  .social-buttons {
-    text-align: center;
-
-    h4 {
-      color: #fff;
-      font-size: 14px;
-      font-weight: bolder;
-    }
-
-    ul {
-      margin: 0px;
-      padding: 0px;
-      display: inline-block;
-      margin-left: auto;
-      margin-right: auto;
-      list-style: none;
-
-      li {
-        float: left;
-        width: 40px;
-        height: 40px;
-        margin: 2px;
-        line-height: 45px;
-        background-color: #43ac45;
-        padding-top: 3px;
-        border-radius: 30px;
-
-        a {
-          color: #ffffff;
-          &:hover {
-            color: #ffffff;
-          }
-        }
-      }
-    }
-  }
 
   .copyright {
     text-align: center;
     margin: 40px 0px;
+  }
+}
+.social-buttons {
+  h4 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bolder;
+  }
+
+  ul {
+    color: #fff;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    list-style: none;
+
+    li {
+      float: left;
+      width: 40px;
+      height: 40px;
+      margin: 2px;
+      padding-top: 3px;
+      line-height: 45px;
+      text-align: center;
+      border-radius: 30px;
+      background-color: #43ac45;
+
+      a {
+        color: #fff !important;
+        &:hover {
+          color: #ffffff;
+        }
+      }
+    }
   }
 }
 
@@ -603,7 +603,7 @@ section#explore {
           padding: 180px 10px 2px 10px !important;
         }
 
-        i.fa {
+        i.fa-circle {
           color: #71c975;
         }
 
@@ -676,7 +676,7 @@ section#explore {
           background-color: rgba(62, 118, 83, 0.9);
         }
 
-        i.fa {
+        i.fa-circle {
           color: #71c975;
         }
 
@@ -709,7 +709,7 @@ section#explore {
     color: #999;
     font-weight: 300;
 
-    .fa {
+    .fa-circle {
       font-size: 12px;
       display: inline-block;
       vertical-align: middle;
@@ -850,7 +850,7 @@ section#candidate {
     }
 
     #tab-sobre {
-      i {
+      i.fa-circle {
         font-size: 12px;
         display: inline-block;
         vertical-align: middle;

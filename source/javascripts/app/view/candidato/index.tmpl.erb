@@ -166,6 +166,16 @@
                 </div>
                 <div class="col-md-9">
                   <p>{{candidate.biography}}</p>
+                  <br>
+                  <div class="social-buttons">
+                    <ul>
+                      <li ng-show="candidate.facebook_url.length > 0"><a href="{{candidate.facebook_url}}" title="Facebook" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li>
+                      <li ng-show="candidate.twitter_url.length > 0"><a href="{{candidate.twitter_url}}" title="Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a></li>
+                      <li ng-show="candidate.video_url.length > 0"><a href="{{candidate.video_url}}" title="Vídeo do candidato" target="_blank"><i class="fa fa-play fa-2x"></i></a></li>
+                      <li ng-show="candidate.instagram_url.length > 0"><a href="{{candidate.instagram_url}}" title="Instagram" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></li>
+                      <li ng-show="candidate.website_url.length > 0"><a href="{{candidate.website_url}}" title="Website do candidato" target="_blank"><i class="fa fa-external-link fa-2x"></i></a></li>
+                    </ul>
+                  </div>
                 </div>
                 <div class="col-md-12">
                 </div>
