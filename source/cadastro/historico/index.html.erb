@@ -15,7 +15,8 @@ title:  Histórico de doações
             <thead>
               <tr>
                 <th>Nome do Doador:</th>
-                <th>CEP:</th>
+                <th>E-mail:</th>
+                <th>CPF:</th>
                 <th>Valor doado:</th>
                 <th>Data:</th>
                 <th class="hide">Projetos Escolhidos</th>
@@ -23,10 +24,11 @@ title:  Histórico de doações
             </thead>
             <tbody>
               <tr ng-repeat="d in donations">
-                <td>Leonel Lima Carvalho</td>
-                <td>08080-765</td>
-                <td>R$ 23,00</td>
-                <td>15.08.2016</td>
+                <td>{{d.name}}</td>
+                <td>{{d.email}}</td>
+                <td>{{d.cpf}}</td>
+                <td>{{(d.amount/100) | currency}}</td>
+                <td>{{d.captured_at}}</td>
                 <td class="hide"><span class="quadro-verde">&nbsp;</span> Projeto 01 <span class="quadro-verde">&nbsp;</span> Projeto 05 <span class="quadro-verde">&nbsp;</span> Projeto 11</td>
               </tr>
               <tr ng-if="donations.length == 0">
