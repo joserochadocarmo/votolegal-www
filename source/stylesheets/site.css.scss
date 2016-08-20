@@ -175,6 +175,10 @@ header.cover {
       a {
         width: 70%;
         font-size: 24px;
+
+        @media all and ($max-screen : 480px) {
+          font-size: 20px !important;
+        }
       }
     }
   }
