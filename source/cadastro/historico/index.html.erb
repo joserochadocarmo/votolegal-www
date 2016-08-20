@@ -9,7 +9,11 @@ title:  Histórico de doações
         <h1 class="page-title">Histórico de transações</h1>
       </div>
 
-      <div class="col-md-12">
+      <div class="col-md-12 text-right">
+        <a class="btn btn-default btn-sm" href="/cadastro-completo/">Voltar ao inicio</a>
+      </div>
+
+      <div class="col-md-12" style="margin-top:20px;">
         <div class="table-responsive">
           <table id="donations-table" class="table table-bordered tabela-hist-doa hide">
             <thead>
@@ -32,7 +36,11 @@ title:  Histórico de doações
                 <td class="hide"><span class="quadro-verde">&nbsp;</span> Projeto 01 <span class="quadro-verde">&nbsp;</span> Projeto 05 <span class="quadro-verde">&nbsp;</span> Projeto 11</td>
               </tr>
               <tr ng-if="donations.length == 0">
-                <td colspan="5" class="warning">Nenhum dado de doações foi encontrado!</td>
+                <td colspan="5" class="warning">
+                  <span class="text-warning">
+                    <i class="fa fa-exclamation-circle"></i>
+                    Nenhum registro de doações foi encontrado!</span>
+                </td>
               </tr>
             </tbody>
           </table>
