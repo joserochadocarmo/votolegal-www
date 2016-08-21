@@ -33,20 +33,17 @@ title:      Candidatos
 
 
         <div class="col-md-3 col-sm-6 col-xs-12 text-center" ng-repeat="i in list">
-          <div class="candidate-panel" onmouseover="this.querySelector('.candidate-infor').classList.add('open')" onmouseout="this.querySelector('.candidate-infor').classList.remove('open')" ng-click="redirect_to(i.username)"  style="background-image: url({{i.picture || '/images/candidatos/user_general.jpg' }});">
+          <div class="candidate-panel" onmouseover="this.querySelector('.candidate-infor').classList.add('open')" onmouseout="this.querySelector('.candidate-infor').classList.remove('open')" ng-click="redirect_to(i)"  style="background-image: url({{i.picture || '/images/candidatos/user_general.jpg' }});">
             <div class="candidate-infor">
-              <h4>{{i.popular_name}} <i class="fa fa-circle" style="font-size: 9px;"></i> {{i.party}}</h4>
-              <ul>
+              <h4>{{i.popular_name}} <i class="fa fa-circle" style="font-size: 9px;"></i> {{i.party.acronym}}</h4>
+              <!-- ul>
                 <li>Meio ambiente</li>
                 <li>Educação</li>
                 <li>Saúde</li>
-              </ul>
+              </ul -->
               <p class="candidate-location">
                 <i class="fa fa-map-marker"></i> {{i.address_city}}
               </p>
-              <%# div class="progress"> <div class="progress-bar progress-bar-success" role="progressbar" style="width: 60%;"> </div> </div %>
-              <%# div class="col-md-6 text-left"> <span>108</span><br> <small>Pessoas ja doaram</small> </div %>
-              <%# div class="col-md-6 text-right"> <span>R$ 190.321</span><br> <small>Total arrecadado</small> </div %>
 
             </div>
           </div>
