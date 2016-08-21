@@ -6,7 +6,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
   $scope.list = [];
 
   // methods
-  $scope.redirect_to = function(candidade){
+  $scope.redirect_to = function(candidate){
     if(candidate.website_url.length > 0){
       var w = window.open(candidate.website_url, '_blank');
       w.focus();
