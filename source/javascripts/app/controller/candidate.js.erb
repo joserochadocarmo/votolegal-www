@@ -376,6 +376,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.send_donation = function(){
     $scope.error_list = [];
 
+    // block button
+    var button = document.querySelector('#btn-donate');
+    if(button) button.setAttribute('disabled', true);
+
     // sender
     var sender = PagSeguroDirectPayment.getSenderHash();
     $scope.doar.sender_hash = sender;
@@ -403,7 +407,13 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     for(var field in card) {
       if(!card[field] && card[field].length == 0) $scope.error_list.push(card_names[field] + ' é obrigatório');
     }
-    if($scope.error_list.length > 0) return false;
+
+    if($scope.error_list.length > 0) {
+      var button = document.querySelector('#btn-donate');
+      if(button) button.removeAttribute('disabled');
+      return false;
+    }
+
 
     // getting card brand
     $scope.card_brand({
@@ -484,6 +494,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
                 SweetAlert.swal('Erro inesperado com a doação');
                 throw new Error('DONATION_POST_ERROR');
+              }).
+              finally(function(){
+                var button = document.querySelector('#btn-donate');
+                if(button) button.removeAttribute('disabled');
               });
 
               return false;
@@ -517,7 +531,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       amount:   parseFloat(opts.amount),
       success:  opts.success_cb,
       error:    opts.error_cb,
-      complete: opts.complete_cb
+      complete: function(){
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
+      }
     });
   };
 
@@ -527,7 +544,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       cardBin:  opts.bin,
       success:  opts.success_cb  || function(){},
       error:    opts.error_cb    || function(){},
-      complete: opts.complete_cb || function(){}
+      complete: opts.complete_cb || function(){
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
+      }
     });
   };
 
@@ -541,7 +561,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       expirationYear:   opts.year,
       success:          opts.success_cb   || function(){},
       error:            opts.error_cb     || function(){},
-      complete:         opts.complete_cb  || function(){}
+      complete:         opts.complete_cb  || function(){
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
+      }
     });
   };
 
