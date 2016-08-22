@@ -32,7 +32,13 @@ configure :development do
   # webapp host address
   config[:host] = "//www.votolegal.org.br"
 
-  activate :livereload
+
+  config[:watcher_force_polling] = true
+
+  activate :livereload do |l| 
+    l.apply_css_live  = false
+    l.apply_js_live   = false
+  end
 end
 
 ###
