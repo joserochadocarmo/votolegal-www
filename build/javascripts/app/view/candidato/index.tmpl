@@ -122,6 +122,7 @@
                     <thead>
                       <tr>
                         <th>Nome do doador:</th>
+                        <th>Link do Blockchain</th>
                         <th>Valor doado:</th>
                         <th class="hide">Data:</th>
                         <th class="hide">Projetos escolhidos</th>
@@ -129,7 +130,8 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat="d in donations">
-                        <td><a href="//etherscan.io/tx/{{d.transaction_hash}}" title="Abrir a transação na Ethereum" target="_blank">{{d.name}}</a></td>
+                        <td>{{d.name}}</td>
+                        <td><a href="//etherscan.io/tx/{{d.transaction_hash}}" title="{{d.transaction_hash}}" target="_blank">{{d.transaction_hash | limitTo : 10}}...</a></td>
                         <td>{{(d.amount/100) | currency}}</td>
                         <td class="hide">0</td>
                         <td class="hide">0</td>
