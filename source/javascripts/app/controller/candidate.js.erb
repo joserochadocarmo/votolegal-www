@@ -101,8 +101,15 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
         (function(){
           var video = $scope.candidate.video_url;
-          if(video.match('youtube'))
-            $scope.candidate.video_url = 'https://www.youtube.com/embed/' + URI.init(video).query('v')
+          if(video && (video.match('youtube') || video.match('youtu.be')) ){
+            if(video.match(/www.youtube.com\/watch/)){
+              $scope.candidate.video_url = 'https://www.youtube.com/embed/' + URI.init(video).query('v');
+            }
+            if(video.match('youtu.be')){
+              var code = video.split('/')[3];
+              $scope.candidate.video_url = 'https://www.youtube.com/embed/' + code;
+            }
+          }
         })();
 
         // header issues list
