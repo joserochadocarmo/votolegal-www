@@ -31,6 +31,11 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
           var res = response.data.donations;
           $scope.donations = res;
 
+          for (var i in $scope.donations){
+            // parsing date
+            $scope.donations[i].captured_at = Date.parse($scope.donations[i].captured_at);
+          }
+
           // diasble loading
           if(table) {
             if(loading) loading.classList.add('hide');
