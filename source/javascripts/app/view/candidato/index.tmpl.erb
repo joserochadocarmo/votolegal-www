@@ -129,7 +129,7 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat="d in donations">
-                        <td>{{d.name}}</td>
+                        <td><a href="//etherscan.io/tx/{{d.transaction_hash}}" title="Abrir a transação na Ethereum" target="_blank">{{d.name}}</a></td>
                         <td>{{(d.amount/100) | currency}}</td>
                         <td class="hide">0</td>
                         <td class="hide">0</td>
