@@ -34,6 +34,9 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
           for (var i in $scope.donations){
             // parsing date
             $scope.donations[i].captured_at = Date.parse($scope.donations[i].captured_at);
+            // format birthday
+            var birth = $scope.donations[i].birthday.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            $scope.donations[i].birthday = birth[3]+"."+birth[2]+"."+birth[1];
           }
 
           // diasble loading
