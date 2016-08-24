@@ -410,7 +410,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
     // getting card
     var card = $scope.card_params();
-    var card_names = { card_number: "Número do cartão", card_month: "Mês do cartão", card_year: "Ano do cartão", card_cvv: "Código do cartão" };
+    var card_names = { credit_card_name: "Nome do cartão", card_number: "Número do cartão", card_month: "Mês do cartão", card_year: "Ano do cartão", card_cvv: "Código do cartão" };
     for(var field in card) {
       if(!card[field] && card[field].length == 0) $scope.error_list.push(card_names[field] + ' é obrigatório');
     }
@@ -594,7 +594,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   
 
   $scope.donation_params = function(){
-    $scope.doar.credit_card_name = $scope.doar.name;
+    //$scope.doar.credit_card_name = $scope.doar.name;
 
     return Params
       .require($scope.doar)

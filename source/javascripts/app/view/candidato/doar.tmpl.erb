@@ -78,7 +78,7 @@
                 <h3 class="text-success">Dados do doador</h3>
               </div>
               <div class="form-group icon-left icon-with-label col-md-12">
-                <label for="name">Nome Completo (impresso no cartão)</label>
+                <label for="name">Nome Completo</label>
                 <i class="fa fa-user"></i>
                 <input class="form-control" type="text" ng-model="doar.name" placeholder="">
               </div>
@@ -152,9 +152,10 @@
                 <h3 class="text-success">
                   Endereço de cobrança
                 </h3>
+                <small class="help-block">O endereço de cobrança deve ser o mesmo que você informou quando fez o seu cartão. Esse endereço é importante para o sistema antifraude.</small>
                 <p id="same_billing_panel">
                   <label>
-                    <input type="checkbox" name="same_billing" ng-click="same_billing_addr($event)" checked> Utilizar mesmo endereço de declarado acima
+                    <input type="checkbox" name="same_billing" ng-click="same_billing_addr($event)" checked> Utilizar mesmo endereço declarado acima
                   </label>
                 </p>
 
@@ -209,25 +210,31 @@
               </div>
               <label for="amount" class="hide">Valor</label>
               <div class="form-group icon-left icon-with-label col-md-12">
-                <label for="credit_card_name">Número do Cartão <span id="card-image"></span></label>
+                <label for="credit_card_name">Nome do Cartão</label>
+                <i class="fa fa-creditcard"></i>
+                <input class="form-control" type="text" name="credit_card_name" ng-model="payment.credit_card_name">
+                <small class="help-block">O nome deve ser o mesmo impresso no cartão de crédito</small>
+              </div>
+              <div class="form-group icon-left icon-with-label col-md-12">
+                <label for="card_number">Número do Cartão <span id="card-image"></span></label>
                 <i class="fa fa-creditcard"></i>
                 <input class="form-control" type="text" ng-model="payment.card_number" ng-keyup="get_brand(payment.card_number)" placeholder="0000 0000 0000 0000" mask="d" 
                 mask-repeat="40" mask-restrict="reject" mask-validate="false" mask-clean="true">
               </div>
               <div class="form-group icon-left icon-with-label col-md-4">
-                <label for="credit_card_name">Mês</label>
+                <label for="card_month">Mês</label>
                 <select name="" class="form-control" ng-model="payment.card_month">
                   <option ng-repeat="m in month_list" value="{{m}}">{{m}}</option>
                 </select>
               </div>
               <div class="form-group icon-left icon-with-label col-md-4">
-                <label for="credit_card_name">Ano</label>
+                <label for="card_year">Ano</label>
                 <select name="" class="form-control" ng-model="payment.card_year">
                   <option ng-repeat="m in year_list" value="{{m}}">{{m}}</option>
                 </select>
               </div>
               <div class="form-group icon-left icon-with-label col-md-4">
-                <label for="credit_card_name">Código</label>
+                <label for="card_cvv">Código de Segurança</label>
                 <input class="form-control" type="text" ng-model="payment.card_cvv" placeholder="">
               </div>
 
