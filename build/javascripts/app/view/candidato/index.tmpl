@@ -21,17 +21,17 @@
         </div>
         <div class="candidate-campaign col-md-5">
           <h4 class="text-success">Total arrecadado</h4>
-          <p class="donated">{{(candidate.total_donated/100) | currency}}</p>
+          <p class="donated">{{((candidate.total_donated + candidate.party_fund)/100) | currency}}</p>
 
           <div class="row">
             <div class="col-md-12">
               <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}">
-                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}};background-color:rgb(152, 207, 74)"></div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}"></div>
               </div>
             </div>
             <div class="col-md-6 text-left">
-              <small>{{make_percent(candidate.total_donated, candidate.raising_goal)}}</small>
+              <small>{{make_percent( (candidate.total_donated + candidate.party_fund), candidate.raising_goal)}}</small>
             </div>
             <div class="col-md-6 text-right">
               <small class="hide">Faltam 10 dias</small>
