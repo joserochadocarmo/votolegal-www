@@ -24,7 +24,10 @@ title:  Candidato(a)
           <span class="partido">{{candidate.party.acronym}}</span>
         </h1>
         <p class="assuntos">{{candidate.issues_decorator}}</p>
-        <p class="cidade">{{candidate.address_city}} - {{candidate.address_state}} - CNPJ: {{candidate.cnpj}}</p>
+        <p class="cidade">
+          <span class="label label-success">{{(candidate.office_id === 1? 'Prefeito' : (candidate.office_id === 2? 'Vereador' : (candidate.office_id === 3? 'Vice-prefeito' : ''))) }}</span>
+          {{candidate.address_city}} - {{candidate.address_state}} - CNPJ: {{candidate.cnpj}}
+        </p>
       </div>
       <div class="col-md-6 col-sm-4 text-right hidden-xs">
         <%# img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
