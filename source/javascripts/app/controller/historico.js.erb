@@ -8,6 +8,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
   $scope.user       = auth_service.current_user();
   $scope.error_list = [];
   $scope.donations  = [];
+  $scope.download   = {};
 
 
   /* methods */
@@ -20,7 +21,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
       table.classList.add('hide');
       if(loading) loading.classList.remove('hide');
     }
-    
+
+
     try {
       $http({
         method: 'GET', 
@@ -68,6 +70,12 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
     }
   };
 
+  // setting download of donations table
+  $scope.download.csv_file = function(){
+    var user = $scope.user;
+    console.log('<%= config[:api_host]%>/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key);
+    return '<%= config[:api_host]%>/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key;
+  };
 
 
   /**
@@ -75,4 +83,5 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
    */
   auth_service.validate_user({role: 'user'});
   $scope.history_list($scope.user);
+
 }]);

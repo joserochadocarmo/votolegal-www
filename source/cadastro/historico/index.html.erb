@@ -9,11 +9,23 @@ title:  Histórico de doações
         <h1 class="page-title">Histórico de transações</h1>
       </div>
 
-      <div class="col-md-12 text-right">
-        <a class="btn btn-default btn-sm" href="/cadastro-completo/">Voltar ao inicio</a>
+      <div class="col-md-6">
+        <div class="dropdown">
+          <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+            Baixar como...
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li><a href="{{download.csv_file()}}" target="_blank">Arquivo CSV (.csv)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <a class="btn btn-default btn-sm pull-right" href="/cadastro-completo/">Voltar ao inicio</a>
       </div>
 
       <div class="col-md-12" style="margin-top:20px;">
+
         <div class="table-responsive">
           <table id="donations-table" class="table table-bordered tabela-hist-doa hide">
             <thead>
@@ -42,7 +54,7 @@ title:  Histórico de doações
                 <td class="hide"><span class="quadro-verde">&nbsp;</span> Projeto 01 <span class="quadro-verde">&nbsp;</span> Projeto 05 <span class="quadro-verde">&nbsp;</span> Projeto 11</td>
               </tr>
               <tr ng-if="donations.length == 0">
-                <td colspan="7" class="warning">
+                <td colspan="8" class="warning">
                   <span class="text-warning">
                     <i class="fa fa-exclamation-circle"></i>
                     Nenhum registro de doações foi encontrado!</span>
