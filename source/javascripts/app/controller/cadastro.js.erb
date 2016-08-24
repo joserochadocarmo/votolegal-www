@@ -380,10 +380,12 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     // fallback for decimal number
     var raising_goal_field = parseFloat($scope.candidate.raising_goal);
     if(raising_goal_field.toString().indexOf('.') != -1) raising_goal_field += '.00';
+    else raising_goal_field = 0;
 
     // fallback for decimal number
     var party_fund_field = parseFloat($scope.candidate.party_fund);
     if(party_fund_field.toString().indexOf('.') != -1) party_fund_field += '.00';
+    else party_fund_field = 0;
 
     var p = {
       raising_goal      : raising_goal_field,
