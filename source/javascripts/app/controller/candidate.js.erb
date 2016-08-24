@@ -74,7 +74,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   };
 
   $scope.render_video = function(src){
-    return '<iframe id="candidate_video" src="' + $sce.trustAsResourceUrl(src) + '" width="560" height="315" allowfullscreen></iframe>';
+    return '<iframe id="candidate_video" src="' + $sce.trustAsResourceUrl(src) + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
   };
 
   $scope._issues_priorities_decorator = function(separator){
