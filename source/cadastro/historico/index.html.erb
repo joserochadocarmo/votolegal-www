@@ -22,6 +22,7 @@ title:  Histórico de doações
                 <th>Nome do Doador:</th>
                 <th>E-mail:</th>
                 <th>CPF:</th>
+                <th>Nascimento:</th>
                 <th>Telefone:</th>
                 <th>Valor doado:</th>
                 <th>Data:</th>
@@ -34,13 +35,14 @@ title:  Histórico de doações
                 <td><a href="//etherscan.io/tx/{{d.transaction_hash}}" title="Abrir a transação na Ethereum" target="_blank">{{d.name}}</a></td>
                 <td><a href="mailto:{{d.email}}" title="Enviar email para o doador">{{d.email}}</a></td>
                 <td><a href="https://www.receita.fazenda.gov.br/Aplicacoes/SSL/ATCTA/CPF/ConsultaPublica.asp" target="_blank" title="Consultar este CPF">{{d.cpf}}</a></td>
+                <td>{{d.birthday}}</td>
                 <td>{{d.phone}}</td>
                 <td>{{(d.amount/100) | currency}}</td>
                 <td><span title="{{d.captured_at}}">{{d.captured_at | date:'dd.MM.yyyy'}}</span></td>
                 <td class="hide"><span class="quadro-verde">&nbsp;</span> Projeto 01 <span class="quadro-verde">&nbsp;</span> Projeto 05 <span class="quadro-verde">&nbsp;</span> Projeto 11</td>
               </tr>
               <tr ng-if="donations.length == 0">
-                <td colspan="5" class="warning">
+                <td colspan="7" class="warning">
                   <span class="text-warning">
                     <i class="fa fa-exclamation-circle"></i>
                     Nenhum registro de doações foi encontrado!</span>
