@@ -129,6 +129,13 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <tr ng-if="candidate.party_fund && candidate.party_fund > 0">
+                        <td>Valor recebido através do Fundo Partidário</td>
+                        <td><a href="javascript:void(0);">n/a</a></td>
+                        <td>{{(candidate.party_fund/100) | currency}}</td>
+                        <td class="hide">0</td>
+                        <td class="hide">0</td>
+                      </tr>
                       <tr ng-repeat="d in donations">
                         <td>{{d.name}}</td>
                         <td><a href="//etherscan.io/tx/{{d.transaction_hash}}" title="{{d.transaction_hash}}" target="_blank">{{d.transaction_hash | limitTo : 10}}...</a></td>
