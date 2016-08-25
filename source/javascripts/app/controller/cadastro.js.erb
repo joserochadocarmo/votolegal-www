@@ -393,8 +393,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     };
 
     // party_fund
-    var party_fund_field = $scope.candidate.party_fund;
-    if(party_fund_field.toString().indexOf('.') !== -1) party_fund_field += '00';
+    var party_fund_field = $scope.candidate.party_fund.toString();
+    if(party_fund_field.indexOf('.') !== -1) party_fund_field += '00';
     else party_fund_field = party_fund_field.replace('.', '');
     p.party_fund = party_fund_field;
 
