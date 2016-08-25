@@ -26,12 +26,13 @@
           <div class="row">
             <div class="col-md-12">
               <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}};background-color: rgb(78, 242, 78);">
                 <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}">
                 </div>
               </div>
             </div>
             <div class="col-md-6 text-left">
-              <small>{{make_percent(candidate.total_donated, candidate.raising_goal)}}</small>
+              <small>{{make_percent((candidate.total_donated + candidate.party_fund), candidate.raising_goal)}}</small>
             </div>
             <div class="col-md-6 text-right">
               <small class="hide">Faltam 10 dias</small>
