@@ -381,10 +381,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var raising_goal_field = parseFloat($scope.candidate.raising_goal);
     if(raising_goal_field.toString().indexOf('.') != -1) raising_goal_field += '.00';
 
-    // fallback for decimal number
-    var party_fund_field = parseFloat($scope.candidate.party_fund);
-    if(party_fund_field.toString().indexOf('.') != -1) party_fund_field += '.00';
-
     var p = {
       raising_goal      : raising_goal_field,
       issue_priorities  : list.join(','),
@@ -393,8 +389,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       merchant_key      : $scope.candidate.merchant_key,
       receipt_min       : $scope.candidate.receipt_min,
       receipt_max       : $scope.candidate.receipt_max,
-      party_fund        : party_fund_field
+      party_fund        : 0
     };
+
+    // party_fund
+    if($scope.candidate.party_fund) p.party_fund = $scope.candidate.party_fund;
 
     return Params
       .require(p)
