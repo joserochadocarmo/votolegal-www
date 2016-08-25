@@ -393,7 +393,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     };
 
     // party_fund
-    if($scope.candidate.party_fund) p.party_fund = $scope.candidate.party_fund;
+    var party_fund_field = $scope.candidate.party_fund;
+    if(party_fund_field.toString().indexOf('.') !== -1) party_fund_field += '00';
+    else party_fund_field = party_fund_field.replace('.', '');
+    p.party_fund = party_fund_field;
 
     return Params
       .require(p)
@@ -433,6 +436,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
           var boleto = document.querySelector('#show-boleto');
           if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
         })();
+
+        $scope.party_fund = ($scope.party_fund/100) || 0;
 
         $scope.get_issues_priority();
       },
