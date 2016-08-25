@@ -116,7 +116,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         $scope.candidate.issues_decorator = $scope._issues_priorities_decorator();
 
         // default total donated
-        $scope.candidate.total_donated = $scope.candidate.total_donated || 0.0;
+        $scope.candidate.total_donated = $scope.candidate.total_donated || 0;
+        $scope.candidate.party_fund = $scope.candidate.party_fund || 0;
         $scope.candidate.raising_goal = parseFloat($scope.candidate.raising_goal) || 0.0;
 
         // video renderer
