@@ -270,6 +270,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           var res = response.data.donations;
           $scope.donations = res;
 
+
           // diasble loading
           if(table) {
             if(loading) loading.classList.add('hide');

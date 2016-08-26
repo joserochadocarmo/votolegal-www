@@ -845,14 +845,6 @@ section#candidate {
       }
     }
 
-    .table {
-      thead {
-        color: #fff;
-        font-weight: 300;
-        background-color: #5cb85c;
-      }
-    }
-
     #tab-sobre {
       i.fa-circle {
         font-size: 12px;
@@ -1519,3 +1511,13 @@ section#votacao-projetos{
     }
   }
 }
+
+
+.table {
+  thead {
+    color: #fff;
+    font-weight: 300;
+    background-color: #5cb85c;
+  }
+}
+
