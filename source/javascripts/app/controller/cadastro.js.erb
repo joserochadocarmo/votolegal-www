@@ -163,7 +163,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
         // send generic error
         trouble.shoot({ 
-          route: "/cadastro-completo#/dados-pessoais", error: JSON.stringify(res)
+          route: document.location.href, error: JSON.stringify(res)
         });
 
         if(!res.data){
@@ -199,6 +199,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       });
     }
     catch(e){
+      trouble.shoot({ route: document.location.href, error: JSON.stringify(e) });
+
       $scope.submit_disabled = false;
       console.error(e);
     }
@@ -215,54 +217,59 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     params.api_key = user.api_key;
 
     $scope.submit_disabled = true;
-    $http({
-      method: 'PUT',
-      url: '<%= config[:api_host]%>/candidate/'+ user.id +"?api_key=" + user.api_key,
-      data: params,
-      headers: {'Content-Type': undefined },
-      transformRequest: function (data) {
-        var fd = new FormData();
-        for (var p in data) fd.append(p, data[p]);
-        // add file to form_data
-        var file_field = document.querySelector('input[name=spending_spreadsheet]');
-        if(file_field.files.length > 0){
-          var file = file_field.files[0];
-          fd.append("spending_spreadsheet", file, file.name);
+    try {
+      $http({
+        method: 'PUT',
+        url: '<%= config[:api_host]%>/candidate/'+ user.id +"?api_key=" + user.api_key,
+        data: params,
+        headers: {'Content-Type': undefined },
+        transformRequest: function (data) {
+          var fd = new FormData();
+          for (var p in data) fd.append(p, data[p]);
+          // add file to form_data
+          var file_field = document.querySelector('input[name=spending_spreadsheet]');
+          if(file_field.files.length > 0){
+            var file = file_field.files[0];
+            fd.append("spending_spreadsheet", file, file.name);
+          }
+          return fd;
         }
-        return fd;
-      }
-    }).then(function (response) {
-      SweetAlert.swal('Os dados da campanha foram salvos!');
-      $scope.submit_disabled = false;
-      $scope.check_percent();
-    },function(response){
-      var res = response.data.form_error;
+      }).then(function (response) {
+        SweetAlert.swal('Os dados da campanha foram salvos!');
+        $scope.submit_disabled = false;
+        $scope.check_percent();
+      },function(response){
+        var res = response.data.form_error;
 
-      // spreadsheet invalid
-      if(res.hasOwnProperty('spending_spreadsheet') && res.form_error.spending_spreadsheet == "invalid file"){
-        SweetAlert.swal('Formato do arquivo de Planilha de Gastos inválido!');
+        // spreadsheet invalid
+        if(res.hasOwnProperty('spending_spreadsheet') && res.form_error.spending_spreadsheet == "invalid file"){
+          SweetAlert.swal('Formato do arquivo de Planilha de Gastos inválido!');
+          return false;
+        }
+
+        var f = function(field){
+          return document.querySelector('form[name=campaignForm] label[for='+field+']');
+        };
+
+        // setting error message
+        for(var field in res){
+          var name = f(field).innerText;
+          $scope.error_list.push(name + error_msg(res[field]));
+        }
+
+        // enable submit
+        $scope.submit_disabled = false;
+
+        // throw an exception
+        //SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
+        throw new Error('ERROR_SAVING_CAMPAIGN');
+
         return false;
-      }
-
-      var f = function(field){
-        return document.querySelector('form[name=campaignForm] label[for='+field+']');
-      };
-
-      // setting error message
-      for(var field in res){
-        var name = f(field).innerText;
-        $scope.error_list.push(name + error_msg(res[field]));
-      }
-
-      // enable submit
-      $scope.submit_disabled = false;
-
-      // throw an exception
-      //SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
-      throw new Error('ERROR_SAVING_CAMPAIGN');
-
-      return false;
-    });
+      });
+    }
+    catch (e){
+      trouble.shoot({ route: document.location.href, error: JSON.stringify(e) });
+    }
     return false;
   };
 
