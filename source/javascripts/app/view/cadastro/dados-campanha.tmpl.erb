@@ -83,9 +83,10 @@
         <input type="hidden" id="payment_gateway_id" name="payment_gateway_id" ng-model="candidate.payment_gateway_id" value="2">
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="merchant_id">Conta</label>
+        <label for="merchant_id">E-mail de Cadastro do PagSeguro</label>
         <i class="fa fa-lock"></i>    
         <input class="form-control" type="text" name="merchant_id" ng-model="candidate.merchant_id" placeholder="E-mail de pagamento" required>
+        <small class="help-block">Você deve colocar o mesmo e-mail utilizado para se cadastrar no PagSeguro.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="merchant_key">Token</label>
