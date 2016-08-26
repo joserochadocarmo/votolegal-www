@@ -128,6 +128,7 @@
                           <td at-attribute="transaction_hash" at-title="Endereço na Blockchain:">
                             <a href="//etherscan.io/tx/{{item.transaction_hash}}" target="_blank">{{item.transaction_hash | limitTo : 10}}...</a>
                           </td>
+                          <td at-attribute="species" at-title="Tipo:"></td>
                           <td at-attribute="amount" at-title="Valor doado:">
                             {{(item.amount/100) | currency}}
                           </td>
