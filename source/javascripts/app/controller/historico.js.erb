@@ -26,7 +26,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
     try {
       $http({
         method: 'GET', 
-        url: '<%= config[:api_host]%>/candidate/'+ user.id +'/donate?api_key=' + user.api_key 
+        url: '<%= config[:api_host]%>/candidate/'+ user.id +'/donate?results=9999&api_key=' + user.api_key 
       }).
       then(
         function(response){
