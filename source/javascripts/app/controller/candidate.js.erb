@@ -65,6 +65,11 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     for (var i = 2016; i<=2030; i++) { list.push(i); }
     return list;
   })();
+  $scope.config = {
+    paginatorLabels: {
+      first: "Primeira", last: "Ultima",jumpBack:'...', stepBack:'...', stepAhead:'...', jumpAhead:'...'
+    }
+  };
 
 
   // methods
@@ -74,7 +79,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   };
 
   $scope.render_video = function(src){
-    return '<iframe id="candidate_video" src="' + $sce.trustAsResourceUrl(src) + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+    if(src) return '<iframe id="candidate_video" src="' + $sce.trustAsResourceUrl(src) + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+    else return '';
   };
 
   $scope._issues_priorities_decorator = function(separator){

@@ -9,5 +9,5 @@
 //= require 'angular-br-filters.min.js' 
 //= require 'angular-sweet_alert.min.js' 
 //= require 'ui-bootstrap-2.0.0.min.js' 
-
+//= require 'angular-table.min.js'
 

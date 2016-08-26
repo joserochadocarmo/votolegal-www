@@ -187,7 +187,7 @@
   /**
    * VotoLegal Project App
    */
-  app.votolegal = angular.module('votolegal', ['ngRoute', 'ngMask', 'ngSanitize', 'angular-storage', 'idf.br-filters', 'oitozero.ngSweetAlert', 'ui.utils.masks', 'ui.bootstrap']);
+  app.votolegal = angular.module('votolegal', ['ngRoute', 'ngMask', 'ngSanitize', 'angular-storage', 'idf.br-filters', 'oitozero.ngSweetAlert', 'ui.utils.masks', 'ui.bootstrap', 'angular-table']);
   app.votolegal.config(['$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
     // http configurations
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
