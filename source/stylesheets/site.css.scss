@@ -1513,7 +1513,9 @@ section#votacao-projetos{
 
 .pagination {
   .active {
-    background-color: #449d44 !important;
-    border-color: #449d44 !important;
+    a {
+      background-color: #449d44 !important;
+      border-color: #449d44 !important;
+    }
   }
 }
