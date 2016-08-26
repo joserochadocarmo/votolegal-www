@@ -67,6 +67,12 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
         if(loading) loading.classList.add('hide');
         table.classList.remove('hide');
       }
+
+      trouble.shoot({
+        route: document.location.href, error: JSON.stringify(e)
+      });
+
+      SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
     }
   };
 
