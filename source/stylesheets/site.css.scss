@@ -1509,3 +1509,11 @@ section#votacao-projetos{
     margin: 200px auto auto auto;
   }
 }
+
+
+.pagination {
+  .active {
+    background-color: #449d44 !important;
+    border-color: #449d44 !important;
+  }
+}
