@@ -22,13 +22,11 @@ title:  Pré-cadastro
         <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit' => "create(candidateForm.$valid)", novalidate: '' do %>
           <div class="row">
             <div class="form-group _icon-left col-md-12">
-              <div class="input-group">
-                <input type="text" class="form-control" name="username" placeholder="seunome" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
-                <span class="input-group-addon" id="basic-addon2">.votolegal.org.br</span>
-              </div>
+              <input type="text" class="form-control" name="username" placeholder="Nome de usuário" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
               <a class="btn-info" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: seunome.votolegal.org">
                 <i class="fa fa-info"></i>
               </a>
+              <span class="help-block">Entre com o nome de usuário pelo qual você será identificado por nossa equipe</span>
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-envelope"></i>    
