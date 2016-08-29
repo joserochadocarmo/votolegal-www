@@ -21,7 +21,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
   $scope.load_list = function(term){
     $http({
       method: 'post',
-      url: '<%= config[:api_host] %>/search', 
+      url: '<%= config[:api_host] %>/search?results=9999', 
       data: serialize.from_object({ name: term }),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
