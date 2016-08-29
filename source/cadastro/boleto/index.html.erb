@@ -101,23 +101,23 @@ title:  Gerar boleto
             <div class="form-group icon-left icon-with-label col-md-8">
               <label for="bank_agency">Número da agência</label>
               <i class="fa fa-money"></i>    
-              <input class="form-control" type="text" name="bank_agency" placeholder="0000" ng-model="candidate.bank_agency">
+              <input class="form-control" type="text" name="bank_agency" placeholder="0000" ng-model="candidate.bank_agency" mask="d" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
             </div>
             <div class="form-group icon-left icon-with-label col-md-4">
               <label for="bank_account_dv">Dígito</label>
               <i class="fa"></i>    
-              <input class="form-control" type="text" name="bank_agency_dv" placeholder="0" ng-model="candidate.bank_agency_dv">
+              <input class="form-control" type="text" name="bank_agency_dv" placeholder="0" ng-model="candidate.bank_agency_dv" mask="%" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
             </div>
 
             <div class="form-group icon-left icon-with-label col-md-8">
               <label for="bank_account_dv">Conta corrente</label>
               <i class="fa fa-money"></i>    
-              <input class="form-control" type="text" name="bank_account_number" placeholder="0000" ng-model="candidate.bank_account_number">
+              <input class="form-control" type="text" name="bank_account_number" placeholder="0000" ng-model="candidate.bank_account_number" mask="d" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
             </div>
             <div class="form-group icon-left icon-with-label col-md-4">
               <label for="bank_account_dv">Dígito</label>
               <i class="fa"></i>    
-              <input class="form-control" type="text" name="bank_account_dv" placeholder="0" ng-model="candidate.bank_account_dv">
+              <input class="form-control" type="text" name="bank_account_dv" placeholder="0" ng-model="candidate.bank_account_dv" mask="%" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
             </div>
 
 

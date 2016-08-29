@@ -101,11 +101,11 @@
       </div>
       <div class="form-group _icon-left icon-with-label col-md-6">
         <label for="receipt_min">Número mínimo</label>
-        <input class="form-control" type="text" name="receipt_min" ng-model="candidate.receipt_min" required>
+        <input class="form-control" type="text" name="receipt_min" ng-model="candidate.receipt_min" mask="d" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true" required>
       </div>
       <div class="form-group icon-left col-md-6">
         <label for="receipt_max">Número máximo</label>
-        <input class="form-control" type="text" name="receipt_max" ng-model="candidate.receipt_max" required>
+        <input class="form-control" type="text" name="receipt_max" ng-model="candidate.receipt_max" mask="d" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true" required>
       </div>
     </div>
 

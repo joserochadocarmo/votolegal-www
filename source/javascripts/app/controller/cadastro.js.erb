@@ -385,13 +385,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     for(var i in selected_list) list.push(selected_list[i].id);
 
     // fallback for decimal number
-    var raising_goal_field = parseFloat($scope.candidate.raising_goal);
+    var raising_goal_field = parseFloat($scope.candidate.raising_goal || 0);
     if(raising_goal_field.toString().indexOf('.') != -1) raising_goal_field += '.00';
 
     var p = {
       raising_goal      : raising_goal_field,
       issue_priorities  : list.join(','),
-      payment_gateway_id: $scope.candidate.payment_gateway_id,
+      payment_gateway_id: 2, // only this gateway available today
       merchant_id       : $scope.candidate.merchant_id,
       merchant_key      : $scope.candidate.merchant_key,
       receipt_min       : $scope.candidate.receipt_min,
