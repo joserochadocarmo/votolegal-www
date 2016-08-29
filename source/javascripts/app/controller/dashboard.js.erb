@@ -10,7 +10,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
   $scope.approval_list = function(){
     var user = auth_service.current_user();
 
-    $http.get('<%= config[:api_host] %>/admin/candidate/list?api_key=' + user.api_key)
+    $http.get('<%= config[:api_host] %>/admin/candidate/list?results=9999&api_key=' + user.api_key)
     .then(
       function(response){
         var res = response.data;
