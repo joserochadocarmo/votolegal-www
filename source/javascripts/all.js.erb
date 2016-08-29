@@ -129,11 +129,10 @@
       for (var name in data) {
         if (!data.hasOwnProperty(name)) continue;
         
-        
         var value = data[name];
         buffer.push(
           encodeURIComponent(name) + "=" +
-          encodeURIComponent( ( value && value === undefined ) ? "" : value )
+          encodeURIComponent( ( value == null ) ? "" : value )
         );
       }
 
