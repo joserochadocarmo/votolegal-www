@@ -212,6 +212,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.save_campaign = function(index){
     $scope.error_list = [];
     var params = $scope.campaign_params();
+    console.log(params);
 
     var user = auth_service.current_user();
     params.api_key = user.api_key;
@@ -385,8 +386,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     for(var i in selected_list) list.push(selected_list[i].id);
 
     // fallback for decimal number
-    var raising_goal_field = parseFloat($scope.candidate.raising_goal || 0);
-    if(raising_goal_field.toString().indexOf('.') != -1) raising_goal_field += '.00';
+    var raising_goal_field = 0.0;
+    if($scope.candidate.raising_goal && $scope.candidate.raising_goal !== undefined){
+      raising_goal_field = parseFloat($scope.candidate.raising_goal || 0);
+      if(raising_goal_field.toString().indexOf('.') != -1) raising_goal_field += '.00';
+    }
 
     var p = {
       raising_goal      : raising_goal_field,
