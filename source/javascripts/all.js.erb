@@ -127,13 +127,13 @@
         throw new Error('Param to be serializer isnt a object');
 
       for (var name in data) {
-        if (!data.hasOwnProperty(name)) {
-          continue;
-        }
+        if (!data.hasOwnProperty(name)) continue;
+        
+        
         var value = data[name];
         buffer.push(
           encodeURIComponent(name) + "=" +
-          encodeURIComponent( ( value == null ) ? "" : value )
+          encodeURIComponent( ( value && value === undefined ) ? "" : value )
         );
       }
 
