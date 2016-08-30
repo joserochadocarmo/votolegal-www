@@ -59,46 +59,6 @@ title:  Histórico de doações
             <at-pagination at-config="config" at-list="donations"></at-pagination>
           </div>
 
-          <table id="donations-table" class="table table-bordered tabela-hist-doa hide">
-            <thead>
-              <tr>
-                <th>ID:</th>
-                <th>Nome do Doador:</th>
-                <th>E-mail:</th>
-                <th>CPF:</th>
-                <th>Nascimento:</th>
-                <th>Documento:</th>
-                <th>Autorização:</th>
-                <th>Telefone:</th>
-                <th>Valor doado:</th>
-                <th>Data:</th>
-                <th class="hide">Projetos Escolhidos</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="d in donations">
-                <td>{{d.receipt_id}}</td>
-                <td><a href="//etherscan.io/tx/{{d.transaction_hash}}" title="Abrir a transação na Ethereum" target="_blank">{{d.name}}</a></td>
-                <td><a href="mailto:{{d.email}}" title="Enviar email para o doador">{{d.email}}</a></td>
-                <td><a href="https://www.receita.fazenda.gov.br/Aplicacoes/SSL/ATCTA/CPF/ConsultaPublica.asp" target="_blank" title="Consultar este CPF">{{d.cpf}}</a></td>
-                <td>{{d.birthday}}</td>
-                <td>{{d.document_number}}</td>
-                <td>{{d.authorization_number}}</td>
-                <td>{{d.phone}}</td>
-                <td>{{(d.amount/100) | currency}}</td>
-                <td><span title="{{d.captured_at}}">{{d.captured_at | date:'dd.MM.yyyy'}}</span></td>
-                <td class="hide"><span class="quadro-verde">&nbsp;</span> Projeto 01 <span class="quadro-verde">&nbsp;</span> Projeto 05 <span class="quadro-verde">&nbsp;</span> Projeto 11</td>
-              </tr>
-              <tr ng-if="donations.length == 0">
-                <td colspan="10" class="warning">
-                  <span class="text-warning">
-                    <i class="fa fa-exclamation-circle"></i>
-                    Nenhum registro de doações foi encontrado!</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
           <div id="loading-donations" class="text-center">
             <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i> 
             <p class="text-success">Carregando</p>
