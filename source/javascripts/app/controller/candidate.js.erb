@@ -44,11 +44,13 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   var load   = document.querySelector('#loading');
 
   // defaults
-  $scope.candidate  = {};
-  $scope.doar       = {};
-  $scope.payment    = {};
-  $scope.error_list = [];
-  $scope.donations  = [];
+  $scope.candidate      = {};
+  $scope.doar           = {};
+  $scope.payment        = {};
+  $scope.error_list     = [];
+  $scope.donations      = [];
+  $scope.expenditures   = [];
+
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
     var url = document.location.href;
@@ -251,6 +253,73 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     load.classList.add('hide');
     return false;
   };
+
+  $scope.show_contas = function(name){
+    (function(){
+      var list = document.querySelectorAll('.tab-register-default');
+      if(list) for(var i in list) { if(list[i].classList) list[i].classList.remove('active') }
+
+      var tab = document.querySelector('.tab-register-default[data-tabname='+name+']');
+      if(tab) {
+        if(tab.classList) tab.classList.add('active');
+
+        var clist = document.querySelectorAll('.tab-register-container');
+        if(clist) for(var i in clist) { if(clist[i].classList) clist[i].classList.add('hide') }
+
+        var c = document.querySelector('.tab-register-container[data-container='+name+']');
+        if(c) c.classList.remove('hide');
+      }
+    })();
+    return false;
+  };
+
+  /* fetch candidate expenditures */
+  $scope.candidate_expenditures = function(candidate){
+    var table   = document.querySelector('#expenditures-table');
+    var loading = document.querySelector('#loading-expenditures');
+    var error   = document.querySelector('#expenditures-error');
+    if(error) error.classList.add('hide');
+    if(table) {
+      table.classList.add('hide'); 
+      if(loading) loading.classList.remove('hide');
+    }
+    
+    try {
+      $http({method: 'GET', url: '<%= config[:api_host]%>/candidate/'+ candidate.id +'/expenditure?results=99999'}).
+      then(
+        function(response){
+          var res = response.data;
+          $scope.expenditures = res;
+
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+        },
+        function(response){
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+          trouble.shoot({
+            route: document.location.href, error: JSON.stringify(response)
+          });
+
+          SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
+          throw new Error('Expenditures list is invalid or cannot be found!');
+        }
+      );
+    }
+    catch(e){
+      if(table) {
+        if(loading) loading.classList.add('hide');
+        table.classList.remove('hide');
+      }
+    }
+  };
+
 
   /* fetch candidate projects */
   $scope.candidate_donations = function(candidate){

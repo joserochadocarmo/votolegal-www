@@ -28,6 +28,7 @@ page '/error/config-error/index.html', layout: false
 configure :development do
   # api host address
   config[:api_host] = "//45.55.50.43/api"
+  #config[:api_host] = "//www.votolegal.org.br/api"
 
   # webapp host address
   config[:host] = "//www.votolegal.org.br"

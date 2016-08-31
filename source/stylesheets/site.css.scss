@@ -1521,3 +1521,13 @@ section#votacao-projetos{
   }
 }
 
+.company-panel {
+  background: #eaeaea;
+  padding: 10px 5px;
+  margin-bottom: 10px; 
+
+  .progress {
+    height: 10px !important;
+    margin-bottom: 0px !important;
+  }
+}
