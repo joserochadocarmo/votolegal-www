@@ -116,6 +116,27 @@
   // Ex.: Params.require({cname:'...', user:'...', name:'...', password:'...'}).permit('user', 'name', 'password')
 
 
+  var DocumentFormat = (function() {
+    function DocumentFormat() {}
+
+    DocumentFormat.prototype.format = function(doc) {
+      var formated, g;
+      formated = doc;
+      switch (doc.length) {
+        case 11:
+          g = doc.match(/^(\d{3})(\d{3})(\d{3})(\d{2})$/);
+          return formated = [g[1], '.', g[2], '.', g[3], '-', g[4]].join('');
+        case 14:
+          g = doc.match(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/);
+          return formated = [g[1], '.', g[2], '.', g[3], '/', g[4], '-', g[5]].join('');
+      }
+    };
+
+    return DocumentFormat;
+
+  })();
+
+
   /**
    * Serializer
    */

@@ -126,7 +126,7 @@
                       <div class="progress">
                         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ ((i.amount * 100)/expenditures.total_amount) || '0' }}%;"></div>
                       </div>
-                      <p><small>{{ ((i.amount * 100) / expenditures.total_amount).toFixed(1) }}%</small> <small class="pull-right">CNPJ: {{ i.cnpj | brCnpj }}</small></p>  
+                      <p><small>{{ ((i.amount * 100) / expenditures.total_amount).toFixed(1) }}%</small> <small class="pull-right">{{ i.cpf_cnpj }}</small></p>  
                     </div>
 
                   </div>

@@ -271,6 +271,16 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       then(
         function(response){
           var res = response.data;
+          
+          (function(){
+            var list = res.expenditure, doc_format = new DocumentFormat();
+
+            for(var i in list)
+              if(list[i].cpf_cnpj) list[i].cpf_cnpj = doc_format.format(list[i].cpf_cnpj);
+
+            res.expenditure = list;
+          })();
+
           $scope.expenditures = res;
 
           // diasble loading
