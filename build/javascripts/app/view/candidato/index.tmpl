@@ -56,7 +56,8 @@
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
             <li class="active"><a href="#tab-projetos" role="tab" data-toggle="tab">Projetos prioritários</a></li>
-            <li><a href="#tab-contas" ng-click="candidate_expenditures(candidate)" role="tab" data-toggle="tab">Prestação de contas</a></li>
+            <li><a href="#tab-contas" role="tab" data-toggle="tab">Prestação de contas</a></li>
+            <li><a href="#tab-gastos" ng-click="candidate_expenditures(candidate)" role="tab" data-toggle="tab">Planejamento de gastos</a></li>
             <li><a href="#tab-historico" ng-click="candidate_donations(candidate)" role="tab" data-toggle="tab">Histórico de doações</a></li>
             <li><a href="#tab-sobre" role="tab" data-toggle="tab">Sobre mim</a></li>
             <li class="hide"><a href="#tab-denuncia" role="tab" data-toggle="tab">Denunciar</a></li>
@@ -100,49 +101,39 @@
 
               </div>
             </div>
+
             <div role="tabpanel" class="tab-pane" id="tab-contas">
               <br class="divider">
-              <div class="col-md-4">
-                <!-- tab buttons -->
-                <div class="tab-register">
-                  <a class="tab-register-default active" ng-click="show_contas('gastos')" data-tabname="gastos" href="javascript:void(0)">
-                    <i class="fi flaticon-personal-credentials"></i> Programa de gastos
-                  </a>
-                  <a class="tab-register-default" ng-click="show_contas('contas')" data-tabname="contas" href="javascript:void(0)">
-                    <i class="fi flaticon-square"></i> Divulgação de contas eleitorais
-                  </a>
-                </div>
-              </div>
-
-              <div class="col-md-12 tab-register-container" data-container="gastos">
+              <div class="col-md-12">
                 <p>Faça o download da planilha simplificada de gastos da campanha de {{candidate.name}}:</p>
                 <p><a class="btn btn-success btn-lg" href="{{candidate.spending_spreadsheet}}"> <i class="fa fa-download"></i> Fazer download da planilha </a></p>
               </div>
+            </div>
 
-              <div class="col-md-12 tab-register-container hide" data-container="contas">
-                <div id="expenditures-table" class="hide">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="alert alert-success">
-                        <p>Total gasto</p>
-                        <strong style="font-size:24px">{{ (expenditures.total_amount/100) || 0.0  | currency }}</strong>
-                      </div>
+            <div role="tabpanel" class="tab-pane" id="tab-contas">
+              <div id="expenditures-table" class="hide">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="alert alert-success">
+                      <p>Total gasto</p>
+                      <strong style="font-size:24px">{{ (expenditures.total_amount/100) || 0.0  | currency }}</strong>
                     </div>
-                    <div class="col-md-12">
-                    
-                      <div class="company-panel" ng-repeat="i in expenditures.expenditure">
-                        <p><strong class="text-success">{{ i.name }}</strong> <span class="pull-right">{{ (i.amount/100) | currency }}</span></p>
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ ((i.amount * 100)/expenditures.total_amount) || '0' }}%;"></div>
-                        </div>
-                        <p><small>{{ ((i.amount * 100) / expenditures.total_amount).toFixed(1) }}%</small> <small class="pull-right">CNPJ: {{ i.cnpj | brCnpj }}</small></p>  
+                  </div>
+                  <div class="col-md-12">
+                  
+                    <div class="company-panel" ng-repeat="i in expenditures.expenditure">
+                      <p><strong class="text-success">{{ i.name }}</strong> <span class="pull-right">{{ (i.amount/100) | currency }}</span></p>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ ((i.amount * 100)/expenditures.total_amount) || '0' }}%;"></div>
                       </div>
+                      <p><small>{{ ((i.amount * 100) / expenditures.total_amount).toFixed(1) }}%</small> <small class="pull-right">CNPJ: {{ i.cnpj | brCnpj }}</small></p>  
+                    </div>
 
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
             <div role="tabpanel" class="tab-pane" id="tab-historico">
               <div class="row">
                 <div class="col-md-12">
