@@ -254,24 +254,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     return false;
   };
 
-  $scope.show_contas = function(name){
-    (function(){
-      var list = document.querySelectorAll('.tab-register-default');
-      if(list) for(var i in list) { if(list[i].classList) list[i].classList.remove('active') }
-
-      var tab = document.querySelector('.tab-register-default[data-tabname='+name+']');
-      if(tab) {
-        if(tab.classList) tab.classList.add('active');
-
-        var clist = document.querySelectorAll('.tab-register-container');
-        if(clist) for(var i in clist) { if(clist[i].classList) clist[i].classList.add('hide') }
-
-        var c = document.querySelector('.tab-register-container[data-container='+name+']');
-        if(c) c.classList.remove('hide');
-      }
-    })();
-    return false;
-  };
 
   /* fetch candidate expenditures */
   $scope.candidate_expenditures = function(candidate){
