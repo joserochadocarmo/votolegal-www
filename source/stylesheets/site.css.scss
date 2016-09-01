@@ -1531,3 +1531,19 @@ section#votacao-projetos{
     margin-bottom: 0px !important;
   }
 }
+
+.tab-content {
+  padding-top: 20px;
+
+  .panel--projeto {
+    border-radius: 0px;
+
+    .panel-heading {
+      padding: 10px 15px;
+      border-bottom: 1px solid transparent;
+      border-top-left-radius: 0px !important;
+      border-top-right-radius: 0px !important;
+    }
+  
+  }
+}
