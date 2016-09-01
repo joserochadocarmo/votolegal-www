@@ -68,10 +68,15 @@
             <div role="tabpanel" class="tab-pane active" id="tab-projetos">
               <div class="row">
                 <div class="col-md-12" ng-repeat="p in candidate.projects">
-                  <h5>Projeto {{$index + 1}}) {{p.title}}</h5>
-                  <p>{{p.scope}}</p>
-                </div>
 
+                  <div class="panel panel-default panel--projeto">
+                    <div class="panel-heading">{{$index + 1}} - {{p.title}}</div>
+                    <div class="panel-body">
+                      <p>{{p.scope}}</p>
+                    </div>
+                  </div>
+
+                </div>
                 <br class="divider">
               </div>
 
