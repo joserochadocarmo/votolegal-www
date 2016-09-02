@@ -103,9 +103,7 @@
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="bank_code">Banco</label>
-        <select id="bank" name="bank_code" ng-model="candidate.bank_code" class="form-control">
-          <option value="0" selected>Selecione um banco</option>
-          <option ng-repeat="b in bank_list" value="{{b.id}}">{{b.name}}</option>
+        <select id="bank" name="bank_code" ng-model="candidate.bank_code" class="form-control" ng-options="item.id as item.name for item in bank_list">
         </select>
       </div>
 
