@@ -41,6 +41,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.candidate   = {};
   $scope.issue_list  = []; 
   $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
+  $scope.bank_list   = [];
 
   $scope.error_list  = [];
   $scope.submit_disabled = false;
@@ -372,7 +373,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.candidate_params = function(){
     return Params
       .require($scope.candidate)
-      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj')
+      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code')
   };
 
   $scope.campaign_params = function(){
@@ -485,6 +486,23 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       function(response){ throw new Error('ERROR_GET_ISSUE_PRIORITY') }
     );
   };
+  // get banks list
+  $scope.get_banks = function(){
+    $http({
+      method: 'GET',
+      url: '<%= config[:api_host]%>/bank',
+    }).
+    then(function(response){
+      $scope.bank_list = response.data.bank;
+    }, function(response){
+      trouble.shoot({
+        route: '/cadastro/boleto', error: JSON.stringify(response)
+      });
+      throw new Error("ERROR_GET_BANK");
+    });
+    return false
+  };
+  
 
   
   /**
@@ -495,6 +513,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   // load candidate data (issues are loaded into get_candidate cb)
   $scope.get_candidate();
   $scope.get_projects();
+  $scope.get_banks();
   $scope.check_percent(); 
 }]);
 

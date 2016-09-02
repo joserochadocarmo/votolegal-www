@@ -96,6 +96,45 @@
         <i class="fa fa-envelope"></i>    
         <input class="form-control" type="text" name="responsible_email" ng-model="candidate.responsible_email">
       </div>
+
+
+      <div class="form-group col-md-12">
+        <h3 class="text-success">Dados da Conta Bancária</h3>
+        <small>Dados da conta bancária do candidato para prestação de contas</small>
+      </div>
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="bank_code">Banco</label>
+        <select id="bank" name="bank_code" ng-model="candidate.bank_code" class="form-control">
+          <option value="0" selected>Selecione um banco</option>
+          <option ng-repeat="b in bank_list" value="{{b.id}}">{{b.name}}</option>
+        </select>
+      </div>
+
+
+      <div class="form-group icon-left icon-with-label col-md-8">
+        <label for="bank_agency">Número da agência</label>
+        <i class="fa fa-money"></i>    
+        <input class="form-control" type="text" name="bank_agency" placeholder="0000" ng-model="candidate.bank_agency" mask="d" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
+      </div>
+      <div class="form-group icon-left icon-with-label col-md-4">
+        <label for="bank_account_dv">Dígito</label>
+        <i class="fa"></i>    
+        <input class="form-control" type="text" name="bank_agency_dv" placeholder="0" ng-model="candidate.bank_agency_dv" mask="%" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
+      </div>
+
+      <div class="form-group icon-left icon-with-label col-md-8">
+        <label for="bank_account_dv">Conta corrente</label>
+        <i class="fa fa-money"></i>    
+        <input class="form-control" type="text" name="bank_account_number" placeholder="0000" ng-model="candidate.bank_account_number" mask="d" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
+      </div>
+      <div class="form-group icon-left icon-with-label col-md-4">
+        <label for="bank_account_dv">Dígito</label>
+        <i class="fa"></i>    
+        <input class="form-control" type="text" name="bank_account_dv" placeholder="0" ng-model="candidate.bank_account_dv" mask="%" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
+      </div>
+
+
+
       <div class="form-group col-md-12" ng-init="submit_disabled = false">
         <p class="text-right">
           <button type="submit" id="btn-enviar" ng-disabled="submit_disabled" class="btn btn-success btn-lg">Gravar</button>
