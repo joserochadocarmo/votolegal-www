@@ -399,16 +399,9 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       merchant_key      : $scope.candidate.merchant_key
     };
 
-    // party_fund
-    var party_fund_field = $scope.candidate.party_fund.toString();
-    console.log(party_fund_field);
-    if(party_fund_field.indexOf('.') === -1) party_fund_field += '00';
-    else party_fund_field = party_fund_field.replace('.', '');
-    p.party_fund = party_fund_field;
-
     return Params
       .require(p)
-      .permit('raising_goal', 'issue_priorities', 'merchant_key', 'merchant_id', 'payment_gateway_id', 'party_fund');
+      .permit('raising_goal', 'issue_priorities', 'merchant_key', 'merchant_id', 'payment_gateway_id');
   };
 
   $scope.projects_params = function(){
@@ -444,9 +437,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
           var boleto = document.querySelector('#show-boleto');
           if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
         })();
-
-        $scope.candidate.party_fund = $scope.candidate.party_fund || 0;
-        $scope.candidate.party_fund = ($scope.candidate.party_fund/100);
 
         $scope.get_issues_priority();
       },
