@@ -3,8 +3,12 @@
  */
 app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service", "serialize", "SweetAlert", "trouble", function($scope, $http, auth_service, serialize, SweetAlert, trouble){
   // defaults
-  $scope.list = [];
-  $scope.typesearch = 'name';
+  $scope.list       = [];
+  $scope.party_list = [];
+  $scope.term       = '';
+  $scope.party      = { id: 0, acronym: 'Partido' };
+  $scope.typesearch = 'Nome';
+
 
   // methods
   $scope.redirect_to = function(candidate){
@@ -19,20 +23,43 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
     return false;
   };
 
+
   $scope.set_typesearch = function(type){
     $scope.typesearch = type;
   };
 
+  $scope.set_party = function(party){
+    $scope.party = party;
+  };
+
+
+  // load party data
+  $scope.load_parties = function(){
+    $http.get('<%= config[:api_host] %>/party')
+    .then(function(response){ 
+      $scope.party_list = response.data.party;
+      for(var i in $scope.party_list){
+        if($scope.party_list[i].id == $scope.party.id) $scope.party = $scope.party_list[i];
+        //console.log($scope.party_list[i]);
+        //console.log($scope.party.id);
+      }
+    },function(response){ 
+      $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST"); 
+    });
+  };
+
+
   $scope.load_list = function(term){
     var params = { name: term };
     switch($scope.typesearch){
-      case 'name':
-        params = { name: term };
+      case 'Nome':
+        params.name = term;
         break;
-      case 'city':
-        params = { address_city: term };
+      case 'Cidade':
+        params.address_city = term;
         break;
     }
+    params.party_id = party
 
     $http({
       method: 'post',
@@ -57,6 +84,11 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
   // load candidate list
   var term = URI.query('q') || undefined;
-  $scope.typesearch = URI.query('type') || 'name';
+  $scope.term = term;
+  var party = URI.query('party') || 0;
+  $scope.party.id = party;
+
+  $scope.typesearch = URI.query('type') || 'Nome';
+  $scope.load_parties();
   $scope.load_list(term);
 }]);
