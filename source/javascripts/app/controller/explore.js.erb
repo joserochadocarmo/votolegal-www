@@ -4,6 +4,7 @@
 app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service", "serialize", "SweetAlert", "trouble", function($scope, $http, auth_service, serialize, SweetAlert, trouble){
   // defaults
   $scope.list = [];
+  $scope.typesearch = 'name';
 
   // methods
   $scope.redirect_to = function(candidate){
@@ -18,24 +19,36 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
     return false;
   };
 
+  $scope.set_typesearch = function(type){
+    $scope.typesearch = type;
+  };
+
   $scope.load_list = function(term){
+    var params = { name: term };
+    switch($scope.typesearch){
+      case 'name':
+        params = { name: term };
+        break;
+      case 'city':
+        params = { address_city: term };
+        break;
+    }
+
     $http({
       method: 'post',
       url: '<%= config[:api_host] %>/search?results=9999', 
-      data: serialize.from_object({ name: term }),
+      data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
     .then(
       function(response){
         $scope.list = response.data;
-        console.log($scope.list); // DEBUG
       },
       function(response){
         var data = response.data;
-        console.log(response); // DEBUG
         SweetAlert.swal('Erro inesperado', 'Não foi possivel carregar a lista de usuários!');
         trouble({
-          route: '/explore', error: JSON.stringify(response)
+          route: document.location.href, error: JSON.stringify(response)
         });
       }
     );
@@ -44,6 +57,6 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
   // load candidate list
   var term = URI.query('q') || undefined;
-  console.log(term);
+  $scope.typesearch = URI.query('type') || 'name';
   $scope.load_list(term);
 }]);

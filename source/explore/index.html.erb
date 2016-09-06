@@ -2,15 +2,27 @@
 title:      Candidatos
 ---
 
-<div class="header-filter">
+<div class="header-filter" ng-controller="ExploreController">
   <h2 class="hide">
     Filtre para encontrar seu candidato <i class="fa fa-chevron-down"></i>
   </h2>
   <div id="filters" class="container _hide">
     <div class="row">
-      <div class="col-md-offset-3 col-md-6">
+      <div class="col-md-offset-3 col-md-2">
+        <div class="dropdown" style="line-height: 38px; background-color: transparent ! important; border: 1px solid rgb(255, 255, 255); border-radius: 5px;">
+          <button style="background-color: transparent ! important; color: rgb(255, 255, 255); border-color: transparent ! important;" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Pesquisar<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dLabel">
+            <li><a href="#" ng-click="set_typesearch('name')">Por nome</a></li>
+            <li><a href="#" ng-click="set_typesearch('city')">Por cidade</a></li>
+            <!-- li><a href="#" ng-click="typesearch = 'party'">Por partido</a></li -->
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
         <form action="/explore" method="get">
-          <input type="text" name="q" class="form-control input-lg search-control bordered-control" placeholder="Procurar por nome, cidade, partido..." />
+          <input type="hidden" name="type" ng-value="typesearch">
+          <input type="text" name="q" class="form-control input-lg search-control bordered-control" placeholder="Procurar por nome ou cidade..." />
         </form>
       </div>
     </div>
