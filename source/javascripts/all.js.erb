@@ -1,4 +1,12 @@
 (function(app){
+  /**
+   * GLOBALS
+   */
+  // underscore
+  _.templateSettings = {
+    interpolate: /\{\{\=(.+?)\}\}/g,
+    evaluate   : /\{\{(.+?)\}\}/g
+  };
 
   /**
    * Array polyfills
@@ -382,6 +390,7 @@
   <%= partial "javascripts/app/controller/cadastro.js" %>
   <%= partial "javascripts/app/controller/explore.js" %>
   <%= partial "javascripts/app/controller/candidate.js" %>
+  <%= partial "javascripts/app/controller/vote.js" %>
   <%= partial "javascripts/app/controller/boleto.js" %>
   <%= partial "javascripts/app/controller/historico.js" %>
   <%= partial "javascripts/app/controller/preview.js" %>
@@ -393,22 +402,5 @@ $(document).ready(function(){
   //sobreescrevendo a função de recarregamento de página ao fazer click nos links com # para que os nav-tabs do bootstrap funcionem corretamente
   $('body').on('click', '.nav-tabs li a', function(e){
     e.preventDefault();
-  });
-
-
-});
-
-$(function(){
-  $.getJSON("<%= config[:api_host] %>/stats", function(res){
-    $('#candidates').html(res.candidates);
-    $('#total_donations').html(res.total_donations);
-    $('#total_people_donated').html(res.total_people_donated);
-    $('#total_amount_raised').html("R$" + (function(){
-      return (res.total_amount_raised / 100)
-        .toFixed(2)
-        .toString()
-        .replace('.', ',')
-    }()));
-    $('#totals').removeClass('hide');
   });
 });

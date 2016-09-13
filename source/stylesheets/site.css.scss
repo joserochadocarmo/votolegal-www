@@ -1215,52 +1215,50 @@ a {
   border: solid 1px #fff;
 }
 
-section#votacao-projetos{
-  .confirma-doacao{
-    text-align: center;
+.confirma-doacao{
+  text-align: center;
 
-    .c-d-mensagem-wrap{
-      padding: 20px;
-      background: $fundo-cinza-claro;
-    }
+  .c-d-mensagem-wrap{
+    padding: 20px;
+    background: $fundo-cinza-claro;
   }
-  .votacao-projetos-wrap{
-    margin: 50px 0 0;
-    .txt-explica-votacao{
-      color: #62d35d; font-weight: 700; font-size: 15px
-    }
-    .form-vota-prj-wrap{
-      margin: 50px 0 0;
-      color:#777!important;
-      .votacao-projetos-form{
-        input[type='checkbox']{
-          margin: 0 10px 0 0;
-        }
-        .panel-heading{
-          font-weight: 700;
-          background: none !important;
-        }
-
-      }
-      a.colapsa-proj{
-        color: #999;
-        outline: 0;
-        &:hover, &:focus, &:active{
-          color: #62d35d;
-        }
-      }
-      .container-proj{
-        border-bottom: 1px solid #e0e0e0;
-      }
-    }
-    .foto-candidato-wrap{
-      .cand-img-redondo{width: 242px; height: 242px; overflow: hidden; border-radius: 100%;
-        img{width: 100%; height: auto;}
-      }
-    }
-  }
-
 }
+.votacao-projetos-wrap{
+  margin: 50px 0 0;
+  .txt-explica-votacao{
+    color: #62d35d; font-weight: 700; font-size: 15px
+  }
+  .form-vota-prj-wrap{
+    margin: 50px 0 0;
+    color:#777!important;
+    .votacao-projetos-form{
+      input[type='checkbox']{
+        margin: 0 10px 0 0;
+      }
+      .panel-heading{
+        font-weight: 700;
+        background: none !important;
+      }
+
+    }
+    a.colapsa-proj{
+      color: #999;
+      outline: 0;
+      &:hover, &:focus, &:active{
+        color: #62d35d;
+      }
+    }
+    .container-proj{
+      border-bottom: 1px solid #e0e0e0;
+    }
+  }
+  .foto-candidato-wrap{
+    .cand-img-redondo{width: 242px; height: 242px; overflow: hidden; border-radius: 100%;
+      img{width: 100%; height: auto;}
+    }
+  }
+}
+
 .confirmado-title, .titulo-pagina{
   font-size: 36px; font-weight: 300; color: #999;
   &:before{

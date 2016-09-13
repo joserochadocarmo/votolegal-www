@@ -14,10 +14,15 @@ if((!domain.match(/^https:\/\/www.votolegal.org.br/) && domain.match(/^https:\/\
       templateUrl: '/javascripts/app/view/candidato/success.tmpl',
       controller: 'CandidateController',
     }).
+    when('/votar/:token', {
+      templateUrl: '/javascripts/app/view/candidato/votar.tmpl',
+      controller: 'CandidateController',
+    }).
     otherwise({
       redirectTo: '/',
     });
   }]);
+
 
   /**
    * Grafic interface and style interactions
@@ -44,9 +49,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   var load   = document.querySelector('#loading');
 
   // defaults
+  $scope.vote           = undefined;
+  $scope.page           = 'normal';
   $scope.candidate      = {};
   $scope.doar           = {};
   $scope.payment        = {};
+  $scope.votes          = [];
   $scope.error_list     = [];
   $scope.donations      = [];
   $scope.expenditures   = [];
@@ -71,6 +79,23 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     paginatorLabels: {
       first: "Primeira", last: "Ultima",jumpBack:'...', stepBack:'...', stepAhead:'...', jumpAhead:'...'
     }
+  };
+
+  $scope.set_page = function(page){
+    //console.log(document.location.href);
+    if(page === 'votar'){
+      var header = document.querySelector('.candidate-header');
+      if(header) header.classList.add('hide');
+      var container = document.querySelector('#candidate-container');
+      if(container) container.classList.remove('degrade-default');
+    }
+    else {
+      var header = document.querySelector('.candidate-header');
+      if(header) header.classList.remove('hide');
+      var container = document.querySelector('#candidate-container');
+      if(container) container.classList.add('degrade-default');
+    }
+    return false;
   };
 
 
