@@ -89,6 +89,22 @@
       </div>
 
     </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <h3 class="text-success">Sincronizar com TSE</h3>
+        <small>Você pode permitir que o VotoLegal utilize os dados do TSE para dar mais transparência as informações de doações da sua campanha.</small>
+      </div>
+      <div class="form-group col-md-12">
+        <label>Sincronizar conta com TSE?</label>
+        <select id="crawlable" name="crawlable" ng-model="candidate.crawlable" class="form-control">
+          <option value=''>- Selecione uma opção -</option>
+          <option ng-value="true" ng-selected="candidate.crawlable">Sim, desejo que o VotoLegal sincronize minha conta</option>
+          <option ng-value="false" ng-selected="!candidate.crawlable">Não, não quero mostrar as informações do TSE</option>
+        </select>
+      </div>
+
+    </div>
+
 
     <div class="row">
       <div class="form-group col-md-12" ng-init="submit_disabled = false">
