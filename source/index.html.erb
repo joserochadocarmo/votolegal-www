@@ -171,19 +171,3 @@
       </div>
     </section>
 
-    <script type="text/javascript">
-      $(function(){
-        $.getJSON("<%= config[:api_host] %>/stats", function(res){
-          $('#candidates').html(res.candidates);
-          $('#total_donations').html(res.total_donations);
-          $('#total_people_donated').html(res.total_people_donated);
-          $('#total_amount_raised').html("R$" + (function(){
-            return (res.total_amount_raised / 100)
-              .toFixed(2)
-              .toString()
-              .replace('.', ',')
-          }()));
-          $('#totals').removeClass('hide');
-        });
-      });
-    </script>
