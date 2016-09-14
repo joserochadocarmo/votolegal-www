@@ -25,13 +25,33 @@
 
           <div class="row">
             <div class="col-md-12">
-              <div class="progress">
+              <div class="progress hide">
                 <div class="progress-bar progress-bar-success text-center" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}};background-color: rgb(78, 242, 78); color: #000 !important"></div>
                 <div class="progress-bar progress-bar-success text-center" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}; color: #000 !important"></div>
               </div>
+              <div class="progress progress-candidate">
+                <div class="progress-bar progress-bar-success progress-bar-lightgreen" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>{{make_percent(candidate.party_fund, candidate.raising_goal)}}</strong><br>
+                    <small>Doações do Fundo Partidário</small>
+                  </p>
+                </div>
+                <div class="progress-bar progress-bar-success progress-bar-normalgreen" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>{{make_percent(candidate.total_donated, candidate.raising_goal)}}</strong><br>
+                    <small>Doações do VotoLegal</small>
+                  </p>
+                </div>
+                <div class="progress-bar progress-bar-success progress-bar-heavygreen hide" role="progressbar" style="width: 30%" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>39%</strong><br>
+                    <small>Outras Doações</small>
+                  </p>
+                </div>
+              </div>
             </div>
             <div class="col-md-6 text-left">
-              <small>{{make_percent((candidate.total_donated + candidate.party_fund), candidate.raising_goal)}}</small>
+              <small class="hide">{{make_percent((candidate.total_donated + candidate.party_fund), candidate.raising_goal)}}</small>
             </div>
             <div class="col-md-6 text-right">
               <small class="hide">Faltam 10 dias</small>

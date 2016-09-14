@@ -98,6 +98,19 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     return false;
   };
 
+  $scope.hide_label = function(){
+    var list = document.querySelectorAll('.progress-candidate > .progress-bar > p');
+    if(list) for(var i in list){ if(list[i] && typeof(list[i]) === 'object') list[i].style.display = 'none' }
+  };
+
+  $scope.show_label = function(bar, $event){
+    $scope.hide_label();
+
+    var element = $event.target.querySelector('p');
+    if(element) element.style.display = 'block';
+
+    return false;
+  };
 
   // methods
   $scope.make_percent = function(number, total){

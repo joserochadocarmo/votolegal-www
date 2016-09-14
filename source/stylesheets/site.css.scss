@@ -1545,3 +1545,42 @@ a {
   
   }
 }
+
+.progress-candidate {
+  height: 22px;
+  background-color: rgb(216, 216, 216);
+  border: 1px solid rgb(255, 255, 255);
+
+  .progress-bar {
+    color: #333;
+    border-right: solid 2.5px #fff;
+
+    p {
+      display: none;
+      text-align: left;
+      margin-top: 20px;
+      position: absolute;
+
+
+      strong { font-size: 16px; }
+      small { font-size: 10px !important; }
+    }
+  }
+
+  .progress-bar-lightgreen {
+    background-color: #91f32e !important;
+    strong { color: #91f32e !important }
+  }
+  
+  .progress-bar-normalgreen {
+    background-color: #59b957 !important;
+    strong { color: #59b957 !important }
+  }
+  
+  .progress-bar-heavygreen {
+    background-color: #26673d !important;
+    strong { color: #26673d !important }
+  }
+  
+
+}
