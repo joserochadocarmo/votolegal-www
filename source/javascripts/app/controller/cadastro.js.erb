@@ -440,7 +440,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
           if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
         })();
 
-        if($scope.candidate.crawlable === 0) $scope.candidate.crawlable = 'false';
+        if($scope.candidate.crawlable && $scope.candidate.crawlable == 0) $scope.candidate.crawlable = 'false';
         else $scope.candidate.crawlable = 'true';
 
         $scope.get_issues_priority();
