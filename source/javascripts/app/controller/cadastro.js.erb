@@ -269,6 +269,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     }
     catch (e){
       trouble.shoot({ route: document.location.href, error: JSON.stringify(e) });
+      $scope.submit_disabled = false;
     }
     return false;
   };
