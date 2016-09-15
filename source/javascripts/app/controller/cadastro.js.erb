@@ -398,7 +398,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       payment_gateway_id: 2, // only this gateway available today
       merchant_id       : $scope.candidate.merchant_id,
       merchant_key      : $scope.candidate.merchant_key,
-      crawlable         : $scope.candidate.crawlable || false
+      crawlable         : $scope.candidate.crawlable || 'false'
     };
 
     return Params
@@ -441,7 +441,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         })();
 
         if($scope.candidate.crawlable === 0) $scope.candidate.crawlable = 'false';
-        if($scope.candidate.crawlable === 1) $scope.candidate.crawlable = 'true';
+        else $scope.candidate.crawlable = 'true';
 
         $scope.get_issues_priority();
       },
