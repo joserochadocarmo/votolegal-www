@@ -59,6 +59,53 @@
 
 
   /**
+   * Brazilian currency class
+   */
+  var BrazilianCurrency = (function() {
+    function BrazilianCurrency(amount) {
+      this.amount = amount;
+    }
+
+    BrazilianCurrency.prototype.format = function(opts) {
+      var amount, cents, formated, i, reals, salts, _i, _len, _ref;
+      if (opts == null) {
+        opts = {};
+      }
+      amount = (this.amount / 100).toFixed(2);
+      reals = amount.split(/\./)[0];
+      cents = amount.split(/\./)[1];
+      formated = [];
+      salts = 0;
+      _ref = reals.split('').reverse();
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        i = _ref[_i];
+        formated.push(i);
+        if (salts === 2) {
+          if (i !== (reals.length + 1)) {
+            formated.push(".");
+          }
+          salts = 0;
+          continue;
+        }
+        salts++;
+      }
+      formated = formated.reverse();
+      if (formated[0] === '.') {
+        formated.shift();
+      }
+      formated = "" + (formated.join('')) + "," + cents;
+      if (opts && opts.simbol === true) {
+        return "R$ " + formated;
+      }
+      return "" + formated;
+    };
+
+    return BrazilianCurrency;
+
+  })();
+
+
+  /**
    * URI class
    */
   var URI = (function(){
@@ -409,10 +456,8 @@ $(document).ready(function(){
     $('#total_donations').html(res.total_donations);
     $('#total_people_donated').html(res.total_people_donated);
     $('#total_amount_raised').html("R$" + (function(){
-      return (res.total_amount_raised / 100)
-        .toFixed(2)
-        .toString()
-        .replace('.', ',')
+      var formater = new BrazilianCurrency(res.total_amount_raised);
+      return formater.format({simbol: false});
     }()));
     $('#totals').removeClass('hide');
   });
