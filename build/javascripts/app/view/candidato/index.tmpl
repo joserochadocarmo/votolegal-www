@@ -36,15 +36,15 @@
                     <small>Doações do Fundo Partidário</small>
                   </p>
                 </div>
-                <div class="progress-bar progress-bar-success progress-bar-normalgreen" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                <div class="progress-bar progress-bar-success progress-bar-normalgreen" role="progressbar" style="width: {{make_percent(candidate.total_donated_by_votolegal || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
                   <p>
-                    <strong>{{make_percent(candidate.total_amount_by_votolegal, candidate.raising_goal)}}</strong><br>
+                    <strong>{{make_percent(candidate.total_donated_by_votolegal || 0, candidate.raising_goal)}}</strong><br>
                     <small>Doações do VotoLegal</small>
                   </p>
                 </div>
                 <div class="progress-bar progress-bar-success progress-bar-heavygreen" role="progressbar" style="width: {{make_percent((candidate.total_donated-candidate.total_amount_by_votolegal) || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
                   <p>
-                    <strong>{{make_percent((candidate.total_donated-candidate.total_amount_by_votolegal) || 0, candidate.raising_goal)}}</strong><br>
+                    <strong>{{make_percent((candidate.total_donated - candidate.total_donated_by_votolegal) || 0, candidate.raising_goal)}}</strong><br>
                     <small>Outras Doações</small>
                   </p>
                 </div>
