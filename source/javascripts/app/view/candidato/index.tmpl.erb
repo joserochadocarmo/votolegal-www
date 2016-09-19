@@ -5,14 +5,14 @@
           <div class="video-container" id="video-renderer">
           </div>
           <br class="divider">
-          <div class="share-button hide">
+          <div class="share-button">
             <ul class="nav nav-pills">
               <li class="disabled"><strong>Compartilhe:</strong></li>
-              <li><a href="javascript:document.location='https://twitter.com/intent/tweet?hashtags=votolegal&original_referer='+document.location.href+'&text=Visite%20a%20página%20da%20minha%20campanha&tw_p=tweetbutton&url='+document.location.href+'&via=twitterdev"><i class="fa fa-twitter"></i> Tweet</a></li>
-              <li><a href="#" target="_blank"><i class="fa fa-facebook"></i> Share</a></li>
-              <li><a href="#" target="_blank"><i class="fa fa-play"></i> Embed</a></li>
-              <li><a href="#" target="_blank"><i class="fa fa-pinterest"></i> Pin</a></li>
-              <li><a href="#" target="_blank"><i class="fa fa-envelope"></i> Post</a></li>
+              <li ng-if="candidate.twitter_url"><a href="{{candidate.twitter_url}}" target="_blank"><i class="fa fa-twitter"></i> Tweet</a></li>
+              <li ng-if="candidate.facebook_url"><a href="{{candidate.facebook_url}}" target="_blank"><i class="fa fa-facebook"></i> Share</a></li>
+              <li ng-if="candidate.video_url"><a href="{{candidate.video_url}}" target="_blank"><i class="fa fa-play"></i> Embed</a></li>
+              <li class="hide"><a href="#" target="_blank"><i class="fa fa-pinterest"></i> Pin</a></li>
+              <li class="hide"><a href="#" target="_blank"><i class="fa fa-envelope"></i> Post</a></li>
             </ul>
           </div>
           <br class="divider">
