@@ -455,7 +455,7 @@ $(document).ready(function(){
     $('#candidates').html(res.candidates);
     $('#total_donations').html(res.total_donations);
     $('#total_people_donated').html(res.total_people_donated);
-    $('#total_amount_raised').html("R$" + (function(){
+    $('#total_amount_raised').html((function(){
       var formater = new BrazilianCurrency(res.total_amount_raised);
       return formater.format({simbol: false});
     }()));
