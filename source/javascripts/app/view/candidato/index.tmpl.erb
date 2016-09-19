@@ -10,10 +10,10 @@
             <ul class="nav nav-pills">
               <li class="disabled"><strong>Compartilhe:</strong></li>
               <li><a href="javascript:document.location='https://twitter.com/intent/tweet?hashtags=votolegal&original_referer='+document.location.href+'&text=Visite%20a%20página%20da%20minha%20campanha&tw_p=tweetbutton&url='+document.location.href+'&via=twitterdev"><i class="fa fa-twitter"></i> Tweet</a></li>
-              <li><a href="#"><i class="fa fa-facebook"></i> Share</a></li>
-              <li><a href="#"><i class="fa fa-youtube"></i> Embed</a></li>
-              <li><a href="#"><i class="fa fa-pinterest"></i> Pin</a></li>
-              <li><a href="#"><i class="fa fa-envelope"></i> Post</a></li>
+              <li><a href="#" target="_blank"><i class="fa fa-facebook"></i> Share</a></li>
+              <li><a href="#" target="_blank"><i class="fa fa-play"></i> Embed</a></li>
+              <li><a href="#" target="_blank"><i class="fa fa-pinterest"></i> Pin</a></li>
+              <li><a href="#" target="_blank"><i class="fa fa-envelope"></i> Post</a></li>
             </ul>
           </div>
           <br class="divider">
@@ -38,13 +38,13 @@
                 </div>
                 <div class="progress-bar progress-bar-success progress-bar-normalgreen" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
                   <p>
-                    <strong>{{make_percent(candidate.total_donated, candidate.raising_goal)}}</strong><br>
+                    <strong>{{make_percent(candidate.total_amount_by_votolegal, candidate.raising_goal)}}</strong><br>
                     <small>Doações do VotoLegal</small>
                   </p>
                 </div>
-                <div class="progress-bar progress-bar-success progress-bar-heavygreen hide" role="progressbar" style="width: 30%" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                <div class="progress-bar progress-bar-success progress-bar-heavygreen" role="progressbar" style="width: {{make_percent((candidate.total_donated-candidate.total_amount_by_votolegal) || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
                   <p>
-                    <strong>39%</strong><br>
+                    <strong>{{make_percent((candidate.total_donated-candidate.total_amount_by_votolegal) || 0, candidate.raising_goal)}}</strong><br>
                     <small>Outras Doações</small>
                   </p>
                 </div>
