@@ -23,7 +23,7 @@
           <p class="donated">{{((candidate.total_donated + candidate.party_fund)/100) | currency}}</p>
 
           <div class="row">
-            <div class="col-md-12">
+          <div class="col-md-12" ng-if="((candidate.total_donated+candidate.party_fund)/100) <= parseFloat(candidate.raising_goal || 0)">
               <div class="progress hide">
                 <div class="progress-bar progress-bar-success text-center" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}};background-color: rgb(78, 242, 78); color: #000 !important"></div>
                 <div class="progress-bar progress-bar-success text-center" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}; color: #000 !important"></div>
