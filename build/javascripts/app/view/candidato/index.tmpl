@@ -41,7 +41,7 @@
                     <small>Doações do VotoLegal</small>
                   </p>
                 </div>
-                <div class="progress-bar progress-bar-success progress-bar-heavygreen" role="progressbar" style="width: {{make_percent((candidate.total_donated-candidate.total_amount_by_votolegal) || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                <div class="progress-bar progress-bar-success progress-bar-heavygreen" role="progressbar" style="width: {{make_percent((candidate.total_donated - candidate.total_amount_by_votolegal) || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
                   <p>
                     <strong>{{make_percent((candidate.total_donated - candidate.total_donated_by_votolegal) || 0, candidate.raising_goal)}}</strong><br>
                     <small>Outras Doações</small>
@@ -62,8 +62,8 @@
 
           <h4 class="text-success">Pessoas já Doaram</h4>
           <p class="donator-number">{{candidate.people_donated}}</p>
-          <h4 class="text-success">Meta</h4>
-          <p class="raising-goal">{{candidate.raising_goal.toFixed(2) | currency}}</p>
+          <h4 class="text-success" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">Meta</h4>
+          <p class="raising-goal" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">{{candidate.raising_goal.toFixed(2) | currency}}</p>
 
           <p><a class="btn btn-success btn-lg btn-block btn-donate" href="#/doar">Doar</a></p>
         </div>
