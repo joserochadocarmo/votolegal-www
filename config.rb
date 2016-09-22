@@ -37,8 +37,8 @@ configure :development do
   config[:watcher_force_polling] = true
 
   activate :livereload do |l| 
-    l.apply_css_live  = false
-    l.apply_js_live   = false
+    l.apply_css_live  = true
+    l.apply_js_live   = true
   end
 end
 
@@ -62,9 +62,9 @@ end
 # Build-specific configuration
 configure :build do
   # api host address
-  config[:api_host] = "/api"
+  #config[:api_host] = "/api"
   #puts ("*" * 12) + "- MUDAR HOST DA API PARA PRODUÇÃO"
-  #config[:api_host] = "//45.55.50.43/api"
+  config[:api_host] = "//45.55.50.43/api"
 
   # webapp host address
   config[:host] = "//www.votolegal.org.br"
