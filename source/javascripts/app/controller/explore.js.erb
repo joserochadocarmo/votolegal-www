@@ -59,7 +59,10 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
         params.address_city = term;
         break;
     }
-    params.party_id = party
+    params.party_id = party;
+
+    var loading        = document.querySelector('#loading-candidates');
+    var candidate_list = document.querySelector('.candidate-list');
 
     $http({
       method: 'post',
@@ -70,6 +73,9 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
     .then(
       function(response){
         $scope.list = response.data;
+
+        if(loading) loading.classList.add('hide');
+        if(candidate_list) candidate_list.classList.remove('hide');
       },
       function(response){
         var data = response.data;
@@ -77,6 +83,9 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
         trouble({
           route: document.location.href, error: JSON.stringify(response)
         });
+
+        if(loading) loading.classList.add('hide');
+        if(candidate_list) candidate_list.classList.remove('hide');
       }
     );
     return false;

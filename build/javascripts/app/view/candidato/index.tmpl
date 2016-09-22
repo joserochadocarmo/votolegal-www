@@ -3,17 +3,16 @@
       <div class="row" style="min-height: 500px; margin-bottom: 30px">
         <div class="candidate-video col-md-7">
           <div class="video-container" id="video-renderer">
-            <!-- iframe width="560" height="315" ng-src="{{candidate.video_url}}" frameborder="0" allowfullscreen></iframe -->
           </div>
           <br class="divider">
-          <div class="share-button hide">
+          <div class="share-button">
             <ul class="nav nav-pills">
               <li class="disabled"><strong>Compartilhe:</strong></li>
-              <li><a href="javascript:document.location='https://twitter.com/intent/tweet?hashtags=votolegal&original_referer='+document.location.href+'&text=Visite%20a%20página%20da%20minha%20campanha&tw_p=tweetbutton&url='+document.location.href+'&via=twitterdev"><i class="fa fa-twitter"></i> Tweet</a></li>
-              <li><a href="#"><i class="fa fa-facebook"></i> Share</a></li>
-              <li><a href="#"><i class="fa fa-youtube"></i> Embed</a></li>
-              <li><a href="#"><i class="fa fa-pinterest"></i> Pin</a></li>
-              <li><a href="#"><i class="fa fa-envelope"></i> Post</a></li>
+              <li ng-if="candidate.twitter_url"><a href="{{candidate.twitter_url}}" target="_blank"><i class="fa fa-twitter"></i> Tweet</a></li>
+              <li ng-if="candidate.facebook_url"><a href="{{candidate.facebook_url}}" target="_blank"><i class="fa fa-facebook"></i> Share</a></li>
+              <li ng-if="candidate.video_url"><a href="{{candidate.video_url}}" target="_blank"><i class="fa fa-play"></i> Embed</a></li>
+              <li class="hide"><a href="#" target="_blank"><i class="fa fa-pinterest"></i> Pin</a></li>
+              <li class="hide"><a href="#" target="_blank"><i class="fa fa-envelope"></i> Post</a></li>
             </ul>
           </div>
           <br class="divider">
@@ -24,14 +23,34 @@
           <p class="donated">{{((candidate.total_donated + candidate.party_fund)/100) | currency}}</p>
 
           <div class="row">
-            <div class="col-md-12">
-              <div class="progress">
+            <div class="col-md-12" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">
+              <div class="progress hide">
                 <div class="progress-bar progress-bar-success text-center" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}};background-color: rgb(78, 242, 78); color: #000 !important"></div>
                 <div class="progress-bar progress-bar-success text-center" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}; color: #000 !important"></div>
               </div>
+              <div class="progress progress-candidate">
+                <div class="progress-bar progress-bar-success progress-bar-lightgreen" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>{{make_percent(candidate.party_fund, candidate.raising_goal)}}</strong><br>
+                    <small>Doações do Fundo Partidário</small>
+                  </p>
+                </div>
+                <div class="progress-bar progress-bar-success progress-bar-normalgreen" role="progressbar" style="width: {{make_percent(candidate.total_donated_by_votolegal || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>{{make_percent(candidate.total_donated_by_votolegal || 0, candidate.raising_goal)}}</strong><br>
+                    <small>Doações do VotoLegal</small>
+                  </p>
+                </div>
+                <div class="progress-bar progress-bar-success progress-bar-heavygreen" role="progressbar" style="width: {{make_percent((candidate.total_donated - candidate.total_amount_by_votolegal) || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>{{make_percent((candidate.total_donated - candidate.total_donated_by_votolegal) || 0, candidate.raising_goal)}}</strong><br>
+                    <small>Outras Doações</small>
+                  </p>
+                </div>
+              </div>
             </div>
             <div class="col-md-6 text-left">
-              <small>{{make_percent((candidate.total_donated + candidate.party_fund), candidate.raising_goal)}}</small>
+              <small class="hide">{{make_percent((candidate.total_donated + candidate.party_fund), candidate.raising_goal)}}</small>
             </div>
             <div class="col-md-6 text-right">
               <small class="hide">Faltam 10 dias</small>
@@ -43,8 +62,8 @@
 
           <h4 class="text-success">Pessoas já Doaram</h4>
           <p class="donator-number">{{candidate.people_donated}}</p>
-          <h4 class="text-success">Meta</h4>
-          <p class="raising-goal">{{candidate.raising_goal.toFixed(2) | currency}}</p>
+          <h4 class="text-success" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">Meta</h4>
+          <p class="raising-goal" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">{{candidate.raising_goal.toFixed(2) | currency}}</p>
 
           <p><a class="btn btn-success btn-lg btn-block btn-donate" href="#/doar">Doar</a></p>
         </div>
@@ -118,7 +137,7 @@
             <div role="tabpanel" class="tab-pane" id="tab-gastos">
               <div id="expenditures-table" class="hide">
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-12">
                     <div class="alert alert-success">
                       <p>Total gasto</p>
                       <strong style="font-size:24px">{{ (expenditures.total_amount/100) || 0.0  | currency }}</strong>

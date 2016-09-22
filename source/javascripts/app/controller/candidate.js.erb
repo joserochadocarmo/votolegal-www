@@ -14,10 +14,15 @@ if((!domain.match(/^https:\/\/www.votolegal.org.br/) && domain.match(/^https:\/\
       templateUrl: '/javascripts/app/view/candidato/success.tmpl',
       controller: 'CandidateController',
     }).
+    when('/votar/:token', {
+      templateUrl: '/javascripts/app/view/candidato/votar.tmpl',
+      controller: 'CandidateController',
+    }).
     otherwise({
       redirectTo: '/',
     });
   }]);
+
 
   /**
    * Grafic interface and style interactions
@@ -25,9 +30,9 @@ if((!domain.match(/^https:\/\/www.votolegal.org.br/) && domain.match(/^https:\/\
   $(document).ready(function(){
     $('body').on('click', 'input.opcao_doar_radio', function(e){
       e.preventDefault;
-      if ($(this).hasClass('opcao_doar_diff')){
+      if ($(this).hasClass('opcao_doar_diff')) {
         $(this).closest('.valor-doa-container').find('.doar-number-diferente').attr('disabled', false);
-      }else{
+      } else {
         $('.doar-number-diferente').attr('disabled', true);
       }
       $('.valor-doa-container').removeClass('doa-container-active');
@@ -44,9 +49,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   var load   = document.querySelector('#loading');
 
   // defaults
+  $scope.vote           = undefined;
+  $scope.page           = 'normal';
   $scope.candidate      = {};
   $scope.doar           = {};
   $scope.payment        = {};
+  $scope.votes          = [];
   $scope.error_list     = [];
   $scope.donations      = [];
   $scope.expenditures   = [];
@@ -73,6 +81,36 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     }
   };
 
+  $scope.set_page = function(page){
+    //console.log(document.location.href);
+    if(page === 'votar'){
+      var header = document.querySelector('.candidate-header');
+      if(header) header.classList.add('hide');
+      var container = document.querySelector('#candidate-container');
+      if(container) container.classList.remove('degrade-default');
+    }
+    else {
+      var header = document.querySelector('.candidate-header');
+      if(header) header.classList.remove('hide');
+      var container = document.querySelector('#candidate-container');
+      if(container) container.classList.add('degrade-default');
+    }
+    return false;
+  };
+
+  $scope.hide_label = function(){
+    var list = document.querySelectorAll('.progress-candidate > .progress-bar > p');
+    if(list) for(var i in list){ if(list[i] && typeof(list[i]) === 'object') list[i].style.display = 'none' }
+  };
+
+  $scope.show_label = function(bar, $event){
+    $scope.hide_label();
+
+    var element = $event.target.querySelector('p');
+    if(element) element.style.display = 'block';
+
+    return false;
+  };
 
   // methods
   $scope.make_percent = function(number, total){

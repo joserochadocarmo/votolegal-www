@@ -1,4 +1,19 @@
+//= require 'classList.min.js'
+//= require 'sweetalert.js' 
+//= require 'underscore.min.js' 
+//= require 'angular.all.js' 
+//= require 'jquery.min.js' 
+//= require 'bootstrap.min.js' 
+
 (function(app){
+  /**
+   * GLOBALS
+   */
+  // underscore
+  _.templateSettings = {
+    interpolate: /\{\{\=(.+?)\}\}/g,
+    evaluate   : /\{\{(.+?)\}\}/g
+  };
 
   /**
    * Array polyfills
@@ -48,6 +63,53 @@
   }
   // loops
   NodeList.prototype.forEach = Array.prototype.forEach;
+
+
+  /**
+   * Brazilian currency class
+   */
+  window.BrazilianCurrency = (function() {
+    function BrazilianCurrency(amount) {
+      this.amount = amount;
+    }
+
+    BrazilianCurrency.prototype.format = function(opts) {
+      var amount, cents, formated, i, reals, salts, _i, _len, _ref;
+      if (opts == null) {
+        opts = {};
+      }
+      amount = (this.amount / 100).toFixed(2);
+      reals = amount.split(/\./)[0];
+      cents = amount.split(/\./)[1];
+      formated = [];
+      salts = 0;
+      _ref = reals.split('').reverse();
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        i = _ref[_i];
+        formated.push(i);
+        if (salts === 2) {
+          if (i !== (reals.length + 1)) {
+            formated.push(".");
+          }
+          salts = 0;
+          continue;
+        }
+        salts++;
+      }
+      formated = formated.reverse();
+      if (formated[0] === '.') {
+        formated.shift();
+      }
+      formated = "" + (formated.join('')) + "," + cents;
+      if (opts && opts.simbol === true) {
+        return "R$ " + formated;
+      }
+      return "" + formated;
+    };
+
+    return BrazilianCurrency;
+
+  })();
 
 
   /**
@@ -382,6 +444,7 @@
   <%= partial "javascripts/app/controller/cadastro.js" %>
   <%= partial "javascripts/app/controller/explore.js" %>
   <%= partial "javascripts/app/controller/candidate.js" %>
+  <%= partial "javascripts/app/controller/vote.js" %>
   <%= partial "javascripts/app/controller/boleto.js" %>
   <%= partial "javascripts/app/controller/historico.js" %>
   <%= partial "javascripts/app/controller/preview.js" %>
@@ -395,18 +458,14 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-
+  $.getJSON("<%= config[:api_host] %>/stats", function(res){
+    $('#candidates').html(res.candidates);
+    $('#total_donations').html(res.total_donations);
+    $('#total_people_donated').html(res.total_people_donated);
+    $('#total_amount_raised').html((function(){
+      var formater = new BrazilianCurrency(res.total_amount_raised);
+      return formater.format({simbol: false});
+    }()));
+    $('#totals').removeClass('hide');
+  });
 });
-
-//Acomodando o height dos tab-panes para que o footer da página não fique pulando para acima e para abaixo devodo a alturas diferentes nos tab-panes
-//window.setTimeout(function(){
-//  var maxTabContentHeight = 300;
-//  $('.candidate-tabs .tab-content .tab-pane').each(function(){
-//    currTabHeight = $(this).height();
-//    if(currTabHeight > maxTabContentHeight){
-//      maxTabContentHeight = currTabHeight;
-//    }
-//
-//  });
-//  $('.candidate-tabs .tab-pane').css('height', maxTabContentHeight + 'px');
-//}, 1800);

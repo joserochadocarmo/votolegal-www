@@ -4,6 +4,18 @@
   <br class="divider">
 
   <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit' => "save_candidate(candidateForm.$valid)", novalidate: '' do %>
+    <div class="row" ng-if="((candidate.party_fund+candidate.total_donated)/100) >= candidate.raising_goal">
+      <div class="col-md-12">
+        <div class="alert alert-warning">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4>Parabéns! A sua meta foi atingida.</h4>
+          <p>Você continuará recebendo doações pelo VotoLegal, porém a barra de progresso na sua pagina de candidato não será mais exibida.</p>
+          <p><small><strong><i class="fa fa-info-circle"></i> Atenção</strong> Altere sua meta para que a barra de progresso continue aparecendo na sua pagina de doação.</small></p> 
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="form-group col-md-12">
         <div class="text-center" ng-show="candidate.picture">
