@@ -239,7 +239,8 @@
 
               <div class="form-group col-md-12">
                 <h5>Cartões de crédito suportados:</h5>
-                <p><img src="/images/candidatos/cartoes-credito-579f35b1.png" alt="Imagem bandeiras de cartões suportados" /></p>
+                <p ng-if="candidate.payment_gateway_id == 1"><img src="/images/candidatos/cartoes-credito--cielo-f006943b.png" alt="Imagem bandeiras de cartões suportados" /></p>
+                <p ng-if="candidate.payment_gateway_id == 2"><img src="/images/candidatos/cartoes-credito-579f35b1.png" alt="Imagem bandeiras de cartões suportados" /></p>
               </div>
 
               <div class="form-group col-md-12">
