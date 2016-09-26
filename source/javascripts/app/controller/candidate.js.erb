@@ -82,7 +82,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   };
 
   $scope.set_page = function(page){
-    //console.log(document.location.href);
     if(page === 'votar'){
       var header = document.querySelector('.candidate-header');
       if(header) header.classList.add('hide');
@@ -462,33 +461,48 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   };
 
   $scope.get_brand = function(card_number){
-    var bin = card_number.slice(0, 6);
 
     // getting card brand
-    if(card_number.length == 6){
-      $scope.card_brand({
-        // 6 first digits
-        bin: card_number.slice(0, 6),
+    if(card_number.length >= 6){
 
-        // success callback
-        success_cb: function(response){
-          var brand = response.brand;
-          var image = document.querySelector('#card-image');
-          if(image){
-            image.innerHTML = '<img src="//stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/'+brand.name+'.png" alt="'+brand.name+'" title="'+brand.name+'">';
-          }
-        },
+      // cielo card check
+      if($scope.candidate.payment_gateway_id === 1) {
+        var card = new CreditCard();
+        var c = card.card_brand(card_number) || undefined;
 
-        // success callback
-        error_cb: function(response){
-          var image = document.querySelector('#card-image');
-          if(image){
-            image.classList.add('text-danger');
-            image.innerText = '(bandeira do cartão não encontrada)';
-          }
+        var image = document.querySelector('#card-image');
+        if(c){
+          $scope.doar.credit_card_brand = c.alias;
+          if(image) image.innerHTML = '<img src="/images/candidatos/card-brands/'+c.alias+'.png" alt="'+c.name+'">';
         }
-      });
-    }
+      }
+
+      // pagseguro card check
+      if($scope.candidate.payment_gateway_id === 2) {
+        $scope.card_brand({
+          // 6 first digits
+          bin: card_number.slice(0, 6),
+
+          // success callback
+          success_cb: function(response){
+            var brand = response.brand;
+            var image = document.querySelector('#card-image');
+            if(image){
+              image.innerHTML = '<img src="//stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/'+brand.name+'.png" alt="'+brand.name+'" title="'+brand.name+'">';
+            }
+          },
+
+          // success callback
+          error_cb: function(response){
+            var image = document.querySelector('#card-image');
+            if(image){
+              image.classList.add('text-danger');
+              image.innerText = '(bandeira do cartão não encontrada)';
+            }
+          }
+        });
+      }
+    }     
     return false;
   };
 
@@ -535,7 +549,73 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     }
 
 
-    // getting card brand
+    // CIELO Payment
+    if($scope.candidate.payment_gateway_id === 1){
+      // adding brand
+      params.amount = parseInt((params.amount * 100));
+      params.credit_card_brand = $scope.doar.credit_card_brand;
+      params.credit_card_validity = (function(){
+        var validity = $scope.payment.card_year;
+        var m = $scope.payment.card_month;
+        validity += (m.length == 1? "0" + m : m);
+        return ""+validity
+      })();
+      (function(){
+        var date = params.birthdate;
+        if(date && date.length > 0){
+          var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+          if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
+        }
+      })();
+      params.credit_card_number =   $scope.payment.card_number;
+
+      $http({
+        method: 'POST',
+        url : '<%= config[:api_host] %>/candidate/'+ $scope.candidate.id +'/donate',
+        data: serialize.from_object(params),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).then(function(response){
+        document.location = '#/doar/success';
+      }, function(response){
+        $scope.error_list = [];
+
+        if(response && response.data && response.data.form_error){
+          var res = response.data.form_error;
+
+          // setting error message
+          for(var field in res){
+            var name = f(field);
+            if(name !== undefined){
+              var text = name.innerText;
+              if(field.match(/billing/)) text += " (endereço de cobrança) ";
+              $scope.error_list.push(text + error_msg(res[field]));
+            }
+          }
+
+          // sending troubleshoot
+          trouble.shoot({
+            route: document.location.href, error: JSON.stringify(response)
+          });
+
+          return false;
+        }
+
+        // sending troubleshoot
+        trouble.shoot({
+          route: document.location.href, error: JSON.stringify(response)
+        });
+
+        SweetAlert.swal('Erro inesperado com a doação');
+        throw new Error('DONATION_POST_ERROR');
+      }).finally(function(){
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
+      });
+
+      return false;
+    }
+
+    // PAGSEGURO Payment
     $scope.card_brand({
       // 6 first digits
       bin: card.card_number.slice(0, 6),
@@ -578,7 +658,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
                 method: 'POST',
                 url : '<%= config[:api_host] %>/candidate/'+ $scope.candidate.id +'/donate',
                 data: serialize.from_object(params),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
               }).
               then(function(response){
                 document.location = '#/doar/success';

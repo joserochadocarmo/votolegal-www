@@ -42,6 +42,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.issue_list  = []; 
   $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
   $scope.bank_list   = [];
+  $scope.payment_gateway_list = [];
 
   $scope.error_list  = [];
   $scope.submit_disabled = false;
@@ -395,7 +396,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var p = {
       raising_goal      : raising_goal_field,
       issue_priorities  : list.join(','),
-      payment_gateway_id: 2, // only this gateway available today
+      payment_gateway_id: $scope.candidate.payment_gateway_id,
       merchant_id       : $scope.candidate.merchant_id,
       merchant_key      : $scope.candidate.merchant_key,
       crawlable         : $scope.candidate.crawlable || 'false'
@@ -444,6 +445,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         else $scope.candidate.crawlable = 'true';
 
         $scope.get_issues_priority();
+        $scope.get_gateways();
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }
     );
@@ -497,7 +499,22 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     });
     return false
   };
-  
+
+
+  $scope.get_gateways = function(){
+    $http({
+      method: 'GET',
+      url: '<%= config[:api_host]%>/payment_gateway',
+    }).then(function(response){
+      $scope.payment_gateway_list = response.data.payment_gateway;
+    }, function(response){
+      trouble.shoot({
+        route: '/api/payment_gateway', error: JSON.stringify(response)
+      });
+      throw new Error("ERROR_GET_PAYMENT_GATEWAY");
+    });
+  };
+
 
   
   /**
