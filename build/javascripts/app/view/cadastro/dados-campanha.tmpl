@@ -70,12 +70,17 @@
         <span class="help-block">Após sua candidatura ser aprovada pelo <em class="text-warning" title="Trinunal Superior Eleitoral">TSE</em> você deverá assinar um contrato com alguma <em class="text-warning">operadora financeira</em> para poder receber doações na sua conta de campanha. Insira aqui o Token enviado pela da operadora.</span>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="">Provedora de pagamento</label>
-        <select class="form-control" ng-model="candidate.payment_gateway_id">
-          <option value="">-- Escolha um gateway de pagamento --</option>
-          <option ng-repeat="g in payment_gateway_list" value="{{g.id}}" {{g.id == candidate.payment_gateway_id ? 'selected' : ''}}>{{g.name}}</option>
-        </select>
-        <!-- input type="hidden" id="payment_gateway_id" name="payment_gateway_id" ng-model="candidate.payment_gateway_id" -->
+        <label for="payment_gateway_id">Provedora de pagamento</label>
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="candidate.payment_gateway_id" value="1">&nbsp; Cielo
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="candidate.payment_gateway_id" value="2">&nbsp; PagSeguro
+          </label>
+        </div>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="merchant_id">Chave</label>
