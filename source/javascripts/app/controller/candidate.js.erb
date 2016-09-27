@@ -560,7 +560,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         validity += (m.length == 1? "0" + m : m);
         return ""+validity
       })();
-      params.credit_card_cvv = card.cvv;
+      params.credit_card_cvv = $scope.payment.card_cvv;
       (function(){
         var date = params.birthdate;
         if(date && date.length > 0){
@@ -569,6 +569,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         }
       })();
       params.credit_card_number =   $scope.payment.card_number;
+
 
       $http({
         method: 'POST',
