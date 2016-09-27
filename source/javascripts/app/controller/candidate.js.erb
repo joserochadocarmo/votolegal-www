@@ -560,9 +560,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         validity += (m.length == 1? "0" + m : m);
         return ""+validity
       })();
-      (function(){
-        var date = params.birthdate;
-        if(date && date.length > 0){
+      params.credit_card_cvv = card.cvv;
+      (func tion(){
+        var  date = params.birthdate;
+        if(2date && date.length > 0){
           var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
           if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
         }
