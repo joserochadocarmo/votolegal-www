@@ -554,17 +554,34 @@ section#pre-candidate {
 section#contact {
 }
 
+section#estatistica {
+  text-align: left !important;
+  h2 {
+    color: #999;
+    font-size: 22px;
+  }
+}
+
 
 div.header-filter {
   margin-top: -20px;
-  min-height: 150px;
   text-align: center;
-  background-image: url(../images/home/back_header.jpg);
+  background-color: #4eaa5b;
+  background-image: url(../images/estatisticas/bg-topo.jpg);
+  background-position: right center;
+  background-repeat: no-repeat;
 
   ::-webkit-input-placeholder { color: #fff; }
   :-moz-placeholder { color: #fff;  }
   ::-moz-placeholder {  color: #fff;  }
   :-ms-input-placeholder {  color: #fff;  }
+
+  h1 {
+    color: #fff;
+    cursor: pointer;
+    padding: 150px 0px 30px 0px;
+    text-align:left;
+  }
 
   h2 {
     color: #fff;
@@ -1582,6 +1599,18 @@ a {
     background-color: #26673d !important;
     strong { color: #26673d !important }
   }
-  
+}
 
+.panel-chart {
+  background: #ffffff;
+  border-color: #f0f0f0;
+  border-radius: 0px;
+  border-left: solid 5px #f0f0f0;
+}
+
+.border-purple {
+  border-left: solid 5px purple;
+}
+.border-gold {
+  border-left: solid 5px gold;
 }
