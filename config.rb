@@ -73,7 +73,7 @@ configure :build do
   #activate :asset_hash
   activate :asset_hash do |opts|
     # ignore email headers
-    opts.ignore = /email\/header\.jpg/i
+    opts.ignore = [/email\/header\.jpg/i, /images\/candidatos\/card-brands\//i]
   end
 
   activate :minify_html, remove_input_attributes: false
