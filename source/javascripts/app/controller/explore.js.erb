@@ -50,7 +50,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
 
   $scope.load_list = function(term){
-    var params = { name: term };
+    var params = {};
     switch($scope.typesearch){
       case 'Nome':
         params.name = term;
