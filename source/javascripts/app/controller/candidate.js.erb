@@ -570,6 +570,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       })();
       params.credit_card_number =   $scope.payment.card_number;
 
+      // brand not found
+      if(!params.credit_card_brand || params.credit_card_brand == null || params.credit_card_brand === ''){
+        SweetAlert.swal('Não foi possível idêntificar a bandeira do seu cartão de crédito');
+        trouble.shoot({ route: document.location.href, error: JSON.stringify({error: 'brand not found', data: params}) });
+        return false;
+      }
 
       $http({
         method: 'POST',
