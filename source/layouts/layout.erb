@@ -8,10 +8,6 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-  <%# stylesheet_link_tag "bootstrap.min" %>
-  <%# stylesheet_link_tag "site" %>
-  <%# stylesheet_link_tag "font-awesome.min" %>
-  <%# stylesheet_link_tag "flaticon" %>
   <%= stylesheet_link_tag "all.css" %>
 
   <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
@@ -23,7 +19,11 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="<%= page_classes %>">
+<body class="<%= page_classes %>" data-controller="<%= current_page.data.controller %>" data-action="<%= current_page.data.action %>">
+  <div id="loading" class="load-backdrop">
+    <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i><br>
+  </div>
+
   <% if page_classes == 'candidato candidato_doar candidato_doar_compartilha candidato_doar_compartilha_index'  %>
   <%= partial "partial/compartilha" %>
   <% end %>
