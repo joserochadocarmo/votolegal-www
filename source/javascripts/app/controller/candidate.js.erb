@@ -590,6 +590,11 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         if(response && response.data && response.data.form_error){
           var res = response.data.form_error;
 
+          if(res && res.donation){
+            if(res.donation === 'not authorized') SweetAlert.swal('Transação não autorizada');
+            return false;
+          }
+
           // setting error message
           for(var field in res){
             var name = f(field);
