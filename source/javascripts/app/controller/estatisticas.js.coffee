@@ -1,7 +1,6 @@
 # @namespace VotoLegal
 @VotoLegal = @VotoLegal || {}
 
-
 # @class VotoLegal.Estatisticas
 # @author dvinciguerra
 class VotoLegal.Estatisticas
@@ -19,12 +18,14 @@ class VotoLegal.Estatisticas
 
   # load method
   load: (options = {}) ->
-    $loading = $('#loading')
+    $loading = $('#loading').css {display:'block'}
     try
-      #$.ajax { method: 'GET', url: "#{BASE_API}/stats/depth", dataType: 'json' }
-      $.ajax { method: 'GET', url: "/javascripts/mock/depth.json", dataType: 'json' }
+      $.ajax { method: 'GET', url: "#{BASE_API}/stats/depth", dataType: 'json' }
+      #$.ajax { method: 'GET', url: "/javascripts/mock/depth.json", dataType: 'json' }
       .then (response) =>
-        @_makeCharts(response.donators)
+        data = response
+        @_makeCharts data
+        @_populateModels data
       , (response) =>
         swal 'Não foi possível carregar os dados dos graficos!'
 
@@ -35,37 +36,45 @@ class VotoLegal.Estatisticas
 
       
   # private methods
-  _makeCharts: (data) =>
-    console.log data
+  _makeCharts: (data) ->
+    @_chartDonators(data.graph)
+    @_chartAmounts(data.graph)
 
-    chartData1 = {
-      labels: ["Agosto", "Setembro"]
-      datasets: [{
-        label: 'Doadores'
-        backgroundColor: "#662e91"
-        data: []
-      }]
-    }
+  # populate view models
+  _populateModels: (data) ->
+    $list = $('h3')
 
-    for item in data then chartData1.datasets[0].data.push item.count
+    $list.each (i, item) ->
+      model = data[$(item).data('model')]
+      formatter = $(item).data('formatter') || ''
+      switch formatter
+        when 'currency' then model = new BrazilianCurrency(model / 100).format {simbol: true}
+        else model
+
+      item.innerHTML = model || 0 if item && model
+    
+
+
+
+  # chart for donators
+  _chartDonators: (data) ->
+    chartData = []
+    for item in data 
+      chartData.push item.count || 0
+
     new VotoLegal.Components.DoadoresChart {
-      el: 'canvas-doadores', data: chartData1, type: 'donators'
+      el: 'canvas-doadores', data: chartData, color: "#662e91", label: 'Doadores'
     }
   
-    chartData2 = {
-      labels: ["Agosto", "Setembro"]
-      datasets: [{
-        label: 'R$'
-        backgroundColor: "#fece6a"
-        data: []
-      }]
-    }
 
+  # chart for amount
+  _chartAmounts: (data) ->
+    chartData = []
     for item in data 
-      chartData2.datasets[0].data.push parseFloat(item.amount/100).toFixed(2) || 0
+      chartData.push parseFloat(item.amount/100).toFixed(2) || 0
 
     new VotoLegal.Components.DoadoresChart {
-      el: 'canvas-valor', data: chartData2, type: 'amounts'
+      el: 'canvas-valor', data: chartData, color: '#fece6a', label: 'R$'
     }
   
 
@@ -78,12 +87,21 @@ class VotoLegal.Components.DoadoresChart
     @process()
   
   process: ->
+    chartData = {
+      labels: ["Agosto", "Setembro"]
+      datasets: [{
+        label: @options.label || 'No'
+        backgroundColor: @options.color || "#fece6a"
+        data: @options.data || []
+      }]
+    }
+
     try
       ctx = document.getElementById(@options.el || '').getContext "2d"
     
       myBarChart = new Chart ctx, {
         type: 'bar'
-        data: @options.data || {}
+        data: chartData
         options: {
           scales: 
             xAxes: [{gridLines: {display:false}}]
@@ -108,7 +126,6 @@ $ ->
     controller  = $html.data 'controller'
     action      = $html.data 'action'
 
-    console.log controller
     test = new VotoLegal[controller]
 
     #data = {
