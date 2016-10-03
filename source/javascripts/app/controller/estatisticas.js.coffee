@@ -20,6 +20,7 @@ class VotoLegal.Estatisticas
   load: (options = {}) ->
     $loading = $('#loading').css {display:'block'}
     try
+      console.log "fetching data from #{BASE_API}/stats/depth"
       $.ajax { method: 'GET', url: "#{BASE_API}/stats/depth", dataType: 'json' }
       #$.ajax { method: 'GET', url: "/javascripts/mock/depth.json", dataType: 'json' }
       .then (response) =>
