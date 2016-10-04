@@ -6705,8 +6705,6 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
       $loading = $('#loading').css({
         display: 'block'
       });
-      console.log(BASE_API);
-      console.log("fetching data from " + BASE_API + "/stats/depth");
       try {
         return $.ajax({
           method: 'GET',
@@ -6864,9 +6862,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
       $html = $('body');
       controller = $html.data('controller');
       action = $html.data('action');
-      test = new VotoLegal[controller];
-      console.log(controller);
-      return console.log(action);
+      return test = new VotoLegal[controller];
     }
   });
 
