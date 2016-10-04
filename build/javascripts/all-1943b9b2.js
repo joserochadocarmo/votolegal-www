@@ -6011,11 +6011,16 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       }, function(response){
         $scope.error_list = [];
 
+        // clear up payment data
+        $scope.payment = {};
+
         if(response && response.data && response.data.form_error){
           var res = response.data.form_error;
 
           if(res && res.donation){
             if(res.donation === 'not authorized') SweetAlert.swal('Transação não autorizada');
+            var button = document.querySelector('#btn-donate');
+            if(button) button.removeAttribute('disabled');
             return false;
           }
 
@@ -6041,6 +6046,9 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         trouble.shoot({
           route: document.location.href, error: JSON.stringify(response)
         });
+
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
 
         SweetAlert.swal('Erro inesperado com a doação');
         throw new Error('DONATION_POST_ERROR');
