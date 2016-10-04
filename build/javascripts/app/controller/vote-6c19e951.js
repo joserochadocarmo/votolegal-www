@@ -1,1 +1,95 @@
-app.votolegal.controller("VoteController",["$scope","$http","$sce","serialize","$interval","SweetAlert","trouble","postmon",function(e,o,t,n,r,a){e.set_vote=function(e){var o=[],t=document.querySelectorAll(".vote--item");return t.forEach(function(e){e.checked&&o.push(e)}),console.log(e),o.length>3&&a.swal("Selecione apenas 3 assuntos priorit\xe1rios."),!1},e.generate_project=function(){var o=function(e){var o="",t=document.getElementById("project-template").innerHTML,n=_.template(t);e.forEach(function(e,t){var r=n({title:"Projeto"+(t+1)+") "+e.title,description:e.scope,value:e.id});o+=r});var r=document.getElementById("project--list");r&&(r.innerHTML=o)};!function(){var t=r(function(){e.candidate&&e.candidate.projects&&e.candidate.projects.length>0&&(o(e.candidate.projects||[]),r.cancel(t))},100)}()},e.save_vote=function(){var e=document.querySelectorAll(".vote--item");if(e=_.filter(e,function(e){return e.checked?e:void 0}),console.log(e),!e||3!==e.length)return e.length>3&&a.swal("Selecione apenas 3 projetos priorit\xe1rios para a vota\xe7\xe3o."),e.length<3&&a.swal("Selecione 3 projetos priorit\xe1rios para a vota\xe7\xe3o."),!1;var t=_.map(e,function(e){return e.value});return console.log(t),o({method:"POST",url:"/api/",data:n.from_object(params),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(e){console.log(e)},function(e){console.log(e)}),a.swal("Obrigado por votar","Seu voto foi salvo com sucesso!"),!1},e.generate_project()}]);
+/**
+ * Vote Controller
+ */
+
+app.votolegal.controller('VoteController', ["$scope", "$http", "$sce", "serialize", "$interval", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, $interval, SweetAlert, trouble, postmon){
+
+  /**
+   * VOTES
+   */
+  $scope.set_vote = function(el){
+    var list = [];
+
+    var projetos = document.querySelectorAll('.vote--item');
+    projetos.forEach(function(i){ if(i.checked) list.push(i) });
+
+    console.log(el);
+
+    if(list.length > 3){
+      // TODO: uncheck recent box
+      SweetAlert.swal('Selecione apenas 3 assuntos prioritários.');
+    }
+    return false;
+  };
+
+  $scope.generate_project = function(){
+    // define render_project function
+    var render_projects = function(list){
+      var render = '';
+      var tmpl = document.getElementById('project-template').innerHTML;
+      var compiled = _.template(tmpl);
+
+      list.forEach(function(item, i){
+        var rendered = compiled({
+          title: "Projeto"+(i +1)+") " + item.title, 
+          description: item.scope,
+          value: item.id
+        });
+        render += rendered;
+      });
+
+      var project_list = document.getElementById('project--list');
+      if(project_list) project_list.innerHTML = render;
+    };
+
+
+    // spy candidate variable
+    (function(){
+      var pid = $interval(function(){
+        if($scope.candidate && $scope.candidate.projects && $scope.candidate.projects.length > 0){
+          render_projects($scope.candidate.projects || []);
+          $interval.cancel(pid);
+        }
+      }, 100);
+    })();
+  };
+
+
+  $scope.save_vote = function(){
+    // TODO: validate
+    var list = document.querySelectorAll('.vote--item');
+    list = _.filter(list, function(item){ if(item.checked) return item });
+    console.log(list);
+
+    // save data
+    if(list && list.length === 3){
+      var votes = _.map(list, function(item){ return item.value });
+
+      console.log(votes);
+      $http({
+        method: 'POST',
+        url: '/api/',
+        data: serialize.from_object(params),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      }).then(function(response){
+        console.log(response);
+      }, function(response){
+        console.log(response);
+      });
+
+      // TODO: send to back-end
+      SweetAlert.swal('Obrigado por votar', 'Seu voto foi salvo com sucesso!');
+    }
+    else {
+      // errors
+      if(list.length > 3 ) SweetAlert.swal('Selecione apenas 3 projetos prioritários para a votação.');
+      if(list.length < 3 ) SweetAlert.swal('Selecione 3 projetos prioritários para a votação.');
+      return false;
+    }
+
+    return false;
+  };
+
+  //$scope.candidate = $scope.$parent.candidate;
+  $scope.generate_project();
+}]);

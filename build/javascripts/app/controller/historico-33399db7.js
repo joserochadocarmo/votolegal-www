@@ -1,1 +1,94 @@
-app.votolegal.controller("DonationHistoryController",["$scope","$http","$sce","serialize","auth_service","SweetAlert","trouble","postmon",function(o,e,a,t,d,s,r){document.querySelector("#loading");o.user=d.current_user(),o.error_list=[],o.donations=[],o.download={},o.history_list=function(a){var t=document.querySelector("#donations-table"),d=document.querySelector("#loading-donations"),i=document.querySelector("#donations-error");i&&i.classList.add("hide"),t&&(t.classList.add("hide"),d&&d.classList.remove("hide"));try{e({method:"GET",url:"/api/candidate/"+a.id+"/donate?results=9999&api_key="+a.api_key}).then(function(e){var a=e.data.donations;o.donations=a;for(var s in o.donations){o.donations[s].captured_at=Date.parse(o.donations[s].captured_at);var r=o.donations[s].birthdate.match(/^(\d{4})-(\d{2})-(\d{2})$/);o.donations[s].birthday=r[3]+"."+r[2]+"."+r[1]}t&&(d&&d.classList.add("hide"),t.classList.remove("hide"))},function(o){throw t&&(d&&d.classList.add("hide"),t.classList.remove("hide")),r.shoot({route:document.location.href,error:JSON.stringify(o)}),s.swal("Falha no carregamento dos dados","N\xe3o foi poss\xedvel carregar os dados de doa\xe7\xf5es."),new Error("Donation list is invalid or cannot be found!")})}catch(n){t&&(d&&d.classList.add("hide"),t.classList.remove("hide")),r.shoot({route:document.location.href,error:JSON.stringify(n)}),s.swal("Falha no carregamento dos dados","N\xe3o foi poss\xedvel carregar os dados de doa\xe7\xf5es.")}},o.download.csv_file=function(){var e=o.user;return console.log("/api/candidate/"+e.id+"/donate/download/csv?api_key="+e.api_key),"/api/candidate/"+e.id+"/donate/download/csv?api_key="+e.api_key},d.validate_user({role:"user"}),o.history_list(o.user)}]);
+/**
+ * Histórico Doações Controller
+ */
+
+app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
+  var load   = document.querySelector('#loading');
+
+  // defaults
+  $scope.user       = auth_service.current_user();
+  $scope.error_list = [];
+  $scope.donations  = [];
+  $scope.download   = {};
+
+
+  /* methods */
+  $scope.history_list = function(user){
+    var table   = document.querySelector('#donations-table');
+    var loading = document.querySelector('#loading-donations');
+    var error   = document.querySelector('#donations-error');
+    if(error) error.classList.add('hide');
+    if(table) {
+      table.classList.add('hide');
+      if(loading) loading.classList.remove('hide');
+    }
+
+
+    try {
+      $http({
+        method: 'GET', 
+        url: '/api/candidate/'+ user.id +'/donate?results=9999&api_key=' + user.api_key 
+      }).
+      then(
+        function(response){
+          var res = response.data.donations;
+          $scope.donations = res;
+
+          for (var i in $scope.donations){
+            // parsing date
+            $scope.donations[i].captured_at = Date.parse($scope.donations[i].captured_at);
+            // format birthday
+            var birth = $scope.donations[i].birthdate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            $scope.donations[i].birthday = birth[3]+"."+birth[2]+"."+birth[1];
+          }
+
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+        },
+        function(response){
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+          trouble.shoot({
+            route: document.location.href, error: JSON.stringify(response)
+          });
+
+          SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
+          throw new Error('Donation list is invalid or cannot be found!');
+        }
+      );
+    }
+    catch(e){
+      if(table) {
+        if(loading) loading.classList.add('hide');
+        table.classList.remove('hide');
+      }
+
+      trouble.shoot({
+        route: document.location.href, error: JSON.stringify(e)
+      });
+
+      SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
+    }
+  };
+
+  // setting download of donations table
+  $scope.download.csv_file = function(){
+    var user = $scope.user;
+    console.log('/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key);
+    return '/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key;
+  };
+
+
+  /**
+   * initializations
+   */
+  auth_service.validate_user({role: 'user'});
+  $scope.history_list($scope.user);
+
+}]);

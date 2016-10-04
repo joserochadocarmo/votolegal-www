@@ -1,1 +1,114 @@
-app.votolegal.controller("DashboardController",["$scope","$http","auth_service","serialize","SweetAlert",function(e,t,a,r,o){e.list=[],e.approval_list=function(){var r=a.current_user();return t.get("/api/admin/candidate/list?results=9999&api_key="+r.api_key).then(function(t){var a=t.data;e.list=a},function(e){var t=e.data;"access denied"===t.error&&(document.location=a.sign_page)}),!1},e.allow=function(r){var n=a.current_user();return o.swal({title:"Tem certeza?",text:"Voc\xea tem certeza que deseja autorizar este pr\xe9-candidato?",showCancelButton:!0,confirmButtonText:"Sim",cancelButtonText:"N\xe3o",closeOnConfirm:!1,closeOnCancel:!0},function(a){a&&t({method:"PUT",url:"/api/admin/candidate/"+r.id+"/activate?api_key="+n.api_key}).then(function(){o.swal({title:"Aprovado!",text:"O pr\xe9-candidato foi aprovado para utilizar o sistema!"}),e.approval_list()},function(e){var t=e.data;o.swal(error_msg(t.error))})}),!1},e.deny=function(r){var n=a.current_user();return o.swal({title:"Tem certeza?",text:"Voc\xea tem certeza que deseja rejeitar este pr\xe9-candidato?",showCancelButton:!0,confirmButtonText:"Sim",cancelButtonText:"N\xe3o",closeOnConfirm:!1,closeOnCancel:!0},function(a){a&&t({method:"PUT",url:"/api/admin/candidate/"+r.id+"/deactivate?api_key="+n.api_key}).then(function(){o.swal({title:"Rejeitado!",text:"O pr\xe9-candidato foi rejeitado com sucesso!"}),e.approval_list()},function(e){var t=e.data;o.swal(error_msg(t.error))})}),!1},a.validate_user({role:"admin"}),e.approval_list()}]);
+/**
+ * Dashboard Controller
+ */
+
+app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_service", "serialize", "SweetAlert", function($scope, $http, auth_service, serialize, SweetAlert){
+  // defaults
+  $scope.list = [];
+
+
+  // methods
+  $scope.approval_list = function(){
+    var user = auth_service.current_user();
+
+    $http.get('/api/admin/candidate/list?results=9999&api_key=' + user.api_key)
+    .then(
+      function(response){
+        var res = response.data;
+        $scope.list = res;
+      },
+      function(response){
+        var data = response.data;
+
+        // error: access denied
+        if(data.error === "access denied") 
+          document.location = auth_service.sign_page;
+      }
+    );
+    return false;
+  };
+
+  $scope.allow = function(model){
+    var user = auth_service.current_user();
+
+    SweetAlert.swal({
+      title: "Tem certeza?",
+      text: "Você tem certeza que deseja autorizar este pré-candidato?",
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      cancelButtonText: "Não",
+      closeOnConfirm: false,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $http({
+          method: 'PUT',
+          url: '/api/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
+        }).
+        then(
+          // success callback
+          function(response){
+            SweetAlert.swal({
+              title: "Aprovado!",
+              text: "O pré-candidato foi aprovado para utilizar o sistema!",
+            });
+            $scope.approval_list();
+          },
+          // error callback
+          function(response){
+            var res = response.data;
+            SweetAlert.swal(error_msg(res.error));
+          }
+        );
+      }
+    });
+
+    return false;
+  };
+
+
+  $scope.deny = function(model){
+    var user = auth_service.current_user();
+
+    SweetAlert.swal({
+      title: "Tem certeza?",
+      text: "Você tem certeza que deseja rejeitar este pré-candidato?",
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      cancelButtonText: "Não",
+      closeOnConfirm: false,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $http({
+          method: 'PUT',
+          url: '/api/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
+        }).
+        then(
+          // success callback
+          function(response){
+            SweetAlert.swal({
+              title: "Rejeitado!",
+              text: "O pré-candidato foi rejeitado com sucesso!",
+            });
+            $scope.approval_list();
+          },
+          // error callback
+          function(response){
+            var res = response.data;
+            SweetAlert.swal(error_msg(res.error));
+          }
+        );
+      }
+    });
+    return false;
+  };
+
+  // validate user
+  auth_service.validate_user({role: 'admin'});
+
+  // load parties from api
+  $scope.approval_list();
+}]);

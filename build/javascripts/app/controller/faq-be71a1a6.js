@@ -1,1 +1,33 @@
-app.votolegal.controller("FaqController",["$scope","$sce",function(t){t.highlight=!0,t.faq_list=faq_list,t.search_answer=function(n){var e=faq_list.map(function(t){return t.title.match(new RegExp(n,"ig"))||t.content.match(new RegExp(n,"gi"))?t:void 0}),i=function(t){var n=[];for(var e in t)void 0!==t[e]&&n.push(t[e]);return n};return t.faq_list=i(e),!1}}]);
+/**
+ * Faq Controller
+ * Controller of faq page
+ */
+
+app.votolegal.controller('FaqController', ['$scope', '$sce', function($scope, $sce){
+  // defaults
+  $scope.highlight = true;
+
+  // getting list
+  $scope.faq_list = faq_list;
+  
+  $scope.search_answer = function(q){
+    // check if faq-item contains string 
+    var list = faq_list.map(function(i){
+      if(i.title.match(new RegExp(q, "ig")) || i.content.match(new RegExp(q, "gi")) ){
+        return i;
+      } 
+    });
+    
+    // define array/list filter 
+    var clean_list = function(list){
+      var l = [];
+      for(var i in list)
+        if(list[i] !== undefined) l.push(list[i]);
+      return l;
+    };
+
+    // update list
+    $scope.faq_list = clean_list(list);
+    return false;
+  };
+}]);

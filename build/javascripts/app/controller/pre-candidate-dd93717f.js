@@ -1,1 +1,36 @@
-app.votolegal.controller("PreCandidateController",["$scope","$http","serialize","auth_service",function(r,a,e,o,t){var n=t.current_user();r.model={},r.params=URI.query(),r.load=function(e){try{e=parseInt(e)}catch(o){throw new Error("Parametro id \xe9 inv\xe1lido")}return a({method:"GET",url:"/api/candidate/"+e+"?api_key="+n.api_key}).then(function(a){var e=a.data.candidate;r.model=e},function(){throw new Error("Model is invalid or cannot be found!")}),!1},r.load(r.params.id),t.validate_user({role:"admin"})}]);
+/**
+ * PreCandidate Controller
+ */
+
+app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serialize", "auth_service", function($scope, $http, $location, serialize, auth_service){
+  // defaults
+  var user = auth_service.current_user();
+  $scope.model  = {};
+  $scope.params = URI.query();
+
+
+  $scope.load = function(id){
+    try{ id = parseInt(id); }
+    catch(e){ throw new Error('Parametro id é inválido'); }
+
+    $http({
+      method: 'GET',
+      url: '/api/candidate/'+ id +'?api_key=' + user.api_key,
+    }).
+    then(
+      function(response){
+        var res = response.data.candidate;
+        $scope.model = res;
+      },
+      function(response){
+        throw new Error('Model is invalid or cannot be found!');
+      }
+    );
+    return false;
+  };
+
+  $scope.load($scope.params.id);
+
+  // validate user
+  auth_service.validate_user({role: 'admin'});
+}]);

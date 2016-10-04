@@ -1,1 +1,141 @@
-app.votolegal.controller("AuthController",["$scope","$http","auth_service","SweetAlert",function(r,o,e,n){r.signin={},r.error_list=[],r.signin.token=URI.query("token"),r.signin_params=function(){return r.signin},r.forgot_password=function(){r.error_list=[];var o=r.signin_params();return e.forgot_password(o.email).then(function(r){r.data;document.location="/conta/recuperar-senha/success"},function(o){var e=o.data;if(e.hasOwnProperty("form_error")){var e=e.form_error,n=function(r){return document.querySelector("form[name=forgotForm] *[name="+r+"]")};for(var a in e){var t=n(a).attributes.placeholder.value;r.error_list.push(t+error_msg(e[a]))}}else r.error_list.push(error_msg(e.error));throw new Error("ERROR_FORGOT_PASSWORD")}),!1},r.change_password=function(){r.error_list=[];var o=r.signin_params();return null==o.password&&r.error_list.push("Nova Senha \xe9 um campo obrigat\xf3rio."),o.password!==o.confirm_password&&r.error_list.push("Os campos de senha devem ser iguais."),r.error_list.length>0?!1:(e.change_password(o.password,o.token).then(function(r){r.data;document.location="/conta/trocar-senha/success"},function(o){var e=o.data;if(e.hasOwnProperty("form_error")){var e=e.form_error,n=function(r){return document.querySelector("form[name=changePasswordForm] *[name="+r+"]")};for(var a in e){var t=n(a).attributes.placeholder.value;r.error_list.push(t+error_msg(e[a]))}}else r.error_list.push(error_msg(e.error));throw new Error("ERROR_CHANGE_PASSWORD")}),!1)},r.authenticate=function(){var o=r.signin_params();return e.authenticate(o.email,o.password).then(function(r){var o=r.data,n=o.roles||[];o.candidate_name=o.candidate_name||"";var a=o.candidate_name.split(/\s+/).shift(),t=e.session();if(t.set(e.session_key,{id:o.candidate_id,api_key:o.api_key,name:a,role:n[0]||null}),0==n.length)return document.location="/admin/signin",!1;for(var s in n)"admin"===n[s]&&(document.location="/admin"),"user"===n[s]&&(document.location="/cadastro-completo")},function(){throw n.swal("Erro na aut\xeantica\xe7\xe3o","Usu\xe1rio ou Senha incorretos!"),new Error("ERROR_AUTH_USER")}),!1}}]);
+/**
+ * Auth Controller
+ */
+
+app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "SweetAlert", function($scope, $http, auth_service, SweetAlert){
+  // defaults
+  $scope.signin = {};
+  $scope.error_list = [];
+
+  // populate the token
+  $scope.signin.token = URI.query('token');
+
+  // getting form params
+  $scope.signin_params = function(){
+    return $scope.signin;
+  };
+
+  $scope.forgot_password = function(isValid){
+    $scope.error_list = [];
+    var params = $scope.signin_params();
+
+    auth_service.forgot_password(params.email)
+    .then(
+      // success callback
+      function(response){
+        var res = response.data;
+        document.location = '/conta/recuperar-senha/success'
+      },
+      // error callback
+      function(response){
+        var res = response.data;
+
+        if(res.hasOwnProperty('form_error')){
+          var res = res.form_error;
+
+          var f = function(field){
+            return document.querySelector('form[name=forgotForm] *[name='+field+']');
+          };
+
+          // setting error message
+          for(var field in res){
+            var name = f(field).attributes['placeholder'].value;
+            $scope.error_list.push(name + error_msg(res[field]));
+          }
+        }
+        else {
+          $scope.error_list.push(error_msg(res.error));
+        }
+
+        throw new Error('ERROR_FORGOT_PASSWORD');
+      }
+    );
+    return false;
+  };
+
+  $scope.change_password = function(isValid){
+    $scope.error_list = [];
+    var params = $scope.signin_params();
+
+    // fields validation
+    if(params.password == null) 
+      $scope.error_list.push('Nova Senha é um campo obrigatório.');
+
+    if(params.password !== params.confirm_password)
+      $scope.error_list.push('Os campos de senha devem ser iguais.');
+
+    if($scope.error_list.length > 0) return false;
+
+    // request for change
+    auth_service.change_password(params.password, params.token)
+    .then(
+      // success callback
+      function(response){
+        var res = response.data;
+        document.location = '/conta/trocar-senha/success'
+      },
+      // error callback
+      function(response){
+        var res = response.data;
+
+        if(res.hasOwnProperty('form_error')){
+          var res = res.form_error;
+
+          var f = function(field){
+            return document.querySelector('form[name=changePasswordForm] *[name='+field+']');
+          };
+
+          // setting error message
+          for(var field in res){
+            var name = f(field).attributes['placeholder'].value;
+            $scope.error_list.push(name + error_msg(res[field]));
+          }
+        }
+        else {
+          $scope.error_list.push(error_msg(res.error));
+        }
+
+        throw new Error('ERROR_CHANGE_PASSWORD');
+      }
+    );
+    return false;
+  };
+
+  // authenticate an user
+  $scope.authenticate = function(isValid){
+    var params = $scope.signin_params();
+
+    auth_service.authenticate(params.email, params.password)
+    .then(function(response){
+      var res = response.data;
+
+      // getting role list
+      var role_list = res.roles || [];
+
+      res.candidate_name = res.candidate_name || ''; // fallback
+      var name = res.candidate_name.split(/\s+/).shift();
+
+      // save session
+      var session = auth_service.session(); 
+      session.set(
+        auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
+      );
+
+      // check roles
+      if(role_list.length == 0) {
+        document.location = '/admin/signin';
+        return false;
+      }
+
+      for(var i in role_list){
+        if(role_list[i] === 'admin') document.location = '/admin';
+        if(role_list[i] === 'user') document.location = '/cadastro-completo';
+      }
+    }, function(response){
+      SweetAlert.swal('Erro na autênticação', 'Usuário ou Senha incorretos!');
+      throw new Error('ERROR_AUTH_USER');
+    });
+    return false;
+  };
+
+}]);

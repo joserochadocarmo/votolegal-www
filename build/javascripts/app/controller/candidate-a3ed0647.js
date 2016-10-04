@@ -1,1 +1,818 @@
-var domain=document.location.href;(!domain.match(/^https:\/\/www.votolegal.org.br/)&&domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/)||domain.match(/votolegal.org.br\/candidato/))&&(app.votolegal.config(["$routeProvider",function(e){e.when("/",{templateUrl:"/javascripts/app/view/candidato/index.tmpl",controller:"CandidateController"}).when("/doar",{templateUrl:"/javascripts/app/view/candidato/doar.tmpl",controller:"CandidateController"}).when("/doar/success",{templateUrl:"/javascripts/app/view/candidato/success.tmpl",controller:"CandidateController"}).when("/votar/:token",{templateUrl:"/javascripts/app/view/candidato/votar.tmpl",controller:"CandidateController"}).otherwise({redirectTo:"/"})}]),$(document).ready(function(){$("body").on("click","input.opcao_doar_radio",function(e){e.preventDefault,$(this).hasClass("opcao_doar_diff")?$(this).closest(".valor-doa-container").find(".doar-number-diferente").attr("disabled",!1):$(".doar-number-diferente").attr("disabled",!0),$(".valor-doa-container").removeClass("doa-container-active"),$(this).closest(".valor-doa-container").addClass("doa-container-active")}),$("input.opcao_doar_radio:checked").trigger("click")})),app.votolegal.controller("CandidateController",["$scope","$http","$sce","serialize","auth_service","SweetAlert","trouble","postmon",function(e,r,a,t,o,d,n,i){var s=document.querySelector("#loading");e.vote=void 0,e.page="normal",e.candidate={},e.doar={},e.payment={},e.votes=[],e.error_list=[],e.donations=[],e.expenditures=[],e.name=function(){var e=document.location.href;return e=e.split(/\//)[2].split(".")[0],"localhost"!==e?e:void 0}(),e.month_list=function(){list=[];for(var e=1;12>=e;e++)list.push(e);return list}(),e.year_list=function(){list=[];for(var e=2016;2030>=e;e++)list.push(e);return list}(),e.config={paginatorLabels:{first:"Primeira",last:"Ultima",jumpBack:"...",stepBack:"...",stepAhead:"...",jumpAhead:"..."}},e.set_page=function(e){if("votar"===e){var r=document.querySelector(".candidate-header");r&&r.classList.add("hide");var a=document.querySelector("#candidate-container");a&&a.classList.remove("degrade-default")}else{var r=document.querySelector(".candidate-header");r&&r.classList.remove("hide");var a=document.querySelector("#candidate-container");a&&a.classList.add("degrade-default")}return!1},e.hide_label=function(){var e=document.querySelectorAll(".progress-candidate > .progress-bar > p");if(e)for(var r in e)e[r]&&"object"==typeof e[r]&&(e[r].style.display="none")},e.show_label=function(r,a){e.hide_label();var t=a.target.querySelector("p");return t&&(t.style.display="block"),!1},e.make_percent=function(e,r){return 0===r?"0%":(e/100/r*100).toFixed(2)+"%"},e.render_video=function(e){return e?'<iframe id="candidate_video" src="'+a.trustAsResourceUrl(e)+'" width="560" height="315" frameborder="0" allowfullscreen></iframe>':""},e._issues_priorities_decorator=function(r){return e.candidate.candidate_issue_priorities.map(function(e){return e.name}).join(r||", ")},e.candidate_by_name=function(a){return r({method:"GET",url:"/api/candidate/"+a}).then(function(r){var a=r.data.candidate;e.candidate=a,function(){var r=document.querySelector("title");"VotoLegal - Candidato(a)"===r.innerText&&(r.innerText+=" "+e.candidate.popular_name)}(),function(){var r=e.candidate.video_url;if(r&&(r.match("youtube")||r.match("youtu.be"))&&(r.match(/www.youtube.com\/watch/)&&(e.candidate.video_url="https://www.youtube.com/embed/"+URI.init(r).query("v")),r.match("youtu.be"))){var a=r.split("/")[3];e.candidate.video_url="https://www.youtube.com/embed/"+a}}(),e.candidate.issues_decorator=e._issues_priorities_decorator(),e.candidate.total_donated=e.candidate.total_donated||0,e.candidate.party_fund=e.candidate.party_fund||0,e.candidate.raising_goal=parseFloat(e.candidate.raising_goal)||0,function(){var r=document.querySelector("#video-renderer");r&&(r.innerHTML=e.render_video(a.video_url))}(),e.candidate.projects=[],e.candidate_projects(a)},function(e){throw n.shoot({route:document.location.href,error:JSON.stringify(e)}),new Error("Model is invalid or cannot be found!")}),!1},e.billing_by_zipcode=function(){var r=e.doar.billing_address_zipcode;return 9==r.length&&i(r).then(function(r){var a=r.data,t=e.doar;t.billing_address_city=a.cidade,t.billing_address_state=a.estado;var o=document.querySelector("form[name=doarForm] *[name=billing_address_district]");a.bairro?(t.billing_address_district=a.bairro,o.disabled=!0):(t.billing_address_district="",o.disabled=!1);var d=document.querySelector("form[name=doarForm] *[name=billing_address_street]");a.logradouro?(t.billing_address_street=a.logradouro,d.disabled=!0):(t.billing_address_street="",d.disabled=!1)},function(){throw swal({title:"Problemas ao carregar os dados do CEP!",text:"Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente."}),["billing_address_state","billing_address_city","billing_address_district","billing_address_street"].map(function(r){try{e.doar[r]="",document.querySelector("form[name=doarForm] *[name="+r+"]").disabled=!0}catch(a){}}),new Error("ERROR_GET_ZIPCODE")}),!1},e.address_by_zipcode=function(){var r=e.doar.address_zipcode;return 9==r.length&&i(r).then(function(r){var a=r.data,t=e.doar;t.address_city=a.cidade,t.address_state=a.estado;var o=document.querySelector("form[name=doarForm] *[name=address_district]");a.bairro?(t.address_district=a.bairro,o.disabled=!0):(t.address_district="",o.disabled=!1);var d=document.querySelector("form[name=doarForm] *[name=address_street]");a.logradouro?(t.address_street=a.logradouro,d.disabled=!0):(t.address_street="",d.disabled=!1)},function(){throw swal({title:"Problemas ao carregar os dados do CEP!",text:"Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente."}),["address_state","address_city","address_district","address_street"].map(function(r){try{e.doar[r]="",document.querySelector("form[name=doarForm] *[name="+r+"]").disabled=!0}catch(a){}}),new Error("ERROR_GET_ZIPCODE")}),!1},e.candidate_projects=function(a){return r({method:"GET",url:"/api/candidate/"+a.id+"/projects"}).then(function(r){var a=r.data.projects;!function(){var e=0;a.map(function(r){e+=r.votes}),a=a.map(function(r){return r.total=e,r})}(),e.candidate.projects=a},function(e){throw n.shoot({route:document.location.href,error:JSON.stringify(e)}),new Error("Project list is invalid or cannot be found!")}),s.classList.add("hide"),!1},e.candidate_expenditures=function(a){var t=document.querySelector("#expenditures-table"),o=document.querySelector("#loading-expenditures"),i=document.querySelector("#expenditures-error");i&&i.classList.add("hide"),t&&(t.classList.add("hide"),o&&o.classList.remove("hide"));try{r({method:"GET",url:"/api/candidate/"+a.id+"/expenditure?results=99999"}).then(function(r){var a=r.data;!function(){var e=a.expenditure,r=new DocumentFormat;for(var t in e)e[t].cpf_cnpj&&(e[t].cpf_cnpj=r.format(e[t].cpf_cnpj));a.expenditure=e}(),e.expenditures=a,t&&(o&&o.classList.add("hide"),t.classList.remove("hide"))},function(e){throw t&&(o&&o.classList.add("hide"),t.classList.remove("hide")),n.shoot({route:document.location.href,error:JSON.stringify(e)}),d.swal("Falha no carregamento dos dados","N\xe3o foi poss\xedvel carregar os dados de doa\xe7\xf5es."),new Error("Expenditures list is invalid or cannot be found!")})}catch(s){t&&(o&&o.classList.add("hide"),t.classList.remove("hide"))}},e.candidate_donations=function(a){var t=document.querySelector("#donations-table"),o=document.querySelector("#loading-donations"),i=document.querySelector("#donations-error");i&&i.classList.add("hide"),t&&(t.classList.add("hide"),o&&o.classList.remove("hide"));try{r({method:"GET",url:"/api/candidate/"+a.id+"/donate?results=9999"}).then(function(r){var a=r.data.donations;e.donations=a,e.donations.unshift({amount:e.candidate.party_fund||0,name:"Doa\xe7\xe3o do fundo partid\xe1rio",transaction_hash:null,species:"n/a"}),t&&(o&&o.classList.add("hide"),t.classList.remove("hide"))},function(e){throw t&&(o&&o.classList.add("hide"),t.classList.remove("hide")),n.shoot({route:document.location.href,error:JSON.stringify(e)}),d.swal("Falha no carregamento dos dados","N\xe3o foi poss\xedvel carregar os dados de doa\xe7\xf5es."),new Error("Donation list is invalid or cannot be found!")})}catch(s){t&&(o&&o.classList.add("hide"),t.classList.remove("hide"))}},e.doar_continue=function(r){if(!r||10>r)return d.swal("Preencha um valor superior a 10,00 reais."),!1;if(r>1064)return d.swal("Preencha um valor igual ou inferior a 1.064,00 reais."),!1;document.getElementById("amount-review").classList.remove("hide");var a=document.querySelectorAll(".valor-doa-container");for(var t in a)a[t]&&a[t].classList&&a[t].classList.add("hide");document.getElementById("doar-form").classList.remove("hide"),e.doar.amount=parseFloat(r),e.get_session()},e.doar_edit=function(){document.getElementById("amount-review").classList.add("hide");var e=document.querySelectorAll(".valor-doa-container");for(var r in e)e[r]&&e[r].classList&&e[r].classList.remove("hide");document.getElementById("doar-form").classList.add("hide")},e.get_session=function(){var a=e.candidate.id||0;return r({url:"/api/candidate/"+a+"/donate/session"}).then(function(r){e.payment.session=r.data.id,PagSeguroDirectPayment.setSessionId(r.data.id)},function(e){throw n.shoot({route:"/cadastro/boleto",error:JSON.stringify(e)}),new Error("ERROR_GET_SESSION")}),!1},e.get_brand=function(r){if(r.length>=6){if(1===e.candidate.payment_gateway_id){var a=new CreditCard,t=a.card_brand(r)||void 0,o=document.querySelector("#card-image");t&&(e.doar.credit_card_brand=t.alias,o&&(o.innerHTML='<img src="/images/candidatos/card-brands/'+t.alias+'.png" alt="'+t.name+'">'))}2===e.candidate.payment_gateway_id&&e.card_brand({bin:r.slice(0,6),success_cb:function(e){var r=e.brand,a=document.querySelector("#card-image");a&&(a.innerHTML='<img src="//stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/'+r.name+'.png" alt="'+r.name+'" title="'+r.name+'">')},error_cb:function(){var e=document.querySelector("#card-image");e&&(e.classList.add("text-danger"),e.innerText="(bandeira do cart\xe3o n\xe3o encontrada)")}})}return!1},e.send_donation=function(){e.error_list=[];var a=document.querySelector("#btn-donate");a&&a.setAttribute("disabled",!0);var o=PagSeguroDirectPayment.getSenderHash();e.doar.sender_hash=o,function(){var r=document.querySelector("#billing_address"),a="address_zipcode address_state address_city address_street address_district address_house_number address_complement".split(/\s/);if(r.classList.contains("hide"))for(var t in a)e.doar["billing_"+a[t]]=e.doar[a[t]]}();var i=function(e){return document.querySelector("form[name=doarForm] label[for="+e+"]")||void 0},s=e.donation_params(),c=e.card_params(),l={credit_card_name:"Nome do cart\xe3o",card_number:"N\xfamero do cart\xe3o",card_month:"M\xeas do cart\xe3o",card_year:"Ano do cart\xe3o",card_cvv:"C\xf3digo do cart\xe3o"};for(var u in c)c[u]||0!=c[u].length||e.error_list.push(l[u]+" \xe9 obrigat\xf3rio");if(e.error_list.length>0){var a=document.querySelector("#btn-donate");return a&&a.removeAttribute("disabled"),!1}return 1===e.candidate.payment_gateway_id?(s.amount=parseInt(100*s.amount),s.credit_card_brand=e.doar.credit_card_brand,s.credit_card_validity=function(){var r=e.payment.card_year,a=e.payment.card_month;return r+=1==a.length?"0"+a:a,""+r}(),s.credit_card_cvv=e.payment.card_cvv,function(){var e=s.birthdate;if(e&&e.length>0){var r=e.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);4===r.length&&(s.birthdate=[r[3],r[2],r[1]].join("-"))}}(),s.credit_card_number=e.payment.card_number,s.credit_card_brand&&null!=s.credit_card_brand&&""!==s.credit_card_brand?(r({method:"POST",url:"/api/candidate/"+e.candidate.id+"/donate",data:t.from_object(s),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(){document.location="#/doar/success"},function(r){if(e.error_list=[],r&&r.data&&r.data.form_error){var a=r.data.form_error;if(a&&a.donation)return"not authorized"===a.donation&&d.swal("Transa\xe7\xe3o n\xe3o autorizada"),!1;for(var t in a){var o=i(t);if(void 0!==o){var s=o.innerText;t.match(/billing/)&&(s+=" (endere\xe7o de cobran\xe7a) "),e.error_list.push(s+error_msg(a[t]))}}return n.shoot({route:document.location.href,error:JSON.stringify(r)}),!1}throw n.shoot({route:document.location.href,error:JSON.stringify(r)}),d.swal("Erro inesperado com a doa\xe7\xe3o"),new Error("DONATION_POST_ERROR")})["finally"](function(){var e=document.querySelector("#btn-donate");e&&e.removeAttribute("disabled")}),!1):(d.swal("N\xe3o foi poss\xedvel id\xeantificar a bandeira do seu cart\xe3o de cr\xe9dito"),n.shoot({route:document.location.href,error:JSON.stringify({error:"brand not found",data:s})}),!1)):void e.card_brand({bin:c.card_number.slice(0,6),success_cb:function(a){var o=a.brand?a.brand:void 0;o&&e.card_token({card_number:c.card_number,brand:o.name,cvv:c.card_cvv,month:c.card_month,year:c.card_year,success_cb:function(a){e.error_list=[],s.credit_card_token=a.card.token;var o=s.birthdate;if(o&&o.length>0){var c=o.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);4===c.length&&(s.birthdate=[c[3],c[2],c[1]].join("-"))}else s.birthdate="";return s.amount=parseInt(100*s.amount),r({method:"POST",url:"/api/candidate/"+e.candidate.id+"/donate",data:t.from_object(s),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(){document.location="#/doar/success"},function(r){if(e.error_list=[],r&&r.data&&r.data.form_error){var a=r.data.form_error;for(var t in a){var o=i(t);if(void 0!==o){var s=o.innerText;t.match(/billing/)&&(s+=" (endere\xe7o de cobran\xe7a) "),e.error_list.push(s+error_msg(a[t]))}}return n.shoot({route:document.location.href,error:JSON.stringify(r)}),!1}throw n.shoot({route:document.location.href,error:JSON.stringify(r)}),d.swal("Erro inesperado com a doa\xe7\xe3o"),new Error("DONATION_POST_ERROR")})["finally"](function(){var e=document.querySelector("#btn-donate");e&&e.removeAttribute("disabled")}),!1},error_cb:function(r){throw e.error_list.push("N\xe3o foi possivel carregar os dados do cart\xe3o!"),n.shoot({route:document.location.href,error:JSON.stringify(r)}),new Error("CARDBRAND_GET_ERROR")}})},error_cb:function(r){throw e.error_list.push("Bandeira do cart\xe3o n\xe3o pode ser id\xeantificada!"),n.shoot({route:document.location.href,error:JSON.stringify(r)}),new Error("CARDBRAND_GET_ERROR")}})},e.payment_method=function(e){PagSeguroDirectPayment.getPaymentMethods({amount:parseFloat(e.amount),success:e.success_cb,error:e.error_cb,complete:function(){var e=document.querySelector("#btn-donate");e&&e.removeAttribute("disabled")}})},e.card_brand=function(e){PagSeguroDirectPayment.getBrand({cardBin:e.bin,success:e.success_cb||function(){},error:e.error_cb||function(){},complete:e.complete_cb||function(){var e=document.querySelector("#btn-donate");e&&e.removeAttribute("disabled")}})},e.card_token=function(e){PagSeguroDirectPayment.createCardToken({cardNumber:e.card_number,brand:e.brand,cvv:e.cvv,expirationMonth:e.month,expirationYear:e.year,success:e.success_cb||function(){},error:e.error_cb||function(){},complete:e.complete_cb||function(){var e=document.querySelector("#btn-donate");e&&e.removeAttribute("disabled")}})},e.same_billing_addr=function(){var r=document.querySelector("#billing_address"),a="address_zipcode address_state address_city address_street address_district address_house_number address_complement".split(/\s/);if(r.classList.contains("hide")){for(var t in a)e.doar["billing_"+a[t]]="";r.classList.remove("hide")}else{for(var t in a)e.doar["billing_"+a[t]]=e.doar[a[t]];r.classList.add("hide")}return!1},e.donation_params=function(){return Params.require(e.doar).permit("name","cpf","email","phone","birthdate","address_street","address_house_number","address_district","address_zipcode","address_city","address_state","billing_address_street","billing_address_house_number","billing_address_complement","billing_address_district","billing_address_zipcode","billing_address_city","billing_address_state","credit_card_name","amount","sender_hash","credit_card_token","address_complement","billing_address_complement")},e.card_params=function(){return Params.require(e.payment).permit("card_number","card_month","card_year","card_cvv")},e.candidate_by_name(e.name)}]);
+var domain = document.location.href;
+if((!domain.match(/^https:\/\/www.votolegal.org.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/)) || domain.match(/votolegal.org.br\/candidato/)) { 
+  app.votolegal.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.
+    when('/', {
+      templateUrl: '/javascripts/app/view/candidato/index.tmpl',
+      controller: 'CandidateController',
+    }).
+    when('/doar', {
+      templateUrl: '/javascripts/app/view/candidato/doar.tmpl',
+      controller: 'CandidateController',
+    }).
+    when('/doar/success', {
+      templateUrl: '/javascripts/app/view/candidato/success.tmpl',
+      controller: 'CandidateController',
+    }).
+    when('/votar/:token', {
+      templateUrl: '/javascripts/app/view/candidato/votar.tmpl',
+      controller: 'CandidateController',
+    }).
+    otherwise({
+      redirectTo: '/',
+    });
+  }]);
+
+
+  /**
+   * Grafic interface and style interactions
+   */
+  $(document).ready(function(){
+    $('body').on('click', 'input.opcao_doar_radio', function(e){
+      e.preventDefault;
+      if ($(this).hasClass('opcao_doar_diff')) {
+        $(this).closest('.valor-doa-container').find('.doar-number-diferente').attr('disabled', false);
+      } else {
+        $('.doar-number-diferente').attr('disabled', true);
+      }
+      $('.valor-doa-container').removeClass('doa-container-active');
+      $(this).closest('.valor-doa-container').addClass('doa-container-active');
+    });
+    $('input.opcao_doar_radio:checked').trigger('click');
+  });
+}
+
+/**
+ * Candidate Controller
+ */
+app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
+  var load   = document.querySelector('#loading');
+
+  // defaults
+  $scope.vote           = undefined;
+  $scope.page           = 'normal';
+  $scope.candidate      = {};
+  $scope.doar           = {};
+  $scope.payment        = {};
+  $scope.votes          = [];
+  $scope.error_list     = [];
+  $scope.donations      = [];
+  $scope.expenditures   = [];
+
+  // getting candidate name from url
+  $scope.name = (function get_subdomain(){
+    var url = document.location.href;
+    url = url.split(/\//)[2].split('.')[0];
+    if(url !== 'localhost') return url;
+  })();
+  $scope.month_list = (function(){
+    list = [];
+    for(var i=1; i<=12; i++) { list.push(i); }
+    return list;
+  })();
+  $scope.year_list = (function(){
+    list = [];
+    for (var i = 2016; i<=2030; i++) { list.push(i); }
+    return list;
+  })();
+  $scope.config = {
+    paginatorLabels: {
+      first: "Primeira", last: "Ultima",jumpBack:'...', stepBack:'...', stepAhead:'...', jumpAhead:'...'
+    }
+  };
+
+  $scope.set_page = function(page){
+    if(page === 'votar'){
+      var header = document.querySelector('.candidate-header');
+      if(header) header.classList.add('hide');
+      var container = document.querySelector('#candidate-container');
+      if(container) container.classList.remove('degrade-default');
+    }
+    else {
+      var header = document.querySelector('.candidate-header');
+      if(header) header.classList.remove('hide');
+      var container = document.querySelector('#candidate-container');
+      if(container) container.classList.add('degrade-default');
+    }
+    return false;
+  };
+
+  $scope.hide_label = function(){
+    var list = document.querySelectorAll('.progress-candidate > .progress-bar > p');
+    if(list) for(var i in list){ if(list[i] && typeof(list[i]) === 'object') list[i].style.display = 'none' }
+  };
+
+  $scope.show_label = function(bar, $event){
+    $scope.hide_label();
+
+    var element = $event.target.querySelector('p');
+    if(element) element.style.display = 'block';
+
+    return false;
+  };
+
+  // methods
+  $scope.make_percent = function(number, total){
+    if(total === 0) return '0%';
+    return (((number/100)/total) * 100).toFixed(2) + '%'
+  };
+
+  $scope.render_video = function(src){
+    if(src) return '<iframe id="candidate_video" src="' + $sce.trustAsResourceUrl(src) + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+    else return '';
+  };
+
+  $scope._issues_priorities_decorator = function(separator){
+    return $scope.candidate.candidate_issue_priorities
+      .map(function(i){ return i.name })
+      .join(separator || ', ')
+  };
+
+  $scope.candidate_by_name = function(name){
+    $http({
+      method: 'GET',
+      url: '/api/candidate/'+ name,
+    }).
+    then(
+      function(response){
+        var res = response.data.candidate;
+        $scope.candidate = res;
+
+        (function(){
+          var title = document.querySelector('title');
+          if(title.innerText === 'VotoLegal - Candidato(a)') 
+            title.innerText += (" " + $scope.candidate.popular_name);
+        })();
+
+        (function(){
+          var video = $scope.candidate.video_url;
+          if(video && (video.match('youtube') || video.match('youtu.be')) ){
+            if(video.match(/www.youtube.com\/watch/)){
+              $scope.candidate.video_url = 'https://www.youtube.com/embed/' + URI.init(video).query('v');
+            }
+            if(video.match('youtu.be')){
+              var code = video.split('/')[3];
+              $scope.candidate.video_url = 'https://www.youtube.com/embed/' + code;
+            }
+          }
+        })();
+
+        // header issues list
+        $scope.candidate.issues_decorator = $scope._issues_priorities_decorator();
+
+        // default total donated
+        $scope.candidate.total_donated = $scope.candidate.total_donated || 0;
+        $scope.candidate.party_fund = $scope.candidate.party_fund || 0;
+        $scope.candidate.raising_goal = parseFloat($scope.candidate.raising_goal) || 0.0;
+
+        // video renderer
+        (function(){
+          var v = document.querySelector('#video-renderer');
+          if(v) v.innerHTML = $scope.render_video(res.video_url);
+        })();
+
+        // load projects
+        $scope.candidate.projects = [];
+        $scope.candidate_projects(res);
+      },
+      function(response){
+        trouble.shoot({
+          route: document.location.href, error: JSON.stringify(response)
+        });
+        throw new Error('Model is invalid or cannot be found!');
+      }
+    );
+    return false;
+  };
+
+  /* fetch zip_code info */
+  $scope.billing_by_zipcode = function(event){
+    var zipcode = $scope.doar.billing_address_zipcode;
+
+    if(zipcode.length == 9){
+      postmon(zipcode).then(
+        // success callback
+        function(response) {
+          var res = response.data, $f = $scope.doar;
+          $f.billing_address_city   = res.cidade;
+          $f.billing_address_state  = res.estado;
+          
+          // load district
+          var district = document.querySelector('form[name=doarForm] *[name=billing_address_district]');
+          if(res.bairro) { $f.billing_address_district = res.bairro; district.disabled = true }
+          else {  $f.billing_address_district = ""; district.disabled = false }
+
+          // load street
+          var street = document.querySelector('form[name=doarForm] *[name=billing_address_street]');
+          if(res.logradouro) { $f.billing_address_street = res.logradouro; street.disabled = true }
+          else { $f.billing_address_street = ""; street.disabled = false }
+        },
+        // error callback
+        function(response){
+          swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
+          ['billing_address_state', 'billing_address_city', 'billing_address_district', 'billing_address_street'].map(function(i){ 
+            try{ 
+              $scope.doar[i] = "";
+              document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
+            } catch(e) {};
+          });
+          throw new Error("ERROR_GET_ZIPCODE");
+        }
+      );
+    }
+
+    return false;
+  };
+  $scope.address_by_zipcode = function(event){
+    var zipcode = $scope.doar.address_zipcode;
+
+    if(zipcode.length == 9){
+      postmon(zipcode).then(
+        // success callback
+        function(response) {
+          var res = response.data, $f = $scope.doar;
+          $f.address_city   = res.cidade;
+          $f.address_state  = res.estado;
+          
+          // load district
+          var district = document.querySelector('form[name=doarForm] *[name=address_district]');
+          if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
+          else {  $f.address_district = ""; district.disabled = false }
+
+          // load street
+          var street = document.querySelector('form[name=doarForm] *[name=address_street]');
+          if(res.logradouro) { $f.address_street = res.logradouro; street.disabled = true }
+          else { $f.address_street = ""; street.disabled = false }
+        },
+        // error callback
+        function(response){
+          swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
+          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){ 
+            try{ 
+              $scope.doar[i] = "";
+              document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
+            } catch(e) {};
+          });
+          throw new Error("ERROR_GET_ZIPCODE");
+        }
+      );
+    }
+
+    return false;
+  };
+
+
+  /* fetch candidate projects */
+  $scope.candidate_projects = function(candidate){
+    $http({
+      method: 'GET',
+      url: '/api/candidate/'+ candidate.id +'/projects',
+    }).
+    then(
+      function(response){
+        var res = response.data.projects;
+        
+        (function(){
+          var total = 0; res.map(function(p){ total += p.votes });
+          res = res.map(function(i){ i.total = total; return i });
+        })();
+
+        $scope.candidate.projects = res;
+      },
+      function(response){
+        trouble.shoot({
+          route: document.location.href, error: JSON.stringify(response)
+        });
+        throw new Error('Project list is invalid or cannot be found!');
+      }
+    );
+
+    load.classList.add('hide');
+    return false;
+  };
+
+
+  /* fetch candidate expenditures */
+  $scope.candidate_expenditures = function(candidate){
+    var table   = document.querySelector('#expenditures-table');
+    var loading = document.querySelector('#loading-expenditures');
+    var error   = document.querySelector('#expenditures-error');
+    if(error) error.classList.add('hide');
+    if(table) {
+      table.classList.add('hide'); 
+      if(loading) loading.classList.remove('hide');
+    }
+    
+    try {
+      $http({method: 'GET', url: '/api/candidate/'+ candidate.id +'/expenditure?results=99999'}).
+      then(
+        function(response){
+          var res = response.data;
+          
+          (function(){
+            var list = res.expenditure, doc_format = new DocumentFormat();
+
+            for(var i in list)
+              if(list[i].cpf_cnpj) list[i].cpf_cnpj = doc_format.format(list[i].cpf_cnpj);
+
+            res.expenditure = list;
+          })();
+
+          $scope.expenditures = res;
+
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+        },
+        function(response){
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+          trouble.shoot({
+            route: document.location.href, error: JSON.stringify(response)
+          });
+
+          SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
+          throw new Error('Expenditures list is invalid or cannot be found!');
+        }
+      );
+    }
+    catch(e){
+      if(table) {
+        if(loading) loading.classList.add('hide');
+        table.classList.remove('hide');
+      }
+    }
+  };
+
+
+  /* fetch candidate projects */
+  $scope.candidate_donations = function(candidate){
+    var table   = document.querySelector('#donations-table');
+    var loading = document.querySelector('#loading-donations');
+    var error   = document.querySelector('#donations-error');
+    if(error) error.classList.add('hide');
+    if(table) {
+      table.classList.add('hide');
+      if(loading) loading.classList.remove('hide');
+    }
+    
+    try {
+      $http({method: 'GET', url: '/api/candidate/'+ candidate.id +'/donate?results=9999'}).
+      then(
+        function(response){
+          var res = response.data.donations;
+          $scope.donations = res;
+
+          $scope.donations.unshift({
+            amount          : $scope.candidate.party_fund || 0,
+            name            : 'Doação do fundo partidário',
+            transaction_hash: null,
+            species         : 'n/a'
+          });
+
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+        },
+        function(response){
+          // diasble loading
+          if(table) {
+            if(loading) loading.classList.add('hide');
+            table.classList.remove('hide');
+          }
+          trouble.shoot({
+            route: document.location.href, error: JSON.stringify(response)
+          });
+
+          SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
+          throw new Error('Donation list is invalid or cannot be found!');
+        }
+      );
+    }
+    catch(e){
+      if(table) {
+        if(loading) loading.classList.add('hide');
+        table.classList.remove('hide');
+      }
+    }
+  };
+
+
+
+  /* setting donation amount */
+  $scope.doar_continue = function(amount){
+    if(!amount || amount < 10.00){
+      SweetAlert.swal('Preencha um valor superior a 10,00 reais.');
+      return false;
+    }
+    if(amount > 1064.00){
+      SweetAlert.swal('Preencha um valor igual ou inferior a 1.064,00 reais.');
+      return false;
+    }
+
+    document.getElementById('amount-review').classList.remove('hide');
+    var list = document.querySelectorAll('.valor-doa-container');
+    for(var i in list) {
+      if(list[i] && list[i].classList) list[i].classList.add('hide');
+    }
+    document.getElementById('doar-form').classList.remove('hide');
+
+    // update amount value
+    $scope.doar.amount = parseFloat(amount);
+
+    $scope.get_session();
+  };
+
+
+  /* doar edit method*/
+  $scope.doar_edit = function(amount){
+    document.getElementById('amount-review').classList.add('hide');
+    var list = document.querySelectorAll('.valor-doa-container');
+    for(var i in list) {
+      if(list[i] && list[i].classList) list[i].classList.remove('hide');
+    }
+    document.getElementById('doar-form').classList.add('hide');
+  };
+
+
+  /* getting session */
+  $scope.get_session = function(){
+    var id = $scope.candidate.id || 0;
+    $http({
+      url: '/api/candidate/'+id+'/donate/session'
+    }).
+    then(function(response){
+      $scope.payment.session = response.data.id;
+      PagSeguroDirectPayment.setSessionId(response.data.id);
+    }, function(response){
+      trouble.shoot({
+        route: '/cadastro/boleto', error: JSON.stringify(response)
+      });
+      throw new Error("ERROR_GET_SESSION");
+    });
+    return false
+  };
+
+  $scope.get_brand = function(card_number){
+
+    // getting card brand
+    if(card_number.length >= 6){
+
+      // cielo card check
+      if($scope.candidate.payment_gateway_id === 1) {
+        var card = new CreditCard();
+        var c = card.card_brand(card_number) || undefined;
+
+        var image = document.querySelector('#card-image');
+        if(c){
+          $scope.doar.credit_card_brand = c.alias;
+          if(image) image.innerHTML = '<img src="/images/candidatos/card-brands/'+c.alias+'.png" alt="'+c.name+'">';
+        }
+      }
+
+      // pagseguro card check
+      if($scope.candidate.payment_gateway_id === 2) {
+        $scope.card_brand({
+          // 6 first digits
+          bin: card_number.slice(0, 6),
+
+          // success callback
+          success_cb: function(response){
+            var brand = response.brand;
+            var image = document.querySelector('#card-image');
+            if(image){
+              image.innerHTML = '<img src="//stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/'+brand.name+'.png" alt="'+brand.name+'" title="'+brand.name+'">';
+            }
+          },
+
+          // success callback
+          error_cb: function(response){
+            var image = document.querySelector('#card-image');
+            if(image){
+              image.classList.add('text-danger');
+              image.innerText = '(bandeira do cartão não encontrada)';
+            }
+          }
+        });
+      }
+    }     
+    return false;
+  };
+
+  /* sender donartion */
+  $scope.send_donation = function(){
+    $scope.error_list = [];
+
+    // block button
+    var button = document.querySelector('#btn-donate');
+    if(button) button.setAttribute('disabled', true);
+
+    // sender
+    var sender = PagSeguroDirectPayment.getSenderHash();
+    $scope.doar.sender_hash = sender;
+
+
+    // billing address is same as address
+    (function(){
+      var billing_address = document.querySelector('#billing_address');
+      var list = 'address_zipcode address_state address_city address_street address_district address_house_number address_complement'.split(/\s/);
+      if(billing_address.classList.contains('hide')){
+        for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
+      }
+    })();
+
+    var f = function(field){
+      return document.querySelector('form[name=doarForm] label[for='+field+']') || undefined;
+    };
+
+    // getting params
+    var params = $scope.donation_params();
+
+    // getting card
+    var card = $scope.card_params();
+    var card_names = { credit_card_name: "Nome do cartão", card_number: "Número do cartão", card_month: "Mês do cartão", card_year: "Ano do cartão", card_cvv: "Código do cartão" };
+    for(var field in card) {
+      if(!card[field] && card[field].length == 0) $scope.error_list.push(card_names[field] + ' é obrigatório');
+    }
+
+    if($scope.error_list.length > 0) {
+      var button = document.querySelector('#btn-donate');
+      if(button) button.removeAttribute('disabled');
+      return false;
+    }
+
+
+    // CIELO Payment
+    if($scope.candidate.payment_gateway_id === 1){
+      // adding brand
+      params.amount = parseInt((params.amount * 100));
+      params.credit_card_brand = $scope.doar.credit_card_brand;
+      params.credit_card_validity = (function(){
+        var validity = $scope.payment.card_year;
+        var m = $scope.payment.card_month;
+        validity += (m.length == 1? "0" + m : m);
+        return ""+validity
+      })();
+      params.credit_card_cvv = $scope.payment.card_cvv;
+      (function(){
+        var date = params.birthdate;
+        if(date && date.length > 0){
+          var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+          if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
+        }
+      })();
+      params.credit_card_number =   $scope.payment.card_number;
+
+      // brand not found
+      if(!params.credit_card_brand || params.credit_card_brand == null || params.credit_card_brand === ''){
+        SweetAlert.swal('Não foi possível idêntificar a bandeira do seu cartão de crédito');
+        trouble.shoot({ route: document.location.href, error: JSON.stringify({error: 'brand not found', data: params}) });
+        return false;
+      }
+
+      $http({
+        method: 'POST',
+        url : '/api/candidate/'+ $scope.candidate.id +'/donate',
+        data: serialize.from_object(params),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).then(function(response){
+        document.location = '#/doar/success';
+      }, function(response){
+        $scope.error_list = [];
+
+        if(response && response.data && response.data.form_error){
+          var res = response.data.form_error;
+
+          if(res && res.donation){
+            if(res.donation === 'not authorized') SweetAlert.swal('Transação não autorizada');
+            return false;
+          }
+
+          // setting error message
+          for(var field in res){
+            var name = f(field);
+            if(name !== undefined){
+              var text = name.innerText;
+              if(field.match(/billing/)) text += " (endereço de cobrança) ";
+              $scope.error_list.push(text + error_msg(res[field]));
+            }
+          }
+
+          // sending troubleshoot
+          trouble.shoot({
+            route: document.location.href, error: JSON.stringify(response)
+          });
+
+          return false;
+        }
+
+        // sending troubleshoot
+        trouble.shoot({
+          route: document.location.href, error: JSON.stringify(response)
+        });
+
+        SweetAlert.swal('Erro inesperado com a doação');
+        throw new Error('DONATION_POST_ERROR');
+      }).finally(function(){
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
+      });
+
+      return false;
+    }
+
+    // PAGSEGURO Payment
+    $scope.card_brand({
+      // 6 first digits
+      bin: card.card_number.slice(0, 6),
+
+      // success callback
+      success_cb: function(response){
+        var brand = (response.brand)? response.brand: undefined;
+
+        if(brand){
+          $scope.card_token({
+            // credit card data
+            card_number: card.card_number,
+            brand:       brand.name,
+            cvv:         card.card_cvv,
+            month:       card.card_month,
+            year:        card.card_year,
+
+            // success callback
+            success_cb: function(response){
+              $scope.error_list = [];
+
+              params.credit_card_token = response.card.token;
+
+              // format date
+              var date = params.birthdate;
+              if(date && date.length > 0){
+                var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
+              }
+              else {
+                params.birthdate = '';
+              }
+              
+              // format amount
+              params.amount = parseInt((params.amount * 100));
+
+
+              // send to backend
+              $http({
+                method: 'POST',
+                url : '/api/candidate/'+ $scope.candidate.id +'/donate',
+                data: serialize.from_object(params),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+              }).
+              then(function(response){
+                document.location = '#/doar/success';
+              }, function(response){
+                $scope.error_list = [];
+
+                if(response && response.data && response.data.form_error){
+                  var res = response.data.form_error;
+
+
+                  // setting error message
+                  for(var field in res){
+                    var name = f(field);
+                    if(name !== undefined){
+                      var text = name.innerText;
+                      if(field.match(/billing/)) text += " (endereço de cobrança) ";
+                      $scope.error_list.push(text + error_msg(res[field]));
+                    }
+                  }
+
+                  // sending troubleshoot
+                  trouble.shoot({
+                    route: document.location.href, error: JSON.stringify(response)
+                  });
+
+                  return false;
+                }
+
+                // sending troubleshoot
+                trouble.shoot({
+                  route: document.location.href, error: JSON.stringify(response)
+                });
+
+                SweetAlert.swal('Erro inesperado com a doação');
+                throw new Error('DONATION_POST_ERROR');
+              }).
+              finally(function(){
+                var button = document.querySelector('#btn-donate');
+                if(button) button.removeAttribute('disabled');
+              });
+
+              return false;
+            },
+
+            // error callback
+            error_cb: function(response){
+              $scope.error_list.push('Não foi possivel carregar os dados do cartão!');
+              trouble.shoot({ route: document.location.href, error: JSON.stringify(response) });
+              //SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
+              throw new Error('CARDBRAND_GET_ERROR');
+            },
+          });
+        }
+      },
+
+      // error callback
+      error_cb: function(response){
+        $scope.error_list.push('Bandeira do cartão não pode ser idêntificada!');
+        //SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
+        trouble.shoot({ route: document.location.href, error: JSON.stringify(response) });
+        throw new Error('CARDBRAND_GET_ERROR');
+      }
+    });
+
+  };
+
+  /* payment methods */
+  $scope.payment_method = function(opts){
+    PagSeguroDirectPayment.getPaymentMethods({
+      amount:   parseFloat(opts.amount),
+      success:  opts.success_cb,
+      error:    opts.error_cb,
+      complete: function(){
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
+      }
+    });
+  };
+
+  // card brand
+  $scope.card_brand = function(opts){
+    PagSeguroDirectPayment.getBrand({
+      cardBin:  opts.bin,
+      success:  opts.success_cb  || function(){},
+      error:    opts.error_cb    || function(){},
+      complete: opts.complete_cb || function(){
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
+      }
+    });
+  };
+
+  // card token
+  $scope.card_token = function(opts){
+    PagSeguroDirectPayment.createCardToken({
+      cardNumber:       opts.card_number,
+      brand:            opts.brand,
+      cvv:              opts.cvv,
+      expirationMonth:  opts.month,
+      expirationYear:   opts.year,
+      success:          opts.success_cb   || function(){},
+      error:            opts.error_cb     || function(){},
+      complete:         opts.complete_cb  || function(){
+        var button = document.querySelector('#btn-donate');
+        if(button) button.removeAttribute('disabled');
+      }
+    });
+  };
+
+  $scope.same_billing_addr = function(){
+    var billing_address = document.querySelector('#billing_address');
+
+    // field list
+    var list = 'address_zipcode address_state address_city address_street address_district address_house_number address_complement'.split(/\s/);
+    
+    if(billing_address.classList.contains('hide')){
+      for(var i in list) $scope.doar["billing_" + list[i]] = "";
+      billing_address.classList.remove('hide');
+    } 
+    else {
+      for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
+      billing_address.classList.add('hide');
+    }
+    return false;
+  };
+  
+
+  $scope.donation_params = function(){
+    //$scope.doar.credit_card_name = $scope.doar.name;
+
+    return Params
+      .require($scope.doar)
+      .permit('name', 'cpf', 'email', 'phone', 'birthdate', 'address_street', 'address_house_number', 'address_district', 'address_zipcode', 'address_city', 'address_state', 'billing_address_street', 'billing_address_house_number', 'billing_address_complement', 'billing_address_district', 'billing_address_zipcode', 'billing_address_city', 'billing_address_state', 'credit_card_name', 'amount', 'sender_hash', 'credit_card_token', 'address_complement', 'billing_address_complement')
+  };
+
+  $scope.card_params = function(){
+    return Params
+      .require($scope.payment)
+      .permit('card_number', 'card_month', 'card_year', 'card_cvv')
+  };
+
+
+  $scope.candidate_by_name($scope.name);
+}]);

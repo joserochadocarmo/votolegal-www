@@ -1,1 +1,55 @@
-app.votolegal.controller("ContatoController",["$scope","$http","serialize",function(r,e,t){r.message={},r.message_params=function(){return r.message},r.create=function(){var o=r.message_params();return e({method:"POST",url:"/api/contact",data:t.from_object(o),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(r){r.data;return document.location="/contato/success",!1},function(e){var t=e.data.form_error,o=function(r){return document.querySelector("form[name=contactForm] *[name="+r+"]")};r.error_list=[];for(var a in t){var n=o(a).attributes.placeholder.value;r.error_list.push(n+error_msg(t[a]))}throw new Error("ERROR_POST_NEW_CONTACT")}),!1}}]);
+/**
+ * Contato controller
+ * Register a new contact message
+ */
+ 
+app.votolegal.controller('ContatoController', ['$scope', '$http', 'serialize', function($scope, $http, serialize){
+  $scope.message = {};
+
+  // getting form params
+  $scope.message_params = function(){
+    return $scope.message;
+  };
+
+  // create a new cadidate
+  $scope.create = function(isValid){
+    var params = $scope.message_params();
+
+    $http({
+      method: 'POST', 
+      url: '/api/contact', 
+      data: serialize.from_object(params),
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+    })
+    .then(
+      // success callback
+      function(response){
+        var res = response.data;
+        document.location = '/contato/success';
+        return false;
+      },
+      // error callback
+      function(response){
+        var res = response.data.form_error;
+
+        var f = function(field){
+          return document.querySelector('form[name=contactForm] *[name='+field+']');
+        };
+
+        // setting error message
+        $scope.error_list = [];
+        for(var field in res){
+          var name = f(field).attributes['placeholder'].value;
+          $scope.error_list.push(name + error_msg(res[field]));
+        }
+
+        // throw an exception
+        throw new Error("ERROR_POST_NEW_CONTACT");
+        return false;
+      }
+    );
+
+    return false;
+  };
+}]);
+

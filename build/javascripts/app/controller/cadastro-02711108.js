@@ -1,1 +1,532 @@
-if(document.location.href.indexOf("/cadastro-completo")>=0){app.votolegal.config(["$routeProvider",function(e){e.when("/dados-pessoais",{templateUrl:"/javascripts/app/view/cadastro/dados-pessoais.tmpl",controller:"CadastroController",activetab:"pessoal"}).when("/dados-campanha",{templateUrl:"/javascripts/app/view/cadastro/dados-campanha.tmpl",controller:"CadastroController",activetab:"campanha"}).when("/projetos",{templateUrl:"/javascripts/app/view/cadastro/projetos.tmpl",controller:"CadastroController",activetab:"projetos"}).otherwise({redirectTo:"/dados-pessoais",activetab:"pessoal"})}]);var pid=window.setInterval(function(){if("undefined"!=typeof Storage){var e=localStorage.progress,t=document.querySelector("div[role=progressbar]");t.innerHTML=e+"%",t.style.width=e+"%"}},500)}app.votolegal.controller("CadastroController",["$scope","$http","$location","$route","$interval","auth_service","serialize","SweetAlert","trouble",function(e,t,r,a,i,n,o,s,c){e.candidate={},e.issue_list=[],e.projects=[{id:0,title:"",scope:"",changed:!0}],e.bank_list=[],e.payment_gateway_list=[],e.error_list=[],e.submit_disabled=!1,e.progress=0,e.date_to_profile=function(){var e=0;return e=new Date("08/15/2016 00:00:00")-new Date,Math.round(e/864e5)+1}(),e.change_filename=function(e){var t=document.querySelector("input[name="+e+"]"),r=t.value.split(/\/|\\/g).reverse()[0];if(document.querySelector("."+e+"_filename").value=r,"picture"===e&&t.files.length>0){var a=t.files[0];if(Math.round(100*a.size/1048576)/100>1)throw s.swal("Sua imagem de perfil \xe9 muito grande","A imagem deve ter no m\xe1ximo 1MB de tamanho!"),new Error("IMAGE_MAXSIZE_ERROR")}},e.check_percent=function(){var t=0;if(e.candidate){var r=e.candidate;r.picture&&r.picture.length>0&&(t+=4),r.cnpj&&r.cnpj.length>0&&(t+=4),r.video_url&&r.video_url.length>0&&(t+=4),r.facebook_url&&r.facebook_url.length>0&&(t+=4),r.twitter_url&&r.twitter_url.length>0&&(t+=4),r.instagram_url&&r.instagram_url.length>0&&(t+=4),r.website_url&&r.website_url.length>0&&(t+=4),r.public_email&&r.public_email.length>0&&(t+=4),r.summary&&r.summary.length>0&&(t+=4),r.biography&&r.biography.length>0&&(t+=4),r.responsible_name&&r.responsible_name.length>0&&(t+=4),r.responsible_email&&r.responsible_email.length>0&&(t+=4),r.raising_goal&&r.raising_goal.length>0&&(t+=5),r.merchant_id&&r.merchant_id.length>0&&(t+=5),r.merchant_key&&void 0!==r.merchant_key&&(t+=5),r.spending_spreadsheet&&r.spending_spreadsheet.length>0&&(t+=7)}if(e.issue_list){var a=e.issue_list;a&&a.length>0&&(t+=10)}e.projects&&e.projects&&e.projects.length>=4&&(t+=20),e.progress=t;var i=n.session();i.set("progress",t)},e.changed_project=function(t){e.projects[t].changed=!0},e.save_candidate=function(){e.error_list=[];var r=e.candidate_params(),a=n.current_user();r.api_key=a.api_key,e.submit_disabled=!0;try{t({method:"PUT",url:"/api/candidate/"+a.id+"?api_key="+a.api_key,data:r,headers:{"Content-Type":void 0},transformRequest:function(t){var r=new FormData;for(var a in t)r.append(a,t[a]);var i=document.querySelector("input[name=picture]");if(i.files.length>0){var n=i.files[0];if(r.append("picture",n,n.name),Math.round(100*n.size/1048576)/100>1)return s.swal("Sua imagem de perfil \xe9 muito grande","A imagem deve ter no m\xe1ximo 1MB de tamanho!"),e.submit_disabled=!1,new FormData}return r}}).then(function(){s.swal("Os dados da campanha foram salvos!"),e.submit_disabled=!1,e.check_percent()},function(t){var r=t;if(c.shoot({route:document.location.href,error:JSON.stringify(r)}),!r.data)return s.swal("Erro ao salvar os dados!"),!1;r=t.data.form_error;var a=function(e){return document.querySelector("form[name=candidateForm] label[for="+e+"]")};for(var i in r){if("picture"==i&&"invalid image"===r[i])return e.error_list.push("Arquivo de imagem inv\xe1lido!"),!1;var n=a(i).innerText;e.error_list.push(n+error_msg(r[i]))}throw e.submit_disabled=!1,new Error("ERROR_SAVING_CANDIDATE")})}catch(i){c.shoot({route:document.location.href,error:JSON.stringify(i)}),e.submit_disabled=!1,console.error(i)}return!1},e.save_campaign=function(){e.error_list=[];var r=e.campaign_params();console.log(r);var a=n.current_user();r.api_key=a.api_key,e.submit_disabled=!0;try{t({method:"PUT",url:"/api/candidate/"+a.id+"?api_key="+a.api_key,data:r,headers:{"Content-Type":void 0},transformRequest:function(e){var t=new FormData;for(var r in e)t.append(r,e[r]);var a=document.querySelector("input[name=spending_spreadsheet]");if(a.files.length>0){var i=a.files[0];t.append("spending_spreadsheet",i,i.name)}return t}}).then(function(){s.swal("Os dados da campanha foram salvos!"),e.submit_disabled=!1,e.check_percent()},function(t){var r=t.data.form_error;if(r.hasOwnProperty("spending_spreadsheet")&&"invalid file"==r.form_error.spending_spreadsheet)return s.swal("Formato do arquivo de Planilha de Gastos inv\xe1lido!"),!1;var a=function(e){return document.querySelector("form[name=campaignForm] label[for="+e+"]")};for(var i in r){var n=a(i).innerText;e.error_list.push(n+error_msg(r[i]))}throw e.submit_disabled=!1,new Error("ERROR_SAVING_CAMPAIGN")})}catch(i){c.shoot({route:document.location.href,error:JSON.stringify(i)}),e.submit_disabled=!1}return!1},e.save_project=function(r){var a=e.projects[r];if(""==a.title||""==a.scope)return s.swal("Os campos de Titulo e Descri\xe7\xe3o s\xe3o obrigat\xf3rios"),!1;var i={title:a.title,scope:a.scope};a.hasOwnProperty("id")&&a.id>0&&(i.id=a.id);var c=n.current_user();return i.api_key=c.api_key,t({method:a.id&&a.id>0?"PUT":"POST",url:"/api/candidate/"+c.id+"/projects"+(a.id&&a.id>0?"/"+a.id:"")+"?api_key="+c.api_key,data:o.from_object(i),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(){s.swal("O projeto foi salvo!"),e.check_percent()},function(){throw s.swal("Error","O projeto n\xe3o pode ser salvo!"),new Error("ERROR_SAVING_PROJECT")}),!1},e.new_project=function(){return e.projects.push({id:0,title:"",scope:"",changed:!0}),!1},e.remove_project=function(r){var a=e.projects[r];return s.swal({title:"Tem certeza?",text:"Voc\xea tem certeza que deseja remover este projeto?",showCancelButton:!0,confirmButtonText:"Sim",cancelButtonText:"N\xe3o",closeOnConfirm:!0,closeOnCancel:!0},function(i){if(i)if(a.hasOwnProperty("id")&&a.id>0){var o=n.current_user();t["delete"]("/api/candidate/"+o.id+"/projects/"+a.id+"?api_key="+o.api_key).then(function(){e.projects.splice(r,1),swal("O projeto foi removido com sucesso!"),e.check_percent()},function(){throw new Error("ERROR_DELETE_PROJECTS")})}else e.projects.splice(r,1)}),!1},e.count_checked=function(t){var r=e.issue_list.filter(function(e){return e.selected?!0:void 0});return r.length>4&&(t&&(t.i.selected=!1),swal("Selecione apenas 4 assuntos priorit\xe1rios.")),!1},e.candidate_params=function(){return Params.require(e.candidate).permit("picture","video_url","facebook_url","twitter_url","instagram_url","website_url","public_email","summary","biography","responsible_name","responsible_email","cnpj","bank_agency","bank_agency_dv","bank_account_number","bank_account_dv","bank_code")},e.campaign_params=function(){var t=e.issue_list.filter(function(e){return e.selected?!0:void 0}),r=[];for(var a in t)r.push(t[a].id);var i=0;e.candidate.raising_goal&&void 0!==e.candidate.raising_goal&&(i=parseFloat(e.candidate.raising_goal||0),-1!=i.toString().indexOf(".")&&(i+=".00"));var n={raising_goal:i,issue_priorities:r.join(","),payment_gateway_id:e.candidate.payment_gateway_id,merchant_id:e.candidate.merchant_id,merchant_key:e.candidate.merchant_key,crawlable:e.candidate.crawlable||"false"};return Params.require(n).permit("raising_goal","issue_priorities","merchant_key","merchant_id","payment_gateway_id","crawlable")},e.projects_params=function(){for(var e=[],t=document.querySelectorAll(".project-item"),r=0;r<t.length;r++){var a=t[r],i=a.getAttribute("data-id").replace("item-",""),n=a.querySelector("input[name=project_title]").value,o=a.querySelector("textarea[name=project_content]").value;e.push({id:i,title:n,content:o})}return e},e.get_candidate=function(){var r={},a=n.current_user();return r.api_key=a.api_key,t.get("/api/candidate/"+a.id+"?api_key="+a.api_key).then(function(t){e.candidate=t.data.candidate,function(){var t=document.querySelector("#show-boleto");t&&"activated"===e.candidate.status&&t.classList.remove("hide")}(),e.candidate.crawlable&&0==e.candidate.crawlable?e.candidate.crawlable="false":e.candidate.crawlable="true",e.get_issues_priority(),e.get_gateways()},function(){throw new Error("ERROR_GET_CANDIDATE")}),!1},e.get_projects=function(){var r=n.current_user();t.get("/api/candidate/"+r.id+"/projects",{api_key:r.api_key}).then(function(t){var r=t.data.projects.map(function(e){return e.changed=!1,e});r.length>0&&(e.projects=r),e.check_percent()},function(){throw new Error("ERROR_GET_PROJECTS")})},e.get_issues_priority=function(){t.get("/api/issue_priority").then(function(t){e.issue_list=t.data.issue_priority;for(var r in e.issue_list)e.candidate.hasOwnProperty("candidate_issue_priorities")&&e.candidate.candidate_issue_priorities.map(function(t){e.issue_list[r].id==t.id&&(e.issue_list[r].selected=!0)});e.check_percent()},function(){throw new Error("ERROR_GET_ISSUE_PRIORITY")})},e.get_banks=function(){return t({method:"GET",url:"/api/bank"}).then(function(t){e.bank_list=t.data.bank},function(e){throw c.shoot({route:"/cadastro/boleto",error:JSON.stringify(e)}),new Error("ERROR_GET_BANK")}),!1},e.get_gateways=function(){t({method:"GET",url:"/api/payment_gateway"}).then(function(t){e.payment_gateway_list=t.data.payment_gateway},function(e){throw c.shoot({route:"/api/payment_gateway",error:JSON.stringify(e)}),new Error("ERROR_GET_PAYMENT_GATEWAY")})},n.validate_user({role:"user"}),e.get_candidate(),e.get_projects(),e.get_banks(),e.check_percent()}]);
+if(document.location.href.indexOf('/cadastro-completo') >= 0){
+  app.votolegal.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.
+    when('/dados-pessoais', {
+      templateUrl: '/javascripts/app/view/cadastro/dados-pessoais.tmpl',
+      controller: 'CadastroController',
+      activetab: 'pessoal'
+    }).
+    when('/dados-campanha', {
+      templateUrl: '/javascripts/app/view/cadastro/dados-campanha.tmpl',
+      controller: 'CadastroController',
+      activetab: 'campanha'
+    }).
+    when('/projetos', {
+      templateUrl: '/javascripts/app/view/cadastro/projetos.tmpl',
+      controller: 'CadastroController',
+      activetab: 'projetos'
+    }).
+    otherwise({
+      redirectTo: '/dados-pessoais',
+      activetab: 'pessoal'
+    });
+  }]);
+
+  var pid = window.setInterval(function(){
+    if (typeof(Storage) !== "undefined") {
+      var progress = localStorage.progress;
+
+      var p = document.querySelector("div[role=progressbar]");
+      p.innerHTML = progress + "%"; 
+      p.style.width = progress + "%"; 
+    }
+  }, 500);
+}
+
+/**
+ * Cadastro controller
+ * Register a new candidate
+ */ 
+app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', '$route', '$interval', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, $location, $route, $interval, auth_service, serialize, SweetAlert, trouble){
+  $scope.candidate   = {};
+  $scope.issue_list  = []; 
+  $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
+  $scope.bank_list   = [];
+  $scope.payment_gateway_list = [];
+
+  $scope.error_list  = [];
+  $scope.submit_disabled = false;
+  $scope.progress    = 0;
+
+  // count days to 15/08/2016
+  $scope.date_to_profile = (function(){
+    var difference = 0;
+    difference = (new Date("08/15/2016 00:00:00")) - (new Date());
+    return Math.round(difference/(1000*60*60*24)) + 1;
+  })();
+
+  // change input-file filename
+  $scope.change_filename = function(name){
+    var filename = document.querySelector('input[name='+name+']');
+    var value = filename.value.split(/\/|\\/g).reverse()[0];
+    document.querySelector('.'+name+'_filename').value = value;
+
+    if(name === 'picture' && filename.files.length > 0){
+      var file = filename.files[0];
+      if((Math.round(file.size * 100 / (1024 * 1024)) / 100) > 1){
+        SweetAlert.swal("Sua imagem de perfil é muito grande", "A imagem deve ter no máximo 1MB de tamanho!");
+        throw new Error('IMAGE_MAXSIZE_ERROR');
+        return false;
+      }
+    }
+  };
+
+
+  $scope.check_percent = function(){
+    var p = 0;
+
+    // personal data
+    if($scope.candidate){
+      var $c = $scope.candidate;
+      if($c.picture && $c.picture.length > 0)               p += 4;
+      if($c.cnpj && $c.cnpj.length > 0)                     p += 4;
+      if($c.video_url && $c.video_url.length > 0)           p += 4;
+      if($c.facebook_url && $c.facebook_url.length > 0)     p += 4;
+      if($c.twitter_url && $c.twitter_url.length > 0)       p += 4;
+      if($c.instagram_url && $c.instagram_url.length > 0)   p += 4;
+      if($c.website_url && $c.website_url.length > 0)       p += 4;
+      if($c.public_email && $c.public_email.length > 0)     p += 4;
+      if($c.summary && $c.summary.length > 0)               p += 4;
+      if($c.biography && $c.biography.length > 0)           p += 4;
+      if($c.responsible_name && $c.responsible_name.length > 0)   p += 4;
+      if($c.responsible_email && $c.responsible_email.length > 0) p += 4;
+
+
+
+      if($c.raising_goal && $c.raising_goal.length > 0)     p += 5;
+      if($c.merchant_id && $c.merchant_id.length > 0)       p += 5;
+      if($c.merchant_key && $c.merchant_key !== undefined)  p += 5;
+      if($c.spending_spreadsheet && $c.spending_spreadsheet.length > 0) p += 7;
+    }
+
+    // personal data
+    if($scope.issue_list){
+      var $i = $scope.issue_list;
+      if($i && $i.length > 0) p += 10;
+    }
+
+    // project data
+    if($scope.projects){
+      if($scope.projects && $scope.projects.length >= 4) p += 20;
+    }
+
+    $scope.progress = p;
+
+    // save to session
+    var session = auth_service.session();
+    session.set('progress', p);
+  };
+
+  // mark project as changed
+  $scope.changed_project = function(index){
+    $scope.projects[index].changed = true;
+  };
+
+  // save candidate data
+  $scope.save_candidate = function(index){
+    $scope.error_list  = [];
+    var params = $scope.candidate_params();
+
+    var user = auth_service.current_user();
+    params.api_key = user.api_key;
+
+    $scope.submit_disabled = true;
+    try {
+      $http({
+        method: 'PUT',
+        url: '/api/candidate/'+ user.id +"?api_key=" + user.api_key,
+        data: params,
+        headers: { 'Content-Type': undefined },
+        transformRequest: function (data) {
+          var fd = new FormData();
+          for (var p in data) fd.append(p, data[p]);
+          // add file to form_data
+          var file_field = document.querySelector('input[name=picture]');
+          if(file_field.files.length > 0){
+            var file = file_field.files[0];
+            fd.append("picture", file, file.name);
+
+            if((Math.round(file.size * 100 / (1024 * 1024)) / 100) > 1){
+              SweetAlert.swal("Sua imagem de perfil é muito grande", "A imagem deve ter no máximo 1MB de tamanho!");
+              $scope.submit_disabled = false;
+              return new FormData();
+            }
+          }
+          return fd;
+        }
+      }).then(function (response) {
+        SweetAlert.swal('Os dados da campanha foram salvos!');
+        $scope.submit_disabled = false;
+        $scope.check_percent();
+      },function(response){
+        var res = response;
+
+        // send generic error
+        trouble.shoot({ 
+          route: document.location.href, error: JSON.stringify(res)
+        });
+
+        if(!res.data){
+          SweetAlert.swal('Erro ao salvar os dados!');
+          return false
+        }
+
+        res = response.data.form_error;
+
+        var f = function(field){
+          return document.querySelector('form[name=candidateForm] label[for='+field+']');
+        };
+
+        // setting error message
+        for(var field in res){
+          if(field == 'picture' && res[field] === 'invalid image'){
+            $scope.error_list.push("Arquivo de imagem inválido!");
+            return false;
+          }
+
+          var name = f(field).innerText;
+          $scope.error_list.push(name + error_msg(res[field]));
+        }
+
+        // enable submit
+        $scope.submit_disabled = false;
+
+        // throw an exception
+        //SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
+        throw new Error('ERROR_SAVING_CANDIDATE');
+
+        return false;
+      });
+    }
+    catch(e){
+      trouble.shoot({ route: document.location.href, error: JSON.stringify(e) });
+
+      $scope.submit_disabled = false;
+      console.error(e);
+    }
+
+    return false;
+  };
+
+  // save campaign data
+  $scope.save_campaign = function(index){
+    $scope.error_list = [];
+    var params = $scope.campaign_params();
+    console.log(params);
+
+    var user = auth_service.current_user();
+    params.api_key = user.api_key;
+
+    $scope.submit_disabled = true;
+    try {
+      $http({
+        method: 'PUT',
+        url: '/api/candidate/'+ user.id +"?api_key=" + user.api_key,
+        data: params,
+        headers: {'Content-Type': undefined },
+        transformRequest: function (data) {
+          var fd = new FormData();
+          for (var p in data) fd.append(p, data[p]);
+          // add file to form_data
+          var file_field = document.querySelector('input[name=spending_spreadsheet]');
+          if(file_field.files.length > 0){
+            var file = file_field.files[0];
+            fd.append("spending_spreadsheet", file, file.name);
+          }
+          return fd;
+        }
+      }).then(function (response) {
+        SweetAlert.swal('Os dados da campanha foram salvos!');
+        $scope.submit_disabled = false;
+        $scope.check_percent();
+      },function(response){
+        var res = response.data.form_error;
+
+        // spreadsheet invalid
+        if(res.hasOwnProperty('spending_spreadsheet') && res.form_error.spending_spreadsheet == "invalid file"){
+          SweetAlert.swal('Formato do arquivo de Planilha de Gastos inválido!');
+          return false;
+        }
+
+        var f = function(field){
+          return document.querySelector('form[name=campaignForm] label[for='+field+']');
+        };
+
+        // setting error message
+        for(var field in res){
+          var name = f(field).innerText;
+          $scope.error_list.push(name + error_msg(res[field]));
+        }
+
+        // enable submit
+        $scope.submit_disabled = false;
+
+        // throw an exception
+        //SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
+        throw new Error('ERROR_SAVING_CAMPAIGN');
+
+        return false;
+      });
+    }
+    catch (e){
+      trouble.shoot({ route: document.location.href, error: JSON.stringify(e) });
+      $scope.submit_disabled = false;
+    }
+    return false;
+  };
+
+  // save project data
+  $scope.save_project = function(index){
+    var p = $scope.projects[index];
+
+    if(p.title == '' || p.scope == ''){
+      SweetAlert.swal('Os campos de Titulo e Descrição são obrigatórios');
+      return false;
+    }
+
+    // build params
+    var params = {title: p.title, scope: p.scope};
+    if (p.hasOwnProperty('id') && p.id > 0) params.id = p.id;
+
+    // getting user data
+    var user = auth_service.current_user();
+    params.api_key = user.api_key;
+    
+    $http({
+      method: (p.id && p.id > 0)? 'PUT' : 'POST',
+      url: '/api/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
+      data: serialize.from_object(params),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    }).then(function (response) {
+      //$scope.projects[index].changed = false;
+      SweetAlert.swal('O projeto foi salvo!');
+      $scope.check_percent();
+    },function(response){
+      SweetAlert.swal('Error', 'O projeto não pode ser salvo!');
+      throw new Error('ERROR_SAVING_PROJECT');
+    });
+
+    return false;
+  };
+
+
+  $scope.new_project = function(){
+    $scope.projects.push({id: 0, title: '', scope: '', changed: true});
+    return false;
+  };
+
+
+  /**
+   * remove data
+   */
+  $scope.remove_project = function(index){
+    var item = $scope.projects[index];
+    
+    SweetAlert.swal({
+      title: "Tem certeza?",
+      text: "Você tem certeza que deseja remover este projeto?",
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      cancelButtonText: "Não",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        if(item.hasOwnProperty('id') && item.id > 0){
+          var user = auth_service.current_user();
+          $http.delete(
+            '/api/candidate/' + user.id + '/projects/' + item.id + '?api_key='+ user.api_key 
+          ).then(function(response){ 
+            $scope.projects.splice(index, 1);
+            swal('O projeto foi removido com sucesso!');
+            $scope.check_percent();
+          }, function(response){ throw new Error('ERROR_DELETE_PROJECTS') });
+        }
+        else {
+          $scope.projects.splice(index, 1);
+        }
+      }
+    });
+
+    return false;
+  };
+
+
+  /**
+   * validate data
+   */
+  $scope.count_checked = function(el){
+    var list = $scope.issue_list.filter(function(i){
+      if(i.selected) return true;
+    });
+
+    if(list.length > 4){
+      if(el) el.i.selected = false;
+      swal('Selecione apenas 4 assuntos prioritários.');
+    }
+    return false;
+  };
+
+
+  /**
+   * form params
+   */
+  $scope.candidate_params = function(){
+    return Params
+      .require($scope.candidate)
+      .permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code')
+  };
+
+  $scope.campaign_params = function(){
+    var selected_list = $scope.issue_list.filter(function(i){
+      if(i.selected) return true;
+    });
+
+    var list = [];
+    for(var i in selected_list) list.push(selected_list[i].id);
+
+    // fallback for decimal number
+    var raising_goal_field = 0.0;
+    if($scope.candidate.raising_goal && $scope.candidate.raising_goal !== undefined){
+      raising_goal_field = parseFloat($scope.candidate.raising_goal || 0);
+      if(raising_goal_field.toString().indexOf('.') != -1) raising_goal_field += '.00';
+    }
+
+    var p = {
+      raising_goal      : raising_goal_field,
+      issue_priorities  : list.join(','),
+      payment_gateway_id: $scope.candidate.payment_gateway_id,
+      merchant_id       : $scope.candidate.merchant_id,
+      merchant_key      : $scope.candidate.merchant_key,
+      crawlable         : $scope.candidate.crawlable || 'false'
+    };
+
+    return Params
+      .require(p)
+      .permit('raising_goal', 'issue_priorities', 'merchant_key', 'merchant_id', 'payment_gateway_id', 'crawlable');
+  };
+
+  $scope.projects_params = function(){
+    var list = [];
+    var project_list = document.querySelectorAll('.project-item');
+    for(var i=0; i < project_list.length; i++) {
+      var n = project_list[i];
+      var id      = n.getAttribute("data-id").replace('item-', ''),
+          title   = n.querySelector('input[name=project_title]').value,
+          content = n.querySelector('textarea[name=project_content]').value;
+
+      list.push({'id':id, 'title':title, 'content':content});
+    }
+    return list;
+  };
+
+
+  /**
+   * getting data
+   */
+  $scope.get_candidate = function(){
+    var params = {};
+
+    var user = auth_service.current_user();
+    params['api_key'] = user.api_key;
+
+    $http.get('/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    .then(
+      function(response){ 
+        $scope.candidate = response.data.candidate;
+        
+        (function(){
+          var boleto = document.querySelector('#show-boleto');
+          if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
+        })();
+
+        if($scope.candidate.crawlable && $scope.candidate.crawlable == 0) $scope.candidate.crawlable = 'false';
+        else $scope.candidate.crawlable = 'true';
+
+        $scope.get_issues_priority();
+        $scope.get_gateways();
+      },
+      function(response){ throw new Error('ERROR_GET_CANDIDATE') }
+    );
+    return false;
+  };
+
+  $scope.get_projects = function(){
+    var user = auth_service.current_user();
+
+    $http.get(
+      '/api/candidate/' + user.id + '/projects', { api_key: user.api_key }
+    ).then( function(response){ 
+      var list = response.data.projects.map(function(i){ i.changed = false; return i });
+      if(list.length > 0) $scope.projects = list;
+      $scope.check_percent(); 
+    }, function(response){ throw new Error('ERROR_GET_PROJECTS') });
+  };
+
+  $scope.get_issues_priority = function(){
+    $http.get('/api/issue_priority').
+    then(
+      function(response){ 
+        $scope.issue_list = response.data.issue_priority; 
+
+        for (var i in $scope.issue_list){
+          if($scope.candidate.hasOwnProperty('candidate_issue_priorities')){
+            $scope.candidate.candidate_issue_priorities.map(function(item){
+              if($scope.issue_list[i].id == item.id) $scope.issue_list[i].selected = true;
+            });
+          }
+        } 
+
+        $scope.check_percent(); 
+      },
+      function(response){ throw new Error('ERROR_GET_ISSUE_PRIORITY') }
+    );
+  };
+  // get banks list
+  $scope.get_banks = function(){
+    $http({
+      method: 'GET',
+      url: '/api/bank',
+    }).
+    then(function(response){
+      $scope.bank_list = response.data.bank;
+    }, function(response){
+      trouble.shoot({
+        route: '/cadastro/boleto', error: JSON.stringify(response)
+      });
+      throw new Error("ERROR_GET_BANK");
+    });
+    return false
+  };
+
+
+  $scope.get_gateways = function(){
+    $http({
+      method: 'GET',
+      url: '/api/payment_gateway',
+    }).then(function(response){
+      $scope.payment_gateway_list = response.data.payment_gateway;
+    }, function(response){
+      trouble.shoot({
+        route: '/api/payment_gateway', error: JSON.stringify(response)
+      });
+      throw new Error("ERROR_GET_PAYMENT_GATEWAY");
+    });
+  };
+
+
+  
+  /**
+   * initializations
+   */
+  auth_service.validate_user({role: 'user'});
+
+  // load candidate data (issues are loaded into get_candidate cb)
+  $scope.get_candidate();
+  $scope.get_projects();
+  $scope.get_banks();
+  $scope.check_percent(); 
+}]);
+
+
