@@ -6859,16 +6859,8 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
 
   $(function() {
     var $html, action, controller, domain, test;
-    $html = $('body');
-    controller = $html.data('controller');
-    action = $html.data('action');
-    console.log(controller);
-    console.log(action);
-    console.log(VotoLegal);
-    console.log(document.location.href);
-    console.log(document.location.href.match(/votolegal.org.br\/estatistica/i));
     domain = document.location.href;
-    if (!domain.match(/votolegal.org.br\/estatistica/i)) {
+    if (domain.match(/votolegal.org.br\/estatistica/i)) {
       $html = $('body');
       controller = $html.data('controller');
       action = $html.data('action');
