@@ -123,19 +123,8 @@ class VotoLegal.Components.DoadoresChart
 
 # entry point
 $ ->
-  $html       = $('body')
-  controller  = $html.data 'controller'
-  action      = $html.data 'action'
-
-  console.log controller
-  console.log action
-  console.log VotoLegal
-  console.log document.location.href
-  console.log document.location.href.match /votolegal.org.br\/estatistica/i
-
-
   domain = document.location.href
-  unless domain.match /votolegal.org.br\/estatistica/i
+  if domain.match /votolegal.org.br\/estatistica/i
     $html       = $('body')
     controller  = $html.data 'controller'
     action      = $html.data 'action'
@@ -144,20 +133,3 @@ $ ->
     console.log controller
     console.log action
 
-    #data = {
-    #  labels: ["Agosto", "Setembro"],
-    #  datasets: [{
-    #    label: 'Doadores'
-    #    backgroundColor: "#662e91"
-    #    data: [100, 200]
-    #  }]
-    #}
-
-    #new VotoLegal.Components.DoadoresChart {
-    #  el: 'canvas-doadores', data: data, type: 'donators'
-    #}
-  
-    #new VotoLegal.Components.DoadoresChart {
-    #  el: 'canvas-valor', data: data, type: 'donators'
-    #}
-  
