@@ -130,6 +130,8 @@ $ ->
     action      = $html.data 'action'
 
     test = new VotoLegal[controller]
+    console.log controller
+    console.log action
 
     #data = {
     #  labels: ["Agosto", "Setembro"],
