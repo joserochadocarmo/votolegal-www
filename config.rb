@@ -78,5 +78,5 @@ configure :build do
 
   activate :minify_html, remove_input_attributes: false
   activate :minify_css
-  activate :minify_javascript
+  #activate :minify_javascript
 end
