@@ -123,6 +123,13 @@ class VotoLegal.Components.DoadoresChart
 
 # entry point
 $ ->
+  $html       = $('body')
+  controller  = $html.data 'controller'
+  action      = $html.data 'action'
+
+  console.log controller
+  console.log action
+
   domain = document.location.href
   unless domain.match /votolegal.org.br\/estatistica/i
     $html       = $('body')
