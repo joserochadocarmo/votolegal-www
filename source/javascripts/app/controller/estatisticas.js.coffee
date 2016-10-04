@@ -19,8 +19,6 @@ class VotoLegal.Estatisticas
   # load method
   load: (options = {}) ->
     $loading = $('#loading').css {display:'block'}
-    console.log BASE_API
-    console.log "fetching data from #{BASE_API}/stats/depth"
 
     try
       $.ajax { method: 'GET', url: "#{BASE_API}/stats/depth", dataType: 'json' }
@@ -130,6 +128,4 @@ $ ->
     action      = $html.data 'action'
 
     test = new VotoLegal[controller]
-    console.log controller
-    console.log action
 
