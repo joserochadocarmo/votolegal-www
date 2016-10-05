@@ -118,9 +118,9 @@
     }
 
     DoadoresChart.prototype.process = function() {
-      var chartData, ctx, e, error, myBarChart;
+      var chartData, chartOptions, ctx, e, error, myBarChart;
       chartData = {
-        labels: ["Agosto", "Setembro"],
+        labels: ["Agosto", "Setembro", "Outubro"],
         datasets: [
           {
             label: this.options.label || 'No',
@@ -129,40 +129,43 @@
           }
         ]
       };
+      chartOptions = {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          yAxes: [
+            {
+              display: false,
+              gridLines: {
+                display: false
+              }
+            }
+          ]
+        },
+        title: {
+          display: false
+        },
+        responsive: true,
+        legend: {
+          display: false
+        }
+      };
       if (this.options.label === 'R$') {
-        chartData.tooltipTemplate = "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>";
+        chartOptions.tooltips.custom = function(t) {
+          return "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>";
+        };
       }
       try {
         ctx = document.getElementById(this.options.el || '').getContext("2d");
         return myBarChart = new Chart(ctx, {
           type: 'bar',
           data: chartData,
-          options: {
-            scales: {
-              xAxes: [
-                {
-                  gridLines: {
-                    display: false
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  display: false,
-                  gridLines: {
-                    display: false
-                  }
-                }
-              ]
-            },
-            title: {
-              display: false
-            },
-            responsive: true,
-            legend: {
-              display: false
-            }
-          }
+          options: chartOptions
         });
       } catch (error) {
         e = error;
