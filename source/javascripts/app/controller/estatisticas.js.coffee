@@ -100,7 +100,7 @@ class VotoLegal.Components.DoadoresChart
 
     # chart options
     chartOptions =
-      scales: 
+      scales:
         xAxes: [{gridLines: {display:false}}]
         yAxes: [{display:false, gridLines: {display:false}}]
       title:
@@ -119,7 +119,7 @@ class VotoLegal.Components.DoadoresChart
 
         this.datasets.forEach (dataset) ->
           dataset.bars.forEach (bar) ->
-            val = @options.label is 'R$' then new BrazilianCurrency(bar.value).format() else bar.value
+            val = @options.label is 'R$' ? new BrazilianCurrency(bar.value).format() : bar.value
             ctx.fillText val, bar.x, bar.y - 5
 
     try
