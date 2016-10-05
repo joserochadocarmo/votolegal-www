@@ -110,8 +110,7 @@ class VotoLegal.Components.DoadoresChart
         display: false
 
     if @options.label is 'R$'
-      chartOptions.tooltips.custom = (t) ->
-        "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>"
+      chartOptions.tooltipTemplate = "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>"
 
     try
       ctx = document.getElementById(@options.el || '').getContext "2d"
