@@ -99,7 +99,7 @@ class VotoLegal.Components.DoadoresChart
     }
 
     # chart options
-    chartOptions = {}
+    chartOptions = 
       scales:
         xAxes: [{gridLines: {display:false}}]
         yAxes: [{display:false, gridLines: {display:false}}]
