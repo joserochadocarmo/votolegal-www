@@ -88,8 +88,9 @@ class VotoLegal.Components.DoadoresChart
     @process()
   
   process: ->
+    # chart data
     chartData = {
-      labels: ["Agosto", "Setembro"]
+      labels: ["Agosto", "Setembro", "Outubro"]
       datasets: [{
         label: @options.label || 'No'
         backgroundColor: @options.color || "#fece6a"
@@ -97,8 +98,20 @@ class VotoLegal.Components.DoadoresChart
       }]
     }
 
+    # chart options
+    chartOptions =
+      scales: 
+        xAxes: [{gridLines: {display:false}}]
+        yAxes: [{display:false, gridLines: {display:false}}]
+      title:
+        display: false
+      responsive: true
+      legend:
+        display: false
+
     if @options.label is 'R$'
-      chartData.tooltipTemplate = "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>"
+      chartOptions.tooltips.custom = (t) ->
+        "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>"
 
     try
       ctx = document.getElementById(@options.el || '').getContext "2d"
@@ -106,16 +119,7 @@ class VotoLegal.Components.DoadoresChart
       myBarChart = new Chart ctx, {
         type: 'bar'
         data: chartData
-        options: {
-          scales: 
-            xAxes: [{gridLines: {display:false}}]
-            yAxes: [{display:false, gridLines: {display:false}}]
-          title:
-            display: false
-          responsive: true
-          legend:
-            display: false
-        }
+        options: chartOptions
       }
     catch e
       console.error e
