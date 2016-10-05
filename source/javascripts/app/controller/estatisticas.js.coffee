@@ -49,7 +49,7 @@ class VotoLegal.Estatisticas
       model = data[$(item).data('model')]
       formatter = $(item).data('formatter') || ''
       switch formatter
-        when 'currency' then model = new BrazilianCurrency(model / 100).format {simbol: true}
+        when 'currency' then model = new BrazilianCurrency(model).format {simbol: true}
         else model
 
       item.innerHTML = model || 0 if item && model
