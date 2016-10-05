@@ -6815,7 +6815,6 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
         labels: ["Agosto", "Setembro", "Outubro"],
         datasets: [
           {
-            label: this.options.label || 'No',
             backgroundColor: this.options.color || "#fece6a",
             data: this.options.data || []
           }

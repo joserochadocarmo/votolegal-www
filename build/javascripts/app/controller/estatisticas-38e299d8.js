@@ -123,7 +123,6 @@
         labels: ["Agosto", "Setembro", "Outubro"],
         datasets: [
           {
-            label: this.options.label || 'No',
             backgroundColor: this.options.color || "#fece6a",
             data: this.options.data || []
           }
