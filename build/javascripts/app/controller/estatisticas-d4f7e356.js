@@ -156,9 +156,7 @@
         }
       };
       if (this.options.label === 'R$') {
-        chartOptions.tooltips.custom = function(t) {
-          return "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>";
-        };
+        chartOptions.tooltipTemplate = "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>";
       }
       try {
         ctx = document.getElementById(this.options.el || '').getContext("2d");
