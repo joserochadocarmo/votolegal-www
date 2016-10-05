@@ -6821,6 +6821,9 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
           }
         ]
       };
+      if (this.options.label === 'R$') {
+        chartData.tooltipTemplate = "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>";
+      }
       try {
         ctx = document.getElementById(this.options.el || '').getContext("2d");
         return myBarChart = new Chart(ctx, {
