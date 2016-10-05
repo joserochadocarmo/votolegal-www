@@ -6752,7 +6752,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
         formatter = $(item).data('formatter') || '';
         switch (formatter) {
           case 'currency':
-            model = new BrazilianCurrency(model / 100).format({
+            model = new BrazilianCurrency(model).format({
               simbol: true
             });
             break;
