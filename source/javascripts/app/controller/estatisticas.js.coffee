@@ -92,23 +92,22 @@ class VotoLegal.Components.DoadoresChart
     chartData = {
       labels: ["Agosto", "Setembro", "Outubro"]
       datasets: [{
-        #label: @options.label || 'No'
-        fillColor: @options.color || "#fece6a"
-        strokeColor: @options.color || "#fece6a"
+        label: @options.label || 'No'
+        backgroundColor: @options.color || "#fece6a"
         data: @options.data || []
       }]
     }
 
     # chart options
-    chartOptions = {}
-    #  scales:
-    #    xAxes: [{gridLines: {display:false}}]
-    #    yAxes: [{display:false, gridLines: {display:false}}]
-    #  title:
-    #    display: false
-    #  responsive: true
-    #  legend:
-    #    display: false
+    chartOptions =
+      scales:
+        xAxes: [{gridLines: {display:false}}]
+        yAxes: [{display:false, gridLines: {display:false}}]
+      title:
+        display: false
+      responsive: true
+      legend:
+        display: false
 
     chartOptions.showTooltips = false
     chartOptions.onAnimationComplete = ->
