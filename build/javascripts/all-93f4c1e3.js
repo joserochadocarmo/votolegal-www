@@ -6847,9 +6847,25 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
           display: false
         }
       };
-      if (this.options.label === 'R$') {
-        chartOptions.tooltipTemplate = "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>";
-      }
+      chartOptions.showTooltips = false;
+      chartOptions.onAnimationComplete = function() {
+        var ctx;
+        ctx = this.chart.ctx;
+        ctx.font = this.scale.font;
+        ctx.fillStyle = this.scale.textColor;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
+        return this.datasets.forEach(function(dataset) {
+          return dataset.bars.forEach(function(bar) {
+            var val;
+            val = bar.value;
+            if (this.options.label === 'R$') {
+              val = new BrazilianCurrency(bar.value * 100).format();
+            }
+            return ctx.fillText(val, bar.x, bar.y - 5);
+          });
+        });
+      };
       try {
         ctx = document.getElementById(this.options.el || '').getContext("2d");
         return myBarChart = new Chart(ctx, {
