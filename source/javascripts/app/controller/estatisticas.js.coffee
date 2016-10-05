@@ -93,7 +93,8 @@ class VotoLegal.Components.DoadoresChart
       labels: ["Agosto", "Setembro", "Outubro"]
       datasets: [{
         #label: @options.label || 'No'
-        backgroundColor: @options.color || "#fece6a"
+        fillColor: @options.color || "#fece6a"
+        strokeColor: @options.color || "#fece6a"
         data: @options.data || []
       }]
     }
