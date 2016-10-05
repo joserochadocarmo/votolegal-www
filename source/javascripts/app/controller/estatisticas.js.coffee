@@ -119,7 +119,8 @@ class VotoLegal.Components.DoadoresChart
 
         this.datasets.forEach (dataset) ->
           dataset.bars.forEach (bar) ->
-            val = @options.label is 'R$' ? new BrazilianCurrency(bar.value).format() : bar.value
+            val = bar.value
+            val = new BrazilianCurrency(bar.value*100).format() if @options.label is 'R$'
             ctx.fillText val, bar.x, bar.y - 5
 
     try
