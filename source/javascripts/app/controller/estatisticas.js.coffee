@@ -97,6 +97,9 @@ class VotoLegal.Components.DoadoresChart
       }]
     }
 
+    if @options.label is 'R$'
+      chartData.tooltipTemplate = "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>"
+
     try
       ctx = document.getElementById(@options.el || '').getContext "2d"
     
