@@ -109,8 +109,18 @@ class VotoLegal.Components.DoadoresChart
       legend:
         display: false
 
-    if @options.label is 'R$'
-      chartOptions.tooltipTemplate = "<%if (label){%><%=label %>: <%}%><%= (new BrazilianCurrency(value*100).format()) + ' %' %>"
+    chartOptions.showTooltips = false
+    chartOptions.onAnimationComplete = ->
+        ctx = this.chart.ctx
+        ctx.font = this.scale.font
+        ctx.fillStyle = this.scale.textColor
+        ctx.textAlign = "center"
+        ctx.textBaseline = "bottom"
+
+        this.datasets.forEach (dataset) ->
+          dataset.bars.forEach (bar) ->
+            val = @options.label is 'R$' then new BrazilianCurrency(bar.value).format() else bar.value
+            ctx.fillText val, bar.x, bar.y - 5
 
     try
       ctx = document.getElementById(@options.el || '').getContext "2d"
