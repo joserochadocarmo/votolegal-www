@@ -6815,13 +6815,38 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
         labels: ["Agosto", "Setembro", "Outubro"],
         datasets: [
           {
-            fillColor: this.options.color || "#fece6a",
-            strokeColor: this.options.color || "#fece6a",
+            label: this.options.label || 'No',
+            backgroundColor: this.options.color || "#fece6a",
             data: this.options.data || []
           }
         ]
       };
-      chartOptions = {};
+      chartOptions = {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          yAxes: [
+            {
+              display: false,
+              gridLines: {
+                display: false
+              }
+            }
+          ]
+        },
+        title: {
+          display: false
+        },
+        responsive: true,
+        legend: {
+          display: false
+        }
+      };
       chartOptions.showTooltips = false;
       chartOptions.onAnimationComplete = function() {
         var ctx;
