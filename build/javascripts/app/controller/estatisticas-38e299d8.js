@@ -128,7 +128,32 @@
           }
         ]
       };
-      chartOptions = {};
+      chartOptions = {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          yAxes: [
+            {
+              display: false,
+              gridLines: {
+                display: false
+              }
+            }
+          ]
+        },
+        title: {
+          display: false
+        },
+        responsive: true,
+        legend: {
+          display: false
+        }
+      };
       chartOptions.showTooltips = false;
       chartOptions.onAnimationComplete = function() {
         var ctx;
