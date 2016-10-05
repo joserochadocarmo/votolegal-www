@@ -92,7 +92,7 @@ class VotoLegal.Components.DoadoresChart
     chartData = {
       labels: ["Agosto", "Setembro", "Outubro"]
       datasets: [{
-        label: @options.label || 'No'
+        #label: @options.label || 'No'
         backgroundColor: @options.color || "#fece6a"
         data: @options.data || []
       }]
