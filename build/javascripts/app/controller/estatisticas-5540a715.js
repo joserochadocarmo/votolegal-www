@@ -14,7 +14,7 @@
     };
 
     Estatisticas.prototype.load = function(options) {
-      var $loading, e, error;
+      var $loading, e;
       if (options == null) {
         options = {};
       }
@@ -118,7 +118,7 @@
     }
 
     DoadoresChart.prototype.process = function() {
-      var chartData, chartOptions, ctx, e, error, myBarChart;
+      var chartData, chartOptions, ctx, e, myBarChart;
       chartData = {
         labels: ["Agosto", "Setembro", "Outubro"],
         datasets: [

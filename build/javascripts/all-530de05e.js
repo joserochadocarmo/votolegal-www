@@ -6706,7 +6706,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
     };
 
     Estatisticas.prototype.load = function(options) {
-      var $loading, e, error;
+      var $loading, e;
       if (options == null) {
         options = {};
       }
@@ -6810,7 +6810,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
     }
 
     DoadoresChart.prototype.process = function() {
-      var chartData, chartOptions, ctx, e, error, myBarChart;
+      var chartData, chartOptions, ctx, e, myBarChart;
       chartData = {
         labels: ["Agosto", "Setembro", "Outubro"],
         datasets: [
