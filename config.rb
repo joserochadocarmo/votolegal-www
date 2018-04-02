@@ -27,8 +27,9 @@ page '/error/config-error/index.html', layout: false
 # Reload the browser automatically whenever files change
 configure :development do
   # api host address
-  config[:api_host] = "//45.55.50.43/api"
+#   config[:api_host] = "//45.55.50.43/api"
   #config[:api_host] = "//www.votolegal.org.br/api"
+  config[:api_host] = "http://192.168.1.171:8080/api"
 
   # webapp host address
   config[:host] = "//www.votolegal.org.br"
@@ -36,7 +37,7 @@ configure :development do
 
   config[:watcher_force_polling] = true
 
-  activate :livereload do |l| 
+  activate :livereload do |l|
     l.apply_css_live  = true
     l.apply_js_live   = true
   end
