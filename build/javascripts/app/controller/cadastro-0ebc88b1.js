@@ -27,8 +27,8 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
       var progress = localStorage.progress;
 
       var p = document.querySelector("div[role=progressbar]");
-      p.innerHTML = progress + "%"; 
-      p.style.width = progress + "%"; 
+      p.innerHTML = progress + "%";
+      p.style.width = progress + "%";
     }
   }, 500);
 }
@@ -36,10 +36,10 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
 /**
  * Cadastro controller
  * Register a new candidate
- */ 
+ */
 app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', '$route', '$interval', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, $location, $route, $interval, auth_service, serialize, SweetAlert, trouble){
   $scope.candidate   = {};
-  $scope.issue_list  = []; 
+  $scope.issue_list  = [];
   $scope.projects    = [{ id: 0, title: '', scope: '', changed: true}];
   $scope.bank_list   = [];
   $scope.payment_gateway_list = [];
@@ -134,7 +134,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     try {
       $http({
         method: 'PUT',
-        url: '/api/candidate/'+ user.id +"?api_key=" + user.api_key,
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +"?api_key=" + user.api_key,
         data: params,
         headers: { 'Content-Type': undefined },
         transformRequest: function (data) {
@@ -162,7 +162,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         var res = response;
 
         // send generic error
-        trouble.shoot({ 
+        trouble.shoot({
           route: document.location.href, error: JSON.stringify(res)
         });
 
@@ -208,8 +208,12 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     return false;
   };
 
+  console.log('teste')
+
+
   // save campaign data
   $scope.save_campaign = function(index){
+
     $scope.error_list = [];
     var params = $scope.campaign_params();
     console.log(params);
@@ -221,7 +225,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     try {
       $http({
         method: 'PUT',
-        url: '/api/candidate/'+ user.id +"?api_key=" + user.api_key,
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +"?api_key=" + user.api_key,
         data: params,
         headers: {'Content-Type': undefined },
         transformRequest: function (data) {
@@ -240,6 +244,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         $scope.submit_disabled = false;
         $scope.check_percent();
       },function(response){
+		  console.log(response, 'response')
         var res = response.data.form_error;
 
         // spreadsheet invalid
@@ -291,10 +296,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     // getting user data
     var user = auth_service.current_user();
     params.api_key = user.api_key;
-    
+
     $http({
       method: (p.id && p.id > 0)? 'PUT' : 'POST',
-      url: '/api/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
       data: serialize.from_object(params),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }).then(function (response) {
@@ -321,7 +326,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
    */
   $scope.remove_project = function(index){
     var item = $scope.projects[index];
-    
+
     SweetAlert.swal({
       title: "Tem certeza?",
       text: "Você tem certeza que deseja remover este projeto?",
@@ -336,8 +341,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         if(item.hasOwnProperty('id') && item.id > 0){
           var user = auth_service.current_user();
           $http.delete(
-            '/api/candidate/' + user.id + '/projects/' + item.id + '?api_key='+ user.api_key 
-          ).then(function(response){ 
+            'https://api-to.votolegal.com.br/api/candidate/' + user.id + '/projects/' + item.id + '?api_key='+ user.api_key
+          ).then(function(response){
             $scope.projects.splice(index, 1);
             swal('O projeto foi removido com sucesso!');
             $scope.check_percent();
@@ -431,11 +436,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    $http.get('https://api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
-      function(response){ 
+      function(response){
         $scope.candidate = response.data.candidate;
-        
+
         (function(){
           var boleto = document.querySelector('#show-boleto');
           if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
@@ -456,19 +461,19 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var user = auth_service.current_user();
 
     $http.get(
-      '/api/candidate/' + user.id + '/projects', { api_key: user.api_key }
-    ).then( function(response){ 
+      'https://api-to.votolegal.com.br/api/candidate/' + user.id + '/projects', { api_key: user.api_key }
+    ).then( function(response){
       var list = response.data.projects.map(function(i){ i.changed = false; return i });
       if(list.length > 0) $scope.projects = list;
-      $scope.check_percent(); 
+      $scope.check_percent();
     }, function(response){ throw new Error('ERROR_GET_PROJECTS') });
   };
 
   $scope.get_issues_priority = function(){
-    $http.get('/api/issue_priority').
+    $http.get('https://api-to.votolegal.com.br/api/issue_priority').
     then(
-      function(response){ 
-        $scope.issue_list = response.data.issue_priority; 
+      function(response){
+        $scope.issue_list = response.data.issue_priority;
 
         for (var i in $scope.issue_list){
           if($scope.candidate.hasOwnProperty('candidate_issue_priorities')){
@@ -476,9 +481,9 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
               if($scope.issue_list[i].id == item.id) $scope.issue_list[i].selected = true;
             });
           }
-        } 
+        }
 
-        $scope.check_percent(); 
+        $scope.check_percent();
       },
       function(response){ throw new Error('ERROR_GET_ISSUE_PRIORITY') }
     );
@@ -487,7 +492,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_banks = function(){
     $http({
       method: 'GET',
-      url: '/api/bank',
+      url: 'https://api-to.votolegal.com.br/api/bank',
     }).
     then(function(response){
       $scope.bank_list = response.data.bank;
@@ -504,7 +509,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_gateways = function(){
     $http({
       method: 'GET',
-      url: '/api/payment_gateway',
+      url: 'https://api-to.votolegal.com.br/api/payment_gateway',
     }).then(function(response){
       $scope.payment_gateway_list = response.data.payment_gateway;
     }, function(response){
@@ -516,7 +521,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   };
 
 
-  
+
   /**
    * initializations
    */
@@ -526,7 +531,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_candidate();
   $scope.get_projects();
   $scope.get_banks();
-  $scope.check_percent(); 
+  $scope.check_percent();
 }]);
 
 
