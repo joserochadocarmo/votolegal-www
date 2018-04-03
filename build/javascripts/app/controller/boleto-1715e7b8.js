@@ -54,7 +54,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     var user = auth_service.current_user();
     $http({
       method: 'GET',
-      url: '/api/candidate/'+user.id+'/payment/session?api_key=' + user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+user.id+'/payment/session?api_key=' + user.api_key,
     }).
     then(function(response){
       $scope.payment.session = response.data.id || 0;
@@ -74,7 +74,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
   $scope.get_banks = function(){
     $http({
       method: 'GET',
-      url: '/api/bank',
+      url: 'https://api-to.votolegal.com.br/api/bank',
     }).
     then(function(response){
       $scope.bank_list = response.data.bank;
@@ -93,7 +93,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     var user = auth_service.current_user();
     $http({
       method: 'GET',
-      url: '/api/candidate/'+ user.id +'?api_key=' + user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'?api_key=' + user.api_key,
     }).
     then(
       function(response){
@@ -141,13 +141,13 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 
     $http({
       method: 'PUT',
-      url: '/api/candidate/'+ user.id +'?api_key='+ user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'?api_key='+ user.api_key,
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     }).then(function (response) {
       $http({
         method: 'POST',
-        url: '/api/candidate/'+user.id+'/payment?api_key='+user.api_key,
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+user.id+'/payment?api_key='+user.api_key,
         data: serialize.from_object({ senderHash: sender }),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).

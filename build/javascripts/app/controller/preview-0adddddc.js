@@ -17,7 +17,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    $http.get('https://api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){ 
         $scope.candidate = response.data.candidate;
