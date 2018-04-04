@@ -11,7 +11,7 @@
           </button>
           <h4>Parabéns! A sua meta foi atingida.</h4>
           <p>Você continuará recebendo doações pelo VotoLegal, porém a barra de progresso na sua pagina de candidato não será mais exibida.</p>
-          <p><small><strong><i class="fa fa-info-circle"></i> Atenção</strong> Altere sua meta para que a barra de progresso continue aparecendo na sua pagina de doação.</small></p> 
+          <p><small><strong><i class="fa fa-info-circle"></i> Atenção</strong> Altere sua meta para que a barra de progresso continue aparecendo na sua pagina de doação.</small></p>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
       <div class="form-group col-md-12">
         <label>Imagem para o perfil</label>*
         <div class="input-group image-preview">
-        <input type="text" class="form-control image-preview-filename picture_filename" value="{{candidate.picture}}" disabled="disabled"> 
+        <input type="text" class="form-control image-preview-filename picture_filename" value="{{candidate.picture}}" disabled="disabled">
           <span class="input-group-btn">
             <!-- image-preview-input -->
             <div class="btn btn-default image-preview-input">
@@ -33,7 +33,7 @@
               <input type="file" accept="image/png, image/jpeg, image/gif" name="picture" ng-model="candidate.picture" onchange="angular.element(this).scope().change_filename('picture')" /> <!-- rename it -->
             </div>
           </span>
-        </div><!-- /input-group image-preview [TO HERE]--> 
+        </div><!-- /input-group image-preview [TO HERE]-->
 
         <a class="btn-info" tabindex="-1" href="javascript:void(0);" uib-popover="Preferência para fotos com fundo branco." popover-placement="left" popover-trigger="click">
           <i class="flaticon-info"></i>
@@ -42,69 +42,69 @@
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="video_url">URL Candidato</label>*
-        <i class="fa fa-user"></i>    
-        <input class="form-control" type="text" value="https://{{candidate.username}}.votolegal.org.br/" disabled>
+        <i class="fa fa-user"></i>
+        <input class="form-control" type="text" value="https://{{candidate.username}}.votolegal.com.br/" disabled>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="video_url">CNPJ do Candidato</label>*
-        <i class="fa fa-user"></i>    
+        <i class="fa fa-user"></i>
         <input class="form-control" type="text" name="cnpj" ng-model="candidate.cnpj" mask="99.999.999/9999-99" mask-restrict="reject" required>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="video_url">Link do video (youtube ou vimeo)</label>*
-        <i class="fa fa-video-camera"></i>    
+        <i class="fa fa-video-camera"></i>
         <input class="form-control" type="text" name="video_url" ng-model="candidate.video_url" required>
         <small>O endereço do youtube ou do vimeo deve seguir o seguinte modelo: <code>https://www.youtube.com/watch?v=xZKg2w3iOMo</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="facebook_url">Link página Facebook</label>
-        <i class="fa fa-facebook"></i>    
+        <i class="fa fa-facebook"></i>
         <input class="form-control" type="text" name="facebook_url" ng-model="candidate.facebook_url">
         <small>O endereço da página do facebook deve seguir o seguinte modelo: <code>https://www.facebook.com/MCCEFichaLimpa</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="twitter_url">Link página Twitter</label>
-        <i class="fa fa-twitter"></i>    
+        <i class="fa fa-twitter"></i>
         <input class="form-control" type="text" name="twitter_url" ng-model="candidate.twitter_url">
         <small>O endereço da página do twitter deve seguir o seguinte modelo: <code>http://twitter.com/fichalimpa</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="instagram_url">Link página Instagram</label>
-        <i class="fa fa-instagram"></i>    
+        <i class="fa fa-instagram"></i>
         <input class="form-control" type="text" name="instagram_url" ng-model="candidate.instagram_url">
         <small>O endereço do instagram deve seguir o seguinte modelo: <code>https://www.instagram.com/seu_username</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="website_url">Link Website</label>
-        <i class="fa fa-link"></i>    
+        <i class="fa fa-link"></i>
         <input class="form-control" type="text" name="website_url" ng-model="candidate.website_url" required>
         <small>O endereço do seu website deve seguir o seguinte modelo: <code>http://www.seu-site.com.br</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="public_email">E-mail de contato para eleitores</label>
-        <i class="fa fa-envelope"></i>    
+        <i class="fa fa-envelope"></i>
         <input class="form-control" type="text" name="public_email" ng-model="candidate.public_email" required>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="summary">Breve apresentação pessoal e da campanha</label>*
-        <i class="fa fa-user"></i>    
+        <i class="fa fa-user"></i>
         <textarea class="form-control" cols="30" rows="6" maxlength="400" name="summary" ng-model="candidate.summary" required></textarea>
         <span class="help-block text-right">{{candidate.summary.length || 0}} de <strong>400</strong> caracteres</span>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="biography">Sobre você (biografia)</label>
-        <i class="fa fa-user"></i>    
+        <i class="fa fa-user"></i>
         <textarea class="form-control" cols="30" rows="6" maxlength="400" name="biography" ng-model="candidate.biography"></textarea>
         <span class="help-block text-right">{{candidate.biography.length || 0}} de <strong>400</strong> caracteres</span>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="responsible_name">Nome do responsável pelo cadastro</label>*
-        <i class="fa fa-user"></i>    
+        <i class="fa fa-user"></i>
         <input class="form-control" type="text" name="responsible_name" ng-model="candidate.responsible_name" required>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="responsible_email">E-mail do responsável pelo cadastro</label>
-        <i class="fa fa-envelope"></i>    
+        <i class="fa fa-envelope"></i>
         <input class="form-control" type="text" name="responsible_email" ng-model="candidate.responsible_email">
       </div>
 
@@ -122,23 +122,23 @@
 
       <div class="form-group icon-left icon-with-label col-md-8">
         <label for="bank_agency">Número da agência</label>
-        <i class="fa fa-money"></i>    
+        <i class="fa fa-money"></i>
         <input class="form-control" type="text" name="bank_agency" placeholder="0000" ng-model="candidate.bank_agency" mask="d" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
       </div>
       <div class="form-group icon-left icon-with-label col-md-4">
         <label for="bank_account_dv">Dígito</label>
-        <i class="fa"></i>    
+        <i class="fa"></i>
         <input class="form-control" type="text" name="bank_agency_dv" placeholder="0" ng-model="candidate.bank_agency_dv" mask="%" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
       </div>
 
       <div class="form-group icon-left icon-with-label col-md-8">
         <label for="bank_account_dv">Conta corrente</label>
-        <i class="fa fa-money"></i>    
+        <i class="fa fa-money"></i>
         <input class="form-control" type="text" name="bank_account_number" placeholder="0000" ng-model="candidate.bank_account_number" mask="d" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
       </div>
       <div class="form-group icon-left icon-with-label col-md-4">
         <label for="bank_account_dv">Dígito</label>
-        <i class="fa"></i>    
+        <i class="fa"></i>
         <input class="form-control" type="text" name="bank_account_dv" placeholder="0" ng-model="candidate.bank_account_dv" mask="%" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
       </div>
 

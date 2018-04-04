@@ -28,10 +28,10 @@ page '/error/config-error/index.html', layout: false
 configure :development do
   # api host address
   config[:api_host] = "//45.55.50.43/api"
-  #config[:api_host] = "//www.votolegal.org.br/api"
+  #config[:api_host] = "//www.votolegal.com.br/api"
 
   # webapp host address
-  config[:host] = "//www.votolegal.org.br"
+  config[:host] = "//www.votolegal.com.br"
 
 
   config[:watcher_force_polling] = true
@@ -67,7 +67,7 @@ configure :build do
   #config[:api_host] = "//45.55.50.43/api"
 
   # webapp host address
-  config[:host] = "//www.votolegal.org.br"
+  config[:host] = "//www.votolegal.com.br"
 
   # Append a hash to asset urls (make sure to use the url helpers)
   #activate :asset_hash

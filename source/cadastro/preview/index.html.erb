@@ -43,7 +43,7 @@ title:  Pré-visualizaçao do perfil
           border-color: #ddd;
       }
       .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a {
-          color: #777;   
+          color: #777;
       }
       .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
       .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
@@ -72,13 +72,13 @@ title:  Pré-visualizaçao do perfil
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">http://</span>
             <input type="text" class="form-control" placeholder="Username" value="{{candidate.username}}" disabled>
-            <span class="input-group-addon" id="basic-addon1">.votolegal.org.br</span>
+            <span class="input-group-addon" id="basic-addon1">.votolegal.com.br</span>
           </div>
-        </div>       
+        </div>
       </div>
       <div class="col-md-12">
         <div class="panel with-nav-tabs panel-default">
-          
+
           <!-- tabs (buttons) -->
           <div class="panel-heading">
             <ul class="nav nav-tabs">
@@ -86,7 +86,7 @@ title:  Pré-visualizaçao do perfil
               <li><a href="#tab2default" data-toggle="tab">Código</a></li>
             </ul>
           </div>
-          
+
           <!-- tabs (panels) -->
           <div class="panel-body">
             <div class="tab-content">
@@ -96,20 +96,20 @@ title:  Pré-visualizaçao do perfil
                 <p class="text-right"><a id="btn-fullscreen" href="javascript:void(0);" title="Tela cheia" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#fullscreen_modal"> <i class="fa fa-expand"></i> </a></p>
                 <iframe id="preview" ng-src="{{candidate.profile_url()}}" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%"></iframe>
               </div>
-                
+
               <!-- code -->
-              <div class="tab-pane fade" id="tab2default"> 
+              <div class="tab-pane fade" id="tab2default">
                 <h4>Para uma pagina completa:</h4>
                 <pre>
   &lt;body style="margin:0px;padding:0px;overflow:hidden"&gt;
-    &lt;iframe src="//{{candidate.username}}.votolegal.org.br/" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
+    &lt;iframe src="//{{candidate.username}}.votolegal.com.br/" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
   &lt;/body&gt; </pre>
                 <br>
                 <br>
                 <br>
                 <h4>Para colocar em uma pagina existente:</h4>
                 <pre>
-  &lt;iframe src="//{{candidate.username}}.votolegal.org.br/" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
+  &lt;iframe src="//{{candidate.username}}.votolegal.com.br/" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
                 </pre>
                 <small class="help-block">Onde <code>700px</code> é a altura que ficará a janela onde será exibido o seu perfil na sua pagina.</small>
               </div>
@@ -117,8 +117,8 @@ title:  Pré-visualizaçao do perfil
             </div>
           </div>
         </div>
-        
-       
+
+
       </div>
     </div>
 

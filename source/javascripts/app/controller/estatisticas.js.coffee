@@ -9,12 +9,12 @@ class VotoLegal.Estatisticas
   constructor: (@options = {}) ->
     @make()
     @load()
-      
+
   # make method
   make: () ->
     @elementClass = 'section#estatistica'
     @$element = $(@elementClass)
-    
+
 
   # load method
   load: (options = {}) ->
@@ -35,7 +35,7 @@ class VotoLegal.Estatisticas
     finally
       $loading.fadeOut('slow')
 
-      
+
   # private methods
   _makeCharts: (data) ->
     @_chartDonators(data.graph)
@@ -53,40 +53,40 @@ class VotoLegal.Estatisticas
         else model
 
       item.innerHTML = model || 0 if item && model
-    
+
 
 
 
   # chart for donators
   _chartDonators: (data) ->
     chartData = []
-    for item in data 
+    for item in data
       chartData.push item.count || 0
 
     new VotoLegal.Components.DoadoresChart {
       el: 'canvas-doadores', data: chartData, color: "#662e91", label: 'Doadores'
     }
-  
+
 
   # chart for amount
   _chartAmounts: (data) ->
     chartData = []
-    for item in data 
+    for item in data
       chartData.push parseFloat(item.amount/100).toFixed(2) || 0
 
     new VotoLegal.Components.DoadoresChart {
       el: 'canvas-valor', data: chartData, color: '#fece6a', label: 'R$'
     }
-  
+
 
 # @namespace VotoLegal
 @VotoLegal = @VotoLegal || {}
 @VotoLegal.Components = @VotoLegal.Components || {}
 
 class VotoLegal.Components.DoadoresChart
-  constructor: (@options = {}) -> 
+  constructor: (@options = {}) ->
     @process()
-  
+
   process: ->
     # chart data
     chartData = {
@@ -125,7 +125,7 @@ class VotoLegal.Components.DoadoresChart
 
     try
       ctx = document.getElementById(@options.el || '').getContext "2d"
-    
+
       myBarChart = new Chart ctx, {
         type: 'bar'
         data: chartData
@@ -139,7 +139,7 @@ class VotoLegal.Components.DoadoresChart
 # entry point
 $ ->
   domain = document.location.href
-  if domain.match /votolegal.org.br\/estatistica/i
+  if domain.match /votolegal.com.br\/estatistica/i
     $html       = $('body')
     controller  = $html.data 'controller'
     action      = $html.data 'action'

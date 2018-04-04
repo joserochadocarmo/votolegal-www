@@ -5339,7 +5339,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
     }
 
     SweetAlert.swal('Website não definido', 'Este candidato não configurou nenhum website para acesso.');
-    //document.location = '//'+ username +'.votolegal.org.br/candidato';
+    //document.location = '//'+ username +'.votolegal.com.br/candidato';
     return false;
   };
 
@@ -5356,15 +5356,15 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
   // load party data
   $scope.load_parties = function(){
     $http.get('https://api-to.votolegal.com.br/api/party')
-    .then(function(response){ 
+    .then(function(response){
       $scope.party_list = response.data.party;
       for(var i in $scope.party_list){
         if($scope.party_list[i].id == $scope.party.id) $scope.party = $scope.party_list[i];
         //console.log($scope.party_list[i]);
         //console.log($scope.party.id);
       }
-    },function(response){ 
-      $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST"); 
+    },function(response){
+      $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST");
     });
   };
 
@@ -5386,7 +5386,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
     $http({
       method: 'post',
-      url: 'https://api-to.votolegal.com.br/api/search?results=9999', 
+      url: 'https://api-to.votolegal.com.br/api/search?results=9999',
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -5423,7 +5423,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 }]);
 
   var domain = document.location.href;
-if((!domain.match(/^https:\/\/www.votolegal.org.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/)) || domain.match(/votolegal.org.br\/candidato/)) { 
+if((!domain.match(/^https:\/\/www.votolegal.com.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.com.br/)) || domain.match(/votolegal.com.br\/candidato/)) {
   app.votolegal.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/', {
@@ -5564,7 +5564,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
         (function(){
           var title = document.querySelector('title');
-          if(title.innerText === 'VotoLegal - Candidato(a)') 
+          if(title.innerText === 'VotoLegal - Candidato(a)')
             title.innerText += (" " + $scope.candidate.popular_name);
         })();
 
@@ -5620,7 +5620,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           var res = response.data, $f = $scope.doar;
           $f.billing_address_city   = res.cidade;
           $f.billing_address_state  = res.estado;
-          
+
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=billing_address_district]');
           if(res.bairro) { $f.billing_address_district = res.bairro; district.disabled = true }
@@ -5634,8 +5634,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         // error callback
         function(response){
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
-          ['billing_address_state', 'billing_address_city', 'billing_address_district', 'billing_address_street'].map(function(i){ 
-            try{ 
+          ['billing_address_state', 'billing_address_city', 'billing_address_district', 'billing_address_street'].map(function(i){
+            try{
               $scope.doar[i] = "";
               document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
             } catch(e) {};
@@ -5657,7 +5657,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           var res = response.data, $f = $scope.doar;
           $f.address_city   = res.cidade;
           $f.address_state  = res.estado;
-          
+
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=address_district]');
           if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
@@ -5671,8 +5671,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         // error callback
         function(response){
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
-          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){ 
-            try{ 
+          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){
+            try{
               $scope.doar[i] = "";
               document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
             } catch(e) {};
@@ -5695,7 +5695,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     then(
       function(response){
         var res = response.data.projects;
-        
+
         (function(){
           var total = 0; res.map(function(p){ total += p.votes });
           res = res.map(function(i){ i.total = total; return i });
@@ -5723,16 +5723,16 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     var error   = document.querySelector('#expenditures-error');
     if(error) error.classList.add('hide');
     if(table) {
-      table.classList.add('hide'); 
+      table.classList.add('hide');
       if(loading) loading.classList.remove('hide');
     }
-    
+
     try {
       $http({method: 'GET', url: 'https://api-to.votolegal.com.br/api/candidate/'+ candidate.id +'/expenditure?results=99999'}).
       then(
         function(response){
           var res = response.data;
-          
+
           (function(){
             var list = res.expenditure, doc_format = new DocumentFormat();
 
@@ -5784,7 +5784,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       table.classList.add('hide');
       if(loading) loading.classList.remove('hide');
     }
-    
+
     try {
       $http({method: 'GET', url: 'https://api-to.votolegal.com.br/api/candidate/'+ candidate.id +'/donate?results=9999'}).
       then(
@@ -5926,7 +5926,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           }
         });
       }
-    }     
+    }
     return false;
   };
 
@@ -5989,7 +5989,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         var date = params.birthdate;
         if(date && date.length > 0){
           var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-          if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
+          if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-');
         }
       })();
       params.credit_card_number =   $scope.payment.card_number;
@@ -6088,12 +6088,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
               var date = params.birthdate;
               if(date && date.length > 0){
                 var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-                if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
+                if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-');
               }
               else {
                 params.birthdate = '';
               }
-              
+
               // format amount
               params.amount = parseInt((params.amount * 100));
 
@@ -6218,18 +6218,18 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
     // field list
     var list = 'address_zipcode address_state address_city address_street address_district address_house_number address_complement'.split(/\s/);
-    
+
     if(billing_address.classList.contains('hide')){
       for(var i in list) $scope.doar["billing_" + list[i]] = "";
       billing_address.classList.remove('hide');
-    } 
+    }
     else {
       for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
       billing_address.classList.add('hide');
     }
     return false;
   };
-  
+
 
   $scope.donation_params = function(){
     //$scope.doar.credit_card_name = $scope.doar.name;
@@ -6661,16 +6661,16 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
 
     $http.get('https://api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
-      function(response){ 
+      function(response){
         $scope.candidate = response.data.candidate;
-        
+
         (function(){
           var boleto = document.querySelector('#show-boleto');
           if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
         })();
 
         $scope.candidate.profile_url = function(){
-          return $sce.trustAsResourceUrl('//'+$scope.candidate.username+'.votolegal.org.br/');
+          return $sce.trustAsResourceUrl('//'+$scope.candidate.username+'.votolegal.com.br/');
         };
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }
@@ -6886,7 +6886,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
   $(function() {
     var $html, action, controller, domain, test;
     domain = document.location.href;
-    if (domain.match(/votolegal.org.br\/estatistica/i)) {
+    if (domain.match(/votolegal.com.br\/estatistica/i)) {
       $html = $('body');
       controller = $html.data('controller');
       action = $html.data('action');

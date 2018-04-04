@@ -1,2 +1,2 @@
 # votolegal-www
-votolegal.org.br
+votolegal.com.br
