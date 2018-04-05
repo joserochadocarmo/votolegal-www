@@ -62,9 +62,9 @@ end
 # Build-specific configuration
 configure :build do
   # api host address
-  config[:api_host] = "https://api-to.votolegal.com.br/api"
+  config[:api_host] = "//api-to.votolegal.com.br/api"
   #puts ("*" * 12) + "- MUDAR HOST DA API PARA PRODUÇÃO"
-  #config[:api_host] = "//45.55.50.43/api"
+#   config[:api_host] = "//dapi.votolegal.com.br/api"
 
   # webapp host address
   config[:host] = "//www.participe.votolegal.com.br"

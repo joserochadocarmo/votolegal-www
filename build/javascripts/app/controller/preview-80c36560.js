@@ -5,6 +5,11 @@
 app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
   var load   = document.querySelector('#loading');
 
+  console.log(window.location, 'location')
+  var locationHost = window.location.host;
+
+
+
   // defaults
   $scope.candidate  = {};
 
@@ -18,7 +23,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('https://api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    $http.get('//api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){
         $scope.candidate = response.data.candidate;
@@ -29,7 +34,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
         })();
 
         $scope.candidate.profile_url = function(){
-          return $sce.trustAsResourceUrl('//participe.votolegal.com.br/candidato?id='+$scope.candidate.username);
+          return $sce.trustAsResourceUrl("//" + locationHost + "/candidato?id=" + $scope.candidate.username);
         };
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }

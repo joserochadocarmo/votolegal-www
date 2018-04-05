@@ -68,7 +68,7 @@ app.votolegal.controller('VoteController', ["$scope", "$http", "$sce", "serializ
       console.log(votes);
       $http({
         method: 'POST',
-        url: 'https://api-to.votolegal.com.br/api/',
+        url: '//api-to.votolegal.com.br/api/',
         data: serialize.from_object(params),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       }).then(function(response){

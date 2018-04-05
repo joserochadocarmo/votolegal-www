@@ -27,7 +27,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
     try {
       $http({
         method: 'GET', 
-        url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate?results=9999&api_key=' + user.api_key 
+        url: '//api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate?results=9999&api_key=' + user.api_key 
       }).
       then(
         function(response){
@@ -80,8 +80,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
   // setting download of donations table
   $scope.download.csv_file = function(){
     var user = $scope.user;
-    console.log('https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key);
-    return 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key;
+    console.log('//api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key);
+    return '//api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key;
   };
 
 

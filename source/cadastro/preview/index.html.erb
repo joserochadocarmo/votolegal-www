@@ -5,6 +5,9 @@ title:  Pré-visualizaçao do perfil
 <section id="profile-preview" ng-controller="PreviewController">
   <div class="container">
     <style>
+		#preview body{
+			display: none;
+		}
       .panel.with-nav-tabs .panel-heading{
           padding: 5px 5px 0 5px;
       }
@@ -79,8 +82,8 @@ title:  Pré-visualizaçao do perfil
 		  </pre> -->
 		  <div class="input-group">
 			  <label for="theme">Escolha a cor do tema</label>
-			  <input name="theme" ng-model="theme" type="radio" [ng-value]="rosa" value="" >Default
-			  <input name="theme"type="radio" value="rosa" [ng-value]="" ng-model="theme">Rosa
+			  <input name="theme"  type="radio" value="" [ng-value]="" ng-model="theme">Default
+			  <input name="theme" type="radio" value="rosa" [ng-value]="rosa"  ng-model="theme">Rosa
 			  <input name="theme" type="radio" value="azul" [ng-value]="azul" ng-model="theme">Azul
 			  <input name="theme" type="radio" value="verde" [ng-value]="verde" ng-model="theme">Verde
 			  <input name="theme" type="radio" value="vermelho" [ng-value]="vermelho" ng-model="theme">Vermelho
