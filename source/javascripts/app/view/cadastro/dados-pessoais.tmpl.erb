@@ -2,9 +2,8 @@
   <h4>Informações pessoais</h4>
   <p>Os campos marcados com o asterisco (*) são de preenchimento obrigatório.</p>
   <br class="divider">
-
   <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit' => "save_candidate(candidateForm.$valid)", novalidate: '' do %>
-    <div class="row" ng-if="((candidate.party_fund+candidate.total_donated)/100) >= candidate.raising_goal">
+    <div class="row" ng-if="((candidate.party_fund+candidate.total_donated)/100) >= candidate.raising_goal && candidate.raising_goal != null" >
       <div class="col-md-12">
         <div class="alert alert-warning">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -19,7 +18,7 @@
     <div class="row">
       <div class="form-group col-md-12">
         <div class="text-center" ng-show="candidate.picture">
-          <img class="img-thumbnail img-circle" src="/images/cadastro/no-photo.jpg" ng-src="{{candidate.picture}}" alt="" width="100px" height="100px">
+          <img class="img-thumbnail img-circle picture-candidate" src="/images/cadastro/no-photo.jpg" ng-src="{{candidate.picture}}" alt="" width="100px" height="100px">
         </div>
       </div>
       <div class="form-group col-md-12">
@@ -44,7 +43,7 @@
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="video_url">URL Candidato</label>*
         <i class="fa fa-user"></i>
-        <input class="form-control" type="text" value="https://{{candidate.username}}.votolegal.com.br/" disabled>
+        <input class="form-control" type="text" value="https://{{candidate.username}}.votolegal.org.br/" disabled>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="video_url">CNPJ do Candidato</label>*

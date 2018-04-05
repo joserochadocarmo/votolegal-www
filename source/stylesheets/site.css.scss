@@ -350,6 +350,12 @@ section#howto-works {
 }
 
 /* media styles */
+.picture-candidate.img-thumbnail {
+	height: 150px;
+	width: 150px;
+
+}
+
 section#media {
   padding: 40px 0px;
   background: linear-gradient( #e5e5e5, #ffffff);
@@ -365,7 +371,8 @@ section#media {
     background-color: transparent !important;
 
     .img-thumbnail {
-      border: none;
+	  border: none;
+
     }
   }
   .carousel-control.left,
@@ -411,7 +418,19 @@ footer#footer {
     margin: 40px 0px;
   }
 }
+footer .logo {
+	margin-top: 36px;
+	text-align: right;
+	    @media (max-width: 768px) {
+	    	text-align: center;
+	    }
+
+
+}
+
+
 .social-buttons {
+	text-align: left;
   h4 {
     color: #fff;
     font-size: 14px;
@@ -446,6 +465,10 @@ footer#footer {
       }
     }
   }
+    @media (max-width: 768px) {
+    	text-align: center;
+    }
+
 }
 
 section#pre-register {
@@ -1666,3 +1689,4 @@ a {
     }
   }
 }
+
