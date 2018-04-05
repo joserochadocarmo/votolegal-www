@@ -1,5 +1,7 @@
 var domain = document.location.href;
-if((!domain.match(/^https:\/\/www.votolegal.com.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.com.br/)) || domain.match(/votolegal.com.br\/candidato/)) {
+
+if((!domain.match(/^https:\/\/www.participe.votolegal.com.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).www.participe.votolegal.com.br/)) || domain.match(/www.participe.votolegal.com.br\/candidato/)) {
+alert('entrou')
   app.votolegal.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/', {

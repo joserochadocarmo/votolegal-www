@@ -28,7 +28,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
         })();
 
         $scope.candidate.profile_url = function(){
-          return $sce.trustAsResourceUrl('//participe.votolegal.com.br/candidado?id='+$scope.candidate.username);
+          return $sce.trustAsResourceUrl('//participe.votolegal.com.br/candidato?id='+$scope.candidate.username);
         };
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }
