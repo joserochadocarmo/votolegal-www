@@ -71,7 +71,7 @@
 
       <div class="row">
         <div class="candidate-tabs col-md-12">
-        
+
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
             <li class="active"><a href="#tab-projetos" role="tab" data-toggle="tab">Projetos prioritários</a></li>
@@ -144,13 +144,13 @@
                     </div>
                   </div>
                   <div class="col-md-12">
-                  
+
                     <div class="company-panel" ng-repeat="i in expenditures.expenditure">
                       <p><strong class="text-success">{{ i.name }}</strong> <span class="pull-right">{{ (i.amount/100) | currency }}</span></p>
                       <div class="progress">
                         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ ((i.amount * 100)/expenditures.total_amount) || '0' }}%;"></div>
                       </div>
-                      <p><small>{{ ((i.amount * 100) / expenditures.total_amount).toFixed(1) }}%</small> <small class="pull-right">{{ i.cpf_cnpj }}</small></p>  
+                      <p><small>{{ ((i.amount * 100) / expenditures.total_amount).toFixed(1) }}%</small> <small class="pull-right">{{ i.cpf_cnpj }}</small></p>
                     </div>
 
                   </div>
@@ -159,7 +159,7 @@
 
 
               <div id="loading-expenditures" class="text-center">
-                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i> 
+                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
                 <p class="text-success">Carregando</p>
               </div>
             </div>
@@ -198,7 +198,7 @@
                   </div>
 
                   <div id="loading-donations" class="text-center">
-                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i> 
+                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
                     <p class="text-success">Carregando</p>
                   </div>
 
@@ -272,10 +272,14 @@
           </div>
 
           <div class="clearfix"></div>
-        
+
         </div>
       </div>
 
-    </div><!--/container-->
+	</div><!--/container-->
 
-    
+
+
+<script>
+	alert()
+</script>
