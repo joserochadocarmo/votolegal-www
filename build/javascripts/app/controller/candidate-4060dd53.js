@@ -133,7 +133,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.candidate_by_name = function(name){
     $http({
       method: 'GET',
-      url: '//api-to.votolegal.com.br/api/candidate/'+ name,
+      url: '//dapi.votolegal.com.br/api/candidate/'+ name,
     }).
     then(
       function(response){
@@ -268,7 +268,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.candidate_projects = function(candidate){
     $http({
       method: 'GET',
-      url: '//api-to.votolegal.com.br/api/candidate/'+ candidate.id +'/projects',
+      url: '//dapi.votolegal.com.br/api/candidate/'+ candidate.id +'/projects',
     }).
     then(
       function(response){
@@ -306,7 +306,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     }
 
     try {
-      $http({method: 'GET', url: '//api-to.votolegal.com.br/api/candidate/'+ candidate.id +'/expenditure?results=99999'}).
+      $http({method: 'GET', url: '//dapi.votolegal.com.br/api/candidate/'+ candidate.id +'/expenditure?results=99999'}).
       then(
         function(response){
           var res = response.data;
@@ -364,7 +364,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     }
 
     try {
-      $http({method: 'GET', url: '//api-to.votolegal.com.br/api/candidate/'+ candidate.id +'/donate?results=9999'}).
+      $http({method: 'GET', url: '//dapi.votolegal.com.br/api/candidate/'+ candidate.id +'/donate?results=9999'}).
       then(
         function(response){
           var res = response.data.donations;
@@ -448,7 +448,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.get_session = function(){
     var id = $scope.candidate.id || 0;
     $http({
-      url: '//api-to.votolegal.com.br/api/candidate/'+id+'/donate/session'
+      url: '//dapi.votolegal.com.br/api/candidate/'+id+'/donate/session'
     }).
     then(function(response){
       $scope.payment.session = response.data.id;
@@ -581,7 +581,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
       $http({
         method: 'POST',
-        url : '//api-to.votolegal.com.br/api/candidate/'+ $scope.candidate.id +'/donate',
+        url : '//dapi.votolegal.com.br/api/candidate/'+ $scope.candidate.id +'/donate',
         data: serialize.from_object(params),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       }).then(function(response){
@@ -679,7 +679,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
               // send to backend
               $http({
                 method: 'POST',
-                url : '//api-to.votolegal.com.br/api/candidate/'+ $scope.candidate.id +'/donate',
+                url : '//dapi.votolegal.com.br/api/candidate/'+ $scope.candidate.id +'/donate',
                 data: serialize.from_object(params),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
               }).

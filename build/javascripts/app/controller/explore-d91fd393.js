@@ -36,7 +36,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
   // load party data
   $scope.load_parties = function(){
-    $http.get('//api-to.votolegal.com.br/api/party')
+    $http.get('//dapi.votolegal.com.br/api/party')
     .then(function(response){
       $scope.party_list = response.data.party;
       for(var i in $scope.party_list){
@@ -67,7 +67,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
     $http({
       method: 'post',
-      url: '//api-to.votolegal.com.br/api/search?results=9999',
+      url: '//dapi.votolegal.com.br/api/search?results=9999',
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })

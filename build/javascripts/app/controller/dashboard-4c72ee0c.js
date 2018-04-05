@@ -11,7 +11,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
   $scope.approval_list = function(){
     var user = auth_service.current_user();
 
-    $http.get('//api-to.votolegal.com.br/api/admin/candidate/list?results=9999&api_key=' + user.api_key)
+    $http.get('//dapi.votolegal.com.br/api/admin/candidate/list?results=9999&api_key=' + user.api_key)
     .then(
       function(response){
         var res = response.data;
@@ -44,7 +44,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
       if (isConfirm) {
         $http({
           method: 'PUT',
-          url: '//api-to.votolegal.com.br/api/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
+          url: '//dapi.votolegal.com.br/api/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
         }).
         then(
           // success callback
@@ -84,7 +84,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
       if (isConfirm) {
         $http({
           method: 'PUT',
-          url: '//api-to.votolegal.com.br/api/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
+          url: '//dapi.votolegal.com.br/api/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
         }).
         then(
           // success callback

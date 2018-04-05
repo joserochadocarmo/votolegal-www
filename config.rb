@@ -31,7 +31,7 @@ configure :development do
   #config[:api_host] = "//www.votolegal.com.br/api"
 
   # webapp host address
-  config[:host] = "//www.participe.votolegal.com.br"
+  config[:host] = "//www.dev-participe.votolegal.com.br"
 
 
   config[:watcher_force_polling] = true
@@ -62,12 +62,12 @@ end
 # Build-specific configuration
 configure :build do
   # api host address
-  config[:api_host] = "//api-to.votolegal.com.br/api"
+  config[:api_host] = "//dapi.votolegal.com.br/api"
   #puts ("*" * 12) + "- MUDAR HOST DA API PARA PRODUÇÃO"
 #   config[:api_host] = "//dapi.votolegal.com.br/api"
 
   # webapp host address
-  config[:host] = "//www.participe.votolegal.com.br"
+  config[:host] = "//www.dev-participe.votolegal.com.br"
 
   # Append a hash to asset urls (make sure to use the url helpers)
   #activate :asset_hash

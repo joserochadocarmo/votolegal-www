@@ -15,7 +15,7 @@ app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serializ
 
     $http({
       method: 'GET',
-      url: '//api-to.votolegal.com.br/api/candidate/'+ id +'?api_key=' + user.api_key,
+      url: '//dapi.votolegal.com.br/api/candidate/'+ id +'?api_key=' + user.api_key,
     }).
     then(
       function(response){
