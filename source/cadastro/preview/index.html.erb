@@ -71,8 +71,8 @@ title:  Pré-visualizaçao do perfil
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">http://</span>
-            <input type="text" class="form-control" placeholder="Username" value="{{candidate.username}}" disabled>
-            <span class="input-group-addon" id="basic-addon1">.votolegal.com.br</span>
+            <input type="text" class="form-control" placeholder="Username" value="votolegal.com.br/em/" disabled>
+            <span class="input-group-addon" id="basic-addon1">{{candidate.username}}</span>
           </div>
         </div>
       </div>
@@ -102,14 +102,14 @@ title:  Pré-visualizaçao do perfil
                 <h4>Para uma pagina completa:</h4>
                 <pre>
   &lt;body style="margin:0px;padding:0px;overflow:hidden"&gt;
-    &lt;iframe src="//{{candidate.username}}.votolegal.com.br/" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
+    &lt;iframe src="//participe.votolegal.com.br/candidato?id={{candidate.username}}" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
   &lt;/body&gt; </pre>
                 <br>
                 <br>
                 <br>
                 <h4>Para colocar em uma pagina existente:</h4>
                 <pre>
-  &lt;iframe src="//{{candidate.username}}.votolegal.com.br/" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
+  &lt;iframe src="//participe.votolegal.com.br/candidato?id={{candidate.username}}" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
                 </pre>
                 <small class="help-block">Onde <code>700px</code> é a altura que ficará a janela onde será exibido o seu perfil na sua pagina.</small>
               </div>
