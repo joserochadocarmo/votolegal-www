@@ -1,0 +1,53 @@
+$class-change: (
+	'class1': (
+      'font-color':#fff,
+      'links---font-color': #fff,
+      'btn--success-font-color':#fff,
+      'btn--success-background-color':#fff,
+      'icon--font-color':'#fff',
+      'navbar--divider-img':'',
+      'howto--works-pill-border-color': #3fb82c,
+      'section__title--font-color': #4ab855,
+      'social--buttons-background-color': #43ac45,
+      'social--buttons-font-color': #fff,
+    ),
+
+);
+
+@each $class-palette, $rules in $class-change {
+  body.#{$class-palette} {
+    a{
+    	color: map-get($rules, 'font-color');
+    }
+    .navbar-divider{
+      background-image: map-get($rules, 'navbar--divider-img');
+
+    }
+    .btn-success{
+      background-color: map-get($rules, 'btn--success-background-color');
+      color: map-get($rules, 'btn--success-font-color');
+
+    }
+    section#howto-works ul.howto-works-timeline .active .howto-works-pill a{
+      border-color: map-get($rules, 'howto--works-pill-border-color');
+
+    }
+    .section-title{
+      color: map-get($rules, 'section__title--font-color');
+
+    }
+    .social-buttons ul li{
+      background-color: map-get($rules,'social--buttons-background-color' );
+
+    }
+    .social-buttons ul li a {
+      color: map-get($rules,'social--buttons-background-color' )!important;
+	}
+	a.tab-register .active {
+			background-color: map-get($rules, 'btn--success-background-color') !important;
+
+		}
+
+
+  }
+}

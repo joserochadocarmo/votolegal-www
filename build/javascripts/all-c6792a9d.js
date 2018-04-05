@@ -6657,6 +6657,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
   // defaults
   $scope.candidate  = {};
 
+
   /**
    * getting data
    */
