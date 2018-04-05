@@ -194,7 +194,7 @@
   $(function() {
     var $html, action, controller, domain, test;
     domain = document.location.href;
-    if (domain.match(/votolegal.org.br\/estatistica/i)) {
+    if (domain.match(/votolegal.com.br\/estatistica/i)) {
       $html = $('body');
       controller = $html.data('controller');
       action = $html.data('action');

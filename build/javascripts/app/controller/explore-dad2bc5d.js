@@ -20,7 +20,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
     }
 
     SweetAlert.swal('Website não definido', 'Este candidato não configurou nenhum website para acesso.');
-    //document.location = '//'+ username +'.votolegal.org.br/candidato';
+    //document.location = '//'+ username +'.votolegal.com.br/candidato';
     return false;
   };
 
@@ -36,16 +36,16 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
   // load party data
   $scope.load_parties = function(){
-    $http.get('/api/party')
-    .then(function(response){ 
+    $http.get('https://api-to.votolegal.com.br/api/party')
+    .then(function(response){
       $scope.party_list = response.data.party;
       for(var i in $scope.party_list){
         if($scope.party_list[i].id == $scope.party.id) $scope.party = $scope.party_list[i];
         //console.log($scope.party_list[i]);
         //console.log($scope.party.id);
       }
-    },function(response){ 
-      $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST"); 
+    },function(response){
+      $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST");
     });
   };
 
@@ -67,7 +67,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
     $http({
       method: 'post',
-      url: '/api/search?results=9999', 
+      url: 'https://api-to.votolegal.com.br/api/search?results=9999',
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })

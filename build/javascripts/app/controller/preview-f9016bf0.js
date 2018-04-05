@@ -17,18 +17,18 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    $http.get('https://api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
-      function(response){ 
+      function(response){
         $scope.candidate = response.data.candidate;
-        
+
         (function(){
           var boleto = document.querySelector('#show-boleto');
           if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
         })();
 
         $scope.candidate.profile_url = function(){
-          return $sce.trustAsResourceUrl('//'+$scope.candidate.username+'.votolegal.org.br/');
+          return $sce.trustAsResourceUrl('//'+$scope.candidate.username+'.votolegal.com.br/');
         };
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }

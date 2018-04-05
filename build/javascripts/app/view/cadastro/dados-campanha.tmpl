@@ -6,7 +6,7 @@
 <form name="campaignForm" class="angular-form" ng-submit="save_campaign(campaignForm.$valid)" novalidate="novalidate">    <div class="row">
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="raising_goal">Quanto quer arrecadar?</label>*
-        <i class="fa fa-money"></i>    
+        <i class="fa fa-money"></i>
         <input class="form-control" type="text" name="raising_goal" ng-model="candidate.raising_goal" ui-number-mask="2" required>
         <p class="help-block" ng-show="error_list.length > 0">
           <small>A quantia a ser arrecadada deve ser definida.</small>
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <small class="help-block">Caso não encontre um assunto de sua preferência, por favor entre em contato conosco através do e-mail: <a href="mailto:contato@votolegal.org.br">contato@votolegal.org.br</a>.</small>
+        <small class="help-block">Caso não encontre um assunto de sua preferência, por favor entre em contato conosco através do e-mail: <a href="mailto:contato@votolegal.com.br">contato@votolegal.com.br</a>.</small>
       </div>
       <div class="form-group col-md-12 text-right hide">
         <a data-toggle="modal" data-target="#new-issue-priority" href="javascript:void(0);">+ Adicionar um assunto</a>
@@ -39,7 +39,7 @@
       <div class="form-group col-md-12">
         <br class="divider">
       </div>
-      
+
 
       <div class="form-group col-md-12">
         <label>Planilhar simplificada de gastos da campanha</label>
@@ -48,7 +48,7 @@
 
       <div class="form-group col-md-12">
         <div class="input-group image-preview">
-        <input type="text" class="form-control image-preview-filename spending_spreadsheet_filename" value="{{candidate.spending_spreadsheet}}" disabled="disabled"> 
+        <input type="text" class="form-control image-preview-filename spending_spreadsheet_filename" value="{{candidate.spending_spreadsheet}}" disabled="disabled">
           <span class="input-group-btn">
             <!-- image-preview-input -->
             <div class="btn btn-default image-preview-input">
@@ -84,13 +84,13 @@
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="merchant_id">Chave</label>
-        <i class="fa fa-lock"></i>    
+        <i class="fa fa-lock"></i>
         <input class="form-control" type="text" name="merchant_id" ng-model="candidate.merchant_id" placeholder="E-mail de pagamento" required>
         <small class="help-block">Você deve colocar a chave de integração da empresa financeira.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="merchant_key">Token</label>
-        <i class="fa fa-lock"></i>    
+        <i class="fa fa-lock"></i>
         <input class="form-control" type="text" name="merchant_key" ng-model="candidate.merchant_key" placeholder="Token de pagamento" required>
       </div>
 

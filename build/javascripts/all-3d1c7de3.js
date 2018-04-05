@@ -3747,7 +3747,7 @@ d.parent(".dropdown-menu").length&&(d=d.closest("li.dropdown").addClass("active"
 
 
 // base uri
-var BASE_API = '/api';
+var BASE_API = 'https://api-to.votolegal.com.br/api';
 
 
 (function(app){
@@ -4137,7 +4137,7 @@ var BASE_API = '/api';
         if(params.route && params.error){
           $http({
             method: 'POST', 
-            url: '/api/troubleshoot', 
+            url: 'https://api-to.votolegal.com.br/api/troubleshoot', 
             data: serialize.from_object(params), 
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           });
@@ -4164,7 +4164,7 @@ var BASE_API = '/api';
       authenticate: function(username, password) {
         return $http({
           method: 'POST',
-          url: '/api/login',
+          url: 'https://api-to.votolegal.com.br/api/login',
           data: serialize.from_object({"email": username, "password": password}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -4174,7 +4174,7 @@ var BASE_API = '/api';
       forgot_password: function(username){
         return $http({
           method: 'POST',
-          url: '/api/login/forgot_password',
+          url: 'https://api-to.votolegal.com.br/api/login/forgot_password',
           data: serialize.from_object({"email": username}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -4184,7 +4184,7 @@ var BASE_API = '/api';
       change_password: function(password, token){
         return $http({
           method: 'POST',
-          url: '/api/login/forgot_password/reset/' + token,
+          url: 'https://api-to.votolegal.com.br/api/login/forgot_password/reset/' + token,
           data: serialize.from_object({"new_password": password}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -4284,7 +4284,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     $scope.submit_disabled = true;
     $http({
       method: 'POST', 
-      url: '/api/register', 
+      url: 'https://api-to.votolegal.com.br/api/register', 
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -4371,7 +4371,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
 
   // load party data
   $scope.load_parties = function(){
-    $http.get('/api/party')
+    $http.get('https://api-to.votolegal.com.br/api/party')
     .then(
       function(response){ $scope.party_list = response.data.party; },
       function(response){ $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST"); }
@@ -4380,7 +4380,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
 
   // load office data
   $scope.load_offices = function(){
-    $http.get('/api/office')
+    $http.get('https://api-to.votolegal.com.br/api/office')
     .then(
       function(response){ $scope.office_list = response.data.office; },
       function(response){ $scope.office_list = []; throw new Error("ERROR_GET_OFFICE_LIST"); }
@@ -4416,7 +4416,7 @@ app.votolegal.controller('ContatoController', ['$scope', '$http', 'serialize', f
 
     $http({
       method: 'POST', 
-      url: '/api/contact', 
+      url: 'https://api-to.votolegal.com.br/api/contact', 
       data: serialize.from_object(params),
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -4639,7 +4639,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
   $scope.approval_list = function(){
     var user = auth_service.current_user();
 
-    $http.get('/api/admin/candidate/list?results=9999&api_key=' + user.api_key)
+    $http.get('https://api-to.votolegal.com.br/api/admin/candidate/list?results=9999&api_key=' + user.api_key)
     .then(
       function(response){
         var res = response.data;
@@ -4672,7 +4672,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
       if (isConfirm) {
         $http({
           method: 'PUT',
-          url: '/api/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
+          url: 'https://api-to.votolegal.com.br/api/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
         }).
         then(
           // success callback
@@ -4712,7 +4712,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
       if (isConfirm) {
         $http({
           method: 'PUT',
-          url: '/api/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
+          url: 'https://api-to.votolegal.com.br/api/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
         }).
         then(
           // success callback
@@ -4757,7 +4757,7 @@ app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serializ
 
     $http({
       method: 'GET',
-      url: '/api/candidate/'+ id +'?api_key=' + user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ id +'?api_key=' + user.api_key,
     }).
     then(
       function(response){
@@ -4921,7 +4921,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     try {
       $http({
         method: 'PUT',
-        url: '/api/candidate/'+ user.id +"?api_key=" + user.api_key,
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +"?api_key=" + user.api_key,
         data: params,
         headers: { 'Content-Type': undefined },
         transformRequest: function (data) {
@@ -5008,7 +5008,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     try {
       $http({
         method: 'PUT',
-        url: '/api/candidate/'+ user.id +"?api_key=" + user.api_key,
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +"?api_key=" + user.api_key,
         data: params,
         headers: {'Content-Type': undefined },
         transformRequest: function (data) {
@@ -5081,7 +5081,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     
     $http({
       method: (p.id && p.id > 0)? 'PUT' : 'POST',
-      url: '/api/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
       data: serialize.from_object(params),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }).then(function (response) {
@@ -5123,7 +5123,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         if(item.hasOwnProperty('id') && item.id > 0){
           var user = auth_service.current_user();
           $http.delete(
-            '/api/candidate/' + user.id + '/projects/' + item.id + '?api_key='+ user.api_key 
+            'https://api-to.votolegal.com.br/api/candidate/' + user.id + '/projects/' + item.id + '?api_key='+ user.api_key 
           ).then(function(response){ 
             $scope.projects.splice(index, 1);
             swal('O projeto foi removido com sucesso!');
@@ -5218,7 +5218,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    $http.get('https://api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){ 
         $scope.candidate = response.data.candidate;
@@ -5243,7 +5243,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var user = auth_service.current_user();
 
     $http.get(
-      '/api/candidate/' + user.id + '/projects', { api_key: user.api_key }
+      'https://api-to.votolegal.com.br/api/candidate/' + user.id + '/projects', { api_key: user.api_key }
     ).then( function(response){ 
       var list = response.data.projects.map(function(i){ i.changed = false; return i });
       if(list.length > 0) $scope.projects = list;
@@ -5252,7 +5252,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   };
 
   $scope.get_issues_priority = function(){
-    $http.get('/api/issue_priority').
+    $http.get('https://api-to.votolegal.com.br/api/issue_priority').
     then(
       function(response){ 
         $scope.issue_list = response.data.issue_priority; 
@@ -5274,7 +5274,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_banks = function(){
     $http({
       method: 'GET',
-      url: '/api/bank',
+      url: 'https://api-to.votolegal.com.br/api/bank',
     }).
     then(function(response){
       $scope.bank_list = response.data.bank;
@@ -5291,7 +5291,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_gateways = function(){
     $http({
       method: 'GET',
-      url: '/api/payment_gateway',
+      url: 'https://api-to.votolegal.com.br/api/payment_gateway',
     }).then(function(response){
       $scope.payment_gateway_list = response.data.payment_gateway;
     }, function(response){
@@ -5339,7 +5339,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
     }
 
     SweetAlert.swal('Website não definido', 'Este candidato não configurou nenhum website para acesso.');
-    //document.location = '//'+ username +'.votolegal.org.br/candidato';
+    //document.location = '//'+ username +'.votolegal.com.br/candidato';
     return false;
   };
 
@@ -5355,16 +5355,16 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
   // load party data
   $scope.load_parties = function(){
-    $http.get('/api/party')
-    .then(function(response){ 
+    $http.get('https://api-to.votolegal.com.br/api/party')
+    .then(function(response){
       $scope.party_list = response.data.party;
       for(var i in $scope.party_list){
         if($scope.party_list[i].id == $scope.party.id) $scope.party = $scope.party_list[i];
         //console.log($scope.party_list[i]);
         //console.log($scope.party.id);
       }
-    },function(response){ 
-      $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST"); 
+    },function(response){
+      $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST");
     });
   };
 
@@ -5386,7 +5386,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
     $http({
       method: 'post',
-      url: '/api/search?results=9999', 
+      url: 'https://api-to.votolegal.com.br/api/search?results=9999',
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -5423,7 +5423,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 }]);
 
   var domain = document.location.href;
-if((!domain.match(/^https:\/\/www.votolegal.org.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.org.br/)) || domain.match(/votolegal.org.br\/candidato/)) { 
+if((!domain.match(/^https:\/\/www.votolegal.com.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.com.br/)) || domain.match(/votolegal.com.br\/candidato/)) {
   app.votolegal.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/', {
@@ -5555,7 +5555,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.candidate_by_name = function(name){
     $http({
       method: 'GET',
-      url: '/api/candidate/'+ name,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ name,
     }).
     then(
       function(response){
@@ -5564,7 +5564,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
         (function(){
           var title = document.querySelector('title');
-          if(title.innerText === 'VotoLegal - Candidato(a)') 
+          if(title.innerText === 'VotoLegal - Candidato(a)')
             title.innerText += (" " + $scope.candidate.popular_name);
         })();
 
@@ -5620,7 +5620,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           var res = response.data, $f = $scope.doar;
           $f.billing_address_city   = res.cidade;
           $f.billing_address_state  = res.estado;
-          
+
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=billing_address_district]');
           if(res.bairro) { $f.billing_address_district = res.bairro; district.disabled = true }
@@ -5634,8 +5634,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         // error callback
         function(response){
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
-          ['billing_address_state', 'billing_address_city', 'billing_address_district', 'billing_address_street'].map(function(i){ 
-            try{ 
+          ['billing_address_state', 'billing_address_city', 'billing_address_district', 'billing_address_street'].map(function(i){
+            try{
               $scope.doar[i] = "";
               document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
             } catch(e) {};
@@ -5657,7 +5657,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           var res = response.data, $f = $scope.doar;
           $f.address_city   = res.cidade;
           $f.address_state  = res.estado;
-          
+
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=address_district]');
           if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
@@ -5671,8 +5671,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         // error callback
         function(response){
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
-          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){ 
-            try{ 
+          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){
+            try{
               $scope.doar[i] = "";
               document.querySelector('form[name=doarForm] *[name='+i+']').disabled = true;
             } catch(e) {};
@@ -5690,12 +5690,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.candidate_projects = function(candidate){
     $http({
       method: 'GET',
-      url: '/api/candidate/'+ candidate.id +'/projects',
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ candidate.id +'/projects',
     }).
     then(
       function(response){
         var res = response.data.projects;
-        
+
         (function(){
           var total = 0; res.map(function(p){ total += p.votes });
           res = res.map(function(i){ i.total = total; return i });
@@ -5723,16 +5723,16 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     var error   = document.querySelector('#expenditures-error');
     if(error) error.classList.add('hide');
     if(table) {
-      table.classList.add('hide'); 
+      table.classList.add('hide');
       if(loading) loading.classList.remove('hide');
     }
-    
+
     try {
-      $http({method: 'GET', url: '/api/candidate/'+ candidate.id +'/expenditure?results=99999'}).
+      $http({method: 'GET', url: 'https://api-to.votolegal.com.br/api/candidate/'+ candidate.id +'/expenditure?results=99999'}).
       then(
         function(response){
           var res = response.data;
-          
+
           (function(){
             var list = res.expenditure, doc_format = new DocumentFormat();
 
@@ -5784,9 +5784,9 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
       table.classList.add('hide');
       if(loading) loading.classList.remove('hide');
     }
-    
+
     try {
-      $http({method: 'GET', url: '/api/candidate/'+ candidate.id +'/donate?results=9999'}).
+      $http({method: 'GET', url: 'https://api-to.votolegal.com.br/api/candidate/'+ candidate.id +'/donate?results=9999'}).
       then(
         function(response){
           var res = response.data.donations;
@@ -5870,7 +5870,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
   $scope.get_session = function(){
     var id = $scope.candidate.id || 0;
     $http({
-      url: '/api/candidate/'+id+'/donate/session'
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+id+'/donate/session'
     }).
     then(function(response){
       $scope.payment.session = response.data.id;
@@ -5926,7 +5926,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
           }
         });
       }
-    }     
+    }
     return false;
   };
 
@@ -5989,7 +5989,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         var date = params.birthdate;
         if(date && date.length > 0){
           var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-          if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
+          if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-');
         }
       })();
       params.credit_card_number =   $scope.payment.card_number;
@@ -6003,7 +6003,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
       $http({
         method: 'POST',
-        url : '/api/candidate/'+ $scope.candidate.id +'/donate',
+        url : 'https://api-to.votolegal.com.br/api/candidate/'+ $scope.candidate.id +'/donate',
         data: serialize.from_object(params),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       }).then(function(response){
@@ -6088,12 +6088,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
               var date = params.birthdate;
               if(date && date.length > 0){
                 var groups = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-                if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-'); 
+                if(groups.length === 4) params.birthdate = [groups[3], groups[2], groups[1]].join('-');
               }
               else {
                 params.birthdate = '';
               }
-              
+
               // format amount
               params.amount = parseInt((params.amount * 100));
 
@@ -6101,7 +6101,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
               // send to backend
               $http({
                 method: 'POST',
-                url : '/api/candidate/'+ $scope.candidate.id +'/donate',
+                url : 'https://api-to.votolegal.com.br/api/candidate/'+ $scope.candidate.id +'/donate',
                 data: serialize.from_object(params),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
               }).
@@ -6218,18 +6218,18 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
     // field list
     var list = 'address_zipcode address_state address_city address_street address_district address_house_number address_complement'.split(/\s/);
-    
+
     if(billing_address.classList.contains('hide')){
       for(var i in list) $scope.doar["billing_" + list[i]] = "";
       billing_address.classList.remove('hide');
-    } 
+    }
     else {
       for(var i in list) $scope.doar["billing_" + list[i]] = $scope.doar[list[i]];
       billing_address.classList.add('hide');
     }
     return false;
   };
-  
+
 
   $scope.donation_params = function(){
     //$scope.doar.credit_card_name = $scope.doar.name;
@@ -6318,7 +6318,7 @@ app.votolegal.controller('VoteController', ["$scope", "$http", "$sce", "serializ
       console.log(votes);
       $http({
         method: 'POST',
-        url: '/api/',
+        url: 'https://api-to.votolegal.com.br/api/',
         data: serialize.from_object(params),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       }).then(function(response){
@@ -6399,7 +6399,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     var user = auth_service.current_user();
     $http({
       method: 'GET',
-      url: '/api/candidate/'+user.id+'/payment/session?api_key=' + user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+user.id+'/payment/session?api_key=' + user.api_key,
     }).
     then(function(response){
       $scope.payment.session = response.data.id || 0;
@@ -6419,7 +6419,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
   $scope.get_banks = function(){
     $http({
       method: 'GET',
-      url: '/api/bank',
+      url: 'https://api-to.votolegal.com.br/api/bank',
     }).
     then(function(response){
       $scope.bank_list = response.data.bank;
@@ -6438,7 +6438,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     var user = auth_service.current_user();
     $http({
       method: 'GET',
-      url: '/api/candidate/'+ user.id +'?api_key=' + user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'?api_key=' + user.api_key,
     }).
     then(
       function(response){
@@ -6486,13 +6486,13 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 
     $http({
       method: 'PUT',
-      url: '/api/candidate/'+ user.id +'?api_key='+ user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'?api_key='+ user.api_key,
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     }).then(function (response) {
       $http({
         method: 'POST',
-        url: '/api/candidate/'+user.id+'/payment?api_key='+user.api_key,
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+user.id+'/payment?api_key='+user.api_key,
         data: serialize.from_object({ senderHash: sender }),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).
@@ -6575,7 +6575,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
     try {
       $http({
         method: 'GET', 
-        url: '/api/candidate/'+ user.id +'/donate?results=9999&api_key=' + user.api_key 
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate?results=9999&api_key=' + user.api_key 
       }).
       then(
         function(response){
@@ -6628,8 +6628,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
   // setting download of donations table
   $scope.download.csv_file = function(){
     var user = $scope.user;
-    console.log('/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key);
-    return '/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key;
+    console.log('https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key);
+    return 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key;
   };
 
 
@@ -6659,18 +6659,18 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    $http.get('https://api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
-      function(response){ 
+      function(response){
         $scope.candidate = response.data.candidate;
-        
+
         (function(){
           var boleto = document.querySelector('#show-boleto');
           if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
         })();
 
         $scope.candidate.profile_url = function(){
-          return $sce.trustAsResourceUrl('//'+$scope.candidate.username+'.votolegal.org.br/');
+          return $sce.trustAsResourceUrl('//'+$scope.candidate.username+'.votolegal.com.br/');
         };
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }
@@ -6886,7 +6886,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
   $(function() {
     var $html, action, controller, domain, test;
     domain = document.location.href;
-    if (domain.match(/votolegal.org.br\/estatistica/i)) {
+    if (domain.match(/votolegal.com.br\/estatistica/i)) {
       $html = $('body');
       controller = $html.data('controller');
       action = $html.data('action');
@@ -6903,7 +6903,7 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-  $.getJSON("/api/stats", function(res){
+  $.getJSON("https://api-to.votolegal.com.br/api/stats", function(res){
     $('#candidates').html(res.candidates);
     $('#total_donations').html(res.total_donations);
     $('#total_people_donated').html(res.total_people_donated);

@@ -134,7 +134,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     try {
       $http({
         method: 'PUT',
-        url: '/api/candidate/'+ user.id +"?api_key=" + user.api_key,
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +"?api_key=" + user.api_key,
         data: params,
         headers: { 'Content-Type': undefined },
         transformRequest: function (data) {
@@ -221,7 +221,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     try {
       $http({
         method: 'PUT',
-        url: '/api/candidate/'+ user.id +"?api_key=" + user.api_key,
+        url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +"?api_key=" + user.api_key,
         data: params,
         headers: {'Content-Type': undefined },
         transformRequest: function (data) {
@@ -294,7 +294,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     
     $http({
       method: (p.id && p.id > 0)? 'PUT' : 'POST',
-      url: '/api/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
+      url: 'https://api-to.votolegal.com.br/api/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
       data: serialize.from_object(params),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }).then(function (response) {
@@ -336,7 +336,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         if(item.hasOwnProperty('id') && item.id > 0){
           var user = auth_service.current_user();
           $http.delete(
-            '/api/candidate/' + user.id + '/projects/' + item.id + '?api_key='+ user.api_key 
+            'https://api-to.votolegal.com.br/api/candidate/' + user.id + '/projects/' + item.id + '?api_key='+ user.api_key 
           ).then(function(response){ 
             $scope.projects.splice(index, 1);
             swal('O projeto foi removido com sucesso!');
@@ -431,7 +431,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    $http.get('https://api-to.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){ 
         $scope.candidate = response.data.candidate;
@@ -456,7 +456,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     var user = auth_service.current_user();
 
     $http.get(
-      '/api/candidate/' + user.id + '/projects', { api_key: user.api_key }
+      'https://api-to.votolegal.com.br/api/candidate/' + user.id + '/projects', { api_key: user.api_key }
     ).then( function(response){ 
       var list = response.data.projects.map(function(i){ i.changed = false; return i });
       if(list.length > 0) $scope.projects = list;
@@ -465,7 +465,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   };
 
   $scope.get_issues_priority = function(){
-    $http.get('/api/issue_priority').
+    $http.get('https://api-to.votolegal.com.br/api/issue_priority').
     then(
       function(response){ 
         $scope.issue_list = response.data.issue_priority; 
@@ -487,7 +487,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_banks = function(){
     $http({
       method: 'GET',
-      url: '/api/bank',
+      url: 'https://api-to.votolegal.com.br/api/bank',
     }).
     then(function(response){
       $scope.bank_list = response.data.bank;
@@ -504,7 +504,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_gateways = function(){
     $http({
       method: 'GET',
-      url: '/api/payment_gateway',
+      url: 'https://api-to.votolegal.com.br/api/payment_gateway',
     }).then(function(response){
       $scope.payment_gateway_list = response.data.payment_gateway;
     }, function(response){
