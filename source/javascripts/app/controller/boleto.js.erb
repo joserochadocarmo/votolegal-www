@@ -23,7 +23,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 
           // load district
           var district = document.querySelector('form[name=boletoForm] *[name=address_district]');
-          if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
+          if(res.bairro) { $f.address_district = res.district; district.disabled = true }
           else {  $f.address_district = ""; district.disabled = false }
 
           // load street
