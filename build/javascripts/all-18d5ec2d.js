@@ -5625,17 +5625,17 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         // success callback
         function(response) {
           var res = response.data, $f = $scope.doar;
-          $f.billing_address_city   = res.cidade;
-          $f.billing_address_state  = res.estado;
+          $f.billing_address_city   = res.city;
+          $f.billing_address_state  = res.state;
 
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=billing_address_district]');
-          if(res.bairro) { $f.billing_address_district = res.bairro; district.disabled = true }
+          if(res.district) { $f.billing_address_district = res.district; district.disabled = true }
           else {  $f.billing_address_district = ""; district.disabled = false }
 
           // load street
           var street = document.querySelector('form[name=doarForm] *[name=billing_address_street]');
-          if(res.logradouro) { $f.billing_address_street = res.logradouro; street.disabled = true }
+          if(res.street) { $f.billing_address_street = res.street; street.disabled = true }
           else { $f.billing_address_street = ""; street.disabled = false }
         },
         // error callback
@@ -5655,24 +5655,25 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     return false;
   };
   $scope.address_by_zipcode = function(event){
-    var zipcode = $scope.doar.address_zipcode;
+	var zipcode = $scope.doar.address_zipcode;
 
     if(zipcode.length == 9){
       postmon(zipcode).then(
         // success callback
         function(response) {
-          var res = response.data, $f = $scope.doar;
-          $f.address_city   = res.cidade;
-          $f.address_state  = res.estado;
+		  var res = response.data, $f = $scope.doar;
+		  console.log(res, 'sss')
+          $f.address_city   = res.city;
+          $f.address_state  = res.state;
 
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=address_district]');
-          if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
+          if(res.district) { $f.address_district = res.district; district.disabled = true }
           else {  $f.address_district = ""; district.disabled = false }
 
           // load street
           var street = document.querySelector('form[name=doarForm] *[name=address_street]');
-          if(res.logradouro) { $f.address_street = res.logradouro; street.disabled = true }
+          if(res.street) { $f.address_street = res.street; street.disabled = true }
           else { $f.address_street = ""; street.disabled = false }
         },
         // error callback
@@ -6372,16 +6373,16 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 		  var res = response.data,
 		  $f = $scope.candidate;
           $f.address_city   = res.city;
-          $f.address_state  = res.state.nome;
+          $f.address_state  = res.state;
 
           // load district
           var district = document.querySelector('form[name=boletoForm] *[name=address_district]');
-          if(res.bairro) { $f.address_district = res.district; district.disabled = true }
+          if(res.district) { $f.address_district = res.district; district.disabled = true }
           else {  $f.address_district = ""; district.disabled = false }
 
           // load street
           var street = document.querySelector('form[name=boletoForm] *[name=address_street]');
-          if(res.logradouro) { $f.address_street = res.logradouro; street.disabled = true }
+          if(res.street) { $f.address_street = res.street; street.disabled = true }
           else { $f.address_street = ""; street.disabled = false }
         },
         // error callback
