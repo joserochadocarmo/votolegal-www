@@ -3978,7 +3978,7 @@ var BASE_API = 'https://api-to.votolegal.com.br/api';
         for(var i in arguments) {
             param_list[arguments[i]] = _self._value[arguments[i]] || "";
         }
-        
+
         return param_list;
       },
       normalize: function(value){
@@ -4027,7 +4027,7 @@ var BASE_API = 'https://api-to.votolegal.com.br/api';
 
       for (var name in data) {
         if (!data.hasOwnProperty(name)) continue;
-        
+
         var value = data[name];
         buffer.push(
           encodeURIComponent(name) + "=" +
@@ -4097,7 +4097,7 @@ var BASE_API = 'https://api-to.votolegal.com.br/api';
 
   /**
    * Serializer Service
-   */ 
+   */
   app.votolegal.factory('serialize', function(){ return new Serializer() });
 
 
@@ -4114,7 +4114,11 @@ var BASE_API = 'https://api-to.votolegal.com.br/api';
    */
   app.votolegal.factory('postmon', ['$http', function($http){
     return function(zipcode) {
-      return $http.get('//api.postmon.com.br/v1/cep/' + zipcode, {cache: false});
+
+	console.log(zipcode, 'code')
+		// return $http.get('//api.postmon.com.br/v1/cep/' + zipcode, {cache: false});
+	  return $http.get('//api-apoiadores.appcivico.com/cep?cep=' + zipcode, {cache: false});
+
     }
   }]);
 
@@ -4127,7 +4131,7 @@ var BASE_API = 'https://api-to.votolegal.com.br/api';
   /**
    * Troublesoting Service
    * Connect to the Postmon service API to get zipcode informations
-   */ 
+   */
   app.votolegal.factory('trouble', ['$http', 'serialize', function($http, serialize){
     return {
       shoot: function(params) {
@@ -4136,9 +4140,9 @@ var BASE_API = 'https://api-to.votolegal.com.br/api';
 
         if(params.route && params.error){
           $http({
-            method: 'POST', 
-            url: 'https://api-to.votolegal.com.br/api/troubleshoot', 
-            data: serialize.from_object(params), 
+            method: 'POST',
+            url: 'https://api-to.votolegal.com.br/api/troubleshoot',
+            data: serialize.from_object(params),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           });
         }
@@ -4253,7 +4257,7 @@ var BASE_API = 'https://api-to.votolegal.com.br/api';
   /**
  * PreCadastro controller
  * Register a new candidate to be moderated by admin team
- */ 
+ */
 app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon', 'serialize', function($scope, $http, postmon, serialize){
   $scope.candidate = {};
   $scope.submit_disabled = false;
@@ -4267,7 +4271,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
   $scope.create = function(isValid){
     var params = $scope.register_params();
     $scope.error_list = [];
-      
+
     if (!$scope.accept_terms && !$scope.transparent_campaign){
       if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
       if(!$scope.transparent_campaign) $scope.error_list.push("Você deve aceitar fazer uma campanha transparente.");
@@ -4283,8 +4287,8 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
 
     $scope.submit_disabled = true;
     $http({
-      method: 'POST', 
-      url: 'https://api-to.votolegal.com.br/api/register', 
+      method: 'POST',
+      url: 'https://api-to.votolegal.com.br/api/register',
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -4310,7 +4314,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
             $scope.error_list.push("CPF já cadastrado! Para completar o seu cadastro, por favor faça o login.");
             return false;
           }
-          
+
           var name = f(field).attributes['placeholder'].value;
           $scope.error_list.push(name + error_msg(res[field]));
         }
@@ -4344,17 +4348,18 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
       postmon(zipcode).then(
         // success callback
         function(response) {
+			console.log(response.data, response)
           var res = response.data, $f = $scope.candidate;
-          $f.address_city   = res.cidade;
-          $f.address_state  = res.estado_info.nome;
-          
+          $f.address_city   = res.city;
+          $f.address_state  = res.state;
+
           var street = document.querySelector('form[name=candidateForm] *[name=address_street]');
-          if(res.bairro && res.logradouro) {
-            $f.address_street = res.logradouro + " - " + res.bairro; 
+          if(res.district && res.street) {
+            $f.address_street = res.street + " - " + res.district;
             street.disabled = true
           }
           else {
-            $f.address_street = ""; 
+            $f.address_street = "";
             street.disabled = false;
           }
         },
@@ -4386,7 +4391,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
       function(response){ $scope.office_list = []; throw new Error("ERROR_GET_OFFICE_LIST"); }
     );
   };
-  
+
   // reset form fields
   $scope.reset = function(){
     $scope.candidate = {};
@@ -5485,7 +5490,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
-    var url = document.location.href;
+	var url = document.location.href;
+
+
+
     url = url.split(/\//)[2].split('.')[0];
     if(url !== 'localhost') return url;
   })();
@@ -5655,12 +5663,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         // success callback
         function(response) {
           var res = response.data, $f = $scope.doar;
-          $f.address_city   = res.cidade;
-          $f.address_state  = res.estado;
+          $f.address_city   = res.city;
+          $f.address_state  = res.state;
 
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=address_district]');
-          if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
+          if(res.district) { $f.address_district = res.district; district.disabled = true }
           else {  $f.address_district = ""; district.disabled = false }
 
           // load street
@@ -6346,7 +6354,7 @@ app.votolegal.controller('VoteController', ["$scope", "$http", "$sce", "serializ
 
   /**
  * Boleto controller
- */ 
+ */
 app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, postmon, auth_service, serialize, SweetAlert, trouble){
   $scope.candidate = {};
   $scope.payment   = {};
@@ -6362,10 +6370,11 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
       postmon(zipcode).then(
         // success callback
         function(response) {
-          var res = response.data, $f = $scope.candidate;
-          $f.address_city   = res.cidade;
-          $f.address_state  = res.estado_info.nome;
-          
+		  var res = response.data,
+		  $f = $scope.candidate;
+          $f.address_city   = res.city;
+          $f.address_state  = res.state.nome;
+
           // load district
           var district = document.querySelector('form[name=boletoForm] *[name=address_district]');
           if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
@@ -6379,8 +6388,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
         // error callback
         function(response){
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
-          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){ 
-            try{ 
+          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){
+            try{
               $scope.candidate[i] = "";
               document.querySelector('form[name=boletoForm] *[name='+i+']').disabled = true;
             } catch(e) {};
@@ -6403,7 +6412,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     }).
     then(function(response){
       $scope.payment.session = response.data.id || 0;
-      try{ 
+      try{
         PagSeguroDirectPayment.setSessionId(response.data.id);
       } catch(e){}
     }, function(response){
@@ -6431,7 +6440,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     });
     return false
   };
-  
+
 
 
   $scope.load_candidate = function(){
@@ -6500,8 +6509,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
         function(response){
           var url = response.data.url;
           document.location = url;
-        }, 
-        function(response){ 
+        },
+        function(response){
           trouble.shoot({
             route: document.location.href, error: JSON.stringify([response, user])
           });
@@ -6536,7 +6545,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     return false;
   };
 
-  
+
   /**
    * initializations
    */

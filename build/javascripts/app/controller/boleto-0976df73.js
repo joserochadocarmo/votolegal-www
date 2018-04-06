@@ -1,7 +1,7 @@
 /**
  * Boleto controller
  */
- 
+
 app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, postmon, auth_service, serialize, SweetAlert, trouble){
   $scope.candidate = {};
   $scope.payment   = {};
@@ -17,10 +17,11 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
       postmon(zipcode).then(
         // success callback
         function(response) {
-          var res = response.data, $f = $scope.candidate;
-          $f.address_city   = res.cidade;
-          $f.address_state  = res.estado_info.nome;
-          
+		  var res = response.data,
+		  $f = $scope.candidate;
+          $f.address_city   = res.city;
+          $f.address_state  = res.state.nome;
+
           // load district
           var district = document.querySelector('form[name=boletoForm] *[name=address_district]');
           if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
@@ -34,8 +35,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
         // error callback
         function(response){
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
-          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){ 
-            try{ 
+          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){
+            try{
               $scope.candidate[i] = "";
               document.querySelector('form[name=boletoForm] *[name='+i+']').disabled = true;
             } catch(e) {};
@@ -58,7 +59,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     }).
     then(function(response){
       $scope.payment.session = response.data.id || 0;
-      try{ 
+      try{
         PagSeguroDirectPayment.setSessionId(response.data.id);
       } catch(e){}
     }, function(response){
@@ -86,7 +87,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     });
     return false
   };
-  
+
 
 
   $scope.load_candidate = function(){
@@ -155,8 +156,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
         function(response){
           var url = response.data.url;
           document.location = url;
-        }, 
-        function(response){ 
+        },
+        function(response){
           trouble.shoot({
             route: document.location.href, error: JSON.stringify([response, user])
           });
@@ -191,7 +192,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     return false;
   };
 
-  
+
   /**
    * initializations
    */
