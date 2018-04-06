@@ -5428,7 +5428,9 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 }]);
 
   var domain = document.location.href;
-if((!domain.match(/^https:\/\/www.votolegal.com.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).votolegal.com.br/)) || domain.match(/votolegal.com.br\/candidato/)) {
+
+if((!domain.match(/^https:\/\/www.to.votolegal.com.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).www.to.votolegal.com.br/)) || domain.match(/www.to.votolegal.com.br\/candidato/)) {
+
   app.votolegal.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/', {
@@ -5490,10 +5492,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
-	var url = document.location.href;
-
-
-
+    var url = document.location.href;
     url = url.split(/\//)[2].split('.')[0];
     if(url !== 'localhost') return url;
   })();
@@ -5663,12 +5662,12 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
         // success callback
         function(response) {
           var res = response.data, $f = $scope.doar;
-          $f.address_city   = res.city;
-          $f.address_state  = res.state;
+          $f.address_city   = res.cidade;
+          $f.address_state  = res.estado;
 
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=address_district]');
-          if(res.district) { $f.address_district = res.district; district.disabled = true }
+          if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
           else {  $f.address_district = ""; district.disabled = false }
 
           // load street
@@ -6377,7 +6376,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 
           // load district
           var district = document.querySelector('form[name=boletoForm] *[name=address_district]');
-          if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
+          if(res.bairro) { $f.address_district = res.district; district.disabled = true }
           else {  $f.address_district = ""; district.disabled = false }
 
           // load street
