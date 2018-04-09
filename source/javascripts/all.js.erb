@@ -1,15 +1,15 @@
-//= require 'classList.min.js'
-//= require 'sweetalert.js'
-//= require 'underscore.min.js'
-//= require 'angular.all.js'
-//= require 'jquery.min.js'
-//= require 'bootstrap.min.js'
+
+//= require vendors
+//= require_self
+//= require_tree ./app/controller/
+
+
 
 // base uri
 var BASE_API = '<%= config[:api_host] %>';
 
-
-(function(app){
+app = window.app || {};
+//(function(app){
   /**
    * GLOBALS
    */
@@ -510,23 +510,23 @@ var BASE_API = '<%= config[:api_host] %>';
   /**
    * load votolegal controllers
    */
-  <%= partial "javascripts/app/controller/pre-cadastro.js" %>
-  <%= partial "javascripts/app/controller/contato.js" %>
-  <%= partial "javascripts/app/controller/faq.js" %>
-  <%= partial "javascripts/app/controller/auth.js" %>
-  <%= partial "javascripts/app/controller/dashboard.js" %>
-  <%= partial "javascripts/app/controller/pre-candidate.js" %>
-  <%= partial "javascripts/app/controller/default.js" %>
-  <%= partial "javascripts/app/controller/cadastro.js" %>
-  <%= partial "javascripts/app/controller/explore.js" %>
-  <%= partial "javascripts/app/controller/candidate.js" %>
-  <%= partial "javascripts/app/controller/vote.js" %>
-  <%= partial "javascripts/app/controller/boleto.js" %>
-  <%= partial "javascripts/app/controller/historico.js" %>
-  <%= partial "javascripts/app/controller/preview.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/pre-cadastro.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/contato.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/faq.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/auth.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/dashboard.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/pre-candidate.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/default.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/cadastro.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/explore.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/candidate.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/vote.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/boleto.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/historico.js" %>
+<%#= partial "#{config[:js_dir]}app/controller/preview.js" %>
 
 
-})(window.app = window.app || {});
+//})(window.app = window.app || {});
 
 
 <%= partial "javascripts/app/controller/estatisticas.js.coffee" %>

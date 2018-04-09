@@ -29,42 +29,42 @@ title:  Pré-cadastro
               <span class="help-block">Entre com o nome de usuário pelo qual você será identificado por nossa equipe</span>
             </div>
             <div class="form-group icon-left col-md-12">
-              <i class="fa fa-envelope"></i>    
+              <i class="fa fa-envelope"></i>
               <input class="form-control" type="text" name="email" placeholder="E-mail" ng-model="candidate.email" >
             </div>
           </div>
           <div class="row">
             <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-lock"></i>    
+              <i class="fa fa-lock"></i>
               <input class="form-control" type="password" name="password" placeholder="Senha" ng-model="candidate.password" >
             </div>
             <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-lock"></i>    
+              <i class="fa fa-lock"></i>
               <input class="form-control" type="password" name="confirm_password" placeholder="Confirmar senha" ng-model="candidate.confirm_password" >
             </div>
           </div>
           <div class="row">
             <div class="form-group icon-left col-md-12">
-              <i class="fa fa-user"></i>    
+              <i class="fa fa-user"></i>
               <input class="form-control" type="text" name="name" placeholder="Nome completo" ng-model="candidate.name" >
             </div>
             <div class="form-group icon-left col-md-12">
-              <i class="fa fa-user"></i>    
+              <i class="fa fa-user"></i>
               <input class="form-control" type="text" name="popular_name" placeholder="Nome como candidato" ng-model="candidate.popular_name" >
             </div>
             <div class="form-group icon-left col-md-12">
-              <i class="fa fa-user"></i>    
+              <i class="fa fa-user"></i>
               <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
             </div>
             <div class="form-group _icon-left col-md-12">
-              <i class="fa fa-flag hide"></i>    
+              <i class="fa fa-flag hide"></i>
               <select class="form-control" name="office_id" placeholder="Cargo" ng-model="candidate.office_id">
                 <option value="" disabled selected ng-selected="selected">Cargo</option>
                 <option ng-repeat="office in office_list" value="{{office.id}}">{{office.name}}</option>
               </select>
             </div>
             <div class="form-group _icon-left col-md-12">
-              <i class="fa fa-flag hide"></i>    
+              <i class="fa fa-flag hide"></i>
               <select class="form-control" name="party_id" placeholder="Partido" ng-model="candidate.party_id">
                 <option value="" disabled selected ng-selected="selected">Partido</option>
                 <option ng-repeat="party in party_list" value="{{party.id}}">{{party.acronym}}</option>
@@ -73,12 +73,12 @@ title:  Pré-cadastro
           </div>
           <div class="row">
             <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-home"></i>    
+              <i class="fa fa-home"></i>
               <input class="form-control" type="text" name="address_zipcode" placeholder="CEP" ng-blur="address_by_zipcode($event)" ng-model="candidate.address_zipcode" mask="99999-999" mask-restrict="reject" mask-clean="false" >
               <span class="help-block">Não sabe seu <code>CEP</code>? <a class="" target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui</a> </span>
             </div>
             <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-home"></i>    
+              <i class="fa fa-home"></i>
               <input class="form-control" type="text" name="address_state" placeholder="Estado" ng-model="candidate.address_state" disabled >
             </div>
           </div>
@@ -88,17 +88,17 @@ title:  Pré-cadastro
               <input class="form-control" type="text" name="address_city" placeholder="Cidade" ng-model="candidate.address_city" disabled >
             </div>
             <div class="form-group icon-left col-md-12">
-              <i class="fa fa-home"></i>    
+              <i class="fa fa-home"></i>
               <input class="form-control" type="text" name="address_street" placeholder="Endereço" ng-model="candidate.address_street" disabled >
             </div>
           </div>
           <div class="row">
             <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-home"></i>    
+              <i class="fa fa-home"></i>
               <input class="form-control" type="text" name="address_house_number" placeholder="Número" ng-model="candidate.address_house_number" mask="d" mask-repeat="5" mask-restrict="reject" mask-validate="false" mask-clean="true">
             </div>
             <div class="col-md-6 form-group icon-left">
-              <i class="fa fa-home"></i>    
+              <i class="fa fa-home"></i>
               <input class="form-control" type="text" name="address_complement" placeholder="Complemento">
             </div>
           </div>
@@ -131,12 +131,15 @@ title:  Pré-cadastro
             </div>
             <div class="checkbox col-md-12 hide">
               <label class="checkbox-inline">
-                <input type="checkbox" name="transparent_campaign" ng-model="transparent_campaign" value="1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois. 
+                <input type="checkbox" name="transparent_campaign" ng-model="transparent_campaign" value="1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois.
               </label>
             </div>
             <div class="checkbox col-md-12">
               <label class="checkbox-inline">
-                <input type="checkbox" name="accept_terms" ng-model="accept_terms" value="1"> Ao fazer o cadastro eu declaro-me de acordo com os <%= link_to 'termos de uso', '#', :target => '_blank', 'data-toggle' => "modal", 'data-target' => "#termos_modal" %> do Voto Legal.
+				<input type="checkbox" name="accept_terms" ng-model="accept_terms" value="1"> Ao fazer o cadastro eu declaro-me de acordo com os <a href="./contrato">termos de uso</a>
+				<!-- <%= link_to 'termos de uso', '#', :target => '_blank', 'data-toggle' => "modal", 'data-target' => "#termos_modal" %>  -->
+
+				do Voto Legal.
               </label>
             </div>
             <div class="form-group col-md-12">
