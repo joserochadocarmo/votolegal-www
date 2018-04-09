@@ -15,7 +15,12 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
       templateUrl: '/javascripts/app/view/cadastro/projetos.tmpl',
       controller: 'CadastroController',
       activetab: 'projetos'
-    }).
+	}).
+	when('/contrato'){
+	  templateUrl: '/javascripts/app/view/cadastro/projetos.tmpl',
+      controller: 'CadastroController',
+      activetab: 'projetos'
+	}).
     otherwise({
       redirectTo: '/dados-pessoais',
       activetab: 'pessoal'
