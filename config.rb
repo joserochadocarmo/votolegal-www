@@ -25,22 +25,27 @@ page '/error/config-error/index.html', layout: false
 # General configuration
 
 # Reload the browser automatically whenever files change
-configure :development do
-  # api host address
-  config[:api_host] = "//dapi.votolegal.com.br/api"
-  #config[:api_host] = "//www.votolegal.com.br/api"
+	configure :development do
+	# api host address
+	config[:api_host] = "//dapi.votolegal.com.br/api"
+	#config[:api_host] = "//www.votolegal.com.br/api"
 
-  # webapp host address
-  config[:host] = "//www.dev-participe.votolegal.com.br"
+	# webapp host address
+	config[:host] = "//www.dev-participe.votolegal.com.br"
+
+	activate :asset_hash
 
 
-  config[:watcher_force_polling] = true
+	config[:watcher_force_polling] = true
 
-  activate :livereload do |l|
-    l.apply_css_live  = true
-    l.apply_js_live   = true
-  end
-end
+	activate :livereload
+
+
+	#   activate :livereload do |l|
+	#     l.apply_css_live  = true
+	#     l.apply_js_live   = true
+	#   end
+	end
 
 ###
 # Helpers
@@ -70,7 +75,7 @@ configure :build do
   config[:host] = "//www.dev-participe.votolegal.com.br"
 
   # Append a hash to asset urls (make sure to use the url helpers)
-  #activate :asset_hash
+#   activate :asset_hash
   activate :asset_hash do |opts|
     # ignore email headers
     opts.ignore = [/email\/header\.jpg/i, /images\/candidatos\/card-brands\//i]
@@ -78,5 +83,5 @@ configure :build do
 
   activate :minify_html, remove_input_attributes: false
   activate :minify_css
-  #activate :minify_javascript
+#   activate :minify_javascript
 end

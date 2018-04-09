@@ -1,9 +1,9 @@
 //= require 'classList.min.js'
-//= require 'sweetalert.js' 
-//= require 'underscore.min.js' 
-//= require 'angular.all.js' 
-//= require 'jquery.min.js' 
-//= require 'bootstrap.min.js' 
+//= require 'sweetalert.js'
+//= require 'underscore.min.js'
+//= require 'angular.all.js'
+//= require 'jquery.min.js'
+//= require 'bootstrap.min.js'
 
 // base uri
 var BASE_API = '<%= config[:api_host] %>';
@@ -237,7 +237,7 @@ var BASE_API = '<%= config[:api_host] %>';
         for(var i in arguments) {
             param_list[arguments[i]] = _self._value[arguments[i]] || "";
         }
-        
+
         return param_list;
       },
       normalize: function(value){
@@ -286,7 +286,7 @@ var BASE_API = '<%= config[:api_host] %>';
 
       for (var name in data) {
         if (!data.hasOwnProperty(name)) continue;
-        
+
         var value = data[name];
         buffer.push(
           encodeURIComponent(name) + "=" +
@@ -356,7 +356,7 @@ var BASE_API = '<%= config[:api_host] %>';
 
   /**
    * Serializer Service
-   */ 
+   */
   app.votolegal.factory('serialize', function(){ return new Serializer() });
 
 
@@ -373,7 +373,7 @@ var BASE_API = '<%= config[:api_host] %>';
    */
   app.votolegal.factory('postmon', ['$http', function($http){
     return function(zipcode) {
-      return $http.get('//api.postmon.com.br/v1/cep/' + zipcode, {cache: false});
+     return $http.get('//api-apoiadores.appcivico.com/cep?cep=' + zipcode, {cache: false});
     }
   }]);
 
@@ -386,7 +386,7 @@ var BASE_API = '<%= config[:api_host] %>';
   /**
    * Troublesoting Service
    * Connect to the Postmon service API to get zipcode informations
-   */ 
+   */
   app.votolegal.factory('trouble', ['$http', 'serialize', function($http, serialize){
     return {
       shoot: function(params) {
@@ -395,9 +395,9 @@ var BASE_API = '<%= config[:api_host] %>';
 
         if(params.route && params.error){
           $http({
-            method: 'POST', 
-            url: '<%= config[:api_host]%>/troubleshoot', 
-            data: serialize.from_object(params), 
+            method: 'POST',
+            url: '<%= config[:api_host]%>/troubleshoot',
+            data: serialize.from_object(params),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           });
         }
@@ -408,6 +408,7 @@ var BASE_API = '<%= config[:api_host] %>';
 
   /**
    * Authentication Service
+
    */
   app.votolegal.factory('auth_service', ['$http', 'serialize', 'store', function($http, serialize, store){
     return {
