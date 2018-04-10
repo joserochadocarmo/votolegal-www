@@ -1,1 +1,19 @@
-{{teste}}
+<div ng-controller="ContractController">
+	<form action="">
+<input type="checkbox" name="" id="" ng-model="confirmContract" >
+
+
+<input type="button" value=" enviar" ng-click="confirm()">
+
+</form>
+
+ {{confirmContract}}
+<span class="error" ng-if="error">É necess;ario confirmar o contrato</span>
+<span class="error" ng-if="errorServer">Você já confirmou o contrato</span>
+
+
+
+
+
+
+</div>

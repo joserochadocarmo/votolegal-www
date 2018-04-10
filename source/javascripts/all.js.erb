@@ -492,6 +492,22 @@ app = window.app || {};
   }]);
 
 
+ app.votolegal.factory('contract_service', ['$http', 'serialize', 'store', function($http, serialize, store){
+	return {
+		contract: function(id){
+		return $http({
+			method: 'POST',
+			url: '<%= config[:api_host] %>/candidate/'+id+'/contract_signature',
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			})
+
+		}
+
+	}
+}]);
+
+
+
   app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'auth_service', function($scope, $http, serialize, auth_service){
     $scope.current_user = auth_service.current_user() || {};
 
