@@ -506,6 +506,25 @@ app = window.app || {};
 	}
 }]);
 
+ app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', function($http, serialize, store){
+	return {
+		getSessionId: function(){
+
+		return $http({
+			method: 'POST',
+			url: 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions' ,
+			data: serialize.from_object({"email": 'hernani.luiz@gmail.com', "token":'0222227D4A5E4631A83B7268D90418C1'}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			transformResponse: function (data) {
+                            var x2js = new X2JS();
+							var aftCnv = x2js.xml_str2json(data);
+                            return aftCnv;
+                        }
+       		 })
+		}
+	}
+}]);
+
 
 
   app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'auth_service', function($scope, $http, serialize, auth_service){

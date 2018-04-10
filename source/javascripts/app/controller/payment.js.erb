@@ -1,0 +1,58 @@
+app.votolegal.controller("PaymentController", [
+	"$scope",
+	"$http",
+	"$sce",
+	"serialize",
+	"auth_service",
+	"payment_pagseguro",
+	"SweetAlert",
+	"trouble",
+	"$route",
+	"$location",
+	function(
+		$scope,
+		$http,
+		$sce,
+		serialize,
+		auth_service,
+		payment_pagseguro,
+		SweetAlert,
+		trouble,
+		$location
+	) {
+		// $scope.error = false;
+		// $scope.errorServer = false;
+
+		// $scope.confirmContract = false;
+
+		// console.log(
+		// 	localStorage.getItem("userId"),
+		// 	"aqui",
+		// 	JSON.parse(localStorage.getItem("user"))
+		// );
+
+		// 	if (
+		// 	JSON.parse(localStorage.getItem("user") == null) &&
+		// 	localStorage.getItem("userId") == null
+		// ) {
+		// 	document.location = "/";
+		// }
+
+		// $scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId") ;
+
+		// $scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
+
+		// $scope.submit = function(event){
+		// 	 event.preventDefault();
+
+
+
+		$scope.sendPayment = function() {
+		 payment_pagseguro
+				.getSessionId().then(function(res){
+			console.log(res.data, 'ggggg')
+		});
+
+		};
+	}
+]);
