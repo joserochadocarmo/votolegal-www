@@ -9,7 +9,7 @@ app.votolegal.controller("PaymentController", [
 	"trouble",
 	"$route",
 	"$location",
-	function(
+	function (
 		$scope,
 		$http,
 		$sce,
@@ -46,13 +46,101 @@ app.votolegal.controller("PaymentController", [
 		// 	 event.preventDefault();
 
 
+		$scope.method = "";
 
-		$scope.sendPayment = function() {
-		 payment_pagseguro
-				.getSessionId().then(function(res){
-			console.log(res.data, 'ggggg')
-		});
 
-		};
+		$scope.sendPayment = function () {
+			return new Promise(function (resolve) {
+				var res = localStorage.getItem("userId"),
+					v
+
+				console.log('sss', payment_pagseguro.getSessionId(res))
+
+				resolve(payment_pagseguro.getSessionId(res))
+
+			})
+		}
+
+		$scope.getSessionId = function (res) {
+			return new Promise(function (resolve) {
+				resolve(PagSeguroDirectPayment.setSessionId(res))
+
+			})
+
+		}
+		$scope.getSenderHash = function () {
+			var r = new Promise(function (resolve) {
+
+				resolve(PagSeguroDirectPayment.getSenderHash())
+
+			})
+			// 		r.then(function(){
+			// 				PagSeguroDirectPayment.getPaymentMethods({
+			// 					amount: 100.00,
+			// 					error: function () {
+
+			// 					},
+			// 					success: function (response) {
+			// 						console.log(response, 'seuccess')
+			// 				},
+			// 				complete: function(response){
+
+			// 				return $scope.methods = response;
+
+			// 				}
+			// 		})
+			// })
+		}
+		$scope.brand = '';
+		$scope.brandCards = function () {
+
+			return PagSeguroDirectPayment.getBrand({
+				cardBin:4111111111111111,
+				success: function (response) {
+					return response;
+				},
+				error: function (response) {
+					console.log(response, 'c')
+				},
+				complete: function (response) {
+					window.vLresponse = response;
+				}
+			});
+
+		}
+
+		$scope.payment = function(){
+			alert()
+			PagSeguroDirectPayment.createCardToken({
+				cardNumber:4111111111111111,
+				brand: "visa",
+				cvv: 123,
+				expirationMonth: 12,
+				expirationYear: 2030,
+				success: function(reponse){
+					console.log(response)
+
+				},
+				error: function () {
+
+				},
+				complete: function (response) {
+
+					console.log(response)
+
+
+				},
+			});
+		}
+
+		$scope.sendPayment().then(function (response) {
+
+			var res = response.data.id;
+			$scope.getSessionId(res).then(function () {
+				$scope.getSenderHash();
+				$scope.brandCards();
+
+			})
+		})
 	}
 ]);

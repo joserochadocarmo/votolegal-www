@@ -1,20 +1,43 @@
 ---
 title:  Pagamento
 ---
+
+<div class="container">
 	<div class="row">
-<div ng-controller="PaymentController" >
+		<div ng-controller="PaymentController">
 
-		<div class="col-md-offset-3 col-md-6">
-				<h3>Formulário de pagamento</h3>
-			<form>
-				<input name="name" ng-model="user.name" type="text" placeholder="Nome" class="form-control ">
-				<input name="email" ng-model="user.name" type="text" class="form-control " placeholder="E-mail">
-				<input name="cpf" ng-model="user.name" type="text" class="form-control " placeholder="CPF">
-				<input ng-click="sendPayment()" type="button" value=" enviar" class="btn btn-success btn-lg btn-block">
-			</form>
-	  </div>
+				<div class="col-md-12">
+						<h3>Formulário de pagamento</h3>
+					<form action="" class="pagamento">
+						<div class="row"></div>
+						<div class="form-group">
+							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="name" ng-model="user.name" type="text" laceholder="Nome">
+						</div>
+						<div class="form-group">
+							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="email" ng-model="user.email" type="text" placeholder="E-mail">
+						</div>
+						<div class="form-group">
+							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="cpf" ng-model="user.cpf" type="text" placeholder="CPF">
+						</div>
+						<div class="form-group">
+							<input class="form-control  col-md-12 col-sm-12 col-xs-12" ng-model="user.card" type="text">
+						</div>
+						<div class="form-group">
+							<input class="form-control  col-md-12 col-sm-12 col-xs-12" ng-model="user.dataCard" type="text">
+						</div>
+							<div class="form-group">
+								<input class="form-control  col-md-12 col-sm-12 col-xs-12" ng-model="user.expireDate" type="text">
+						</div>
+
+						<div class="form-group">
+							<input class="btn btn-success btn-lg btn-block" ng-click="payment()" type="button" value="enviar">
+						</div>
+					</form>
+			</div>
+
+		</div>
+	</div>
+
 
 </div>
-</div>
-
 

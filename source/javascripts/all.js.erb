@@ -498,29 +498,25 @@ app = window.app || {};
 		return $http({
 			method: 'POST',
 			url: '<%= config[:api_host] %>/candidate/'+id+'/contract_signature',
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			})
-
 		}
-
 	}
 }]);
 
  app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', function($http, serialize, store){
+
 	return {
-		getSessionId: function(){
+		getSessionId: function(id){
 
 		return $http({
-			method: 'POST',
-			url: 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions' ,
-			data: serialize.from_object({"email": 'hernani.luiz@gmail.com', "token":'0222227D4A5E4631A83B7268D90418C1'}),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-			transformResponse: function (data) {
-                            var x2js = new X2JS();
-							var aftCnv = x2js.xml_str2json(data);
-                            return aftCnv;
-                        }
-       		 })
+			method: 'GET',
+			url: '<%= config[:api_host] %>/candidate/' + id +'/payment/session' ,
+
+       		 }).then(function(response){
+
+				return response
+
+				})
 		}
 	}
 }]);

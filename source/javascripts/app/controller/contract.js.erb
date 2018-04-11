@@ -56,10 +56,11 @@ app.votolegal.controller("ContractController", [
 						}
 					})
 					.error(function(data) {
+						console.log("error", data);
 						$scope.errorServer = true;
 
 						if (data.form_error.user_id.length > 0) {
-							document.location = "/";
+						 document.location = "/";
 						}
 					});
 			} else {
