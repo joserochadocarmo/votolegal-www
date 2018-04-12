@@ -5,6 +5,7 @@ app.votolegal.controller("PaymentController", [
 	"serialize",
 	"auth_service",
 	"payment_pagseguro",
+	"session_pagseguro",
 	"SweetAlert",
 	"trouble",
 	"$route",
@@ -16,6 +17,7 @@ app.votolegal.controller("PaymentController", [
 		serialize,
 		auth_service,
 		payment_pagseguro,
+		session_pagseguro,
 		SweetAlert,
 		trouble,
 		$location
@@ -47,55 +49,50 @@ app.votolegal.controller("PaymentController", [
 
 
 		$scope.method = "";
-
-
-		$scope.sendPayment = function () {
-			return new Promise(function (resolve) {
-				var res = localStorage.getItem("userId"),
-					v
-
-				console.log('sss', payment_pagseguro.getSessionId(res))
-
-				resolve(payment_pagseguro.getSessionId(res))
-
-			})
+		$scope.userCardData = {
+			name: '',
+			email:'',
+			cpf:'',
+			cardNumber:'',
+			monthCardExpire:'',
+			yearCardExpire:'',
+			cvvCard:'',
 		}
+		$scope.BrandCard ='';
+		$scope.senderHash ='';
 
-		$scope.getSessionId = function (res) {
+		$scope.getSessionId = function () {
+				return new Promise(function (resolve) {
+					var res = localStorage.getItem("userId");
+					resolve(session_pagseguro.getSessionId(res))
+					return sessionId;
+
+				})
+		}
+		$scope.SetSessionId = function (id) {
 			return new Promise(function (resolve) {
-				resolve(PagSeguroDirectPayment.setSessionId(res))
+				resolve(PagSeguroDirectPayment.setSessionId(id))
 
 			})
-
 		}
 		$scope.getSenderHash = function () {
-			var r = new Promise(function (resolve) {
-
+			return new Promise(function (resolve) {
 				resolve(PagSeguroDirectPayment.getSenderHash())
-
 			})
-			// 		r.then(function(){
-			// 				PagSeguroDirectPayment.getPaymentMethods({
-			// 					amount: 100.00,
-			// 					error: function () {
-
-			// 					},
-			// 					success: function (response) {
-			// 						console.log(response, 'seuccess')
-			// 				},
-			// 				complete: function(response){
-
-			// 				return $scope.methods = response;
-
-			// 				}
-			// 		})
-			// })
 		}
-		$scope.brand = '';
-		$scope.brandCards = function () {
 
+		//Start session
+			$scope.getSessionId()
+				.then(function(val){
+					$scope.SetSessionId(val.data.id)
+				.then(function(){
+					$scope.getSenderHash()
+				})
+			})
+
+		$scope.brandCards = function () {
 			return PagSeguroDirectPayment.getBrand({
-				cardBin:4111111111111111,
+				cardBin: $scope.userCardData.cardNumber,
 				success: function (response) {
 					return response;
 				},
@@ -103,20 +100,27 @@ app.votolegal.controller("PaymentController", [
 					console.log(response, 'c')
 				},
 				complete: function (response) {
-					window.vLresponse = response;
+					window.vLcardBrand = response;
+					getBrandCard(response).then(function(res){
+						$scope.payment(res)
+					});
 				}
 			});
-
+		}
+		getBrandCard = function(res){
+			return new Promise(function(resolve){
+				resolve(res);
+			})
 		}
 
-		$scope.payment = function(){
-			alert()
+		$scope.payment = function(brand){
+
 			PagSeguroDirectPayment.createCardToken({
-				cardNumber:4111111111111111,
-				brand: "visa",
-				cvv: 123,
-				expirationMonth: 12,
-				expirationYear: 2030,
+				cardNumber: $scope.userCardData.cardNumber,
+				brand: brand.brand.name,
+				cvv: $scope.userCardData.cvvCard,
+				expirationMonth: $scope.userCardData.monthCardExpire,
+				expirationYear: $scope.userCardData.yearCardExpire,
 				success: function(reponse){
 					console.log(response)
 
@@ -126,21 +130,19 @@ app.votolegal.controller("PaymentController", [
 				},
 				complete: function (response) {
 
-					console.log(response)
-
-
+				console.log(response, 'resonse')
+						var userId = localStorage.getItem("userId");
+						var hash = PagSeguroDirectPayment.getSenderHash()
+						$scope.sendPayment( userId, hash, response.card.token)
 				},
 			});
 		}
 
-		$scope.sendPayment().then(function (response) {
-
-			var res = response.data.id;
-			$scope.getSessionId(res).then(function () {
-				$scope.getSenderHash();
-				$scope.brandCards();
-
+		$scope.sendPayment = function(userId, hash, tokenCard){
+			payment_pagseguro.payment(userId, hash, tokenCard).then(function(val){
+				console.log(val, 'val')
 			})
-		})
+
+		}
 	}
 ]);

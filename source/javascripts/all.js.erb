@@ -503,14 +503,14 @@ app = window.app || {};
 	}
 }]);
 
- app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', function($http, serialize, store){
+ app.votolegal.factory('session_pagseguro', ['$http', 'serialize', 'store', function($http, serialize, store){
 
 	return {
 		getSessionId: function(id){
 
 		return $http({
 			method: 'GET',
-			url: '<%= config[:api_host] %>/candidate/' + id +'/payment/session' ,
+			url: '<%= config[:api_host] %>/candidate/'+id+'/payment/session',
 
        		 }).then(function(response){
 
@@ -520,6 +520,24 @@ app = window.app || {};
 		}
 	}
 }]);
+ app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', function($http, serialize, store){
+
+	return {
+		payment: function(id, sender_hash, credit_card_token){
+
+		return $http({
+			method: 'POST',
+			url: '<%= config[:api_host] %>/candidate/'+id+'/payment?method=creditCard&sender_hash='+sender_hash+'&credit_card_token='+credit_card_token+'',
+
+       		 }).then(function(response){
+
+				return response
+
+				})
+		}
+	}
+}]);
+
 
 
 

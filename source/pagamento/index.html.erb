@@ -11,26 +11,38 @@ title:  Pagamento
 					<form action="" class="pagamento">
 						<div class="row"></div>
 						<div class="form-group">
-							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="name" ng-model="user.name" type="text" laceholder="Nome">
+							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="name" ng-model="userCardData.name" type="text" placeholder="Nome" required>
 						</div>
 						<div class="form-group">
-							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="email" ng-model="user.email" type="text" placeholder="E-mail">
-						</div>
-						<div class="form-group">
-							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="cpf" ng-model="user.cpf" type="text" placeholder="CPF">
-						</div>
-						<div class="form-group">
-							<input class="form-control  col-md-12 col-sm-12 col-xs-12" ng-model="user.card" type="text">
-						</div>
-						<div class="form-group">
-							<input class="form-control  col-md-12 col-sm-12 col-xs-12" ng-model="user.dataCard" type="text">
-						</div>
-							<div class="form-group">
-								<input class="form-control  col-md-12 col-sm-12 col-xs-12" ng-model="user.expireDate" type="text">
-						</div>
+						<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="email" ng-model="userCardData.email" type="text" placeholder="E-mail" required>
 
+						</div>
 						<div class="form-group">
-							<input class="btn btn-success btn-lg btn-block" ng-click="payment()" type="button" value="enviar">
+							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="cpf" ng-model="userCardData.cpf" type="text" placeholder="CPF" required>
+
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input class="form-control  col-md-6" ng-model="userCardData.cardNumber" type="text" placeholder="Número do cartão" required>
+								</div>
+								<div class="form-group">
+							<input class="form-control  col-md-3" ng-model="userCardData.monthCardExpire" type="text" placeholder="Mês que o cartão expira" required>
+
+								</div>
+
+								<div class="form-group">
+							<input class="form-control  col-md-3" ng-model="userCardData.yearCardExpire" type="text" placeholder="Ano que o cartão expira" required>
+
+								</div>
+								<div class="form-group">
+								<input class="form-control  col-md-3" ng-model="userCardData.cvvCard" type="text" placeholder="Código de segurança" required>
+
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<input class="btn btn-success btn-lg btn-block" ng-click="brandCards()" type="button" value="enviar">
 						</div>
 					</form>
 			</div>
