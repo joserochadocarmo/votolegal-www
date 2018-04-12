@@ -1,5 +1,5 @@
 if(document.location.href.indexOf('/cadastro-completo') >= 0){
-  app.votolegal.config(['$routeProvider', function($routeProvider) {
+  app.votolegal.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
     when('/dados-pessoais', {
       templateUrl: '/javascripts/app/view/cadastro/dados-pessoais.tmpl',
@@ -15,7 +15,11 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
       templateUrl: '/javascripts/app/view/cadastro/projetos.tmpl',
       controller: 'CadastroController',
       activetab: 'projetos'
-    }).
+	}).
+	when('/contrato',{
+	  templateUrl: '/javascripts/app/view/contrato/index.tmpl',
+      controller: 'ContractController',
+	}).
     otherwise({
       redirectTo: '/dados-pessoais',
       activetab: 'pessoal'

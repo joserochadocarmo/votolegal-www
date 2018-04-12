@@ -63,9 +63,22 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
 
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
-    var url = document.location.href;
-    url = url.split(/\//)[2].split('.')[0];
-    if(url !== 'localhost') return url;
+	var url = document.location.href;
+	var queryObject = {};
+	url = url.split("?")[1].split("&");
+
+	queryObject = url.map(function (u,i) {
+		var query = u.split('=');
+		var queries  = query.map(function (q, i) {
+
+			return q;
+		})
+		return queries;
+	})
+
+	url = {id:queryObject[0][1]}
+
+    if(url !== 'localhost') return url.id;
   })();
   $scope.month_list = (function(){
     list = [];
@@ -137,7 +150,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "ser
     }).
     then(
       function(response){
-        var res = response.data.candidate;
+		var res = response.data.candidate;
+
+		console.log(response.data.candidate, 'ffffff')
+
         $scope.candidate = res;
 
         (function(){
