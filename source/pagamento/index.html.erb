@@ -1,50 +1,60 @@
----
-title:  Pagamento
----
+--- title: Pagamento ---
 
 <div class="container">
 	<div class="row">
 		<div ng-controller="PaymentController">
 
-				<div class="col-md-12">
-						<h3>Formulário de pagamento</h3>
-					<form action="" class="pagamento">
-						<div class="row"></div>
-						<div class="form-group">
-							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="name" ng-model="userCardData.name" type="text" placeholder="Nome" required>
-						</div>
-						<div class="form-group">
-						<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="email" ng-model="userCardData.email" type="text" placeholder="E-mail" required>
+			<div class="col-md-12">
+				<h3>Formulário de pagamento</h3>
+				<form name="pagamento" id="pagamento" ng-submit="submit(pagamento)" novalidate>
+					<div class="form-group">
+						<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="name" data-name="Nome" ng-model="userCardData.name" type="text"
+						    placeholder="Nome" required>
+					</div>
+					<div class="form-group">
+						<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="email" ng-model="userCardData.email" type="text" placeholder="E-mail"
+						    data-email="E-mail" required>
 
-						</div>
-						<div class="form-group">
-							<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="cpf" ng-model="userCardData.cpf" type="text" placeholder="CPF" required>
+					</div>
+					<div class="form-group">
+						<input class="form-control  col-md-12 col-sm-12 col-xs-12" name="cpf" ng-model="userCardData.cpf" type="text" placeholder="CPF"
+						    data-cpf="CPF" mask="999.999.999-99" required>
 
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<input class="form-control  col-md-6" ng-model="userCardData.cardNumber" type="text" placeholder="Número do cartão" required>
-								</div>
-								<div class="form-group">
-							<input class="form-control  col-md-3" ng-model="userCardData.monthCardExpire" type="text" placeholder="Mês que o cartão expira" required>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<input class="form-control  col-md-6" name="cardNumber" ng-model="userCardData.cardNumber" type="text" placeholder="Número do cartão"
+								    data-cardNumber="Número do cartão" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control  col-md-3" name="monthCardExpire" ng-model="userCardData.monthCardExpire" type="text" placeholder="Mês que o cartão expira"
+								    data-monthCardExpire="Mês que o cartão expira" mask="99" required>
 
-								</div>
+							</div>
+							<div class="form-group">
+								<input class="form-control  col-md-3" name="yearCardExpire" ng-model="userCardData.yearCardExpire" type="text" placeholder="Ano que o cartão expira"
+								    data-yearCardExpire="Ano que o cartão expira" mask="9999" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control  col-md-3" name="cvvCard" mask="999" ng-model="userCardData.cvvCard" type="text" placeholder="Código de segurança"
+								    data-cvvCard="Código de segurança" required>
 
-								<div class="form-group">
-							<input class="form-control  col-md-3" ng-model="userCardData.yearCardExpire" type="text" placeholder="Ano que o cartão expira" required>
-
-								</div>
-								<div class="form-group">
-								<input class="form-control  col-md-3" ng-model="userCardData.cvvCard" type="text" placeholder="Código de segurança" required>
-
-								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<input class="btn btn-success btn-lg btn-block" ng-click="brandCards()" type="button" value="enviar">
-						</div>
-					</form>
+					</div>
+					<div class="form-group">
+						<input class="btn btn-success btn-lg btn-block" ng-click="errorsCheck()" type="submit" value="enviar" ng-disable="formDisable">
+					</div>
+					<div ng-show="errorList.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+					    class="error-panel">
+						<h4>Os seguinte campos precisam ser corrigidos:</h4>
+						<ul ng-repeat="error in errorList track by $index" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;"
+						    class="ng-scope" ng-repeat="error in error_list">
+							<li ng-if="error.length > 0">{{error}}</li>
+						</ul>
+					</div>
+				</form>
 			</div>
 
 		</div>
@@ -52,4 +62,3 @@ title:  Pagamento
 
 
 </div>
-
