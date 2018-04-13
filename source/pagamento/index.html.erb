@@ -6,7 +6,7 @@
 
 			<div class="col-md-12">
 				<h3>Formulário de pagamento</h3>
-				<form name="pagamento" id="pagamento" ng-submit="submit(pagamento)" novalidate>
+				<form name="pagamento" id="pagamento" ng-submit="submit(pagamento)">
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group">
@@ -18,7 +18,7 @@
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group icon-left">
 								<i class="fa fa-envelope"></i>
-								<input class="form-control  " name="email" ng-model="userCardData.email" type="text" placeholder="E-mail" data-email="E-mail"
+								<input class="form-control " type="email"name="email" ng-model="userCardData.email" type="text" placeholder="E-mail" data-email="E-mail"
 								    required>
 							</div>
 						</div>
@@ -60,7 +60,7 @@
 						<!-- </div> -->
 					</div>
 					<div class="form-group">
-						<input class="btn btn-success btn-lg btn-block" ng-click="errorsCheck()" type="submit" value="enviar" ng-disable="formDisable">
+						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar" ng-disable="formDisable">
 					</div>
 					<div ng-show="errorList.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 					    class="error-panel">

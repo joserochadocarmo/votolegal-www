@@ -33,9 +33,6 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
 
-		$scope.submit = function(event){
-			 event.preventDefault();
-
 		$scope.method = "";
 		$scope.userCardData = {
 			name: '',
@@ -46,10 +43,12 @@ app.votolegal.controller("PaymentController", [
 			yearCardExpire: '',
 			cvvCard: '',
 		};
-		$scope.errorList = [];
+
 		$scope.BrandCard = '';
 		$scope.senderHash = '';
 		$scope.formDisable = true;
+
+
 
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
@@ -131,32 +130,46 @@ app.votolegal.controller("PaymentController", [
 
 			console.log(form, 'fomr')
 			var error = [];
-			if (form.$error.required) {
+			if (form.$invalid == true) {
 				error = form.$error.required;
-				error.map(function (erro) {
+				var t = error.map(function (erro) {
+
+						var e = []
 					switch (erro.$name) {
 						case 'name':
-							$scope.errorList[0] = 'Nome'
-						case 'email':
-							$scope.errorList[1] = 'E-mail'
-						case 'cpf':
-							$scope.errorList[2] = 'CPF'
-						case 'cardNumber':
-							$scope.errorList[3] = 'Número do cartão'
-						case 'monthCardExpire':
-							$scope.errorList[4] = 'Mês que o cartão expira'
-						case 'yearCardExpire':
-							$scope.errorList[5] = 'Ano que o cartão expira'
-						case 'cvvCard':
-							$scope.errorList[6] = 'Código de segurança'
-							break;
+							e[0] = "Nome"
+						case "email":
+							e[1] = "E-mail"
+						case "cpf":
+							e[2] = "CPF"
+						case "cardNumber":
+							e[3] = "Número do cartão"
+						case "monthCardExpire":
+							e[4] = "Mês que o cartão expira"
+						case "yearCardExpire":
+							e[5] = "Ano que o cartão expira"
+						case "cvvCard":
+							e[6] = "Código de segurança"
 						default:
 							break;
 					}
-				})
+					return e;
+
+
+				}, 1)
+					$scope.errorList = t[0];
+
+
+
+
+
+
+
+
 			}else{
+				alert()
 				$scope.brandCards()
 			}
 		}
-	}
+
 	}]);
