@@ -117,7 +117,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     $scope.progress = p;
 
     // save to session
-    var session = auth_service.session();
+	var session = auth_service.session();
+
     session.set('progress', p);
   };
 
@@ -142,6 +143,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         data: params,
         headers: { 'Content-Type': undefined },
         transformRequest: function (data) {
+
           var fd = new FormData();
           for (var p in data) fd.append(p, data[p]);
           // add file to form_data
@@ -211,10 +213,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
     return false;
   };
-
-  console.log('teste')
-
-
   // save campaign data
   $scope.save_campaign = function(index){
 
@@ -307,6 +305,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       data: serialize.from_object(params),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }).then(function (response) {
+
       //$scope.projects[index].changed = false;
       SweetAlert.swal('O projeto foi salvo!');
       $scope.check_percent();
@@ -443,7 +442,14 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     $http.get('//dapi.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){
-        $scope.candidate = response.data.candidate;
+
+		$scope.candidate = response.data.candidate;
+		if($scope.candidate.signed_contract){
+			window.location = '/contrato';
+		}else if(window.location = '/pagamento'){
+			window.location = '/pagamento';
+		}
+
 
         (function(){
           var boleto = document.querySelector('#show-boleto');

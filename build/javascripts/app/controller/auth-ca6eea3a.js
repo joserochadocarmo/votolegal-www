@@ -58,7 +58,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
     var params = $scope.signin_params();
 
     // fields validation
-    if(params.password == null) 
+    if(params.password == null)
       $scope.error_list.push('Nova Senha é um campo obrigatório.');
 
     if(params.password !== params.confirm_password)
@@ -116,7 +116,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
       var name = res.candidate_name.split(/\s+/).shift();
 
       // save session
-      var session = auth_service.session(); 
+      var session = auth_service.session();
       session.set(
         auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
       );

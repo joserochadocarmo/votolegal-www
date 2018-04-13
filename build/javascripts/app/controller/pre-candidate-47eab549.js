@@ -19,6 +19,7 @@ app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serializ
     }).
     then(
       function(response){
+
         var res = response.data.candidate;
         $scope.model = res;
       },

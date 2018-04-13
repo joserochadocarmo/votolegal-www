@@ -4254,15 +4254,11 @@ app = window.app || {};
 
 	return {
 		getSessionId: function(id){
-
 		return $http({
 			method: 'GET',
 			url: '//dapi.votolegal.com.br/api/candidate/'+id+'/payment/session',
-
        		 }).then(function(response){
-
 				return response
-
 				})
 		}
 	}
@@ -4275,11 +4271,8 @@ app = window.app || {};
 		return $http({
 			method: 'POST',
 			url: '//dapi.votolegal.com.br/api/candidate/'+id+'/payment?method=creditCard&sender_hash='+sender_hash+'&credit_card_token='+credit_card_token+'',
-
        		 }).then(function(response){
-
 				return response
-
 				})
 		}
 	}
@@ -4595,7 +4588,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
     var params = $scope.signin_params();
 
     // fields validation
-    if(params.password == null) 
+    if(params.password == null)
       $scope.error_list.push('Nova Senha é um campo obrigatório.');
 
     if(params.password !== params.confirm_password)
@@ -4653,7 +4646,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
       var name = res.candidate_name.split(/\s+/).shift();
 
       // save session
-      var session = auth_service.session(); 
+      var session = auth_service.session();
       session.set(
         auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
       );
@@ -4998,7 +4991,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     $scope.progress = p;
 
     // save to session
-    var session = auth_service.session();
+	var session = auth_service.session();
+
     session.set('progress', p);
   };
 
@@ -5023,6 +5017,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
         data: params,
         headers: { 'Content-Type': undefined },
         transformRequest: function (data) {
+
           var fd = new FormData();
           for (var p in data) fd.append(p, data[p]);
           // add file to form_data
@@ -5092,10 +5087,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
     return false;
   };
-
-  console.log('teste')
-
-
   // save campaign data
   $scope.save_campaign = function(index){
 
@@ -5188,6 +5179,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       data: serialize.from_object(params),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }).then(function (response) {
+
       //$scope.projects[index].changed = false;
       SweetAlert.swal('O projeto foi salvo!');
       $scope.check_percent();
@@ -5324,7 +5316,14 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     $http.get('//dapi.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){
-        $scope.candidate = response.data.candidate;
+
+		$scope.candidate = response.data.candidate;
+		if($scope.candidate.signed_contract){
+			window.location = '/contrato';
+		}else if(window.location = '/pagamento'){
+			window.location = '/pagamento';
+		}
+
 
         (function(){
           var boleto = document.querySelector('#show-boleto');
@@ -6346,12 +6345,6 @@ app.votolegal.controller("ContractController", [
 
 		$scope.confirmContract = false;
 
-		console.log(
-			localStorage.getItem("userId"),
-			"aqui",
-			JSON.parse(localStorage.getItem("user"))
-		);
-
 		if (
 			JSON.parse(localStorage.getItem("user") == null) &&
 			localStorage.getItem("userId") == null
@@ -6960,6 +6953,8 @@ app.votolegal.controller("PaymentController", [
 	"trouble",
 	"$route",
 	"$location",
+	"SweetAlert",
+
 	function (
 		$scope,
 		$http,
@@ -6970,54 +6965,42 @@ app.votolegal.controller("PaymentController", [
 		session_pagseguro,
 		SweetAlert,
 		trouble,
-		$location
+		$location,
+		SweetAlert
 	) {
-		// $scope.error = false;
-		// $scope.errorServer = false;
+		if (JSON.parse(localStorage.getItem("user") == null) && localStorage.getItem("userId") == null) {
+			document.location = "/";
+		}
 
-		// $scope.confirmContract = false;
+		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId");
 
-		// console.log(
-		// 	localStorage.getItem("userId"),
-		// 	"aqui",
-		// 	JSON.parse(localStorage.getItem("user"))
-		// );
+		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
 
-		// 	if (
-		// 	JSON.parse(localStorage.getItem("user") == null) &&
-		// 	localStorage.getItem("userId") == null
-		// ) {
-		// 	document.location = "/";
-		// }
-
-		// $scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId") ;
-
-		// $scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
-
-		// $scope.submit = function(event){
-		// 	 event.preventDefault();
-
+		$scope.submit = function(event){
+			 event.preventDefault();
 
 		$scope.method = "";
 		$scope.userCardData = {
 			name: '',
-			email:'',
-			cpf:'',
-			cardNumber:'',
-			monthCardExpire:'',
-			yearCardExpire:'',
-			cvvCard:'',
-		}
-		$scope.BrandCard ='';
-		$scope.senderHash ='';
+			email: '',
+			cpf: '',
+			cardNumber: '',
+			monthCardExpire: '',
+			yearCardExpire: '',
+			cvvCard: '',
+		};
+		$scope.errorList = [];
+		$scope.BrandCard = '';
+		$scope.senderHash = '';
+		$scope.formDisable = true;
 
 		$scope.getSessionId = function () {
-				return new Promise(function (resolve) {
-					var res = localStorage.getItem("userId");
-					resolve(session_pagseguro.getSessionId(res))
-					return sessionId;
+			return new Promise(function (resolve) {
+				var res = localStorage.getItem("userId");
+				resolve(session_pagseguro.getSessionId(res))
+				return sessionId;
 
-				})
+			})
 		}
 		$scope.SetSessionId = function (id) {
 			return new Promise(function (resolve) {
@@ -7032,12 +7015,12 @@ app.votolegal.controller("PaymentController", [
 		}
 
 		//Start session
-			$scope.getSessionId()
-				.then(function(val){
-					$scope.SetSessionId(val.data.id)
-				.then(function(){
-					$scope.getSenderHash()
-				})
+		$scope.getSessionId()
+			.then(function (val) {
+				$scope.SetSessionId(val.data.id)
+					.then(function () {
+						$scope.getSenderHash()
+					})
 			})
 
 		$scope.brandCards = function () {
@@ -7051,19 +7034,19 @@ app.votolegal.controller("PaymentController", [
 				},
 				complete: function (response) {
 					window.vLcardBrand = response;
-					getBrandCard(response).then(function(res){
+					getBrandCard(response).then(function (res) {
 						$scope.payment(res)
 					});
 				}
 			});
 		}
-		getBrandCard = function(res){
-			return new Promise(function(resolve){
+		getBrandCard = function (res) {
+			return new Promise(function (resolve) {
 				resolve(res);
 			})
 		}
 
-		$scope.payment = function(brand){
+		$scope.payment = function (brand) {
 
 			PagSeguroDirectPayment.createCardToken({
 				cardNumber: $scope.userCardData.cardNumber,
@@ -7071,7 +7054,7 @@ app.votolegal.controller("PaymentController", [
 				cvv: $scope.userCardData.cvvCard,
 				expirationMonth: $scope.userCardData.monthCardExpire,
 				expirationYear: $scope.userCardData.yearCardExpire,
-				success: function(reponse){
+				success: function (reponse) {
 					console.log(response)
 
 				},
@@ -7079,23 +7062,47 @@ app.votolegal.controller("PaymentController", [
 
 				},
 				complete: function (response) {
+					var userId = localStorage.getItem("userId");
+					var hash = PagSeguroDirectPayment.getSenderHash()
+					payment_pagseguro.payment(userId, hash, tokenCard)
 
-				console.log(response, 'resonse')
-						var userId = localStorage.getItem("userId");
-						var hash = PagSeguroDirectPayment.getSenderHash()
-						$scope.sendPayment( userId, hash, response.card.token)
 				},
 			});
 		}
 
-		$scope.sendPayment = function(userId, hash, tokenCard){
-			payment_pagseguro.payment(userId, hash, tokenCard).then(function(val){
-				console.log(val, 'val')
-			})
+		$scope.submit = function (form) {
 
+			console.log(form, 'fomr')
+			var error = [];
+			if (form.$error.required) {
+				error = form.$error.required;
+				error.map(function (erro) {
+					switch (erro.$name) {
+						case 'name':
+							$scope.errorList[0] = 'Nome'
+						case 'email':
+							$scope.errorList[1] = 'E-mail'
+						case 'cpf':
+							$scope.errorList[2] = 'CPF'
+						case 'cardNumber':
+							$scope.errorList[3] = 'Número do cartão'
+						case 'monthCardExpire':
+							$scope.errorList[4] = 'Mês que o cartão expira'
+						case 'yearCardExpire':
+							$scope.errorList[5] = 'Ano que o cartão expira'
+						case 'cvvCard':
+							$scope.errorList[6] = 'Código de segurança'
+							break;
+						default:
+							break;
+					}
+				})
+			}else{
+				$scope.brandCards()
+			}
 		}
 	}
-]);
+	}]);
 /**
  * PreCadastro controller
  * Register a new candidate to be moderated by admin team
@@ -7272,6 +7279,7 @@ app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serializ
     }).
     then(
       function(response){
+
         var res = response.data.candidate;
         $scope.model = res;
       },
