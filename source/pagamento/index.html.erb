@@ -1,4 +1,6 @@
---- title: Pagamento ---
+---
+title: Pagamento
+ ---
 
 <div class="container">
 	<div class="row">
@@ -6,7 +8,7 @@
 
 			<div class="col-md-12">
 				<h3>Formulário de pagamento</h3>
-				<form name="pagamento" id="pagamento" ng-submit="submit(pagamento)">
+				<form name="pagamento" id="pagamento" ng-submit="submit(pagamento)" novalidate>
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group">
@@ -18,7 +20,7 @@
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group icon-left">
 								<i class="fa fa-envelope"></i>
-								<input class="form-control " type="email"name="email" ng-model="userCardData.email" type="text" placeholder="E-mail" data-email="E-mail"
+								<input class="form-control " type="email" name="email" ng-model="userCardData.email" type="text" placeholder="E-mail" data-email="E-mail"
 								    required>
 							</div>
 						</div>
@@ -35,27 +37,27 @@
 					<div class="row">
 						<!-- <div class="col-md-12"> -->
 
-								<div class="form-group icon-left col-md-3">
-									<i class="fa fa-credit-card"></i>
-									<input class="form-control  " name="cardNumber" ng-model="userCardData.cardNumber" type="text" placeholder="Número do cartão"
- data-cardNumber="Número do cartão" mask="9999 9999 9999 9999" required>
+						<div class="form-group icon-left col-md-3">
+							<i class="fa fa-credit-card"></i>
+							<input class="form-control  " name="cardNumber" ng-model="userCardData.cardNumber" type="text" placeholder="Número do cartão"
+							    data-cardNumber="Número do cartão" mask="9999 9999 9999 9999" required>
 
-								</div>
-								<div class="form-group icon-left col-md-3">
-									<i class="fa fa-credit-card"></i>
-										<input class="form-control  " name="monthCardExpire" ng-model="userCardData.monthCardExpire" type="text" placeholder="Mês que o cartão expira"
-								    data-monthCardExpire="Mês que o cartão expira" mask="99" required>
-								</div>
-								<div class="form-group icon-left col-md-3">
-									<i class="fa fa-credit-card"></i>
-										<input class="form-control" name="yearCardExpire" ng-model="userCardData.yearCardExpire" type="text" placeholder="Ano que o cartão expira"
-								    data-yearCardExpire="Ano que o cartão expira" mask="9999" required>
-								</div>
-								<div class="form-group icon-left col-md-3">
-									<i class="fa fa-credit-card"></i>
-										<input class="form-control" name="cvvCard" mask="999" ng-model="userCardData.cvvCard" type="text" placeholder="Código de segurança"
-								    data-cvvCard="Código de segurança" required>
-								</div>
+						</div>
+						<div class="form-group icon-left col-md-3">
+							<i class="fa fa-credit-card"></i>
+							<input class="form-control  " name="monthCardExpire" ng-model="userCardData.monthCardExpire" type="text" placeholder="Mês que o cartão expira"
+							    data-monthCardExpire="Mês que o cartão expira" mask="99" required>
+						</div>
+						<div class="form-group icon-left col-md-3">
+							<i class="fa fa-credit-card"></i>
+							<input class="form-control" name="yearCardExpire" ng-model="userCardData.yearCardExpire" type="text" placeholder="Ano que o cartão expira"
+							    data-yearCardExpire="Ano que o cartão expira" mask="9999" required>
+						</div>
+						<div class="form-group icon-left col-md-3">
+							<i class="fa fa-credit-card"></i>
+							<input class="form-control" name="cvvCard" mask="999" ng-model="userCardData.cvvCard" type="text" placeholder="Código de segurança"
+							    data-cvvCard="Código de segurança" required>
+						</div>
 
 						<!-- </div> -->
 					</div>

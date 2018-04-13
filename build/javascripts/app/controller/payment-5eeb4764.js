@@ -46,7 +46,8 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.BrandCard = '';
 		$scope.senderHash = '';
-		$scope.formDisable = true;
+		$scope.formDisable = false;
+		$scope.formDisable = [],
 
 
 
@@ -132,9 +133,11 @@ app.votolegal.controller("PaymentController", [
 			var error = [];
 			if (form.$invalid == true) {
 				error = form.$error.required;
-				var t = error.map(function (erro) {
+				var errorsForm = error.map(function (erro) {
 
-						var e = []
+
+
+					var e = []
 					switch (erro.$name) {
 						case 'name':
 							e[0] = "Nome"
@@ -151,13 +154,32 @@ app.votolegal.controller("PaymentController", [
 						case "cvvCard":
 							e[6] = "Código de segurança"
 						default:
-							break;
+							break
+
 					}
+
+
+
+
 					return e;
 
 
 				}, 1)
-					$scope.errorList = t[0];
+
+					console.log(errorsForm, 'ddd')
+
+
+				$scope.errorList = '';
+
+
+				console.log($scope.errorList, 'antes')
+
+
+					// $scope.errorList= errorsForm[0];
+
+					// console.log($scope.errorList, 'depois')
+
+
 
 
 
@@ -167,7 +189,8 @@ app.votolegal.controller("PaymentController", [
 
 
 			}else{
-				alert()
+		$scope.formDisable = false
+
 				$scope.brandCards()
 			}
 		}
