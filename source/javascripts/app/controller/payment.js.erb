@@ -48,6 +48,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.senderHash = '';
 		$scope.formDisable = true;
 		$scope.formDisable = [],
+		$scope.error_list = [],
 
 
 
@@ -87,12 +88,14 @@ app.votolegal.controller("PaymentController", [
 					return response;
 				},
 				error: function (response) {
-					console.log(response, 'c')
+					console.log(response, 'erro brands in erro ')
 				},
 				complete: function (response) {
+
+				console.log(response, 'erro brands in complete')
 					window.vLcardBrand = response;
 					getBrandCard(response).then(function (res) {
-						$scope.payment(res)
+						$scope.createCardToken(res)
 					});
 				}
 			});
@@ -103,11 +106,11 @@ app.votolegal.controller("PaymentController", [
 			})
 		}
 
-		$scope.payment = function (brand) {
+		$scope.createCardToken = function (brand) {
 
 			PagSeguroDirectPayment.createCardToken({
 				cardNumber: $scope.userCardData.cardNumber,
-				brand: brand.brand.name,
+				brand: window.vLcardBrand,
 				cvv: $scope.userCardData.cvvCard,
 				expirationMonth: $scope.userCardData.monthCardExpire,
 				expirationYear: $scope.userCardData.yearCardExpire,
@@ -119,6 +122,7 @@ app.votolegal.controller("PaymentController", [
 
 				},
 				complete: function (response) {
+
 					var userId = localStorage.getItem("userId");
 					var hash = PagSeguroDirectPayment.getSenderHash()
 					payment_pagseguro.payment(userId, hash, tokenCard)
@@ -129,41 +133,60 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.submit = function (form) {
 
-			console.log(form, 'fomr')
-			var error = [];
+		console.log(form, 'form')
+				$scope.brandCards()
+
+
 			if (form.$invalid == true) {
-				error = form.$error.required;
-				var errorsForm = error.map(function (erro) {
 
-					var e = []
-					switch (erro.$name) {
-						case 'name':
-							e[0] = "Nome"
-						case "email":
-							e[1] = "E-mail"
-						case "cpf":
-							e[2] = "CPF"
-						case "cardNumber":
-							e[3] = "Número do cartão"
-						case "monthCardExpire":
-							e[4] = "Mês que o cartão expira"
-						case "yearCardExpire":
-							e[5] = "Ano que o cartão expira"
-						case "cvvCard":
-							e[6] = "Código de segurança"
-						default:
-							break
-					}
+				var error = form.$error.required;
+				var element = '';
 
-					return e;
-				}, 1)
+				error.map(function(e){
 
 
-					$scope.errorList= errorsForm[0];
+					element = document.querySelector('form[name=pagamento] *[name='+e.$name+']');
+					//element = document.querySelector('form[name=pagamento] *[name=name]');
+
+					var t  = Array.from(element)
+					t.map(function(e){
+						console.log(e.value, 'dd')
+
+					})
+
+
+					//console.log(element.value, 'valeu')
+
+					var name = element.attributes['placeholder'].value;
+					$scope.error_list.push(name);
+
+					//console.log(element, 'elemnt')
+
+				})
+
+
+
+
+/*
+# 				for(var field in error){
+# console.log('ddddd', field)
+
+#
+
+# 		console.log(t, 'reorno')
+
+# 					//ar name = f(field).attributes['placeholder'].value;
+# 					// $scope.error_list.push(name + error_msg(res[field]));
+
+# 					}
+
+*/
+
 			}else{
-
 				$scope.brandCards()
 			}
+
+
 		}
 
 	}]);

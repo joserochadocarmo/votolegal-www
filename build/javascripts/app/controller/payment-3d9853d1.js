@@ -154,14 +154,10 @@ app.votolegal.controller("PaymentController", [
 						default:
 							break
 					}
-
 					return e;
 				}, 1)
-
-
 					$scope.errorList= errorsForm[0];
 			}else{
-
 				$scope.brandCards()
 			}
 		}
