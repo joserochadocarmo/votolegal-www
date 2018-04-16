@@ -23,7 +23,8 @@ app.votolegal.controller("PaymentController", [
 		SweetAlert,
 		trouble,
 		$location,
-		SweetAlert
+		SweetAlert,
+
 	) {
 		if (JSON.parse(localStorage.getItem("user") == null) && localStorage.getItem("userId") == null) {
 			document.location = "/";
@@ -34,23 +35,34 @@ app.votolegal.controller("PaymentController", [
 		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
 
 		$scope.method = "";
-		$scope.userCardData = {
+		$scope.candidate = {
 			name: '',
 			email: '',
 			cpf: '',
-			cardNumber: '',
-			monthCardExpire: '',
-			yearCardExpire: '',
-			cvvCard: '',
+			phone: '',
+			zipCode: '',
+			addressState:'',
+			addressHouseNumber:'',
+			addressDistrict: '',
+			addressCity: '',
+			addressStreet: '',
+			card:{
+				name:'',
+				cardNumber: '',
+				monthCardExpire: '',
+				yearCardExpire: '',
+				cvvCard: '',
+			}
 		};
+
 
 		$scope.BrandCard = '';
 		$scope.senderHash = '';
 		$scope.formDisable = true;
-		$scope.formDisable = [],
 		$scope.error_list = [],
-
-
+		$scope.paymentMethod = '';
+		var year = new Date()
+		$scope.currentYear = year.getFullYear();
 
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
@@ -75,24 +87,26 @@ app.votolegal.controller("PaymentController", [
 		//Start session
 		$scope.getSessionId()
 			.then(function (val) {
+				console.log('resolve get session id', val)
 				$scope.SetSessionId(val.data.id)
-					.then(function () {
-						$scope.getSenderHash()
-					})
+				console.log('resolve set session id', val)
+
 			})
 
-		$scope.brandCards = function () {
+		$scope.creditCardPayment = function () {
+			$scope.getSenderHash()
+
 			return PagSeguroDirectPayment.getBrand({
-				cardBin: $scope.userCardData.cardNumber,
+				cardBin: '123',
 				success: function (response) {
-					return response;
+					console.log('brandCards success', response)
 				},
 				error: function (response) {
 					console.log(response, 'erro brands in erro ')
 				},
 				complete: function (response) {
 
-				console.log(response, 'erro brands in complete')
+					console.log(response, ' brands in complete')
 					window.vLcardBrand = response;
 					getBrandCard(response).then(function (res) {
 						$scope.createCardToken(res)
@@ -109,84 +123,49 @@ app.votolegal.controller("PaymentController", [
 		$scope.createCardToken = function (brand) {
 
 			PagSeguroDirectPayment.createCardToken({
-				cardNumber: $scope.userCardData.cardNumber,
+				cardNumber: $scope.candidate.cardNumber,
 				brand: window.vLcardBrand,
-				cvv: $scope.userCardData.cvvCard,
-				expirationMonth: $scope.userCardData.monthCardExpire,
-				expirationYear: $scope.userCardData.yearCardExpire,
-				success: function (reponse) {
-					console.log(response)
-
+				cvv: $scope.candidate.cvvCard,
+				expirationMonth: $scope.candidate.monthCardExpire,
+				expirationYear: $scope.candidate.yearCardExpire,
+				success: function (response) {
+					console.log('cartdToken success', response)
 				},
 				error: function () {
-
+					console.log('cartdToken error')
 				},
 				complete: function (response) {
+					console.log('cartdToken complete', response)
 
 					var userId = localStorage.getItem("userId");
 					var hash = PagSeguroDirectPayment.getSenderHash()
-					payment_pagseguro.payment(userId, hash, tokenCard)
+					payment_pagseguro.payment(userId, hash, tokenCard, {candidate})
 
 				},
 			});
 		}
 
-		$scope.submit = function (form) {
-
-		console.log(form, 'form')
-				$scope.brandCards()
-
-
-			if (form.$invalid == true) {
-
-				var error = form.$error.required;
-				var element = '';
-
-				error.map(function(e){
-
-
-					element = document.querySelector('form[name=pagamento] *[name='+e.$name+']');
-					//element = document.querySelector('form[name=pagamento] *[name=name]');
-
-					var t  = Array.from(element)
-					t.map(function(e){
-						console.log(e.value, 'dd')
-
-					})
-
-
-					//console.log(element.value, 'valeu')
-
-					var name = element.attributes['placeholder'].value;
-					$scope.error_list.push(name);
-
-					//console.log(element, 'elemnt')
-
+		$scope.cepRequest = function(){
+			return $http({
+				method: 'GET',
+				url: '//api-apoiadores.appcivico.com/cep?cep=' + $scope.candidate.zipCode,
+				}).then(function(response){
+					$scope.candidate.addressStreet = response.data.street;
+					$scope.candidate.addressState = response.data.state;
+					$scope.candidate.addressCity = response.data.city;
+					$scope.candidate.addressDistrict = response.data.state;
 				})
-
-
-
-
-/*
-# 				for(var field in error){
-# console.log('ddddd', field)
-
-#
-
-# 		console.log(t, 'reorno')
-
-# 					//ar name = f(field).attributes['placeholder'].value;
-# 					// $scope.error_list.push(name + error_msg(res[field]));
-
-# 					}
-
-*/
-
-			}else{
-				$scope.brandCards()
 			}
 
+		$scope.submit = function (valid, form) {
 
+		console.log(valid, form, form.typePayment.$viewValue )
+			if(valid){
+				if(form.typePayment.$viewValue == 'boleto'){
+				}else{
+					$scope.creditCardPayment();
+				}
+			}
 		}
 
 	}]);

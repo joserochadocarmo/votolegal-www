@@ -1747,7 +1747,7 @@ $class-change: (
   }
 }
 
-#pagamento .icon-left i.fa-envelope{
+#pagamento .icon-left i{
 		padding: 10px 10px 10px 10px;
 
 }
@@ -1756,6 +1756,13 @@ $class-change: (
 	display: block;
 	margin-top: 2rem;
 	min-width: 9rem;
+}
+.value-payment {
+
+	font-size: 2rem;
+}
+.payment-type{
+	margin-bottom: 4rem;
 }
 
 

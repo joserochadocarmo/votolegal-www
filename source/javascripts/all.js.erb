@@ -8,6 +8,8 @@
 // base uri
 var BASE_API = '<%= config[:api_host] %>';
 
+
+
 app = window.app || {};
 //(function(app){
   /**
@@ -524,6 +526,7 @@ app = window.app || {};
 		return $http({
 			method: 'POST',
 			url: '<%= config[:api_host] %>/candidate/'+id+'/payment?method=creditCard&sender_hash='+sender_hash+'&credit_card_token='+credit_card_token+'',
+			  data: serialize.from_object({"name": name}, ''),
        		 }).then(function(response){
 				return response
 				})
