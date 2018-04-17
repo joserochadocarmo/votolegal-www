@@ -83,8 +83,7 @@ configure :build do
     # ignore email headers
     opts.ignore = [/email\/header\.jpg/i, /images\/candidatos\/card-brands\//i]
   end
-  preserveWhitespaces :true
-  activate :minify_html, remove_input_attributes: false
+#   activate :minify_html, remove_input_attributes: false
   activate :minify_css
 #   activate :minify_javascript
 end

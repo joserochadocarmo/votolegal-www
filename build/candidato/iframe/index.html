@@ -1,4 +1,290 @@
-<!DOCTYPE html> <html ng-app=votolegal> <head> <meta charset=utf-8> <meta content="IE=edge" http-equiv=X-UA-Compatible> <meta name=viewport content="width=device-width"> <title>Candidato(a) John Smith</title> <link rel=icon href="/favicon.ico" type="image/x-icon"/> <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel=stylesheet> <link href="/stylesheets/bootstrap.min-ff00d0a6.css" rel=stylesheet /> <link href="/stylesheets/site-ce700d9a.css" rel=stylesheet /> <link href="/stylesheets/font-awesome.min-3c43a9b6.css" rel=stylesheet /> <link href="/stylesheets/flaticon-0eb48cf0.css" rel=stylesheet /> <style> body { margin-top: -10px; } </style> <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]--> </head> <body class="candidato candidato_iframe candidato_iframe_index" data-ng-class='{{theme}}'> <div id=loading class=load-backdrop> <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i><br> </div> <div class=container-fluid> <div class=navbar-divider></div> </div> <section id=candidate ng-controller=CandidateController> <div class=container> <div class=row> <div class="col-md-6 text-left"> <h1 class=nome-candidato> <span class=nome>John Smith</span> <i class="fa fa-circle"></i> <span class=partido>PCdoB</span> </h1> <p class=assuntos>Assunto 1, Assunto 2, Assunto 3, Assunto 4</p> <p class=cidade>São Paulo - SP</p> </div> <div class="col-md-6 text-right"> <img src="/images/mocks/candidate-stamp-560c744e.png" class=profile-stamp alt=""> <img src="/images/mocks/candidate-stamp-560c744e.png" class=profile-stamp alt=""> <img src="/images/mocks/candidate-stamp-560c744e.png" class=profile-stamp alt=""> <img src="/images/mocks/candidate-stamp-560c744e.png" class=profile-stamp alt=""> <img src="/images/mocks/candidate-profile-82b8b108.png" class=profile-image alt=""> </div> </div> </div> <div class="container-fluid degrade-default"> <div class=container style="margin-top: 100px;"> <div class=row style="min-height: 350px"> <div class="col-md-8 col-sm-8"> <div class=valor-doa-container> <div class=row> <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"> <div class=doa-radio-btn-cont> <input type=radio name=opcao_doar class=opcao_doar_radio id=opcao_doar_10 value=10> </div> <div class=valor-doa-txt-nbr> <span class=doar-txt>Doar</span><br/><span class=doar-number>R$ 10,00</span> </div> <div class=clearfix></div> </div> <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right"> <button id=btn_opcao_doar_10 class="btn btn-verde-doar">Continuar</button> </div> </div> </div> <div class=valor-doa-container> <div class=row> <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"> <div class=doa-radio-btn-cont> <input type=radio name=opcao_doar class=opcao_doar_radio id=opcao_doar_20 value=20> </div> <div class=valor-doa-txt-nbr> <span class=doar-txt>Doar</span><br/><span class=doar-number>R$ 20,00</span> </div> <div class=clearfix></div> </div> <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right"> <button id=btn_opcao_doar_20 class="btn btn-verde-doar">Continuar</button> </div> </div> </div> <div class=valor-doa-container> <div class=row> <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"> <div class=doa-radio-btn-cont> <input type=radio name=opcao_doar class=opcao_doar_radio id=opcao_doar_30 value=30> </div> <div class=valor-doa-txt-nbr> <span class=doar-txt>Doar</span><br/><span class=doar-number>R$ 30,00</span> </div> <div class=clearfix></div> </div> <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right"> <button id=btn_opcao_doar_30 class="btn btn-verde-doar">Continuar</button> </div> </div> </div> <div class=valor-doa-container> <div class=row> <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"> <div class=doa-radio-btn-cont> <input type=radio name=opcao_doar class=opcao_doar_radio id=opcao_doar_30 value=30> </div> <div class=valor-doa-txt-nbr> <span class=doar-txt>Doar um valor diferente</span><br/><span class=doar-number>R$</span><input type=number name=opcao_doar_diferente class=doar-number-diferente placeholder="00,00"/> </div> <div class=clearfix></div> </div> <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right"> <button id=btn_opcao_doar_30 class="btn btn-verde-doar">Continuar</button> </div> </div> </div> </div> <div class="col-md-4 col-sm-4"> <div class="side-panel reg-doa-side-p"> <div class=regra-doa-container> <div class=espac-icone-danger> <i class="fa flaticon-information-button"></i> </div> <div class=espac-regra-txt> Só é permitido realizar doações pelo cartão de crédito próprio do doador. </div> <div class=clearfix></div> </div> <div class=regra-doa-container> <div class=espac-icone-danger> <i class="fa flaticon-information-button"></i> </div> <div class=espac-regra-txt> Só é permitido doar até <strong>10% de seus rendimentos brutos</strong> referentes ao ano anterior às eleições do IR. </div> <div class=clearfix></div> </div> <div class=regra-doa-container> <div class=espac-icone-danger> <i class="fa flaticon-information-button"></i> </div> <div class=espac-regra-txt> Só é permitido doação de pessoas físicas. </div> <div class=clearfix></div> </div> <hr/> <div class=duvidas-reg-doa-contaner> Dúvidas? Acesse <a href="/faq" target=_blank>Perguntas frequentes</a> </div> </div> </div> </div> </div> </div> </section> <div class=container-fluid> <div class=navbar-divider></div> </div> <footer id=footer ng-controller=CandidateController> <div class=container> <div class=row> <div class="copyright col-md-12 col-sm-12 col-xs-12"> <p>Executado através do software livre</p> <p> <img src="/images/logo-negative-102fd831.png" alt="Logo negative"/> </p> <p>Este projeto é distribuido sob a licença <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target=_blank><em>Affero General Public License</em></a> e o código esta disponível em um <a href="https://github.com/appcivico" target=_blank>repositório público</a>.</p> <p class=text-center ng-if="candidate.payment_gateway_id == 1"> <img src="/images/candidatos/logo-cielo-d578f582.png" width=100px alt="Logo cielo"/> como terminal de captura </p> <p class=text-center ng-if="candidate.payment_gateway_id == 2"> <img src="/images/candidatos/logo-pagseguro-02dbce66.png" width=100px alt="Logo pagseguro"/> como terminal de captura </p> <p ng-if="candidate.payment_gateway_id == 2"> <img src="/images/candidatos/selo-pci-179397a8.png" alt="Selo PCI"> O PagSeguro possui o certificado de segurança PCI. </p> </div> </div> </div> </footer> <link href="/stylesheets/sweetalert-4890c9d1.css" rel=stylesheet /> <script src="/javascripts/all-2a8adf91.js"></script> <link href="/stylesheets/ekko-lightbox-11377be4.css" rel=stylesheet /> <script src="/javascripts/ekko-lightbox.min-69183661.js"></script> <script>
+<!DOCTYPE html>
+<html ng-app="votolegal">
+<head>
+  <!-- script type="text/javascript">(function(){try{if(window.self === window.top) document.location='/error/config-error/index.html'}catch(e){console.log(e)}})();</script -->
+
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <title>Candidato(a) John Smith</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link href="/stylesheets/bootstrap.min-ff00d0a6.css" rel="stylesheet" />
+  <link href="/stylesheets/site-ce700d9a.css" rel="stylesheet" />
+  <link href="/stylesheets/font-awesome.min-3c43a9b6.css" rel="stylesheet" />
+  <link href="/stylesheets/flaticon-0eb48cf0.css" rel="stylesheet" />
+
+  <style> body { margin-top: -10px; } </style>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="candidato candidato_iframe candidato_iframe_index" data-ng-class='{{theme}}'>
+    <div id="loading" class="load-backdrop">
+      <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i><br>
+    </div>
+
+
+    <div class="container-fluid">
+      <div class="navbar-divider"></div>
+    </div>
+
+    <section id="candidate" ng-controller="CandidateController">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-left">
+        <h1 class="nome-candidato">
+          <span class="nome">John Smith</span>
+          <i class="fa fa-circle"></i>
+          <span class="partido">PCdoB</span>
+        </h1>
+        <p class="assuntos">Assunto 1, Assunto 2, Assunto 3, Assunto 4</p>
+        <p class="cidade">São Paulo - SP</p>
+      </div>
+      <div class="col-md-6 text-right">
+        <img src="/images/mocks/candidate-stamp-560c744e.png" class="profile-stamp" alt="">
+        <img src="/images/mocks/candidate-stamp-560c744e.png" class="profile-stamp" alt="">
+        <img src="/images/mocks/candidate-stamp-560c744e.png" class="profile-stamp" alt="">
+        <img src="/images/mocks/candidate-stamp-560c744e.png" class="profile-stamp" alt="">
+        <img src="/images/mocks/candidate-profile-82b8b108.png" class="profile-image" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid degrade-default">
+    <div class="container" style="margin-top: 100px;">
+      <div class="row" style="min-height: 350px">
+        <div class="col-md-8 col-sm-8">
+          <div class="valor-doa-container">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="doa-radio-btn-cont">
+                  <input type="radio" name="opcao_doar" class="opcao_doar_radio" id="opcao_doar_10" value="10">
+                </div>
+                <div class="valor-doa-txt-nbr">
+                  <span class="doar-txt">Doar</span><br/><span class="doar-number">R$ 10,00</span>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right">
+                <button id="btn_opcao_doar_10" class="btn btn-verde-doar">Continuar</button>
+              </div>
+            </div>
+          </div>
+          <div class="valor-doa-container">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="doa-radio-btn-cont">
+                  <input type="radio" name="opcao_doar" class="opcao_doar_radio" id="opcao_doar_20" value="20">
+                </div>
+                <div class="valor-doa-txt-nbr">
+                  <span class="doar-txt">Doar</span><br/><span class="doar-number">R$ 20,00</span>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right">
+                <button id="btn_opcao_doar_20" class="btn btn-verde-doar">Continuar</button>
+              </div>
+            </div>
+          </div>
+          <div class="valor-doa-container">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="doa-radio-btn-cont">
+                  <input type="radio" name="opcao_doar" class="opcao_doar_radio" id="opcao_doar_30" value="30">
+                </div>
+                <div class="valor-doa-txt-nbr">
+                  <span class="doar-txt">Doar</span><br/><span class="doar-number">R$ 30,00</span>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right">
+                <button id="btn_opcao_doar_30" class="btn btn-verde-doar">Continuar</button>
+              </div>
+            </div>
+          </div>
+          <div class="valor-doa-container">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="doa-radio-btn-cont">
+                  <input type="radio" name="opcao_doar" class="opcao_doar_radio" id="opcao_doar_30" value="30">
+                </div>
+                <div class="valor-doa-txt-nbr">
+                  <span class="doar-txt">Doar um valor diferente</span><br/><span class="doar-number">R$</span><input type="number" name="opcao_doar_diferente" class="doar-number-diferente" placeholder="00,00" />
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 doar-btn-cont text-right">
+                <button id="btn_opcao_doar_30" class="btn btn-verde-doar">Continuar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="side-panel reg-doa-side-p">
+            <div class="regra-doa-container">
+                <div class="espac-icone-danger">
+                  <i class="fa flaticon-information-button"></i>
+                </div>
+                <div class="espac-regra-txt">
+                  Só é permitido realizar doações pelo cartão de crédito próprio do doador.
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="regra-doa-container">
+                <div class="espac-icone-danger">
+                  <i class="fa flaticon-information-button"></i>
+                </div>
+                <div class="espac-regra-txt">
+                  Só é permitido doar até <strong>10% de seus rendimentos brutos</strong> referentes ao ano anterior às eleições do IR.
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="regra-doa-container">
+                <div class="espac-icone-danger">
+                  <i class="fa flaticon-information-button"></i>
+                </div>
+                <div class="espac-regra-txt">
+                  Só é permitido doação de pessoas físicas.
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <hr />
+            <div class="duvidas-reg-doa-contaner">
+              Dúvidas? Acesse <a href="/faq" target="_blank">Perguntas frequentes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      <!-- div class="col-md-12 text-center">
+        <h1 class="page-title">Sobre</h1>
+      </div>
+      <div class="col-md-12">
+        <h3 class="section-subtitle">O que é?</h3>
+        <p>O MCCE (Movimento de Combate à Corrupção Eleitoral) e o Appcívico, em parceria com com diversas organizações da sociedade civil e com o apoio do Instituto Arapyau, construiu uma plataforma de doação de pessoas físicas para campanhas políticas nas eleições municipais de 2016.</p>
+
+        <h3 class="section-subtitle">Objetivos</h3>
+        <p>
+          <ul>
+            <li>Promover campanhas políticas mais baratas e transparentes;</li>
+            <li>Garantir a transparência entre doadores pessoas físicas e candidatos;</li>
+            <li>Oferecer agilidade no processo de doação;</li>
+            <li>Fortalecer o engajamento de pessoas físicas em campanhas políticas;</li>
+            <li>Promover a prestação de contas dos candidatos e o monitoramento do cidadão.</li>
+          </ul>
+        </p>
+      </div>
+
+      <div class="col-md-12">
+        <h3 class="section-subtitle">Realizadores:</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <img src="/images/sobre/mcce-logo-c0b720ec.png" alt="MCCE" class="img-logo" >
+        </div>
+        <div class="col-md-9">
+          <p>Movimento de Combate a Corrupção Eleitoral ficou conhecido, especialmente, por ter sido o autor da proposta de iniciativa popular que originou a Lei da Ficha Limpa que foi apoiada por mais de 1.600.000 pessoas, através de assinatura , além de outros tantos milhares de apoios que recebeu pela internet, pelas plataformas Avaaz e Change e nas midias sociais. O MCCE articula uma rede de mais de 60 entidades associadas e hoje tem um novo projeto de iniciativa popular para a Reforma Política que conta com mais de 100 entidades apoiadoras.</p>
+          <p>Saiba mais: <a href="http://www.mcce.com.br" target="_blank">www.mcce.com.br</a></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <img src="/images/sobre/appcivico-logo-9c633787.png" alt="APPCívico" class="img-logo">
+        </div>
+        <div class="col-md-9">
+          <p>Appcívico é uma empresa de tecnologia social que busca, através da inovação, promover processos de participação cidadã e construção daquilo que é de interesse público. A empresa acredita no fortalecimento de um ecossistema sustentável de desenvolvedores e usuários de aplicativos cívicos certificados que inclui implementação, customização, integrações, suporte técnico e estratégias de engajamento cidadão para as aplicações, aproveitando as melhores tecnologias abertas disponíveis no mercado.</p>
+          <p>Saiba mais: <a href="http://www.appcivico.com.br" target="_blank">www.appcivico.com.br</a></p>
+        </div>
+      </div>
+
+      <br class="divider">
+
+      <div class="col-md-12">
+        <h3 class="section-subtitle">Apoio:</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <img src="/images/sobre/arapyau-logo-71b9131e.png" alt="APPCívico" class="img-logo">
+        </div>
+        <div class="col-md-9">
+          <p>O Arapyaú é uma associação sem fins lucrativos que está empenhada na promoção do desenvolvimento sustentável. Sua contribuição se dá pelo desenvolvimento de ações e apoio estratégico, financeiro e de articulação a organizações e grupos que trabalham para o desenvolvimento da economia verde*, o aprimoramento da política e suas lideranças e o engajamento da sociedade. </p>
+          <p>*Economia verde: Modelo econômico que resulta em “melhoria do bem-estar da humanidade e igualdade social, ao mesmo tempo em que reduz significativamente riscos ambientais e escassez ecológica”. (PNUMA, 2010)</p>
+          <p>Saiba mais: <a href="http://www.arapyau.com.br" target="_blank">www.arapyau.com.br</a></p>
+        </div>
+      </div>
+
+      <br class="divider">
+
+      <p>Conheça nossos parceiros <a href="/parceiros">clicando aqui</a>.</p>
+
+      <br class="divider">
+
+      <div class="col-md-12">
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/xZKg2w3iOMo" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <br class="divider">
+      </div -->
+
+
+
+    <!-- page footer -->
+    <div class="container-fluid">
+      <div class="navbar-divider"></div>
+    </div>
+
+    <!-- footer -->
+    <footer id="footer" ng-controller="CandidateController">
+      <div class="container">
+        <div class="row">
+
+          <div class="copyright col-md-12 col-sm-12 col-xs-12">
+            <p>Executado através do software livre</p>
+            <p>
+              <img src="/images/logo-negative-102fd831.png" alt="Logo negative" />
+            </p>
+            <p>Este projeto é distribuido sob a licença <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank"><em>Affero General Public License</em></a> e o código esta disponível em um <a href="https://github.com/appcivico" target="_blank">repositório público</a>.</p>
+
+            <p class="text-center" ng-if="candidate.payment_gateway_id == 1">
+              <img src="/images/candidatos/logo-cielo-d578f582.png" width="100px" alt="Logo cielo" /> como terminal de captura
+            </p>
+            <p class="text-center" ng-if="candidate.payment_gateway_id == 2">
+              <img src="/images/candidatos/logo-pagseguro-02dbce66.png" width="100px" alt="Logo pagseguro" /> como terminal de captura
+            </p>
+            <p ng-if="candidate.payment_gateway_id == 2">
+              <img src="/images/candidatos/selo-pci-179397a8.png" alt="Selo PCI"> O PagSeguro possui o certificado de segurança PCI.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- styles -->
+    <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
+
+    <!-- javascript -->
+
+
+    <script src="/javascripts/all-2a8adf91.js"></script>
+
+    <!-- image plugin -->
+    <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
+    <script src="/javascripts/ekko-lightbox.min-69183661.js"></script>
+
+    <script>
       // TODO: colocar todo esse js em um arquivo separado
       $(function(){
 
@@ -31,7 +317,9 @@
 				});
 
       });
-    </script> <script>
+    </script>
+
+    <script>
       var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2};
       function $buo_f(){
        var e = document.createElement("script");
@@ -40,11 +328,18 @@
       };
       try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
       catch(e){window.attachEvent("onload", $buo_f)}
-    </script> <script>
+    </script>
+
+        <!-- Google Analytics -->
+    <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-79700801-1', 'auto');
       ga('send', 'pageview');
-    </script> </body> </html>
+    </script>
+
+
+  </body>
+</html>
