@@ -147,7 +147,7 @@ app.votolegal.controller("PaymentController", [
 				complete: function (response) {
 					console.log('cartdToken complete', response)
 
-					var credit_card_token = response;
+					var credit_card_token = response.card.token;
 					var userId = localStorage.getItem("userId");
 					var sender_hash = PagSeguroDirectPayment.getSenderHash()
 
