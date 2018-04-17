@@ -115,7 +115,7 @@ title: Pagamento
 								<label ng-show="pagamento.typePayment.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Escolha a forma de pagamento</label>
 							</div>
 						</div>
-						<div class="credit-card-method" ng-if="(paymentMethod == 'creditCard')">
+						<div class="credit-card-method" ng-show="paymentMethod == 'creditCard'">
 							<div class="col-md-12">
 								<h3>Dados do cartão de crédito</h3>
 							</div>
