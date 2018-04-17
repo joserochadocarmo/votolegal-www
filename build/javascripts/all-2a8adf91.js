@@ -4266,12 +4266,30 @@ app = window.app || {};
  app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', function($http, serialize, store){
 
 	return {
-		payment: function(id, sender_hash, credit_card_token){
+		payment: function(id, sender_hash, credit_card_token, method, name, email, cpf, phone, address_zipcode, address_state, address_city, address_district, address_street, address_house_number){
 
 		return $http({
 			method: 'POST',
-			url: '//dapi.votolegal.com.br/api/candidate/'+id+'/payment?method=creditCard&sender_hash='+sender_hash+'&credit_card_token='+credit_card_token+'',
+			url: '//dapi.votolegal.com.br/api/candidate/'+id+'/payment',
+			  data: serialize.from_object({
+					"sender_hash": sender_hash,
+					"credit_card_token": credit_card_token,
+					'method': method,
+					"name": name,
+					"email": email,
+					"cpf": cpf,
+					"address_zipcode": address_zipcode,
+					"address_state": address_state,
+					"address_city": address_city,
+					"address_district": address_district,
+					"address_street": address_street,
+					"address_house_number": address_house_number,
+					"phone": phone,
+				  }),
+				   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
        		 }).then(function(response){
+
+				console.log(response, 'rrrr')
 				return response
 				})
 		}
@@ -6342,6 +6360,8 @@ app.votolegal.controller("ContractController", [
 	) {
 		$scope.error = false;
 		$scope.errorServer = false;
+		$scope.error_list = [];
+
 
 		$scope.confirmContract = false;
 
@@ -6352,13 +6372,13 @@ app.votolegal.controller("ContractController", [
 			document.location = "/";
 		}
 
-		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId") ;
+		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId");
 
 		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
 
+
 		$scope.confirm = function() {
 			if ($scope.confirmContract && $scope.error == false) {
-
 				var response = contract_service
 					.contract($scope.userIdDefined)
 					.success(function(data) {
@@ -6371,13 +6391,20 @@ app.votolegal.controller("ContractController", [
 					})
 					.error(function(data) {
 						console.log("error", data);
-						$scope.errorServer = true;
+						$scope.error_list.push('Você já confirmou o contrato')
+
+						// $scope.errorServer = true;
 
 						if (data.form_error.user_id.length > 0) {
-						 document.location = "/";
+							setTimeout(function () {
+									document.location = "/";
+							}, 2000)
 						}
 					});
 			} else {
+				$scope.error_list.push('É necessário confirmar o contrato')
+
+
 				$scope.error = true;
 			}
 		};
@@ -6966,7 +6993,8 @@ app.votolegal.controller("PaymentController", [
 		SweetAlert,
 		trouble,
 		$location,
-		SweetAlert
+		SweetAlert,
+
 	) {
 		if (JSON.parse(localStorage.getItem("user") == null) && localStorage.getItem("userId") == null) {
 			document.location = "/";
@@ -6976,23 +7004,35 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
 
-		$scope.method = "";
-		$scope.userCardData = {
+
+		$scope.candidate = {
 			name: '',
 			email: '',
 			cpf: '',
-			cardNumber: '',
-			monthCardExpire: '',
-			yearCardExpire: '',
-			cvvCard: '',
+			phone: '',
+			zipCode: '',
+			addressState:'',
+			addressCity: '',
+			addressDistrict: '',
+			addressStreet: '',
+			addressHouseNumber:'',
+			card:{
+				name:'',
+				cardNumber: '',
+				monthCardExpire: '',
+				yearCardExpire: '',
+				cvvCard: '',
+			}
 		};
+
 
 		$scope.BrandCard = '';
 		$scope.senderHash = '';
 		$scope.formDisable = true;
-		$scope.formDisable = [],
-
-
+		$scope.error_list = [],
+		$scope.paymentMethod = '';
+		var year = new Date()
+		$scope.currentYear = year.getFullYear();
 
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
@@ -7017,25 +7057,34 @@ app.votolegal.controller("PaymentController", [
 		//Start session
 		$scope.getSessionId()
 			.then(function (val) {
+				console.log('resolve get session id', val)
 				$scope.SetSessionId(val.data.id)
-					.then(function () {
-						$scope.getSenderHash()
-					})
+				console.log('resolve set session id', val)
+
 			})
 
-		$scope.brandCards = function () {
+		$scope.creditCardPayment = function () {
+			$scope.getSenderHash()
+
+			console.log($scope.getSenderHash(), 'serder hash in creditCardPayment')
+			var num = $scope.candidate.card.cardNumber + '';
+			num =  num.split(' ').join('');
+
 			return PagSeguroDirectPayment.getBrand({
-				cardBin: $scope.userCardData.cardNumber,
+				cardBin: num,
 				success: function (response) {
-					return response;
+					console.log('brandCards success', response)
 				},
 				error: function (response) {
-					console.log(response, 'c')
+					console.log(response, 'erro brands in erro ')
 				},
 				complete: function (response) {
-					window.vLcardBrand = response;
+
+					console.log(response, ' brands in complete')
+					window.vLcardBrand = response.brand.name;
 					getBrandCard(response).then(function (res) {
-						$scope.payment(res)
+
+						$scope.createCardToken(res.brand.name)
 					});
 				}
 			});
@@ -7046,62 +7095,74 @@ app.votolegal.controller("PaymentController", [
 			})
 		}
 
-		$scope.payment = function (brand) {
 
-			PagSeguroDirectPayment.createCardToken({
-				cardNumber: $scope.userCardData.cardNumber,
-				brand: brand.brand.name,
-				cvv: $scope.userCardData.cvvCard,
-				expirationMonth: $scope.userCardData.monthCardExpire,
-				expirationYear: $scope.userCardData.yearCardExpire,
-				success: function (reponse) {
-					console.log(response)
 
+		$scope.createCardToken = function (brand) {
+
+		var num = $scope.candidate.card.cardNumber + '';
+		num =  num.split(' ').join('');
+
+				PagSeguroDirectPayment.createCardToken({
+				cardNumber: num,
+				brand: brand,
+				cvv: $scope.candidate.card.cvvCard,
+				expirationMonth: $scope.candidate.card.monthCardExpire,
+				expirationYear: $scope.candidate.card.yearCardExpire,
+				success: function (response) {
+					console.log('cartdToken success', response)
 				},
-				error: function () {
-
+				error: function (response) {
+					console.log('cartdToken error', response)
 				},
 				complete: function (response) {
+					console.log('cartdToken complete', response)
+
+					var credit_card_token = response.card.token;
 					var userId = localStorage.getItem("userId");
-					var hash = PagSeguroDirectPayment.getSenderHash()
-					payment_pagseguro.payment(userId, hash, tokenCard)
+					var sender_hash = PagSeguroDirectPayment.getSenderHash()
+
+					payment_pagseguro.payment(
+						userId,
+						sender_hash,
+						credit_card_token,
+						$scope.paymentMethod,
+						$scope.candidate.name,
+						$scope.candidate.email,
+						$scope.candidate.cpf,
+						$scope.candidate.phone,
+						$scope.candidate.zipCode,
+						$scope.candidate.addressState,
+						$scope.candidate.addressCity,
+						$scope.candidate.addressDistrict,
+						$scope.candidate.addressStreet,
+						$scope.candidate.addressHouseNumber,
+						)
 
 				},
 			});
+
 		}
 
-		$scope.submit = function (form) {
+		$scope.cepRequest = function(){
+			return $http({
+				method: 'GET',
+				url: '//api-apoiadores.appcivico.com/cep?cep=' + $scope.candidate.zipCode,
+				}).then(function(response){
+					$scope.candidate.addressStreet = response.data.street;
+					$scope.candidate.addressState = response.data.state;
+					$scope.candidate.addressCity = response.data.city;
+					$scope.candidate.addressDistrict = response.data.district;
+				})
+			}
 
-			console.log(form, 'fomr')
-			var error = [];
-			if (form.$invalid == true) {
-				error = form.$error.required;
-				var errorsForm = error.map(function (erro) {
+		$scope.submit = function (valid, form) {
 
-					var e = []
-					switch (erro.$name) {
-						case 'name':
-							e[0] = "Nome"
-						case "email":
-							e[1] = "E-mail"
-						case "cpf":
-							e[2] = "CPF"
-						case "cardNumber":
-							e[3] = "Número do cartão"
-						case "monthCardExpire":
-							e[4] = "Mês que o cartão expira"
-						case "yearCardExpire":
-							e[5] = "Ano que o cartão expira"
-						case "cvvCard":
-							e[6] = "Código de segurança"
-						default:
-							break
-					}
-					return e;
-				}, 1)
-					$scope.errorList= errorsForm[0];
-			}else{
-				$scope.brandCards()
+		console.log(valid, form, form.typePayment.$viewValue )
+			if(valid){
+				if(form.typePayment.$viewValue == 'boleto'){
+				}else{
+					$scope.creditCardPayment();
+				}
 			}
 		}
 
@@ -7148,8 +7209,6 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     .then(
       // success callback
       function(response){
-		  console.log(response, 'aqui')
-
 
 		if($scope.error_list.length == 0)
 
@@ -7207,7 +7266,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
         // success callback
         function(response) {
 
-		console.log(response, '')
+
           var res = response.data, $f = $scope.candidate;
           $f.address_city   = res.city;
           $f.address_state  = res.state;

@@ -40,8 +40,6 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     .then(
       // success callback
       function(response){
-		  console.log(response, 'aqui')
-
 
 		if($scope.error_list.length == 0)
 
@@ -99,7 +97,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
         // success callback
         function(response) {
 
-		console.log(response, '')
+
           var res = response.data, $f = $scope.candidate;
           $f.address_city   = res.city;
           $f.address_state  = res.state;
