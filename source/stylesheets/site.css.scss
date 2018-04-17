@@ -1748,9 +1748,16 @@ $class-change: (
 }
 
 #pagamento .icon-left i{
-		padding: 10px 10px 10px 10px;
+	padding: 10px 10px 10px 10px;
 
 }
+#pagamento .credit-card-method .icon-left i {
+
+	padding: 10px 10px 10px 25px;
+
+
+}
+
 
 .contract{
 	display: block;

@@ -8,8 +8,6 @@
 // base uri
 var BASE_API = '<%= config[:api_host] %>';
 
-
-
 app = window.app || {};
 //(function(app){
   /**
@@ -521,13 +519,30 @@ app = window.app || {};
  app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', function($http, serialize, store){
 
 	return {
-		payment: function(id, sender_hash, credit_card_token){
+		payment: function(id, sender_hash, credit_card_token, method, name, email, cpf, phone, address_zipcode, address_state, address_city, address_district, address_street, address_house_number){
 
 		return $http({
 			method: 'POST',
-			url: '<%= config[:api_host] %>/candidate/'+id+'/payment?method=creditCard&sender_hash='+sender_hash+'&credit_card_token='+credit_card_token+'',
-			  data: serialize.from_object({"name": name}, ''),
+			url: '<%= config[:api_host] %>/candidate/'+id+'/payment',
+			  data: serialize.from_object({
+					"sender_hash": sender_hash,
+					"credit_card_token": credit_card_token,
+					'method': method,
+					"name": name,
+					"email": email,
+					"cpf": cpf,
+					"address_zipcode": address_zipcode,
+					"address_state": address_state,
+					"address_city": address_city,
+					"address_district": address_district,
+					"address_street": address_street,
+					"address_house_number": address_house_number,
+					"phone": phone,
+				  }),
+				   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
        		 }).then(function(response){
+
+				console.log(response, 'rrrr')
 				return response
 				})
 		}

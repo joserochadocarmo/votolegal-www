@@ -34,7 +34,7 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
 
-		$scope.method = "";
+
 		$scope.candidate = {
 			name: '',
 			email: '',
@@ -42,10 +42,10 @@ app.votolegal.controller("PaymentController", [
 			phone: '',
 			zipCode: '',
 			addressState:'',
-			addressHouseNumber:'',
-			addressDistrict: '',
 			addressCity: '',
+			addressDistrict: '',
 			addressStreet: '',
+			addressHouseNumber:'',
 			card:{
 				name:'',
 				cardNumber: '',
@@ -96,8 +96,12 @@ app.votolegal.controller("PaymentController", [
 		$scope.creditCardPayment = function () {
 			$scope.getSenderHash()
 
+			console.log($scope.getSenderHash(), 'serder hash in creditCardPayment')
+			var num = $scope.candidate.card.cardNumber + '';
+			num =  num.split(' ').join('');
+
 			return PagSeguroDirectPayment.getBrand({
-				cardBin: '123',
+				cardBin: num,
 				success: function (response) {
 					console.log('brandCards success', response)
 				},
@@ -107,9 +111,10 @@ app.votolegal.controller("PaymentController", [
 				complete: function (response) {
 
 					console.log(response, ' brands in complete')
-					window.vLcardBrand = response;
+					window.vLcardBrand = response.brand.name;
 					getBrandCard(response).then(function (res) {
-						$scope.createCardToken(res)
+
+						$scope.createCardToken(res.brand.name)
 					});
 				}
 			});
@@ -120,29 +125,52 @@ app.votolegal.controller("PaymentController", [
 			})
 		}
 
+
+
 		$scope.createCardToken = function (brand) {
 
-			PagSeguroDirectPayment.createCardToken({
-				cardNumber: $scope.candidate.cardNumber,
-				brand: window.vLcardBrand,
-				cvv: $scope.candidate.cvvCard,
-				expirationMonth: $scope.candidate.monthCardExpire,
-				expirationYear: $scope.candidate.yearCardExpire,
+		var num = $scope.candidate.card.cardNumber + '';
+		num =  num.split(' ').join('');
+
+				PagSeguroDirectPayment.createCardToken({
+				cardNumber: num,
+				brand: brand,
+				cvv: $scope.candidate.card.cvvCard,
+				expirationMonth: $scope.candidate.card.monthCardExpire,
+				expirationYear: $scope.candidate.card.yearCardExpire,
 				success: function (response) {
 					console.log('cartdToken success', response)
 				},
-				error: function () {
-					console.log('cartdToken error')
+				error: function (response) {
+					console.log('cartdToken error', response)
 				},
 				complete: function (response) {
 					console.log('cartdToken complete', response)
 
+					var credit_card_token = response;
 					var userId = localStorage.getItem("userId");
-					var hash = PagSeguroDirectPayment.getSenderHash()
-					payment_pagseguro.payment(userId, hash, tokenCard, {candidate})
+					var sender_hash = PagSeguroDirectPayment.getSenderHash()
+
+					payment_pagseguro.payment(
+						userId,
+						sender_hash,
+						credit_card_token,
+						$scope.paymentMethod,
+						$scope.candidate.name,
+						$scope.candidate.email,
+						$scope.candidate.cpf,
+						$scope.candidate.phone,
+						$scope.candidate.zipCode,
+						$scope.candidate.addressState,
+						$scope.candidate.addressCity,
+						$scope.candidate.addressDistrict,
+						$scope.candidate.addressStreet,
+						$scope.candidate.addressHouseNumber,
+						)
 
 				},
 			});
+
 		}
 
 		$scope.cepRequest = function(){
@@ -153,7 +181,7 @@ app.votolegal.controller("PaymentController", [
 					$scope.candidate.addressStreet = response.data.street;
 					$scope.candidate.addressState = response.data.state;
 					$scope.candidate.addressCity = response.data.city;
-					$scope.candidate.addressDistrict = response.data.state;
+					$scope.candidate.addressDistrict = response.data.district;
 				})
 			}
 
