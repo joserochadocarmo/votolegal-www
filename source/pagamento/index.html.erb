@@ -96,7 +96,8 @@ title: Pagamento
 							<div class="form-group icon-left">
 								<i class="fa fa-home"></i>
 								<input class="form-control" name="addressHouseNumber" ng-model="candidate.addressHouseNumber" type="text" placeholder="Número"
-								    required>
+									required>
+									<label ng-show="pagamento.addressHouseNumber.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O número do endereço é obrigatório</label>
 							</div>
 						</div>
 					</div>
@@ -122,15 +123,16 @@ title: Pagamento
 							<div class="form-group icon-left col-md-6">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control " name="cardName" ng-model="candidate.card.name" type="text" placeholder="Nome impresso no Cartão"
-								    required>
+								    ng-required="paymentMethod === 'creditCard'">
 								<!-- error number card -->
 								<label ng-show="pagamento.cardName.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O nome do cartão é obrigatório por favor verifique os dados inseridos</label>
 							</div>
 							<div class="form-group icon-left col-md-6">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control  " name="cardNumber" data-cardNumber="Número do cartão" ng-model="candidate.card.cardNumber" type="text"
-								    placeholder="Número do cartão" mask="9999 9999 9999 9999" required>
+								    placeholder="Número do cartão" mask="9999 9999 9999 9999" ng-required="paymentMethod === 'creditCard'">
 								<!-- error number card -->
+								ddd
 								<label ng-show="(pagamento.cardNumber.$error.required || pagamento.cardNumber.$error.mask ) && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O número do cartão é obrigatório por favor verifique os dados inseridos</label>
 							</div>
 							<div class="form-group icon-left col-md-4">
@@ -144,7 +146,7 @@ title: Pagamento
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="yearCardExpire" data-yearCardExpire="Ano que o cartão expira" ng-model="candidate.card.yearCardExpire"
-								    type="number" min="{{currentYear}}" placeholder="Ano que o cartão expira" mask="9999" required>
+								    type="number" min="{{currentYear}}" placeholder="Ano que o cartão expira" mask="9999" ng-required="paymentMethod === 'creditCard'">
 								<label ng-show="pagamento.yearCardExpire.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
 								<label ng-show="pagamento.yearCardExpire.$error.min && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão deve ser a partir do ano {{currentYear}}</label>
 
@@ -152,13 +154,15 @@ title: Pagamento
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cod. de segurança"
-								    required>
+								    ng-required="paymentMethod === 'creditCard'">
 								<label ng-show="pagamento.cvvCard.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
-						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar">
+						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar" ng-if="boletoUrl == null">
+						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg" ng-if="boletoUrl.length > 0">Imprimir boleto</a>
 					</div>
 					<div class=" clearfix">
 						<div class="col-md-4 pull-right value-payment">

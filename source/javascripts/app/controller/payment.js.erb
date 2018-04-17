@@ -63,6 +63,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.paymentMethod = '';
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
+		$scope.boletoUrl = null;
 
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
@@ -87,16 +88,12 @@ app.votolegal.controller("PaymentController", [
 		//Start session
 		$scope.getSessionId()
 			.then(function (val) {
-				console.log('resolve get session id', val)
 				$scope.SetSessionId(val.data.id)
-				console.log('resolve set session id', val)
-
 			})
 
 		$scope.creditCardPayment = function () {
 			$scope.getSenderHash()
 
-			console.log($scope.getSenderHash(), 'serder hash in creditCardPayment')
 			var num = $scope.candidate.card.cardNumber + '';
 			num =  num.split(' ').join('');
 
@@ -119,18 +116,17 @@ app.votolegal.controller("PaymentController", [
 				}
 			});
 		}
+
 		getBrandCard = function (res) {
 			return new Promise(function (resolve) {
 				resolve(res);
 			})
 		}
 
-
-
 		$scope.createCardToken = function (brand) {
 
-		var num = $scope.candidate.card.cardNumber + '';
-		num =  num.split(' ').join('');
+			var num = $scope.candidate.card.cardNumber + '';
+			num =  num.split(' ').join('');
 
 				PagSeguroDirectPayment.createCardToken({
 				cardNumber: num,
@@ -145,7 +141,6 @@ app.votolegal.controller("PaymentController", [
 					console.log('cartdToken error', response)
 				},
 				complete: function (response) {
-					console.log('cartdToken complete', response)
 
 					var credit_card_token = response.card.token;
 					var userId = localStorage.getItem("userId");
@@ -187,13 +182,36 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.submit = function (valid, form) {
 
-		console.log(valid, form, form.typePayment.$viewValue )
 			if(valid){
 				if(form.typePayment.$viewValue == 'boleto'){
+					var userId = localStorage.getItem("userId");
+					var sender_hash = PagSeguroDirectPayment.getSenderHash();
+					var credit_card_token = null;
+
+					payment_pagseguro.payment(
+						userId,
+						sender_hash,
+						credit_card_token,
+						$scope.paymentMethod,
+						$scope.candidate.name,
+						$scope.candidate.email,
+						$scope.candidate.cpf,
+						$scope.candidate.phone,
+						$scope.candidate.zipCode,
+						$scope.candidate.addressState,
+						$scope.candidate.addressCity,
+						$scope.candidate.addressDistrict,
+						$scope.candidate.addressStreet,
+						$scope.candidate.addressHouseNumber,
+						).then(function(val){
+							$scope.boletoUrl = val.data.url
+
+						console.log('vale', val)
+
+						})
 				}else{
 					$scope.creditCardPayment();
 				}
 			}
 		}
-
 	}]);
