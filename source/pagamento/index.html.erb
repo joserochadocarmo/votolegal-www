@@ -7,7 +7,7 @@ title: Pagamento
 
 			<div class="col-md-offset-3 col-md-6">
 				<h3>Formulário de pagamento</h3>
-					<form name="pagamento" id="pagamento" novalidate ng-submit="submit(pagamento.$valid, pagamento)">
+				<form name="pagamento" id="pagamento" novalidate ng-submit="submit(pagamento.$valid, pagamento)">
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group">
@@ -20,7 +20,8 @@ title: Pagamento
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group icon-left">
 								<i class="fa fa-envelope"></i>
-								<input class="form-control " type="email" name="email" ng-model="candidate.email" type="text" [ng-pattern]="^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" placeholder="*E-mail" data-email="E-mail" required>
+								<input class="form-control " type="email" name="email" ng-model="candidate.email" type="text" [ng-pattern]="^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+								    placeholder="*E-mail" data-email="E-mail" required>
 								<label ng-show="pagamento.email.$error.email && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">E-mail inválido</label>
 								<label ng-show="pagamento.email.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">E-mail é obrigatório</label>
 							</div>
@@ -29,15 +30,17 @@ title: Pagamento
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input class="form-control" name="cpf" ng-model="candidate.cpf" type="text" placeholder="*CPF" data-cpf="CPF" mask="999.999.999-99" required>
+								<input class="form-control" name="cpf" ng-model="candidate.cpf" type="text" placeholder="*CPF" data-cpf="CPF" mask="999.999.999-99"
+								    required>
 								<label ng-show="pagamento.cpf.$error.mask  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">CPF Inváido</label>
 								<label ng-show="pagamento.cpf.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">CPF Inváido</label>
 							</div>
 						</div>
-							<div class="col-md-6">
+						<div class="col-md-6">
 							<div class="form-group">
-								<input class="form-control" name="phone" ng-model="candidate.phone" type="text" placeholder="*Tel" mask="(99)99999-9999" required>
-							<label ng-show="pagamento.phone.$error.mask  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Telefone Inváido</label>
+								<input class="form-control" name="phone" ng-model="candidate.phone" type="text" placeholder="*Tel" mask="(99)99999-9999"
+								    required>
+								<label ng-show="pagamento.phone.$error.mask  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Telefone Inváido</label>
 								<label ng-show="pagamento.phone.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O telefone é obrigatório</label>
 							</div>
 						</div>
@@ -46,18 +49,21 @@ title: Pagamento
 						<div class="col-md-6">
 							<div class="form-group icon-left">
 								<i class="fa fa-home"></i>
-								<input class="form-control" name="zipCode"  ng-model="candidate.zipCode"
-									type="text" placeholder="*Cep" ng-blur="cepRequest()" mask="99999-999" required>
-									<span class="help-block">Não sabe seu <code>CEP</code>? <a class="" target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui</a> </span>
-										<label ng-show="pagamento.zipCode.$error.mask  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">CEP Inváido</label>
+								<input class="form-control" name="zipCode" ng-model="candidate.zipCode" type="text" placeholder="*Cep" ng-blur="cepRequest()"
+								    mask="99999-999" required>
+								<span class="help-block">Não sabe seu
+									<code>CEP</code>?
+									<a class="" target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui</a>
+								</span>
+								<label ng-show="pagamento.zipCode.$error.mask  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">CEP Inváido</label>
 								<label ng-show="pagamento.zipCode.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O CEP é obrigatório</label>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group icon-left">
 								<i class="fa fa-home"></i>
-								<input class="form-control" name="addressState"  ng-model="candidate.addressState"
- 								type="text" placeholder="Estado" required disabled>
+								<input class="form-control" name="addressState" ng-model="candidate.addressState" type="text" placeholder="Estado" required
+								    disabled>
 								<label ng-show="pagamento.addressState.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O Estado é obrigatório</label>
 							</div>
 						</div>
@@ -67,13 +73,14 @@ title: Pagamento
 							<div class="form-group icon-left">
 								<i class="fa fa-home"></i>
 								<input class="form-control" name="addressCity" ng-model="candidate.addressCity" type="text" placeholder="Cidade" required
-									disabled>
+								    disabled>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group icon-left">
 								<i class="fa fa-home"></i>
-								<input class="form-control" name="addressDistrict" ng-model="candidate.addressDistrict" type="text" placeholder="Bairro" required disabled>
+								<input class="form-control" name="addressDistrict" ng-model="candidate.addressDistrict" type="text" placeholder="Bairro"
+								    required disabled>
 							</div>
 						</div>
 					</div>
@@ -81,15 +88,15 @@ title: Pagamento
 						<div class="col-md-8">
 							<div class="form-group icon-left">
 								<i class="fa fa-home"></i>
-								<input class="form-control" name="addressStreet" ng-model="candidate.addressStreet" type="text" placeholder="Rua"
-									required disabled>
+								<input class="form-control" name="addressStreet" ng-model="candidate.addressStreet" type="text" placeholder="Rua" required
+								    disabled>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group icon-left">
 								<i class="fa fa-home"></i>
 								<input class="form-control" name="addressHouseNumber" ng-model="candidate.addressHouseNumber" type="text" placeholder="Número"
-									required>
+								    required>
 							</div>
 						</div>
 					</div>
@@ -100,7 +107,7 @@ title: Pagamento
 						<div class="payment-type">
 							<div class="col-md-6">
 								<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required> Boleto
-							 </div>
+							</div>
 							<div class="col-md-6">
 								<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required> Cartão de crédito
 							</div>
@@ -114,50 +121,44 @@ title: Pagamento
 							</div>
 							<div class="form-group icon-left col-md-6">
 								<i class="fa fa-credit-card"></i>
-								<input class="form-control " name="cardName"  ng-model="candidate.card.name" type="text"
-									placeholder="Nome impresso no Cartão" required>
-									<!-- error number card -->
-									<label ng-show="pagamento.cardName.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O nome do cartão é obrigatório por favor verifique os dados inseridos</label>
+								<input class="form-control " name="cardName" ng-model="candidate.card.name" type="text" placeholder="Nome impresso no Cartão"
+								    required>
+								<!-- error number card -->
+								<label ng-show="pagamento.cardName.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O nome do cartão é obrigatório por favor verifique os dados inseridos</label>
 							</div>
 							<div class="form-group icon-left col-md-6">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control  " name="cardNumber" data-cardNumber="Número do cartão" ng-model="candidate.card.cardNumber" type="text"
-									placeholder="Número do cartão" mask="9999 9999 9999 9999" required>
-									<!-- error number card -->
-									<label ng-show="(pagamento.cardNumber.$error.required || pagamento.cardNumber.$error.mask ) && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O número do cartão é obrigatório por favor verifique os dados inseridos</label>
+								    placeholder="Número do cartão" mask="9999 9999 9999 9999" required>
+								<!-- error number card -->
+								<label ng-show="(pagamento.cardNumber.$error.required || pagamento.cardNumber.$error.mask ) && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O número do cartão é obrigatório por favor verifique os dados inseridos</label>
 							</div>
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="monthCardExpire" data-monthCardExpire="Mês que o cartão expira" ng-model="candidate.card.monthCardExpire"
-									type="number" placeholder="Mês que o cartão expira" mask="99" min="1" max="12" required>
-									<!-- error month card -->
-									<label ng-show="pagamento.monthCardExpire.$error.required  && pagamento.$submitted"
-									style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
-								<label ng-show="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && pagamento.$submitted"
-									style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
+								    type="number" placeholder="Mês que o cartão expira" mask="99" min="1" max="12" required>
+								<!-- error month card -->
+								<label ng-show="pagamento.monthCardExpire.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
+								<label ng-show="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
 							</div>
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="yearCardExpire" data-yearCardExpire="Ano que o cartão expira" ng-model="candidate.card.yearCardExpire"
-									type="number" min="{{currentYear}}" placeholder="Ano que o cartão expira" mask="9999" required>
-									<label ng-show="pagamento.yearCardExpire.$error.required  && pagamento.$submitted"
-									style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
-								<label ng-show="pagamento.yearCardExpire.$error.min && pagamento.$submitted"
-								style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O
-								ano de validade do cartão deve ser a partir do ano {{currentYear}}</label>
+								    type="number" min="{{currentYear}}" placeholder="Ano que o cartão expira" mask="9999" required>
+								<label ng-show="pagamento.yearCardExpire.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
+								<label ng-show="pagamento.yearCardExpire.$error.min && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão deve ser a partir do ano {{currentYear}}</label>
 
 							</div>
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
-								<input class="form-control" name="cvvCard"  ng-model="candidate.card.cvvCard" type="text"
-									mask="999" placeholder="Cod. de segurança" required>
-										<label ng-show="pagamento.cvvCard.$error.required  && pagamento.$submitted"
-									style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
+								<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cod. de segurança"
+								    required>
+								<label ng-show="pagamento.cvvCard.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar"  >
+						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar">
 					</div>
 					<div class=" clearfix">
 						<div class="col-md-4 pull-right value-payment">
