@@ -4943,7 +4943,7 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
 	  templateUrl: '/javascripts/app/view/contrato/index.tmpl',
       controller: 'ContractController',
 	}).
-	when('/search-face',{
+	when('/cert-face',{
 	  templateUrl: '',
       controller: 'CandidateController',
 	}).
@@ -5525,8 +5525,10 @@ if(!(/^https:\/\/participe.votolegal.com.br/.test(currentURL.origin)) && /\?.?&?
 /**
  * Candidate Controller
  */
-app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
+app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, $route, $routeParams, $location, serialize, auth_service, SweetAlert, trouble, postmon){
   var load   = document.querySelector('#loading');
+console.log($routeParams,'route',$location)
+
 
   // defaults
   $scope.vote           = undefined;
