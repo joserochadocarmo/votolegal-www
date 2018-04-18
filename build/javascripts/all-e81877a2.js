@@ -4698,7 +4698,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
 
-
+/*
 			if (res.paid == 0 && res.signed_contract == 0) {
 				document.location = '/contrato'
 			} else if (res.signed_contract == 1) {
@@ -4706,6 +4706,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 			}else{
 				document.location = '/cadastro-completo';
 			}
+			*/
 		}
 	  }
 
@@ -5367,6 +5368,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 		$scope.candidate = response.data.candidate;
 
+		/*
 		  if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 0) {
 			  document.location = '/contrato'
 		  } else if ($scope.candidate.signed_contract == 1) {
@@ -5374,6 +5376,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 		  } else {
 			  document.location = '/cadastro-completo';
 		  }
+		  */
 
         (function(){
           var boleto = document.querySelector('#show-boleto');

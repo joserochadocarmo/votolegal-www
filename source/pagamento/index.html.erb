@@ -137,7 +137,7 @@ title: Pagamento
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="monthCardExpire" data-monthCardExpire="Mês que o cartão expira" ng-model="candidate.card.monthCardExpire"
-								    type="number" placeholder="Mês que o cartão expira" mask="99" min="1" max="12" required>
+								    type="number" placeholder="Mês de vencimento" mask="99" min="1" max="12" required>
 								<!-- error month card -->
 								<label ng-if="pagamento.monthCardExpire.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
 								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
@@ -145,7 +145,7 @@ title: Pagamento
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="yearCardExpire" data-yearCardExpire="Ano que o cartão expira" ng-model="candidate.card.yearCardExpire"
-								    type="number" min="{{currentYear}}" placeholder="Ano que o cartão expira" mask="9999" ng-required="paymentMethod === 'creditCard'">
+								    type="number" min="{{currentYear}}" placeholder="Ano de vencimento" mask="9999" ng-required="paymentMethod === 'creditCard'">
 								<label ng-if="pagamento.yearCardExpire.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
 								<label ng-if="pagamento.yearCardExpire.$error.min && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão deve ser a partir do ano {{currentYear}}</label>
 
@@ -162,7 +162,8 @@ title: Pagamento
 					<div class="form-group">
 						<span class="btn btn-success btn-lg btn-block loading" ng-if="loading"><img src="../images/ajax-loader.gif" alt="" ></span>
 						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
-						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg" ng-if="boletoUrl.length > 0" ng-click="redirectBoleto()">Imprimir boleto </a>
+						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block" ng-if="boletoUrl.length> 0" ng-click="redirectBoleto()">Imprimir boleto </a>
+
 					</div>
 					<div class=" clearfix">
 						<div class="col-md-6 pull-right value-payment">
