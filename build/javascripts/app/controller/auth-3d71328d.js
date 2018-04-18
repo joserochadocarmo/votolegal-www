@@ -107,6 +107,8 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 
     auth_service.authenticate(params.email, params.password)
     .then(function(response){
+
+	console.log(response, 'rsspone')
       var res = response.data;
 
       // getting role list
@@ -121,16 +123,29 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
       );
 
-      // check roles
+	  // check roles
+
       if(role_list.length == 0) {
         document.location = '/admin/signin';
         return false;
-      }
+	  }
+
 
       for(var i in role_list){
         if(role_list[i] === 'admin') document.location = '/admin';
-        if(role_list[i] === 'user') document.location = '/cadastro-completo';
-      }
+        if(role_list[i] === 'user'){
+
+
+			if (res.paid == 0 && res.signed_contract == 0) {
+				document.location = '/contrato'
+			} else if (res.signed_contract == 1) {
+				document.location = '/pagamento'
+			}else{
+				document.location = '/cadastro-completo';
+			}
+		}
+	  }
+
     }, function(response){
       SweetAlert.swal('Erro na autênticação', 'Usuário ou Senha incorretos!');
       throw new Error('ERROR_AUTH_USER');

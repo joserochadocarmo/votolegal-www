@@ -213,5 +213,6 @@ app.votolegal.controller("PaymentController", [
 					$scope.creditCardPayment();
 				}
 			}
+			$scope.boletoUrl = null;
 		}
 	}]);

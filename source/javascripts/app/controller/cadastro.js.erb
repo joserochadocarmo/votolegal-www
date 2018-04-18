@@ -139,7 +139,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     try {
       $http({
         method: 'PUT',
-        url: '<%= config[:api_host]%>/candidate/'+ user.id +"?api_key=" + user.api_key,
+        url: BASE_API_JS + '/candidate/'+ user.id +"?api_key=" + user.api_key,
         data: params,
         headers: { 'Content-Type': undefined },
         transformRequest: function (data) {
@@ -227,7 +227,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
     try {
       $http({
         method: 'PUT',
-        url: '<%= config[:api_host]%>/candidate/'+ user.id +"?api_key=" + user.api_key,
+        url: BASE_API_JS + '/candidate/'+ user.id +"?api_key=" + user.api_key,
         data: params,
         headers: {'Content-Type': undefined },
         transformRequest: function (data) {
@@ -301,7 +301,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
     $http({
       method: (p.id && p.id > 0)? 'PUT' : 'POST',
-      url: '<%= config[:api_host]%>/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
+      url: BASE_API_JS + '/candidate/'+ user.id +'/projects' + (p.id && p.id > 0 ? '/' + p.id : '') +"?api_key=" + user.api_key,
       data: serialize.from_object(params),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }).then(function (response) {
@@ -444,12 +444,14 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       function(response){
 
 		$scope.candidate = response.data.candidate;
-		if($scope.candidate.signed_contract){
-			window.location = '/contrato';
-		}else if(window.location = '/pagamento'){
-			window.location = '/pagamento';
-		}
 
+		  if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 0) {
+			  document.location = '/contrato'
+		  } else if ($scope.candidate.signed_contract == 1) {
+			  document.location = '/pagamento'
+		  } else {
+			  document.location = '/cadastro-completo';
+		  }
 
         (function(){
           var boleto = document.querySelector('#show-boleto');
@@ -502,7 +504,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_banks = function(){
     $http({
       method: 'GET',
-      url: '<%= config[:api_host]%>/bank',
+      url: BASE_API_JS + '/bank',
     }).
     then(function(response){
       $scope.bank_list = response.data.bank;
@@ -519,7 +521,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
   $scope.get_gateways = function(){
     $http({
       method: 'GET',
-      url: '<%= config[:api_host]%>/payment_gateway',
+      url: BASE_API_JS + '/payment_gateway',
     }).then(function(response){
       $scope.payment_gateway_list = response.data.payment_gateway;
     }, function(response){

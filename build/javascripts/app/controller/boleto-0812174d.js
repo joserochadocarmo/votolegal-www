@@ -1,7 +1,7 @@
 /**
  * Boleto controller
  */
- 
+
 app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'auth_service', 'serialize', 'SweetAlert', 'trouble', function($scope, $http, postmon, auth_service, serialize, SweetAlert, trouble){
   $scope.candidate = {};
   $scope.payment   = {};
@@ -20,7 +20,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
           var res = response.data, $f = $scope.candidate;
           $f.address_city   = res.cidade;
           $f.address_state  = res.estado_info.nome;
-          
+
           // load district
           var district = document.querySelector('form[name=boletoForm] *[name=address_district]');
           if(res.bairro) { $f.address_district = res.bairro; district.disabled = true }
@@ -34,8 +34,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
         // error callback
         function(response){
           swal({ title: "Problemas ao carregar os dados do CEP!", text: "Ocorreu um erro ao tentar carregar os dados de sua localidade. Verifique o CEP e tente novamente." });
-          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){ 
-            try{ 
+          ['address_state', 'address_city', 'address_district', 'address_street'].map(function(i){
+            try{
               $scope.candidate[i] = "";
               document.querySelector('form[name=boletoForm] *[name='+i+']').disabled = true;
             } catch(e) {};
@@ -54,11 +54,11 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     var user = auth_service.current_user();
     $http({
       method: 'GET',
-      url: '//dapi.votolegal.com.br/api/candidate/'+user.id+'/payment/session?api_key=' + user.api_key,
+      url: BASE_API_JS + '/candidate/'+user.id+'/payment/session?api_key=' + user.api_key,
     }).
     then(function(response){
       $scope.payment.session = response.data.id || 0;
-      try{ 
+      try{
         PagSeguroDirectPayment.setSessionId(response.data.id);
       } catch(e){}
     }, function(response){
@@ -74,7 +74,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
   $scope.get_banks = function(){
     $http({
       method: 'GET',
-      url: '//dapi.votolegal.com.br/api/bank',
+      url: BASE_API_JS + '/bank',
     }).
     then(function(response){
       $scope.bank_list = response.data.bank;
@@ -86,14 +86,14 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     });
     return false
   };
-  
+
 
 
   $scope.load_candidate = function(){
     var user = auth_service.current_user();
     $http({
       method: 'GET',
-      url: '//dapi.votolegal.com.br/api/candidate/'+ user.id +'?api_key=' + user.api_key,
+      url: BASE_API_JS + '/candidate/'+ user.id +'?api_key=' + user.api_key,
     }).
     then(
       function(response){
@@ -141,13 +141,13 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 
     $http({
       method: 'PUT',
-      url: '//dapi.votolegal.com.br/api/candidate/'+ user.id +'?api_key='+ user.api_key,
+      url: BASE_API_JS + '/candidate/'+ user.id +'?api_key='+ user.api_key,
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     }).then(function (response) {
       $http({
         method: 'POST',
-        url: '//dapi.votolegal.com.br/api/candidate/'+user.id+'/payment?api_key='+user.api_key,
+        url: BASE_API_JS + '/candidate/'+user.id+'/payment?api_key='+user.api_key,
         data: serialize.from_object({ senderHash: sender }),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).
@@ -155,8 +155,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
         function(response){
           var url = response.data.url;
           document.location = url;
-        }, 
-        function(response){ 
+        },
+        function(response){
           trouble.shoot({
             route: document.location.href, error: JSON.stringify([response, user])
           });
@@ -191,7 +191,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
     return false;
   };
 
-  
+
   /**
    * initializations
    */
