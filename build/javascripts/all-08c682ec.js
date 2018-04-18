@@ -4943,6 +4943,10 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
 	  templateUrl: '/javascripts/app/view/contrato/index.tmpl',
       controller: 'ContractController',
 	}).
+	when('/search-face',{
+	  templateUrl: '',
+      controller: 'CandidateController',
+	}).
     otherwise({
       redirectTo: '/dados-pessoais',
       activetab: 'pessoal'
@@ -5472,10 +5476,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 }]);
 
 
-var domain = document.location.href;
+var currentURL = document.location;
 
-if((!domain.match(/^https:\/\/www.participe.votolegal.com.br/) && domain.match(/^https:\/\/([a-z0-9_-]*).www.participe.votolegal.com.br/)) || domain.match(/www.participe.votolegal.com.br\/candidato/)) {
-alert('entrou')
+if(!(/^https:\/\/participe.votolegal.com.br/.test(currentURL.origin)) && /\?.?&?id=[a-z0-9_-]+/.test(currentURL.search) && /\/candidato/.test(currentURL.pathname)) {
+
   app.votolegal.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/', {

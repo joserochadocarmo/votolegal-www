@@ -17,6 +17,7 @@ page "/admin/*.html", :layout => :admin
 page "/candidato/*.html", :layout => :candidato
 page '/error/config-error/index.html', layout: false
 page "/contrato/index.html", :layout => :layout
+page "/search-face/index.html", :layout => :layout
 # set :js_dir, '...'
 
 
