@@ -59,6 +59,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.BrandCard = '';
 		$scope.senderHash = '';
 		$scope.formDisable = true;
+		$scope.loading = false;
 		$scope.error_list = [],
 		$scope.paymentMethod = '';
 		var year = new Date()
@@ -88,10 +89,12 @@ app.votolegal.controller("PaymentController", [
 		//Start session
 		$scope.getSessionId()
 			.then(function (val) {
+				$scope.boletoUrl = null;
 				$scope.SetSessionId(val.data.id)
 			})
 
 		$scope.creditCardPayment = function () {
+			$scope.loading = true;
 			$scope.getSenderHash()
 
 			var num = $scope.candidate.card.cardNumber + '';
@@ -121,6 +124,10 @@ app.votolegal.controller("PaymentController", [
 			return new Promise(function (resolve) {
 				resolve(res);
 			})
+		}
+		$scope.redirectBoleto = function(){
+			$scope.boletoUrl = null;
+
 		}
 
 		$scope.createCardToken = function (brand) {
@@ -161,10 +168,15 @@ app.votolegal.controller("PaymentController", [
 						$scope.candidate.addressDistrict,
 						$scope.candidate.addressStreet,
 						$scope.candidate.addressHouseNumber,
-						)
+						).then(function(){
+							$scope.loading = false;
+						})
 
 				},
 			});
+
+		}
+		$scope.payment = function(){
 
 		}
 
@@ -183,10 +195,12 @@ app.votolegal.controller("PaymentController", [
 		$scope.submit = function (valid, form) {
 
 			if(valid){
+
 				if(form.typePayment.$viewValue == 'boleto'){
 					var userId = localStorage.getItem("userId");
 					var sender_hash = PagSeguroDirectPayment.getSenderHash();
 					var credit_card_token = null;
+					$scope.loading = true;
 
 					payment_pagseguro.payment(
 						userId,
@@ -204,6 +218,7 @@ app.votolegal.controller("PaymentController", [
 						$scope.candidate.addressStreet,
 						$scope.candidate.addressHouseNumber,
 						).then(function(val){
+							$scope.loading = false;
 							$scope.boletoUrl = val.data.url
 
 						console.log('vale', val)
@@ -213,6 +228,6 @@ app.votolegal.controller("PaymentController", [
 					$scope.creditCardPayment();
 				}
 			}
-			$scope.boletoUrl = null;
+
 		}
 	}]);
