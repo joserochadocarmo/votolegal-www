@@ -6369,10 +6369,9 @@ $scope.urlBoleto = null;
 
 		 $scope.urlBoleto =  payment_doacao.payment(sender, 'token');
 
-
 		 console.log($scope.urlBoleto,'sss')
-
   }
+
   $scope.candidate_by_name($scope.name);
 }]);
 /**
