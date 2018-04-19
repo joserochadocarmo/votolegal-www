@@ -5970,10 +5970,12 @@ console.log($routeParams,'route',$location)
 
 
   /* getting session */
+
   $scope.get_session = function(){
     var id = $scope.candidate.id || 0;
     $http({
-      url: BASE_API_JS + '/candidate/'+id+'/payment/session'
+	  url: BASE_API_JS + '/candidate/'+id+'/payment/session'
+
     }).
     then(function(response){
       $scope.payment.session = response.data.id;
@@ -6370,13 +6372,7 @@ $scope.urlBoleto = null;
 
 		 console.log($scope.urlBoleto,'sss')
 
-
-
-
   }
-
-
-
   $scope.candidate_by_name($scope.name);
 }]);
 /**
