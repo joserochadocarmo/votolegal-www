@@ -439,7 +439,7 @@ app = window.app || {};
       authenticate: function(username, password) {
         return $http({
           method: 'POST',
-          url: '<%= config[:api_host] %>/login',
+          url: BASE_API_JS + '/login',
           data: serialize.from_object({"email": username, "password": password}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -449,7 +449,7 @@ app = window.app || {};
       forgot_password: function(username){
         return $http({
           method: 'POST',
-          url: '<%= config[:api_host] %>/login/forgot_password',
+          url: BASE_API_JS + '/login/forgot_password',
           data: serialize.from_object({"email": username}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -459,7 +459,7 @@ app = window.app || {};
       change_password: function(password, token){
         return $http({
           method: 'POST',
-          url: '<%= config[:api_host] %>/login/forgot_password/reset/' + token,
+          url: BASE_API_JS + '/login/forgot_password/reset/' + token,
           data: serialize.from_object({"new_password": password}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -512,7 +512,7 @@ app = window.app || {};
 		contract: function(id){
 		return $http({
 			method: 'POST',
-			url: '<%= config[:api_host] %>/candidate/'+id+'/contract_signature',
+			url: BASE_API_JS + '/candidate/'+id+'/contract_signature',
 			})
 		}
 	}
@@ -524,7 +524,7 @@ app = window.app || {};
 		getSessionId: function(id){
 		return $http({
 			method: 'GET',
-			url: '<%= config[:api_host] %>/candidate/'+id+'/payment/session',
+			url: BASE_API_JS + '/candidate/'+id+'/payment/session',
        		 }).then(function(response){
 				return response
 				})
@@ -538,7 +538,7 @@ app = window.app || {};
 
 		return $http({
 			method: 'POST',
-			url: '<%= config[:api_host] %>/candidate/'+id+'/payment',
+			url: BASE_API_JS + '/candidate/'+id+'/payment',
 			  data: serialize.from_object({
 					"sender_hash": sender_hash,
 					"credit_card_token": credit_card_token,
@@ -563,6 +563,31 @@ app = window.app || {};
 		}
 	}
 }]);
+ app.votolegal.factory('payment_doacao', ['$http', 'serialize', 'store', function($http, serialize, store){
+
+	return {
+		payment: function(senderHash, token){
+			return senderHash;
+			/*
+		return $http({
+			method: 'POST',
+			url: BASE_API_JS + '/candidate/'+id+'/payment',
+			  data: serialize.from_object({
+					"sender_hash": sender_hash,
+					"token": token,
+				  }),
+				   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+       		 }).then(function(response){
+
+				console.log(response, 'rrrr')
+				return response
+				})
+				*/
+
+		}
+	}
+}]);
+
 
 
 

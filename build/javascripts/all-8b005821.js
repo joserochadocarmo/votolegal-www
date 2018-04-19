@@ -4186,7 +4186,7 @@ app = window.app || {};
       authenticate: function(username, password) {
         return $http({
           method: 'POST',
-          url: '//dapi.votolegal.com.br/api/login',
+          url: BASE_API_JS + '/login',
           data: serialize.from_object({"email": username, "password": password}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -4196,7 +4196,7 @@ app = window.app || {};
       forgot_password: function(username){
         return $http({
           method: 'POST',
-          url: '//dapi.votolegal.com.br/api/login/forgot_password',
+          url: BASE_API_JS + '/login/forgot_password',
           data: serialize.from_object({"email": username}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -4206,7 +4206,7 @@ app = window.app || {};
       change_password: function(password, token){
         return $http({
           method: 'POST',
-          url: '//dapi.votolegal.com.br/api/login/forgot_password/reset/' + token,
+          url: BASE_API_JS + '/login/forgot_password/reset/' + token,
           data: serialize.from_object({"new_password": password}),
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
@@ -4259,7 +4259,7 @@ app = window.app || {};
 		contract: function(id){
 		return $http({
 			method: 'POST',
-			url: '//dapi.votolegal.com.br/api/candidate/'+id+'/contract_signature',
+			url: BASE_API_JS + '/candidate/'+id+'/contract_signature',
 			})
 		}
 	}
@@ -4271,7 +4271,7 @@ app = window.app || {};
 		getSessionId: function(id){
 		return $http({
 			method: 'GET',
-			url: '//dapi.votolegal.com.br/api/candidate/'+id+'/payment/session',
+			url: BASE_API_JS + '/candidate/'+id+'/payment/session',
        		 }).then(function(response){
 				return response
 				})
@@ -4285,7 +4285,7 @@ app = window.app || {};
 
 		return $http({
 			method: 'POST',
-			url: '//dapi.votolegal.com.br/api/candidate/'+id+'/payment',
+			url: BASE_API_JS + '/candidate/'+id+'/payment',
 			  data: serialize.from_object({
 					"sender_hash": sender_hash,
 					"credit_card_token": credit_card_token,
@@ -4310,6 +4310,31 @@ app = window.app || {};
 		}
 	}
 }]);
+ app.votolegal.factory('payment_doacao', ['$http', 'serialize', 'store', function($http, serialize, store){
+
+	return {
+		payment: function(senderHash, token){
+			return senderHash;
+			/*
+		return $http({
+			method: 'POST',
+			url: BASE_API_JS + '/candidate/'+id+'/payment',
+			  data: serialize.from_object({
+					"sender_hash": sender_hash,
+					"token": token,
+				  }),
+				   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+       		 }).then(function(response){
+
+				console.log(response, 'rrrr')
+				return response
+				})
+				*/
+
+		}
+	}
+}]);
+
 
 
 
@@ -5525,7 +5550,7 @@ if(!(/^https:\/\/participe.votolegal.com.br/.test(currentURL.origin)) && /\?.?&?
 /**
  * Candidate Controller
  */
-app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, $route, $routeParams, $location, serialize, auth_service, SweetAlert, trouble, postmon){
+app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $http, $sce, $route, $routeParams, $location, serialize, auth_service, SweetAlert, payment_doacao, trouble, postmon){
   var load   = document.querySelector('#loading');
 console.log($routeParams,'route',$location)
 
@@ -5540,6 +5565,10 @@ console.log($routeParams,'route',$location)
   $scope.error_list     = [];
   $scope.donations      = [];
   $scope.expenditures   = [];
+
+  // payment
+  $scope.paymentMethodDonate = 'sdfsdfdsfd',
+
 
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
@@ -5944,7 +5973,7 @@ console.log($routeParams,'route',$location)
   $scope.get_session = function(){
     var id = $scope.candidate.id || 0;
     $http({
-      url: '//dapi.votolegal.com.br/api/candidate/'+id+'/donate/session'
+      url: BASE_API_JS + '/candidate/'+id+'/payment/session'
     }).
     then(function(response){
       $scope.payment.session = response.data.id;
@@ -6005,8 +6034,14 @@ console.log($routeParams,'route',$location)
   };
 
   /* sender donartion */
-  $scope.send_donation = function(){
-    $scope.error_list = [];
+  $scope.send_donation = function(valid, formData){
+
+  console.log($scope.paymentMethodDonate, 'sss')
+
+  if($scope.paymentMethodDonate == 'creditCard' ){
+
+	$scope.error_list = [];
+	console.log(valid,'valid', formData, 'data')
 
     // block button
     var button = document.querySelector('#btn-donate');
@@ -6031,7 +6066,9 @@ console.log($routeParams,'route',$location)
     };
 
     // getting params
-    var params = $scope.donation_params();
+	var params = $scope.donation_params();
+
+
 
     // getting card
     var card = $scope.card_params();
@@ -6076,8 +6113,8 @@ console.log($routeParams,'route',$location)
       }
 
       $http({
-        method: 'POST',
-        url : '//dapi.votolegal.com.br/api/candidate/'+ $scope.candidate.id +'/donate',
+		method: 'POST',
+        url: BASE_API_JS + '/candidate/'+ $scope.candidate.id +'/donate',
         data: serialize.from_object(params),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       }).then(function(response){
@@ -6175,7 +6212,7 @@ console.log($routeParams,'route',$location)
               // send to backend
               $http({
                 method: 'POST',
-                url : '//dapi.votolegal.com.br/api/candidate/'+ $scope.candidate.id +'/donate',
+                url : BASE_API_JS + '/candidate/'+ $scope.candidate.id +'/donate',
                 data: serialize.from_object(params),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
               }).
@@ -6240,7 +6277,10 @@ console.log($routeParams,'route',$location)
         trouble.shoot({ route: document.location.href, error: JSON.stringify(response) });
         throw new Error('CARDBRAND_GET_ERROR');
       }
-    });
+	});
+  }else{
+	    $scope.boletoPayment()
+  }
 
   };
 
@@ -6318,6 +6358,23 @@ console.log($routeParams,'route',$location)
       .require($scope.payment)
       .permit('card_number', 'card_month', 'card_year', 'card_cvv')
   };
+
+$scope.urlBoleto = null;
+  $scope.boletoPayment = function(){
+
+  console.log($scope.doar.sender_hash)
+  var sender = PagSeguroDirectPayment.getSenderHash()
+
+		 $scope.urlBoleto =  payment_doacao.payment(sender, 'token');
+
+
+		 console.log($scope.urlBoleto,'sss')
+
+
+
+
+  }
+
 
 
   $scope.candidate_by_name($scope.name);

@@ -116,14 +116,14 @@ title:  Pré-visualizaçao do perfil
                 <h4>Para uma pagina completa:</h4>
                 <pre>
   &lt;body style="margin:0px;padding:0px;overflow:hidden"  class="{{theme}}"&gt;
-    &lt;iframe src="{{candidate.profile_url()}}" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
+    &lt;iframe src="{{candidate.profile_url()}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
   &lt;/body&gt; </pre>
                 <br>
                 <br>
                 <br>
                 <h4>Para colocar em uma pagina existente:</h4>
                 <pre>
-  &lt;iframe src="{{candidate.profile_url()}} frameborder="0" style="overflow:hidden;height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
+  &lt;iframe src="{{candidate.profile_url()}} frameborder="0" id="iframe-candidate"  style="overflow:hidden; height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
                 </pre>
                 <small class="help-block">Onde <code>700px</code> é a altura que ficará a janela onde será exibido o seu perfil na sua pagina.</small>
               </div>
@@ -145,7 +145,7 @@ title:  Pré-visualizaçao do perfil
             <h4 class="modal-title" id="myModalLabel">VotoLegal - Visulização do Perfil</h4>
           </div>
           <div class="modal-body">
-            <iframe id="preview" ng-src="{{candidate.profile_url()}}" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%"></iframe>
+            <iframe id="preview" ng-src="{{candidate.profile_url()}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%"></iframe>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
