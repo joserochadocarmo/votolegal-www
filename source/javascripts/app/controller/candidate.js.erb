@@ -64,7 +64,7 @@ console.log($routeParams,'route',$location)
   $scope.expenditures   = [];
 
   // payment
-  $scope.paymentMethodDonate = 'sdfsdfdsfd',
+  $scope.paymentMethodDonate = null,
 
 
   // getting candidate name from url
