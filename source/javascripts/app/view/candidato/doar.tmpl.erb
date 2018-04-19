@@ -308,7 +308,7 @@
 							<div class="form-group text-center col-md-12">
 								<button class="btn btn-success btn-lg" id="btn-donate" ng-if="paymentMethodDonate == 'creditCard'" type="submit">Efetuar doação</button>
 								<button class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="paymentMethodDonate == 'boleto' && urlBoleto == null " type="submit">Reconhecimento de vida</button>
-								<a href="{urlBoleto}" class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="urlBoleto != null " type="submit">Gerar boleto</a>
+								<a href="{urlBoleto}" class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="urlBoleto != null && paymentMethodDonate == 'boleto' " type="submit">Gerar boleto</a>
 
 							</div>
 					</div>

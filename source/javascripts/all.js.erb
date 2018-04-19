@@ -566,23 +566,21 @@ app = window.app || {};
  app.votolegal.factory('payment_doacao', ['$http', 'serialize', 'store', function($http, serialize, store){
 
 	return {
-		payment: function(senderHash, token){
-			return senderHash;
-			/*
+		payment: function(id, name, cpf, email, phone){
 		return $http({
 			method: 'POST',
-			url: BASE_API_JS + '/candidate/'+id+'/payment',
+			url: BASE_API_JS + '/candidate/'+id+'/donate',
 			  data: serialize.from_object({
-					"sender_hash": sender_hash,
-					"token": token,
+					"name": name,
+					"cpf": cpf,
+					"email": email,
+					"phone": phone,
 				  }),
 				   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
        		 }).then(function(response){
-
 				console.log(response, 'rrrr')
 				return response
 				})
-				*/
 
 		}
 	}
