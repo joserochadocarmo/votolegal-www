@@ -4968,6 +4968,10 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
 	  templateUrl: '/javascripts/app/view/contrato/index.tmpl',
       controller: 'ContractController',
 	}).
+	when('/certiface/:token',{
+	  templateUrl: '',
+      controller: 'CandidateController',
+	}).
     otherwise({
       redirectTo: '/dados-pessoais',
       activetab: 'pessoal'
@@ -5548,7 +5552,7 @@ if(!(/^https:\/\/participe.votolegal.com.br/.test(currentURL.origin)) && /\?.?&?
  */
 app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $http, $sce, $route, $routeParams, $location, serialize, auth_service, SweetAlert, payment_doacao, trouble, postmon){
   var load   = document.querySelector('#loading');
-
+console.log($routeParams,'route',$location)
 
 
   // defaults
@@ -5966,12 +5970,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$ro
 
 
   /* getting session */
-
   $scope.get_session = function(){
     var id = $scope.candidate.id || 0;
     $http({
-	  url: BASE_API_JS + '/candidate/'+id+'/payment/session'
-
+      url: BASE_API_JS + '/candidate/'+id+'/payment/session'
     }).
     then(function(response){
       $scope.payment.session = response.data.id;
@@ -6365,11 +6367,17 @@ $scope.urlBoleto = null;
 
 		 $scope.urlBoleto =  payment_doacao.payment(sender, 'token');
 
+
 		 console.log($scope.urlBoleto,'sss')
+
+
 
 
   }
 
+
+
+  $scope.candidate_by_name($scope.name);
 }]);
 /**
  * Contato controller
