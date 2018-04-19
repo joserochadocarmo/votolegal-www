@@ -20,10 +20,6 @@ if(document.location.href.indexOf('/cadastro-completo') >= 0){
 	  templateUrl: '/javascripts/app/view/contrato/index.tmpl',
       controller: 'ContractController',
 	}).
-	when('/certiface/:token',{
-	  templateUrl: '',
-      controller: 'CandidateController',
-	}).
     otherwise({
       redirectTo: '/dados-pessoais',
       activetab: 'pessoal'
