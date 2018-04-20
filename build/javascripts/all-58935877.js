@@ -7236,7 +7236,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.createCardToken = function (brand) {
 
 			var num = $scope.candidate.card.cardNumber + '';
-			num =  num.split(' ').join('');oarForm.$valid
+			num =  num.split(' ').join('');
 
 				PagSeguroDirectPayment.createCardToken({
 				cardNumber: num,
