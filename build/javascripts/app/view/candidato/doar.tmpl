@@ -313,7 +313,17 @@
 						</div>
 							<div class="form-group text-center col-md-12">
 								<button class="btn btn-success btn-lg" id="btn-donate" ng-if="paymentMethodDonate == 'creditCard'" type="submit">Efetuar doação</button>
-								<button class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="paymentMethodDonate == 'boleto' && urlBoleto == null " type="submit">Gerar boleto</button>
+								<div class="r" ng-if="paymentMethodDonate == 'boleto' && urlBoleto == null ">
+
+							<p text-align="left">O VotoLegal conta com tecnologia para realizar doações seguras e que protejam os doadores contra fraudes. Para manter nosso
+								padrão de proteção, solicitamos o reconhecimento facial para os usuários ao gerar o boleto. Nesta etapa é necessária uma
+								câmera no computador ou celular. Caso não tenha disponível no momento, por favor, realize a operação em outro dispositivo.</p>
+							<button class="btn btn-success btn-lg btn-block boleto" id="btn-donate"type="submit"
+
+>Gerar boleto</button>
+
+								</div>
+
 
 								<div class="erro" ng-if="urlBoleto.error">
 <h4 ng-if="urlBoleto.error">Desculpa tivemos um erro com a requisição ou erro de preenchimento, verifique os campos do formuláriotente novamente</h4>
