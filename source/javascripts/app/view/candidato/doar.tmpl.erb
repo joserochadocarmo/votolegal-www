@@ -314,6 +314,7 @@
 							<div class="form-group text-center col-md-12">
 								<button class="btn btn-success btn-lg" id="btn-donate" ng-if="paymentMethodDonate == 'creditCard'" type="submit">Efetuar doação</button>
 								<button class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="paymentMethodDonate == 'boleto' && urlBoleto == null " type="submit">Gerar boleto</button>
+
 								<div class="erro" ng-if="urlBoleto.error">
 <h4 ng-if="urlBoleto.error">Desculpa tivemos um erro com a requisição ou erro de preenchimento, verifique os campos do formuláriotente novamente</h4>
 									<i class="fa fa-exclamation-triangle fa-5x fa-fw " ></i><br>
