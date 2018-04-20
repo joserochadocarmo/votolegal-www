@@ -18,8 +18,8 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
         // success callback
         function(response) {
           var res = response.data, $f = $scope.candidate;
-          $f.address_city   = res.cidade;
-          $f.address_state  = res.estado_info.nome;
+          $f.address_city   = res.city;
+          $f.address_state  = res.state
 
           // load district
           var district = document.querySelector('form[name=boletoForm] *[name=address_district]');
@@ -28,7 +28,7 @@ app.votolegal.controller('BoletoController', ['$scope', '$http', 'postmon', 'aut
 
           // load street
           var street = document.querySelector('form[name=boletoForm] *[name=address_street]');
-          if(res.logradouro) { $f.address_street = res.logradouro; street.disabled = true }
+          if(res.street) { $f.address_street = res.street; street.disabled = true }
           else { $f.address_street = ""; street.disabled = false }
         },
         // error callback
