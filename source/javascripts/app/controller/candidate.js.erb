@@ -867,22 +867,13 @@ $scope.serverError = false;
   var sender = PagSeguroDirectPayment.getSenderHash()
 
 		 response = payment_doacao.payment($scope.candidate.id, $scope.doar.name, $scope.doar.cpf, $scope.doar.phone, $scope.doar.birthdate)
-
 				.success(function(response){
 				console.log('suscess', response)
-				window.location = '/certiface#/token='+response.data.token
-						$scope.urlBoleto = response
+				window.location = response.url;
 				}).error(function(response){
 
-					console.log(response)
-					$scope.urlBoleto = response
-
-
-
+					$scope.urlBoleto.url = response
 				})
-
-
-
   }
 
 
@@ -891,9 +882,7 @@ $scope.serverError = false;
   console.log($routeParams.$$search.token, 'token')
 
 		if($routeParams.$$search.token && $routeParams.$$search.token.length > 0){
-
 			certi_face_token.tokenVerify($routeParams.$$search.token).then(function(val){
-
 
 			})
 
