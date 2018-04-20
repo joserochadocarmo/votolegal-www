@@ -314,8 +314,7 @@
 								<button class="btn btn-success btn-lg" id="btn-donate" ng-if="paymentMethodDonate == 'creditCard'" type="submit">Efetuar doação</button>
 								<button class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="paymentMethodDonate == 'boleto' && urlBoleto == null " type="submit">Gerar boleto</button>
 								<div class="erro" ng-if="urlBoleto.error">
-									<h4 ng-if="urlBoleto.error">Desculpa tivemos um erro com a requisição tente novamente</h4>
-									<h4 ng-if="doarForm.$valid">Houve algum erro de preenchimento, verifique os campos do formulário</h4>
+<h4 ng-if="urlBoleto.error">Desculpa tivemos um erro com a requisição ou erro de preenchimento, verifique os campos do formuláriotente novamente</h4>
 									<i class="fa fa-exclamation-triangle fa-5x fa-fw " ></i><br>
 								</div>
 							</div>
@@ -326,6 +325,9 @@
 						<div ng-show="error_list.length > 0" style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 						    class="error-panel">
 							<h4>Os seguintes campos precisam ser corrigidos:</h4>
+
+
+
 							<ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope text-left">
 								<li>{{error}}</li>
 							</ul>
