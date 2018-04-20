@@ -134,6 +134,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
       for(var i in role_list){
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
+			document.location = '/cadastro-completo';
 
 /*
 			if (res.paid == 0 && res.signed_contract == 0) {
