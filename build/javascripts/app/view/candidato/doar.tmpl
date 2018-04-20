@@ -88,29 +88,45 @@
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="name">Nome Completo</label>
 						<i class="fa fa-user"></i>
-						<input class="form-control" type="text" ng-model="doar.name" placeholder="" required>
+						<input class="form-control" type="text" ng-model="doar.name" name="name" placeholder="" required>
+						<div ng-if="paymentMethodDonate == 'boleto' && doarForm.name.$error.required " style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+						    class="error-panel">
+							<h4>Esse campo é obrigatório para gerar de boleto</h4>
+						</div>
 					</div>
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="cpf">CPF</label>
 						<i class="fa fa-user"></i>
-						<input class="form-control" type="text" ng-model="doar.cpf" placeholder="000.000.000-00" mask="999.999.999-99" mask-restrict="reject"
-						    mask-clean="true">
+						<input class="form-control" type="text" ng-model="doar.cpf" name="cpf" placeholder="000.000.000-00" mask="999.999.999-99" mask-restrict="reject"
+							mask-clean="true" required>
+						<div ng-if="paymentMethodDonate == 'boleto' && doarForm.cpf.$error.required " style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+						    class="error-panel">
+							<h4>Esse campo é obrigatório para gerar de boleto</h4>
+						</div>
 					</div>
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="email">E-mail</label>
 						<i class="fa fa-user"></i>
-						<input class="form-control" type="email" ng-model="doar.email" required>
+						<input class="form-control" type="email" ng-model="doar.email" >
 					</div>
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="phone">Telefone</label>
 						<i class="fa fa-user"></i>
-						<input class="form-control" type="text" ng-model="doar.phone" mask="(99)d?9999-9999" mask-restrict="reject" mask-clean="true">
+						<input class="form-control" type="text" ng-model="doar.phone" mask="(99)d?9999-9999" mask-restrict="reject"  name="phone"mask-clean="true" required>
+						<div ng-if="paymentMethodDonate == 'boleto' && doarForm.phone.$error.required " style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+						    class="error-panel">
+							<h4>Esse campo é obrigatório para gerar de boleto</h4>
+						</div>
 					</div>
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="birthdate">Data de nascimento</label>
 						<i class="fa fa-user"></i>
-						<input class="form-control" type="text" ng-model="doar.birthdate" placeholder="00/00/0000" mask="99/99/9999" mask-restrict="reject"
-						    mask-clean="false" required>
+						<input class="form-control" type="text" ng-model="doar.birthdate" placeholder="00/00/0000" name="birthdate" mask="99/99/9999" mask-restrict="reject"
+							mask-clean="false" required>
+							<div ng-if="paymentMethodDonate == 'boleto' && doarForm.birthdate.$error.required " style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+						    class="error-panel">
+							<h4>Esse campo é obrigatório para gerar de boleto</h4>
+						</div>
 					</div>
 
 
@@ -220,15 +236,8 @@
 							<input class="form-control" type="text" name="billing_address_complement" ng-model="doar.billing_address_complement">
 						</div>
 					</div>
-					<script>
-						alert()
-
-					</script>
-
 					<div class="payment-type-donation clearfix">
-						aqui
 						<!-- credit card -->
-
 						<div class="boleto ">
 							<div class="form-group col-md-12">
 
@@ -238,11 +247,8 @@
 							<div class="col-md-6">
 								<input name="typePayment" ng-model="paymentMethodDonate" type="radio" value="creditCard" required> Cartão de crédito
 							</div>
-
 							</div>
-
 						</div>
-
 						<div class="credicard-payment" ng-if="paymentMethodDonate == 'creditCard'">
 							<div class="form-group icon-left icon-with-label col-md-12">
 								<h3 class="text-success">Dados do cartão</h3>
@@ -301,18 +307,22 @@
 							<div class="form-group col-md-12 hide">
 								<label class="checkbox-inline">
 									<input type="checkbox" value="1"> Permito que meu e­mail fique visível ao candidato.
-								</label>
+		 						</label>
 							</div>
 						</div>
 							<div class="form-group text-center col-md-12">
 								<button class="btn btn-success btn-lg" id="btn-donate" ng-if="paymentMethodDonate == 'creditCard'" type="submit">Efetuar doação</button>
-								<button class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="paymentMethodDonate == 'boleto' && urlBoleto == null " type="submit">Reconhecimento de vida</button>
-								<a href="{urlBoleto}" class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="urlBoleto != null " type="submit">Gerar boleto</a>
-
+								<button class="btn btn-success btn-lg btn-block" id="btn-donate" ng-if="paymentMethodDonate == 'boleto' && urlBoleto == null " type="submit">Gerar boleto</button>
+								<div class="erro" ng-if="urlBoleto.error">
+									<h4 ng-if="urlBoleto.error">Desculpa tivemos um erro com a requisição tente novamente</h4>
+									<h4 ng-if="doarForm.$valid">Houve algum erro de preenchimento, verifique os campos do formulário</h4>
+									<i class="fa fa-exclamation-triangle fa-5x fa-fw " ></i><br>
+								</div>
 							</div>
 					</div>
 					<!-- Fim type payment -->
 					<div class="form-group text-center col-md-12">
+							<i class="fa fa-exclamation-triangle fa-5x fa-fw " ng-if="serverError"></i><br>
 						<div ng-show="error_list.length > 0" style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 						    class="error-panel">
 							<h4>Os seguintes campos precisam ser corrigidos:</h4>
@@ -338,7 +348,6 @@
 			</div>
 			<br class="divider">
 			<div class="side-panel reg-doa-side-p">
-
 				<div class="regra-doa-container">
 					<div class="espac-icone-danger">
 						<i class="fa flaticon-information-button"></i>

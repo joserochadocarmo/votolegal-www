@@ -47,9 +47,9 @@ if(!(/^https:\/\/participe.votolegal.com.br/.test(currentURL.origin)) && /\?.?&?
 /**
  * Candidate Controller
  */
-app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $http, $sce, $route, $routeParams, $location, serialize, auth_service, SweetAlert, payment_doacao, trouble, postmon){
+app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "certi_face_token","SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $http, $sce, $route, $routeParams, $location, serialize, auth_service,certi_face_token, SweetAlert, payment_doacao, trouble, postmon){
   var load   = document.querySelector('#loading');
-console.log($routeParams,'route',$location)
+
 
 
   // defaults
@@ -62,6 +62,11 @@ console.log($routeParams,'route',$location)
   $scope.error_list     = [];
   $scope.donations      = [];
   $scope.expenditures   = [];
+  //pagamento
+  $scope.dataForm  = '';
+  $scope.urlBoleto = null;
+  $scope.waitResponseCertiSign = false;
+  $scope.responseResponseCertiSign = false;
 
   // payment
   $scope.paymentMethodDonate = null,
@@ -157,8 +162,8 @@ console.log($routeParams,'route',$location)
     then(
       function(response){
 		var res = response.data.candidate;
+		  $scope.candidateName  = response.data.candidate
 
-		console.log(response.data.candidate, 'ffffff')
 
         $scope.candidate = res;
 
@@ -534,13 +539,11 @@ console.log($routeParams,'route',$location)
 
   /* sender donartion */
   $scope.send_donation = function(valid, formData){
-
-  console.log($scope.paymentMethodDonate, 'sss')
+	  $scope.dataForm = formData
 
   if($scope.paymentMethodDonate == 'creditCard' ){
 
 	$scope.error_list = [];
-	console.log(valid,'valid', formData, 'data')
 
     // block button
     var button = document.querySelector('#btn-donate');
@@ -858,16 +861,44 @@ console.log($routeParams,'route',$location)
       .permit('card_number', 'card_month', 'card_year', 'card_cvv')
   };
 
-$scope.urlBoleto = null;
-  $scope.boletoPayment = function(){
 
-  console.log($scope.doar.sender_hash)
+  $scope.boletoPayment = function(){
+$scope.serverError = false;
   var sender = PagSeguroDirectPayment.getSenderHash()
 
-		 $scope.urlBoleto =  payment_doacao.payment(sender, 'token');
+		 response = payment_doacao.payment($scope.candidate.id, $scope.doar.name, $scope.doar.cpf, $scope.doar.phone, $scope.doar.birthdate)
 
-		 console.log($scope.urlBoleto,'sss')
+				.success(function(response){
+				console.log('suscess', response)
+				window.location = '/certiface#/token='+response.data.token
+						$scope.urlBoleto = response
+				}).error(function(response){
+
+					console.log(response)
+					$scope.urlBoleto = response
+
+
+
+				})
+
+
+
   }
 
+
+  $scope.certiFaceVerify = function(){
+
+  console.log($routeParams.$$search.token, 'token')
+
+		if($routeParams.$$search.token && $routeParams.$$search.token.length > 0){
+
+			certi_face_token.tokenVerify($routeParams.$$search.token).then(function(val){
+
+
+			})
+
+		}
+  }
+    $scope.certiFaceVerify()
   $scope.candidate_by_name($scope.name);
 }]);
