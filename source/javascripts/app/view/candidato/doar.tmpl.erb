@@ -195,7 +195,8 @@
 						<div class="form-group icon-left icon-with-label col-md-6">
 							<label for="billing_address_zipcode">CEP</label>
 							<i class="fa fa-home"></i>
-							<input class="form-control" type="text" name="billing_address_zipcode" ng-model="doar.billing_address_zipcode" ng-blur="billing_by_zipcode($event)"
+<input class="form-control" type="text" name="billing_address_zipcode" ng-model="doar.billing_address_zipcode" onblur="teste($event)"
+
 							    placeholder="00000-000" mask="99999-999" mask-restrict="reject" mask-clean="false">
 							<span class="help-block">
 								Não sabe seu
