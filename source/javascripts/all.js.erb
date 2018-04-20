@@ -590,9 +590,7 @@ app = window.app || {};
 			return $http({
 				method: 'POST',
 				url: BASE_API_JS + '/certiface/token/validate?token='+ token,
-				}).then(function(response){
-					return response
-					})
+				})
 			}
 	}
 

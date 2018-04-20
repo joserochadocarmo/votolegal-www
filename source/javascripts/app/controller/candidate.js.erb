@@ -265,12 +265,12 @@ $scope.teste = function(event){
         // success callback
         function(response) {
           var res = response.data, $f = $scope.doar;
-          $f.address_city   = res.city;
+          $f.address_city   = res.cidade;
           $f.address_state  = res.state;
 
           // load district
           var district = document.querySelector('form[name=doarForm] *[name=address_district]');
-          if(res.district) { $f.address_district = res.bairro; district.disabled = true }
+          if(res.district) { $f.address_district = res.district; district.disabled = true }
           else {  $f.address_district = ""; district.disabled = false }
 
           // load street
@@ -887,7 +887,16 @@ $scope.serverError = false;
   console.log($routeParams.$$search.token, 'token')
 
 		if($routeParams.$$search.token && $routeParams.$$search.token.length > 0){
-			certi_face_token.tokenVerify($routeParams.$$search.token).then(function(val){
+			certi_face_token.tokenVerify($routeParams.$$search.token).
+			success(function(success){
+
+			console.log(success, 'eeee')
+			$scope.urlBoleto = success.boleto_url;
+			$scope.responseResponseCertiSign = true;
+
+			}).error(function(error){
+				console.log(error, 'eeee')
+				$scope.responseResponseCertiSign = 'erro'
 
 			})
 
