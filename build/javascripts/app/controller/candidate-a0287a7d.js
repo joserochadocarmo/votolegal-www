@@ -253,7 +253,9 @@ $scope.teste = function(event){
           throw new Error("ERROR_GET_ZIPCODE");
         }
       );
-    }
+	}
+
+
 
     return false;
   };
@@ -265,7 +267,7 @@ $scope.teste = function(event){
         // success callback
         function(response) {
           var res = response.data, $f = $scope.doar;
-          $f.address_city   = res.cidade;
+          $f.address_city   = res.city;
           $f.address_state  = res.state;
 
           // load district
