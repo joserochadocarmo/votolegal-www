@@ -90,67 +90,53 @@
 						<label for="name">Nome Completo</label>
 						<i class="fa fa-user"></i>
 						<input class="form-control" type="text" ng-model="doar.name" name="name" placeholder="" required>
-						<label ng-if="doarForm.$submitted == true && doarForm.name.$error.required " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;"
+						<div ng-if="paymentMethodDonate == 'boleto' && doarForm.name.$error.required " style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 						    class="error-panel">
-							<h4>Esse campo é obrigatório</h4>
-						</label>
+							<h4>Esse campo é obrigatório para gerar de boleto</h4>
+						</div>
 					</div>
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="cpf">CPF</label>
 						<i class="fa fa-user"></i>
 						<input class="form-control" type="text" ng-model="doar.cpf" name="cpf" placeholder="000.000.000-00" mask="999.999.999-99" mask-restrict="reject"
 							mask-clean="true" required>
-						<label ng-if="(doarForm.cpf.$error.required && doarForm.$submitted == true )|| (doarForm.cpf.$error.mask == true &&doarForm.$submitted == true)"
-							style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 0px 5px; border-radius: 5px;" class="error-panel">
-							<h4 ng-if="doarForm.cpf.$error.required">CPF é obrigatório</h4>
-							<h4 ng-if="doarForm.cpf.$error.mask">Verfifique se o campo está preenchido corretamente</h4>
-						</label>
+						<div ng-if="paymentMethodDonate == 'boleto' && doarForm.cpf.$error.required " style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+						    class="error-panel">
+							<h4>Esse campo é obrigatório para gerar de boleto</h4>
+						</div>
 					</div>
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="email">E-mail</label>
 						<i class="fa fa-user"></i>
-						<input class="form-control" type="email" ng-model="doar.email" required >
-							<label ng-if="(doarForm.email.$error.required && doarForm.$submitted == true )"
-							 style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;"
-							 class="error-panel">
-								<h4 ng-if="doarForm.email.$error.required">Esse campo é obrigatório</h4>
-
-							</label>
+						<input class="form-control" type="email" ng-model="doar.email" >
 					</div>
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="phone">Telefone</label>
 						<i class="fa fa-user"></i>
-						<input class="form-control" type="text" ng-model="doar.phone" mask="(99)d?9999-9999" placeholder="(00)0000-0000" mask-restrict="reject"  name="phone" mask-clean="true" required>
-						<label ng-if="(doarForm.phone.$error.required && doarForm.$submitted == true )|| (doarForm.phone.$error.mask == true &&doarForm.$submitted == true)" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;"
-						 >
-							<h4 ng-if="doarForm.phone.$error.required">Esse campo é obrigatório</h4>
-							<h4 ng-if="doarForm.phone.$error.mask">Verfifique se o campo está preenchido corretamente</h4>
-						</label>
+						<input class="form-control" type="text" ng-model="doar.phone" mask="(99)d?9999-9999" mask-restrict="reject"  name="phone"mask-clean="true" required>
+						<div ng-if="paymentMethodDonate == 'boleto' && doarForm.phone.$error.required " style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+						    class="error-panel">
+							<h4>Esse campo é obrigatório para gerar de boleto</h4>
+						</div>
 					</div>
 					<div class="form-group icon-left icon-with-label col-md-12">
 						<label for="birthdate">Data de nascimento</label>
 						<i class="fa fa-user"></i>
 						<input class="form-control" type="text" ng-model="doar.birthdate" placeholder="00/00/0000" name="birthdate" mask="99/99/9999" mask-restrict="reject"
 							mask-clean="false" required>
-								<label ng-if="(doarForm.birthdate.$error.required && doarForm.$submitted == true )|| (doarForm.birthdate.$error.mask == true && doarForm.$submitted == true)"
-								 style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;" class="error-panel">
-									<h4 ng-if="doarForm.birthdate.$error.required">Esse campo é obrigatório</h4>
-									<h4 ng-if="doarForm.birthdate.$error.mask">Verfifique se o campo está preenchido corretamente</h4>
-								</label>
+							<div ng-if="paymentMethodDonate == 'boleto' && doarForm.birthdate.$error.required " style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+						    class="error-panel">
+							<h4>Esse campo é obrigatório para gerar de boleto</h4>
+						</div>
 					</div>
+
+
 					<!-- address -->
 					<div class="form-group icon-left icon-with-label col-md-6">
 						<label for="address_zipcode">CEP</label>
 						<i class="fa fa-home"></i>
 						<input class="form-control" type="text" name="address_zipcode" ng-model="doar.address_zipcode" ng-blur="address_by_zipcode($event)"
-							placeholder="00000-000" mask="99999-999" mask-restrict="reject" mask-clean="false" required>
-								<label ng-if="(doarForm.address_zipcode.$error.required && doarForm.$submitted == true )|| (doarForm.address_zipcode.$error.mask == true && doarForm.$submitted == true)"
-								 style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;"
-								 class="error-panel">
-									<h4 ng-if="doarForm.address_zipcode.$error.required">Esse campo é obrigatório</h4>
-									<h4 ng-if="doarForm.address_zipcode.$error.mask">Verfifique se o campo está preenchido corretamente</h4>
-								</label>
-
+						    placeholder="00000-000" mask="99999-999" mask-restrict="reject" mask-clean="false">
 						<span class="help-block">
 							Não sabe seu
 							<code>CEP</code>?
@@ -209,12 +195,13 @@
 						<div class="form-group icon-left icon-with-label col-md-6">
 							<label for="billing_address_zipcode">CEP</label>
 							<i class="fa fa-home"></i>
-						<input class="form-control" type="text" name="billing_address_zipcode" ng-model="doar.billing_address_zipcode" ng-blur="billing_by_zipcode($event)" placeholder="00000-000" mask="99999-999" mask-restrict="reject" mask-clean="false">
+<input class="form-control" type="text" name="billing_address_zipcode" ng-model="doar.billing_address_zipcode" onblur="teste($event)"
 
+							    placeholder="00000-000" mask="99999-999" mask-restrict="reject" mask-clean="false">
 							<span class="help-block">
 								Não sabe seu
 								<code>CEP</code>?
-								<a target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui ff</a>
+								<a target="_blank" href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Clique aqui</a>
 							</span>
 						</div>
 						<div class="form-group icon-left icon-with-label col-md-6">
@@ -291,23 +278,13 @@
 							</div>
 							<div class="form-group icon-left icon-with-label col-md-4">
 								<label for="card_year">Ano</label>
-								<select name="card_year" class="form-control" ng-model="payment.card_year">
+								<select name="" class="form-control" ng-model="payment.card_year">
 									<option ng-repeat="m in year_list" value="{{m}}">{{m}}</option>
 								</select>
-									<label ng-if="(doarForm.card_year.$error.required && doarForm.$submitted == true )|| (doarForm.card_year.$error.mask == true && doarForm.$submitted == true)"
-									 style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;"
-									 class="error-panel">
-										<h4 ng-if="doarForm.address_zipcode.$error.required">Esse campo é obrigatório</h4>
-									</label>
 							</div>
 							<div class="form-group icon-left icon-with-label col-md-4">
 								<label for="card_cvv">Código de Segurança</label>
-								<input class="form-control" type="text" name="card_cvv"ng-model="payment.card_cvv" placeholder="" required>
-									<label ng-if="(doarForm.card_cvv.$error.required && doarForm.$submitted == true )|| (doarForm.card_cvv.$error.mask == true && doarForm.$submitted == true)"
-									 style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;"
-									 class="error-panel">
-										<h4 ng-if="doarForm.address_zipcode.$error.required">Esse campo é obrigatório</h4>
-									</label>
+								<input class="form-control" type="text" ng-model="payment.card_cvv" placeholder="">
 							</div>
 
 							<div class="form-group col-md-12">
@@ -337,18 +314,20 @@
 						</div>
 							<div class="form-group text-center col-md-12">
 								<button class="btn btn-success btn-lg" id="btn-donate" ng-if="paymentMethodDonate == 'creditCard'" type="submit">Efetuar doação</button>
-								<div  ng-if="paymentMethodDonate == 'boleto'">
+								<div class="r" ng-if="paymentMethodDonate == 'boleto' && urlBoleto == null ">
 
-										<p text-align="left">O VotoLegal conta com tecnologia para realizar doações seguras e que protejam os doadores contra fraudes. Para manter nosso
-											padrão de proteção, solicitamos o reconhecimento facial para os usuários ao gerar o boleto. Nesta etapa é necessária uma
-											câmera no computador ou celular. Caso não tenha disponível no momento, por favor, realize a operação em outro dispositivo.</p>
-										<button class="btn btn-success btn-lg btn-block boleto" id="btn-donate"type="submit">Gerar boleto</button>
+							<p text-align="left">O VotoLegal conta com tecnologia para realizar doações seguras e que protejam os doadores contra fraudes. Para manter nosso
+								padrão de proteção, solicitamos o reconhecimento facial para os usuários ao gerar o boleto. Nesta etapa é necessária uma
+								câmera no computador ou celular. Caso não tenha disponível no momento, por favor, realize a operação em outro dispositivo.</p>
+							<button class="btn btn-success btn-lg btn-block boleto" id="btn-donate"type="submit"
+
+>Gerar boleto</button>
 
 								</div>
 
 
 								<div class="erro" ng-if="urlBoleto.error">
-									<h4 ng-if="urlBoleto.error">Desculpa tivemos um erro com a requisição ou erro de preenchimento, verifique os campos do formuláriotente novamente</h4>
+<h4 ng-if="urlBoleto.error">Desculpa tivemos um erro com a requisição ou erro de preenchimento, verifique os campos do formuláriotente novamente</h4>
 									<i class="fa fa-exclamation-triangle fa-5x fa-fw " ></i><br>
 								</div>
 							</div>
@@ -356,9 +335,11 @@
 					<!-- Fim type payment -->
 					<div class="form-group text-center col-md-12">
 							<i class="fa fa-exclamation-triangle fa-5x fa-fw " ng-if="serverError"></i><br>
-						<div ng-show="error_list.length > 0" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;"
+						<div ng-show="error_list.length > 0" style="border: 2px solid rgb(234, 53, 53); color:rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 						    class="error-panel">
 							<h4>Os seguintes campos precisam ser corrigidos:</h4>
+
+
 
 							<ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope text-left">
 								<li>{{error}}</li>
