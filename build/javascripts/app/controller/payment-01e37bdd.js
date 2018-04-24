@@ -133,6 +133,7 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.createCardToken = function (brand) {
 
+
 			var num = $scope.candidate.card.cardNumber + '';
 			num =  num.split(' ').join('');
 
@@ -194,6 +195,8 @@ app.votolegal.controller("PaymentController", [
 			}
 
 		$scope.submit = function (valid, form) {
+
+		console.log(valid, form)
 
 			if(valid){
 
