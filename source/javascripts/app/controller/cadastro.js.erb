@@ -478,13 +478,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 					$scope.candidate = response.data.candidate;
 
-					if ($scope.candidate.payment_status == 'unpaid' && $scope.candidate.signed_contract == 1) {
+					if ($scope.candidate.paid == 1 && $scope.candidate.signed_contract == 1) {
 						window.location = '/contrato';
 					}
-					if ($scope.candidate.payment_status == 'paid' && $scope.candidate.signed_contract == 0) {
+					if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 0) {
 						window.location = '/pagamento';
 					}
-					if ($scope.candidate.payment_status == 'paid' && 				$scope.candidate.signed_contract == 1) {
+					if ($scope.candidate.paid == 1 && 				$scope.candidate.signed_contract == 1) {
 
 						window.location = '/cadastro-completo';
 
