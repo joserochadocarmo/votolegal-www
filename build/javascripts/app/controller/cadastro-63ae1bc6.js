@@ -487,9 +487,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 
 
-
-
-
 					(function () {
 						var boleto = document.querySelector('#show-boleto');
 						if (boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
