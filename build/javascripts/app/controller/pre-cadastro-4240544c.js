@@ -33,7 +33,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     $scope.submit_disabled = true;
     $http({
       method: 'POST',
-      url: '//dapi.votolegal.com.br/api/register',
+      url: BASE_API_JS+'/register',
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -125,7 +125,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
 
   // load party data
   $scope.load_parties = function(){
-    $http.get('//dapi.votolegal.com.br/api/party')
+    $http.get(BASE_API_JS+'/party')
     .then(
       function(response){ $scope.party_list = response.data.party; },
       function(response){ $scope.party_list = []; throw new Error("ERROR_GET_PARTY_LIST"); }
@@ -134,7 +134,7 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
 
   // load office data
   $scope.load_offices = function(){
-    $http.get('//dapi.votolegal.com.br/api/office')
+    $http.get(BASE_API_JS+'/office')
     .then(
       function(response){ $scope.office_list = response.data.office; },
       function(response){ $scope.office_list = []; throw new Error("ERROR_GET_OFFICE_LIST"); }

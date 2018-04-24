@@ -12,6 +12,19 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
 
   // defaults
   $scope.candidate  = {};
+var BASE_API_JS = '';
+
+
+
+
+var server = window.location;
+if(server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' ){
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
+}else{
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
+}
+
+
 
 
   /**
@@ -23,7 +36,7 @@ app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "seria
     var user = auth_service.current_user();
     params['api_key'] = user.api_key;
 
-    $http.get('//dapi.votolegal.com.br/api/candidate/' + user.id +'?api_key=' + user.api_key)
+    $http.get(BASE_API_JS+'/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){
         $scope.candidate = response.data.candidate;

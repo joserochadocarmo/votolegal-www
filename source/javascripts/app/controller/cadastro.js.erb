@@ -41,6 +41,20 @@ if (document.location.href.indexOf('/cadastro-completo') >= 0) {
 	}, 500);
 }
 
+var BASE_API = '<%= config[:api_host] %>';
+
+var BASE_API_JS = '';
+
+
+
+
+var server = window.location;
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
+} else {
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
+}
+
 /**
  * Cadastro controller
  * Register a new candidate
@@ -371,8 +385,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				if (isConfirm) {
 					if (item.hasOwnProperty('id') && item.id > 0) {
 						var user = auth_service.current_user();
-						$http.delete(
-							'<%= config[:api_host] %>/candidate/' + user.id + '/projects/' + item.id + '?api_key=' + user.api_key
+						$http.delete(BASE_API_JS+'/candidate/' + user.id + '/projects/' + item.id + '?api_key=' + user.api_key
 						).then(function (response) {
 							$scope.projects.splice(index, 1);
 							swal('O projeto foi removido com sucesso!');
@@ -472,26 +485,22 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 		var user = auth_service.current_user();
 		params['api_key'] = user.api_key;
 
-		$http.get('<%= config[:api_host] %>/candidate/' + user.id + '?api_key=' + user.api_key)
+		$http.get(BASE_API_JS+'/candidate/' + user.id + '?api_key=' + user.api_key)
 			.then(
 				function (response) {
 
 
+
 					$scope.candidate = response.data.candidate;
-					window.location = '/cadastro-completo';
-/*
-					if ($scope.candidate.paid == 1 && $scope.candidate.signed_contract == 1) {
-						window.location = '/contrato';
-					}
+
 					if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 0) {
-						window.location = '/pagamento';
+						document.location = '/contrato';
 					}
-					if ($scope.candidate.paid == 1 && 				$scope.candidate.signed_contract == 1) {
-
-						window.location = '/cadastro-completo';
-
+					if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 1) {
+						document.location = '/pagamento';
 					}
-					*/
+
+
 
 					(function () {
 						var boleto = document.querySelector('#show-boleto');
@@ -515,7 +524,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 		var user = auth_service.current_user();
 
 		$http.get(
-			'<%= config[:api_host] %>/candidate/' + user.id + '/projects', {
+			BASE_API_JS +'/candidate/' + user.id + '/projects', {
 				api_key: user.api_key
 			}
 		).then(function (response) {
@@ -531,7 +540,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	};
 
 	$scope.get_issues_priority = function () {
-		$http.get('<%= config[:api_host] %>/issue_priority').
+		$http.get(BASE_API_JS +'/issue_priority').
 		then(
 			function (response) {
 				$scope.issue_list = response.data.issue_priority;

@@ -115,14 +115,8 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
       var role_list = res.roles || [];
 
       res.candidate_name = res.candidate_name || ''; // fallback
-	  var name = res.candidate_name.split(/\s+/).shift();
+      var name = res.candidate_name.split(/\s+/).shift();
 
-
-
-var session = auth_service.session();
-				session.set(
-					auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
-				);
 
 	  // check roles
 
@@ -135,20 +129,23 @@ var session = auth_service.session();
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
 
-			/*
 
 			if (res.paid == 0 && res.signed_contract == 0) {
-				window.location = '/contrato';
+				document.location = '/contrato';
 			}
 			if (res.paid == 0  && res.signed_contract == 1) {
-				window.location = '/pagamento';
+				document.location = '/pagamento';
 			}
 			if(res.paid == 1 && res.signed_contract == 1){
-				window.location = '/cadastro-completo';
-				// save session
 
+				// save session
+				var session = auth_service.session();
+				session.set(
+					auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
+				);
+				document.location = '/cadastro-completo';
 			}
-			*/
+
 		}
 	  }
     }, function(response){
