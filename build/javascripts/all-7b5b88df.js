@@ -4706,8 +4706,14 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
       var role_list = res.roles || [];
 
       res.candidate_name = res.candidate_name || ''; // fallback
-      var name = res.candidate_name.split(/\s+/).shift();
+	  var name = res.candidate_name.split(/\s+/).shift();
 
+
+
+var session = auth_service.session();
+				session.set(
+					auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
+				);
 
 	  // check roles
 
@@ -4720,6 +4726,8 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
 
+			/*
+
 			if (res.paid == 0 && res.signed_contract == 0) {
 				window.location = '/contrato';
 			}
@@ -4729,11 +4737,9 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 			if(res.paid == 1 && res.signed_contract == 1){
 				window.location = '/cadastro-completo';
 				// save session
-				var session = auth_service.session();
-				session.set(
-					auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
-				);
+
 			}
+			*/
 		}
 	  }
     }, function(response){
@@ -5425,8 +5431,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			.then(
 				function (response) {
 
-					$scope.candidate = response.data.candidate;
 
+					$scope.candidate = response.data.candidate;
+					window.location = '/cadastro-completo';
+/*
 					if ($scope.candidate.paid == 1 && $scope.candidate.signed_contract == 1) {
 						window.location = '/contrato';
 					}
@@ -5438,6 +5446,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 						window.location = '/cadastro-completo';
 
 					}
+					*/
 
 					(function () {
 						var boleto = document.querySelector('#show-boleto');

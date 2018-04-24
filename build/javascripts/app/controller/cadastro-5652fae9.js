@@ -476,8 +476,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			.then(
 				function (response) {
 
-					$scope.candidate = response.data.candidate;
 
+					$scope.candidate = response.data.candidate;
+					window.location = '/cadastro-completo';
+/*
 					if ($scope.candidate.paid == 1 && $scope.candidate.signed_contract == 1) {
 						window.location = '/contrato';
 					}
@@ -489,6 +491,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 						window.location = '/cadastro-completo';
 
 					}
+					*/
 
 					(function () {
 						var boleto = document.querySelector('#show-boleto');
