@@ -107,10 +107,10 @@ title: Pagamento
 						</div>
 						<div class="payment-type">
 							<div class="col-md-6">
-								<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required> Boleto
+								<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required ng-click="managerCondition(pagamento.typePayment)"> Boleto
 							</div>
 							<div class="col-md-6">
-								<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required> Cartão de crédito
+								<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="managerCondition(pagamento.typePayment)"> Cartão de crédito
 							</div>
 							<div class="col-md-12">
 								<label ng-if="pagamento.typePayment.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Escolha a forma de pagamento</label>
@@ -158,12 +158,19 @@ title: Pagamento
 							</div>
 						</div>
 					</div>
+					<div class="teste" ng-click="testeFun">aqui</div>
 
 					<div class="form-group">
+					<pre>
+					error: {{error}}
+					loading: {{loading}}
+					error.length : {{error.length }}
+					teste: {{teste}}
+					</pre>
 						<span class="btn btn-success btn-lg btn-block loading" ng-if="loading"><img src="../images/ajax-loader.gif" alt="" ></span>
 						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
 						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block" ng-if="boletoUrl.length> 0" ng-click="redirectBoleto()">Imprimir boleto </a>
-						<label ng-if="error " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Tivemos um problema para gerar seu boleto poderia tentar novamente </label>
+						<label ng-if="error.lenght > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">{{error}} </label>
 
 					</div>
 					<div class=" clearfix">
