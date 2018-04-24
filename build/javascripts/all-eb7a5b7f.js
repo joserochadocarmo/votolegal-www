@@ -4731,7 +4731,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         if(role_list[i] === 'user'){
 
 
-			if (rs.payment_status !== 'paid' && res.signed_contract == 0) {
+			if (res.payment_status !== 'paid' && res.signed_contract == 0) {
 				document.location = '/contrato'
 			} else if (res.payment_status == 'paid' && res.signed_contract == 0) {
 				document.location = '/pagamento'
