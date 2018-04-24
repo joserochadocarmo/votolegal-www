@@ -135,7 +135,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 			if (res.paid == 0  && res.signed_contract == 1) {
 				window.location = '/pagamento';
 			}
-			if(res.paid == 'paid' && res.signed_contract == 1){
+			if(res.paid == 1 && res.signed_contract == 1){
 				window.location = '/cadastro-completo';
 				// save session
 				var session = auth_service.session();
