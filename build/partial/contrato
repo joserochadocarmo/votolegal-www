@@ -36,13 +36,13 @@
 				<li class="list-contracti">
 					3. DA FORMA DE PRESTAÇÃO DOS SERVIÇOS
 					<blockquote>
-
-						3.1 A disponibilização da plataforma Voto Legal ocorrerá a partir do dia 10/05/2018 para configuração, implementação e configuração
-						da plataforma, ficando desabilitada a opção de arrecadação até o dia 15/05/2018 quando poderá iniciar a arrecadação
-						de recursos, de acordo com o previsto na legislação eleitoral e essa opção será automaticamente habilitada.
-						<br> 3.2 A plataforma permanecerá disponível até o dia 15/08/2018, data limite para apresentação dos requerimentos de registro
-						de candidatura perante a Justiça Eleitoral.
-
+						<p>
+							3.1 A disponibilização da plataforma Voto Legal ocorrerá a partir do dia 10/05/2018 para configuração, implementação e configuração
+							da plataforma, ficando desabilitada a opção de arrecadação até o dia 15/05/2018 quando poderá iniciar a arrecadação
+							de recursos, de acordo com o previsto na legislação eleitoral e essa opção será automaticamente habilitada.
+							<br> 3.2 A plataforma permanecerá disponível até o dia 15/08/2018, data limite para apresentação dos requerimentos de registro
+							de candidatura perante a Justiça Eleitoral.
+						</p>
 						<br>
 						<p>
 							3.2 Havendo a confirmação do registro da candidatura do <strong>contratante </strong> para as eleições de 2018. O contrato poderá ser renovado pelo candidato, mediante nova negociação, para a continuidade das arrecadações durante a campanha eleitoral.
@@ -57,6 +57,11 @@
 								e um) dias corridos da data de doação.
 
 							</p>
+							<p>
+				3.2.2 Independente desta nova contratação, em caso de confirmação do registro de candidatura do contratante, os valores
+				arrecadados serão devidamente transferidos para a conta de campanha a ser indicada pelo contratante na primeira oportunidade.
+
+							</p>
 							<br>
 							<p>
 								3.2.4 Considerando as regras de compensação mencionadas no item 3.2.3, a transferência dos valores arrecadados indicada no
@@ -69,14 +74,19 @@
 								aos doadores, conforme previsto na Legislação Eleitoral, sem prejuízo dos valores devidos à contratada pela prestação
 								dos serviços, descontadas também as taxas das transações bancárias para a transferência.
 							</p>
-							<br> 3.2.6 Caso exista a confirmação da candidatura, não havendo indicação da conta de campanha no prazo de até 30 dias,
-							os valores serão também devolvidos aos doadores, na mesma forma da cláusula
+							<br>
+							<p>
+								3.2.6 Caso exista a confirmação da candidatura, não havendo indicação da conta de campanha no prazo de até 30 dias,
+								os valores serão também devolvidos aos doadores, na mesma forma da cláusula
+							</p>
 						</blockquote>
 
 					</blockquote>
 				</li>
 				<li class="list-contracti">
-					4. DAS OBRIGAÇÕES DAS PARTES
+					<h2>
+						4. DAS OBRIGAÇÕES DAS PARTES
+					</h2>
 					<blockquote>
 
 						4.1 São obrigações do contratante:

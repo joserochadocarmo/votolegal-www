@@ -65,6 +65,7 @@ app.votolegal.controller("PaymentController", [
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
 		$scope.boletoUrl = null;
+		$scope.error = false;
 
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
@@ -202,7 +203,7 @@ app.votolegal.controller("PaymentController", [
 					var credit_card_token = null;
 					$scope.loading = true;
 
-					payment_pagseguro.payment(
+					 var response  = payment_pagseguro.payment(
 						userId,
 						sender_hash,
 						credit_card_token,
@@ -217,13 +218,22 @@ app.votolegal.controller("PaymentController", [
 						$scope.candidate.addressDistrict,
 						$scope.candidate.addressStreet,
 						$scope.candidate.addressHouseNumber,
-						).then(function(val){
-							$scope.loading = false;
-							$scope.boletoUrl = val.data.url
+						).success(function(val){
 
-						console.log('vale', val)
+						console.log(val)
+							$scope.loading = false;
+
+							$scope.boletoUrl = val.url
+
+						}).error(function(err){
+
+							if(err['error']){
+								$scope.error = true;
+								$scope.loading = false;
+							}
 
 						})
+
 				}else{
 					$scope.creditCardPayment();
 				}

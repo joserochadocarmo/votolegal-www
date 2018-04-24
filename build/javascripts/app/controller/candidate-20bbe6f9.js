@@ -877,8 +877,7 @@ $scope.teste = function(event){
       .permit('card_number', 'card_month', 'card_year', 'card_cvv')
   };
 
-
-  $scope.boletoPayment = function(){
+$scope.boletoPayment = function(){
 $scope.serverError = false;
   var sender = PagSeguroDirectPayment.getSenderHash()
 

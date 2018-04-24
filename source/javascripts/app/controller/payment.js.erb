@@ -219,14 +219,16 @@ app.votolegal.controller("PaymentController", [
 						$scope.candidate.addressStreet,
 						$scope.candidate.addressHouseNumber,
 						).success(function(val){
+
+						console.log(val)
 							$scope.loading = false;
 
-							$scope.boletoUrl = val.data.url
+							$scope.boletoUrl = val.url
 
 						}).error(function(err){
 
-							if(val.['error']){
-								$scoe.error = trus;
+							if(err['error']){
+								$scope.error = true;
 								$scope.loading = false;
 							}
 
