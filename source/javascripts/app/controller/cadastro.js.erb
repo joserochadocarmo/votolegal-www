@@ -478,14 +478,17 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 					$scope.candidate = response.data.candidate;
 
-					console.log($scope.candidate, 'candidate')
-					if ($scope.candidate.payment_status !== 'paid' && $scope.candidate.signed_contract == 0) {
-						document.location = '/pagamento'
-					} else if ($scope.candidate.payment_status == 'paid' && $scope.candidate.signed_contract == 0) {
-						document.location = '/contrato'
+					if ($scope.candidate.payment_status == 'unpaid' && $scope.candidate.signed_contract == 1) {
+						window.location = '/contrato';
 					}
+					if ($scope.candidate.payment_status == 'paid' && $scope.candidate.signed_contract == 0) {
+						window.location = '/pagamento';
+					}
+					if ($scope.candidate.payment_status == 'paid' && 				$scope.candidate.signed_contract == 1) {
 
+						window.location = '/cadastro-completo';
 
+					}
 
 					(function () {
 						var boleto = document.querySelector('#show-boleto');
