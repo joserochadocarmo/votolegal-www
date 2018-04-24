@@ -163,6 +163,7 @@ title: Pagamento
 						<span class="btn btn-success btn-lg btn-block loading" ng-if="loading"><img src="../images/ajax-loader.gif" alt="" ></span>
 						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
 						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block" ng-if="boletoUrl.length> 0" ng-click="redirectBoleto()">Imprimir boleto </a>
+						<label ng-if="error " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Tivemos um problema para gerar seu boleto poderia tentar novamente</label>
 
 					</div>
 					<div class=" clearfix">
