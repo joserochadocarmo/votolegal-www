@@ -133,11 +133,11 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
       for(var i in role_list){
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
-			document.location = '/cadastro-completo';
 
-			if (res.paid == 0 && res.signed_contract == 0) {
+
+			if (rs.payment_status !== 'paid' && res.signed_contract == 0) {
 				document.location = '/contrato'
-			} else if (res.signed_contract == 1) {
+			} else if (res.payment_status == 'paid' && res.signed_contract == 0) {
 				document.location = '/pagamento'
 			}else{
 				document.location = '/cadastro-completo';
