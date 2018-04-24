@@ -8,7 +8,7 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-  <link href="/stylesheets/all-96179a65.css" rel="stylesheet" />
+  <link href="/stylesheets/all-8f57a9eb.css" rel="stylesheet" />
 
   <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -92,21 +92,31 @@
 
 
     
-<section  ng-controller="CandidateController">
+<section ng-controller="CandidateController">
 
 
-<div class="certiface" >
-	  <div id="loading" class="load-backdrop" >
-		  <h1>Gerando boleto...</h1>
-			<i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw " ng-if="responseResponseCertiSign === false"></i><br>
-			<i class="fa fa-exclamation-triangle fa-5x fa-fw " ng-if="responseResponseCertiSign === 'erro'"></i><br>
-			 <a href="{{urlBoleto}}" ng-if="responseResponseCertiSign == true" download font-size="20px"><i class="fa fa-print fa-5x fa-fw" aria-hidden="true"></i></a>
-	  </div>
+	<div class="certiface">
+		<div id="loading" class="load-backdrop">
+			<h1 ng-if="responseResponseCertiSign == true">Gerando boleto...</h1>
+			<h1 ng-if="responseResponseCertiSign == 'success'">Imprima seu boleto boleto...</h1>
 
-</div>
+			<i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw " ng-if="responseResponseCertiSign === false"></i>
+			<br>
+
+			<div class="err" ng-if="responseResponseCertiSign === 'erro'">
+				<h1>Tivemos um erro com seu reconhecimento, você podria tentar novamente</h1>
+				<i class="fa fa-exclamation-triangle fa-5x fa-fw danger" ></i>
+				<br>
+			</div>
+
+			<a href="{{urlBoleto}}" ng-if="responseResponseCertiSign == 'success'" download font-size="20px">
+				<i class="fa fa-print fa-5x fa-fw" aria-hidden="true"></i>
+			</a>
+		</div>
+
+	</div>
 
 </section>
-
 
 
 
@@ -147,7 +157,7 @@
     <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
     <!-- javascript -->
-    <script src="/javascripts/all-0b19c1ed.js"></script>
+    <script src="/javascripts/all-7fbb69cf.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

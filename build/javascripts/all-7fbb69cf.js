@@ -4731,7 +4731,6 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         if(role_list[i] === 'user'){
 			document.location = '/cadastro-completo';
 
-/*
 			if (res.paid == 0 && res.signed_contract == 0) {
 				document.location = '/contrato'
 			} else if (res.signed_contract == 1) {
@@ -4739,7 +4738,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 			}else{
 				document.location = '/cadastro-completo';
 			}
-			*/
+
 		}
 	  }
 
@@ -5404,8 +5403,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
       function(response){
 
 		$scope.candidate = response.data.candidate;
-
-		/*
 		  if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 0) {
 			  document.location = '/contrato'
 		  } else if ($scope.candidate.signed_contract == 1) {
@@ -5413,7 +5410,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 		  } else {
 			  document.location = '/cadastro-completo';
 		  }
-		  */
 
         (function(){
           var boleto = document.querySelector('#show-boleto');
@@ -6057,9 +6053,16 @@ $scope.teste = function(event){
 
   /* sender donartion */
   $scope.send_donation = function(valid, formData){
-	  $scope.dataForm = formData
+	var doar = $scope.doar
+	localStorage.setItem('doar',JSON.stringify({ doar}))
+	console.log($scope.doar, 'doar')
 
-  if($scope.paymentMethodDonate == 'creditCard' ){
+
+
+
+//   if($scope.paymentMethodDonate == 'creditCard' ){
+
+
 
 	$scope.error_list = [];
 
@@ -6166,17 +6169,11 @@ $scope.teste = function(event){
           }
 
           // sending troubleshoot
-          trouble.shoot({
-            route: document.location.href, error: JSON.stringify(response)
-          });
 
           return false;
         }
 
         // sending troubleshoot
-        trouble.shoot({
-          route: document.location.href, error: JSON.stringify(response)
-        });
 
         var button = document.querySelector('#btn-donate');
         if(button) button.removeAttribute('disabled');
@@ -6296,13 +6293,19 @@ $scope.teste = function(event){
         //SweetAlert.swal('Cartão inválido', 'Não foi possível obter as informações do cartão!');
         trouble.shoot({ route: document.location.href, error: JSON.stringify(response) });
         throw new Error('CARDBRAND_GET_ERROR');
-      }
+	  },
+
 	});
-  }else{
-	    $scope.boletoPayment()
-  }
+
+
+
+
+ // }else{
+//	    $scope.boletoPayment()
+  //}
 
   };
+
 
   /* payment methods */
   $scope.payment_method = function(opts){
@@ -6398,6 +6401,8 @@ $scope.serverError = false;
   $scope.certiFaceVerify = function(){
 
   console.log($routeParams.$$search.token, 'token')
+  	$scope.responseResponseCertiSign = true;
+
 
 		if($routeParams.$$search.token && $routeParams.$$search.token.length > 0){
 			certi_face_token.tokenVerify($routeParams.$$search.token).
@@ -6405,7 +6410,7 @@ $scope.serverError = false;
 
 			console.log(success, 'eeee')
 			$scope.urlBoleto = success.boleto_url;
-			$scope.responseResponseCertiSign = true;
+			$scope.responseResponseCertiSign = 'success';
 
 			}).error(function(error){
 				console.log(error, 'eeee')
