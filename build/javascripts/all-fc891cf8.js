@@ -4712,11 +4712,6 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
       res.candidate_name = res.candidate_name || ''; // fallback
       var name = res.candidate_name.split(/\s+/).shift();
 
-      // save session
-      var session = auth_service.session();
-      session.set(
-        auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
-      );
 
 	  // check roles
 
@@ -4725,23 +4720,26 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         return false;
 	  }
 
-
       for(var i in role_list){
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
 
-
-			if (res.payment_status !== 'paid' && res.signed_contract == 0) {
-				document.location = '/contrato'
-			} else if (res.payment_status == 'paid' && res.signed_contract == 0) {
-				document.location = '/pagamento'
-			}else{
-				document.location = '/cadastro-completo';
+			if (res.paid == 0 && res.signed_contract == 0) {
+				window.location = '/contrato';
 			}
-
+			if (res.paid == 0  && res.signed_contract == 1) {
+				window.location = '/pagamento';
+			}
+			if(res.paid == 'paid' && res.signed_contract == 1){
+				window.location = '/cadastro-completo';
+				// save session
+				var session = auth_service.session();
+				session.set(
+					auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
+				);
+			}
 		}
 	  }
-
     }, function(response){
       SweetAlert.swal('Erro na autênticação', 'Usuário ou Senha incorretos!');
       throw new Error('ERROR_AUTH_USER');
@@ -5433,14 +5431,17 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 					$scope.candidate = response.data.candidate;
 
-					console.log($scope.candidate, 'candidate')
-					if ($scope.candidate.payment_status !== 'paid' && $scope.candidate.signed_contract == 0) {
-						document.location = '/pagamento'
-					} else if ($scope.candidate.payment_status == 'paid' && $scope.candidate.signed_contract == 0) {
-						document.location = '/contrato'
+					if ($scope.candidate.payment_status == 'unpaid' && $scope.candidate.signed_contract == 1) {
+						window.location = '/contrato';
 					}
+					if ($scope.candidate.payment_status == 'paid' && $scope.candidate.signed_contract == 0) {
+						window.location = '/pagamento';
+					}
+					if ($scope.candidate.payment_status == 'paid' && 				$scope.candidate.signed_contract == 1) {
 
+						window.location = '/cadastro-completo';
 
+					}
 
 					(function () {
 						var boleto = document.querySelector('#show-boleto');
