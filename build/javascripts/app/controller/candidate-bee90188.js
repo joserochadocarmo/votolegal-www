@@ -154,6 +154,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$ro
       .join(separator || ', ')
   };
 
+
+
   $scope.candidate_by_name = function(name){
     $http({
       method: 'GET',
