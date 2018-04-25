@@ -27,17 +27,9 @@ app.votolegal.controller("ContractController", [
 
 		$scope.confirmContract = false;
 
-		if (
-			JSON.parse(localStorage.getItem("user") == null) &&
-			localStorage.getItem("userId") == null
-		) {
-			document.location = "/";
-		}
-
 		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId");
 
 		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
-
 
 		$scope.confirm = function() {
 			if ($scope.confirmContract && $scope.error == false) {
@@ -65,8 +57,6 @@ app.votolegal.controller("ContractController", [
 					});
 			} else {
 				$scope.error_list.push('É necessário confirmar o contrato')
-
-
 				$scope.error = true;
 			}
 		};

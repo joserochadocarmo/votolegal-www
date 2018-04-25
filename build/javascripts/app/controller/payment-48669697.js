@@ -191,13 +191,13 @@ app.votolegal.controller("PaymentController", [
 								).success(function(successs){
 									$scope.loading = false;
 									$scope.error = 'Sucesso';
+									Storage.removeItem('userId');
 
 								}).error(function(err){
 
 									$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
 									$scope.loading = false;
 								})
-
 
 							}
 
