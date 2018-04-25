@@ -4227,7 +4227,9 @@ app = window.app || {};
       validate_user: function(){
         var args = arguments[0] || {};
 
-        var user = this.current_user() || undefined;
+		var user = this.current_user() || undefined;
+
+		console.log(user, 'user')
 
         // validate session
         if(user == undefined)
@@ -5784,7 +5786,7 @@ $scope.teste = function(event){
   /* fetch zip_code info */
   $scope.billing_by_zipcode = function(event){
 	var zipcode = $scope.doar.billing_address_zipcode;
-		console.log(zipcode, 'rese')
+
 
     if(zipcode.length == 9){
       postmon(zipcode).then(
@@ -6456,12 +6458,11 @@ $scope.serverError = false;
 			certi_face_token.tokenVerify($routeParams.$$search.token).
 			success(function(success){
 
-			console.log(success, 'eeee')
 			$scope.urlBoleto = success.boleto_url;
 			$scope.responseResponseCertiSign = true;
 
 			}).error(function(error){
-				console.log(error, 'eeee')
+
 				$scope.responseResponseCertiSign = 'erro'
 
 			})
@@ -6554,12 +6555,6 @@ app.votolegal.controller("ContractController", [
 		$scope.confirmContract = false;
 
 		$scope.user = (JSON.parse(localStorage.getItem("user"))) ? JSON.parse(localStorage.getItem("user")) : localStorage.getItem("userId");
-
-
-
-		console.log($scope.user , 'use')
-
-
 
 		$scope.confirm = function() {
 			console.log($scope.confirmContract, $scope.error, $scope.user)
