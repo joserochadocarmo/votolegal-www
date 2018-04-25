@@ -480,7 +480,9 @@ app = window.app || {};
       validate_user: function(){
         var args = arguments[0] || {};
 
-        var user = this.current_user() || undefined;
+		var user = this.current_user() || undefined;
+
+		console.log(user, 'user')
 
         // validate session
         if(user == undefined)
