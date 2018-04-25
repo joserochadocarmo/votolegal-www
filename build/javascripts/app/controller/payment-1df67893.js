@@ -192,18 +192,18 @@ app.votolegal.controller("PaymentController", [
 									$scope.loading = false;
 									$scope.success = 'Sucesso';
 									Storage.removeItem('userId');
-
 								}).error(function(err){
 
 									$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
 									$scope.loading = false;
+
 								})
 
 							}
 
 			$scope.$apply();
 		}
-		$scope.managerCondition = function(t){
+		$scope.manageCondition = function(t){
 
 			if(t.$modelValue = 'creditCard'){
 				$scope.boletoUrl = null;
@@ -258,27 +258,14 @@ app.votolegal.controller("PaymentController", [
 								$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
 								$scope.loading = false;
 
-
 							}
-
 						})
-
-
-
 				}else{
+
 					$scope.senderHash = PagSeguroDirectPayment.getSenderHash();
 					$scope.creditCardPayment();
 
-					console.log($scope.senderHash , 'ssss')
-
-
-
-
 				}
-
-
 			}
-
-
 		}
 	}]);

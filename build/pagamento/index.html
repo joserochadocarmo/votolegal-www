@@ -193,6 +193,10 @@
 						</div>
 					</div>
 					<div class="row">
+
+					<pre>
+						{{pagamento}}
+					</pre>
 						<div class="col-md-12">
 							<h3>Escolha uma forma de pagamento</h3>
 						</div>
@@ -204,48 +208,49 @@
 								<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="managerCondition(pagamento.typePayment)"> Cartão de crédito
 							</div>
 							<div class="col-md-12">
-								<label ng-if="pagamento.typePayment.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Escolha a forma de pagamento</label>
+								<label ng-if="pagamento.typePayment.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Escolha a forma de pagamento</label>
 							</div>
 						</div>
 						<div class="credit-card-method" ng-if="paymentMethod === 'creditCard'">
 							<div class="col-md-12">
 								<h3>Dados do cartão de crédito</h3>
 							</div>
-							<div class="form-group icon-left col-md-6">
-								<i class="fa fa-credit-card"></i>
-								<input class="form-control " name="cardName" ng-model="candidate.card.name" type="text" placeholder="Nome impresso no Cartão"
-								    ng-required="paymentMethod === 'creditCard'">
-								<!-- error number card -->
-								<label ng-if="pagamento.cardName.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O nome do cartão é obrigatório por favor verifique os dados inseridos</label>
-							</div>
-							<div class="form-group icon-left col-md-6">
-								<i class="fa fa-credit-card"></i>
-								<input class="form-control  " name="cardNumber" data-cardNumber="Número do cartão" ng-model="candidate.card.cardNumber" type="text"
-								    placeholder="Número do cartão" mask="9999 9999 9999 9999" ng-required="paymentMethod === 'creditCard'">
-								<!-- error number card -->
-								<label ng-if="(pagamento.cardNumber.$error.required || pagamento.cardNumber.$error.mask ) && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O número do cartão é obrigatório por favor verifique os dados inseridos</label>
-							</div>
+								<div class="wrapper-number-num-card clearfix">
+										<div class="form-group icon-left col-md-6">
+										<i class="fa fa-credit-card"></i>
+										<input class="form-control " name="cardName" ng-model="candidate.card.name" ng-required="paymentMethod === 'creditCard'" type="text" placeholder="Nome impresso no Cartão">
+										<!-- error number card -->
+										<label ng-if="pagamento.cardName.$error.required && pagamento.$submitted && pagamento.cardName.$touched" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O nome do cartão é obrigatório por favor verifique os dados inseridos</label>
+									</div>
+									<div class="form-group icon-left col-md-6">
+										<i class="fa fa-credit-card"></i>
+										<input class="form-control  " name="cardNumber" data-cardNumber="Número do cartão" ng-model="candidate.card.cardNumber" ng-required="paymentMethod === 'creditCard'" type="text" placeholder="Número do cartão" mask="9999 9999 9999 9999">
+										<!-- error number card -->
+										<label ng-if="(pagamento.cardNumber.$error.required || pagamento.cardNumber.$error.mask  ) && (pagamento.$submitted &&  pagamento.cardNumber.$touched)" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O número do cartão é obrigatório por favor verifique os dados inseridos</label>
+									</div>
+								</div>
+
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="monthCardExpire" data-monthCardExpire="Mês que o cartão expira" ng-model="candidate.card.monthCardExpire"
 								    type="number" placeholder="Mês de vencimento" mask="99" min="1" max="12" required>
 								<!-- error month card -->
-								<label ng-if="pagamento.monthCardExpire.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
-								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
+								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted &&  pagamento.monthCardExpire.$touched)" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
+								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted &&  pagamento.monthCardExpire.$touched)" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
 							</div>
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="yearCardExpire" data-yearCardExpire="Ano que o cartão expira" ng-model="candidate.card.yearCardExpire"
 								    type="number" min="{{currentYear}}" placeholder="Ano de vencimento" mask="9999" ng-required="paymentMethod === 'creditCard'">
-								<label ng-if="pagamento.yearCardExpire.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
+								<label ng-if="(pagamento.yearCardExpire.$error.min || pagamento.yearCardExpire.$error.max) && (pagamento.$submitted &&  pagamento.yearCardExpire.$touched)" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
 								<label ng-if="pagamento.yearCardExpire.$error.min && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão deve ser a partir do ano {{currentYear}}</label>
 
 							</div>
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cod. de segurança"
-								    ng-required="paymentMethod === 'creditCard'">
-								<label ng-if="pagamento.cvvCard.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
+								    required>
+								<label ng-if="(pagamento.cvvCard.$error.min || pagamento.cvvCard.$error.max) && (pagamento.$submitted &&  pagamento.cvvCard.$touched)"  style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
 							</div>
 						</div>
 					</div>
@@ -308,7 +313,7 @@
     <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
     <!-- javascript -->
-    <script src="/javascripts/all-73284f34.js"></script>
+    <script src="/javascripts/all-41f178b2.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
