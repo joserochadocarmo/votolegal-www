@@ -190,7 +190,7 @@ app.votolegal.controller("PaymentController", [
 								$scope.candidate.addressHouseNumber,
 								).success(function(successs){
 									$scope.loading = false;
-									$scope.error = 'Sucesso';
+									$scope.success = 'Sucesso';
 									Storage.removeItem('userId');
 
 								}).error(function(err){
