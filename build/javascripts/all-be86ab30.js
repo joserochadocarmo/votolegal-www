@@ -4727,12 +4727,12 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 
 
 			if (res.paid == 0 && res.signed_contract == 0) {
-				localstorage.setItem('userId', res.candidate_id)
+				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/contrato';
 
 			}
 			if (res.paid == 0  && res.signed_contract == 1) {
-				localstorage.setItem('userId', res.candidate_id)
+				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/pagamento';
 			}
 			if(res.paid == 1 && res.signed_contract == 1){
