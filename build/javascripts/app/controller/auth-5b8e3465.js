@@ -108,7 +108,6 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
     auth_service.authenticate(params.email, params.password)
     .then(function(response){
 
-	console.log(response, 'rsspone')
       var res = response.data;
 
       // getting role list
@@ -130,10 +129,15 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         if(role_list[i] === 'user'){
 
 
+
+
 			if (res.paid == 0 && res.signed_contract == 0) {
+				localstorage.setItem('userId', res.candidate_id)
 				document.location = '/contrato';
+
 			}
 			if (res.paid == 0  && res.signed_contract == 1) {
+				localstorage.setItem('userId', res.candidate_id)
 				document.location = '/pagamento';
 			}
 			if(res.paid == 1 && res.signed_contract == 1){
