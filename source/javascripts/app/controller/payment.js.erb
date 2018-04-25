@@ -211,11 +211,7 @@ app.votolegal.controller("PaymentController", [
 									$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
 									$scope.loading = false;
 
-
-
 								})
-
-
 
 							}
 
@@ -271,7 +267,7 @@ app.votolegal.controller("PaymentController", [
 							$scope.loading = false;
 
 							$scope.boletoUrl = val.url;
-							$scope.$apply();
+
 
 
 						}).error(function(err){
@@ -279,7 +275,7 @@ app.votolegal.controller("PaymentController", [
 							if(err['error']){
 								$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
 								$scope.loading = false;
-								$scope.$apply();
+
 
 							}
 
@@ -289,7 +285,7 @@ app.votolegal.controller("PaymentController", [
 
 				}else{
 					$scope.creditCardPayment();
-					$scope.$apply();
+
 
 				}
 
