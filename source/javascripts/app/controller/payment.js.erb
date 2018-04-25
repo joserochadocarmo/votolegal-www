@@ -89,11 +89,7 @@ app.votolegal.controller("PaymentController", [
 
 			})
 		}
-		$scope.getSenderHash = function () {
-			return new Promise(function (resolve) {
-				resolve(PagSeguroDirectPayment.getSenderHash())
-			})
-		}
+
 
 		//Start session
 		$scope.getSessionId()
@@ -104,7 +100,7 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.creditCardPayment = function () {
 
-			$scope.getSenderHash()
+			PagSeguroDirectPayment.getSenderHash()
 
 			var num = $scope.candidate.card.cardNumber + '';
 			num =  num.split(' ').join('');
@@ -145,7 +141,7 @@ app.votolegal.controller("PaymentController", [
 			$scope.loading = true;
 			var num = ($scope.candidate.card.cardNumber + '').split(' ').join('');
 
-				var r =PagSeguroDirectPayment.createCardToken({
+				return PagSeguroDirectPayment.createCardToken({
 				cardNumber: num,
 				brand: brand,
 				cvv: $scope.candidate.card.cvvCard,
@@ -159,13 +155,13 @@ app.votolegal.controller("PaymentController", [
 				error: function (response) {
 
 					if(response.errors){
-
 						$scope.loading = false;
 						$scope.error  =  'Tivemos um problema com as informações do seu cartão poderia verificar os dados'
 					}
 				},
 				complete: function (response) {
-					return payment(response)
+
+					 payment(response)
 
 
 				},
@@ -173,27 +169,19 @@ app.votolegal.controller("PaymentController", [
 
 		}
 
-		console.log(window.location)
-		payment = function(data){
-			$teste = 'erro'
+			payment = function(data){
 
-
-
-			if(  window.location.pathname == '/pagamento'){
 						if(data.errors){
-
-							console.log("if");
-							console.log('$scopeBefore', $scope);
-
+							console.log("if", data.errors);
 							$scope.loading = false;
 							$scope.error  =  'Tivemos um problema com as informações do seu cartão poderia verificar os dados';
-							console.log('$scopeAfter', $scope);
+
 						}else{
-							console.log("else");
+
 							console.log('cartdToken complete', data)
 							var credit_card_token = data.card.token;
 							var userId = localStorage.getItem("userId");
-							var sender_hash = PagSeguroDirectPayment.getSenderHash()
+							PagSeguroDirectPayment.getSenderHash()
 
 							var response = payment_pagseguro.payment(
 								userId,
@@ -211,19 +199,27 @@ app.votolegal.controller("PaymentController", [
 								$scope.candidate.addressStreet,
 								$scope.candidate.addressHouseNumber,
 								).success(function(successs){
+
+									console.log(successs, 'suc')
 									$scope.loading = false;
 									$scope.error = 'Sucesso';
 
+
+
 								}).error(function(err){
+									console.log(err, 'suc')
 									$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
-										$scope.loading = false;
+									$scope.loading = false;
+
+
 
 								})
+
+
+
 							}
 
-			}
-
-
+			$scope.$apply();
 		}
 		$scope.managerCondition = function(t){
 
@@ -245,8 +241,8 @@ app.votolegal.controller("PaymentController", [
 			}
 
 		$scope.submit = function (valid, form) {
+			$scope.error = '';
 
-		console.log(valid, form)
 
 			if(valid){
 
@@ -274,20 +270,30 @@ app.votolegal.controller("PaymentController", [
 						).success(function(val){
 							$scope.loading = false;
 
-							$scope.boletoUrl = val.url
+							$scope.boletoUrl = val.url;
+							$scope.$apply();
+
 
 						}).error(function(err){
 
 							if(err['error']){
 								$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
 								$scope.loading = false;
+								$scope.$apply();
+
 							}
 
 						})
 
+
+
 				}else{
 					$scope.creditCardPayment();
+					$scope.$apply();
+
 				}
+
+
 			}
 
 		}

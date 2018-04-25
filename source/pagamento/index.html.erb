@@ -8,6 +8,7 @@ title: Pagamento
 			<div class="col-md-offset-3 col-md-6">
 				<h3>Formulário de pagamento</h3>
 				<form name="pagamento" id="pagamento" novalidate ng-submit="submit(pagamento.$valid, pagamento)">
+
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group">
@@ -158,19 +159,12 @@ title: Pagamento
 							</div>
 						</div>
 					</div>
-					<div class="teste" ng-click="testeFun">aqui</div>
-
 					<div class="form-group">
-					<pre>
-					error: {{error}}
-					loading: {{loading}}
-					error.length : {{error.length }}
-					teste: {{teste}}
-					</pre>
-						<span class="btn btn-success btn-lg btn-block loading" ng-if="loading"><img src="../images/ajax-loader.gif" alt="" ></span>
+
+						<button class="btn btn-success btn-lg btn-block loading" ng-if="loading" type="submit" ><img src="../images/ajax-loader.gif" alt="" ></button>
 						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
 						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block" ng-if="boletoUrl.length> 0" ng-click="redirectBoleto()">Imprimir boleto </a>
-						<label ng-if="error.lenght > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">{{error}} </label>
+						<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">{{error}} </label>
 
 					</div>
 					<div class=" clearfix">
