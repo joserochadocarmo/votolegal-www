@@ -1795,7 +1795,7 @@ $rules in $class-change {
 	text-align: center
 }
 
-.certiface a{
+.certiface a {
 	display: block;
 }
 
@@ -1803,16 +1803,29 @@ $rules in $class-change {
 	position: relative;
 	height: 18rem;
 }
-.certiface .load-backdrop{
-	z-index:1;
+
+.certiface .load-backdrop {
+	z-index: 1;
 }
+
 .certiface .load-backdrop i.fa {
 	top: -2rem;
 	left: 0;
 	right: 0;
 }
-.btn.btn-success.boleto{
- margin-top: 33px;
 
+.btn.btn-success.boleto {
+	margin-top: 33px;
 }
 
+input[type=checkbox].contract-ckeck {
+	transform: scale(1.5);
+	-ms-transform: scale(1.5);
+	-webkit-transform: scale(1.5);
+	padding: 10px;
+	margin-right: 10px;
+}
+
+.contract-form {
+	font-size: 1.5rem;
+}
