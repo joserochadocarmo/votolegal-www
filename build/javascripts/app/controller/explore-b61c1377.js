@@ -2,6 +2,15 @@
  * Explore Controller
  */
 
+
+ var BASE_API_JS = '';
+
+var server = window.location;
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
+} else {
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
+}
 app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service", "serialize", "SweetAlert", "trouble", function($scope, $http, auth_service, serialize, SweetAlert, trouble){
   // defaults
   $scope.list       = [];
@@ -20,7 +29,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
     }
 
     SweetAlert.swal('Website não definido', 'Este candidato não configurou nenhum website para acesso.');
-    //document.location = '//'+ username +'.votolegal.com.br/candidato';
+    //document.location = '//'+ username +'.votolegal.com.br/em/candidato';
     return false;
   };
 
@@ -36,7 +45,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
   // load party data
   $scope.load_parties = function(){
-    $http.get('//dapi.votolegal.com.br/api/party')
+    $http.get( BASE_API_JS +'/party')
     .then(function(response){
       $scope.party_list = response.data.party;
       for(var i in $scope.party_list){
@@ -67,7 +76,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
     $http({
       method: 'post',
-      url: '//dapi.votolegal.com.br/api/search?results=9999',
+      url: BASE_API_JS +'/search?results=9999',
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })

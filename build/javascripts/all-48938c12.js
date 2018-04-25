@@ -5000,9 +5000,6 @@ var BASE_API = '//dapi.votolegal.com.br/api';
 
 var BASE_API_JS = '';
 
-
-
-
 var server = window.location;
 if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
@@ -6549,17 +6546,17 @@ app.votolegal.controller("ContractController", [
 	) {
 		$scope.error = false;
 		$scope.errorServer = false;
-		$scope.error_list = [];
-
-
+		$scope.error_list = '';
 		$scope.confirmContract = false;
 
 		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId");
 
-		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
+		$scope.userIdDefined = ($scope.user) ? $scope.user.id : $scope.user;
+
+		console.log($scope.userIdDefined, 'use')
 
 		$scope.confirm = function() {
-			if ($scope.confirmContract && $scope.error == false) {
+			if ($scope.confirmContract && $scope.error == false && $scope.userIdDefined != undefined ) {
 				var response = contract_service
 					.contract($scope.userIdDefined)
 					.success(function(data) {
@@ -6572,7 +6569,7 @@ app.votolegal.controller("ContractController", [
 					})
 					.error(function(data) {
 						console.log("error", data);
-						$scope.error_list.push('Você já confirmou o contrato')
+						$scope.error_list = 'Você já confirmou o contrato'
 
 						// $scope.errorServer = true;
 
@@ -6582,8 +6579,16 @@ app.votolegal.controller("ContractController", [
 							}, 2000)
 						}
 					});
-			} else {
-				$scope.error_list.push('É necessário confirmar o contrato')
+			} else if ($scope.userIdDefined == null && $scope.error == true) {
+				$scope.errorUser = true;
+
+				$scope.error_list = 'Não conseguimos te identificar. Por gentileza faça seu pre cadastro, caso ja tenha feito faça seu login. '
+				$scope.error = true;
+
+
+
+			}else{
+				$scope.error_list = 'É necessário confirmar o contrato';
 				$scope.error = true;
 			}
 		};
@@ -6602,7 +6607,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
   $scope.approval_list = function(){
     var user = auth_service.current_user();
 
-    $http.get('//dapi.votolegal.com.br/api/admin/candidate/list?results=9999&api_key=' + user.api_key)
+    $http.get( BASE_API_JS +'/admin/candidate/list?results=9999&api_key=' + user.api_key)
     .then(
       function(response){
         var res = response.data;
@@ -6612,7 +6617,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
         var data = response.data;
 
         // error: access denied
-        if(data.error === "access denied") 
+        if(data.error === "access denied")
           document.location = auth_service.sign_page;
       }
     );
@@ -6635,7 +6640,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
       if (isConfirm) {
         $http({
           method: 'PUT',
-          url: '//dapi.votolegal.com.br/api/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
+          url: BASE_API_JS +'/admin/candidate/'+ model.id +'/activate?api_key='+ user.api_key,
         }).
         then(
           // success callback
@@ -6675,7 +6680,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
       if (isConfirm) {
         $http({
           method: 'PUT',
-          url: '//dapi.votolegal.com.br/api/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
+          url: BASE_API_JS +'/admin/candidate/'+ model.id +'/deactivate?api_key='+ user.api_key,
         }).
         then(
           // success callback
@@ -6920,6 +6925,15 @@ app.votolegal.controller('DefaultController', ["$scope", "$http", "auth_service"
  * Explore Controller
  */
 
+
+ var BASE_API_JS = '';
+
+var server = window.location;
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
+} else {
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
+}
 app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service", "serialize", "SweetAlert", "trouble", function($scope, $http, auth_service, serialize, SweetAlert, trouble){
   // defaults
   $scope.list       = [];
@@ -6938,7 +6952,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
     }
 
     SweetAlert.swal('Website não definido', 'Este candidato não configurou nenhum website para acesso.');
-    //document.location = '//'+ username +'.votolegal.com.br/candidato';
+    //document.location = '//'+ username +'.votolegal.com.br/em/candidato';
     return false;
   };
 
@@ -6954,7 +6968,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
   // load party data
   $scope.load_parties = function(){
-    $http.get('//dapi.votolegal.com.br/api/party')
+    $http.get( BASE_API_JS +'/party')
     .then(function(response){
       $scope.party_list = response.data.party;
       for(var i in $scope.party_list){
@@ -6985,7 +6999,7 @@ app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service"
 
     $http({
       method: 'post',
-      url: '//dapi.votolegal.com.br/api/search?results=9999',
+      url: BASE_API_JS +'/search?results=9999',
       data: serialize.from_object(params),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })

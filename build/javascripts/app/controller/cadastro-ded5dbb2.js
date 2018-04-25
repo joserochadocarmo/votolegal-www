@@ -45,9 +45,6 @@ var BASE_API = '//dapi.votolegal.com.br/api';
 
 var BASE_API_JS = '';
 
-
-
-
 var server = window.location;
 if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
