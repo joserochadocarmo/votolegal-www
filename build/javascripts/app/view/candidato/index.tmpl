@@ -1,0 +1,285 @@
+
+    <div class="container" style="margin-top: 80px;">
+      <div class="row" style="min-height: 500px; margin-bottom: 30px">
+        <div class="candidate-video col-md-7">
+          <div class="video-container" id="video-renderer">
+          </div>
+          <br class="divider">
+          <div class="share-button">
+            <ul class="nav nav-pills">
+              <li class="disabled"><strong>Compartilhe:</strong></li>
+              <li ng-if="candidate.twitter_url"><a href="{{candidate.twitter_url}}" target="_blank"><i class="fa fa-twitter"></i> Tweet</a></li>
+              <li ng-if="candidate.facebook_url"><a href="{{candidate.facebook_url}}" target="_blank"><i class="fa fa-facebook"></i> Share</a></li>
+              <li ng-if="candidate.video_url"><a href="{{candidate.video_url}}" target="_blank"><i class="fa fa-play"></i> Embed</a></li>
+              <li class="hide"><a href="#" target="_blank"><i class="fa fa-pinterest"></i> Pin</a></li>
+              <li class="hide"><a href="#" target="_blank"><i class="fa fa-envelope"></i> Post</a></li>
+            </ul>
+          </div>
+          <br class="divider">
+          <p>{{candidate.summary}}</p>
+        </div>
+        <div class="candidate-campaign col-md-5">
+          <h4 class="text-success">Total arrecadado</h4>
+          <p class="donated">{{((candidate.total_donated + candidate.party_fund)/100) | currency}}</p>
+
+          <div class="row">
+            <div class="col-md-12" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">
+              <div class="progress hide">
+                <div class="progress-bar progress-bar-success text-center" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}};background-color: rgb(78, 242, 78); color: #000 !important"></div>
+                <div class="progress-bar progress-bar-success text-center" role="progressbar" style="width: {{make_percent(candidate.total_donated, candidate.raising_goal)}}; color: #000 !important"></div>
+              </div>
+              <div class="progress progress-candidate">
+                <div class="progress-bar progress-bar-success progress-bar-lightgreen" role="progressbar" style="width: {{make_percent(candidate.party_fund, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>{{make_percent(candidate.party_fund, candidate.raising_goal)}}</strong><br>
+                    <small>Doações do Fundo Partidário</small>
+                  </p>
+                </div>
+                <div class="progress-bar progress-bar-success progress-bar-normalgreen" role="progressbar" style="width: {{make_percent(candidate.total_donated_by_votolegal || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>{{make_percent(candidate.total_donated_by_votolegal || 0, candidate.raising_goal)}}</strong><br>
+                    <small>Doações do VotoLegal</small>
+                  </p>
+                </div>
+                <div class="progress-bar progress-bar-success progress-bar-heavygreen" role="progressbar" style="width: {{make_percent((candidate.total_donated - candidate.total_amount_by_votolegal) || 0, candidate.raising_goal)}}" ng-mouseover="show_label(this, $event)" ng-mouseout="hide_label()">
+                  <p>
+                    <strong>{{make_percent((candidate.total_donated - candidate.total_donated_by_votolegal) || 0, candidate.raising_goal)}}</strong><br>
+                    <small>Outras Doações</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 text-left">
+              <small class="hide">{{make_percent((candidate.total_donated + candidate.party_fund), candidate.raising_goal)}}</small>
+            </div>
+            <div class="col-md-6 text-right">
+              <small class="hide">Faltam 10 dias</small>
+            </div>
+          </div>
+
+          <br class="divider">
+          <br class="divider">
+
+          <h4 class="text-success">Pessoas já Doaram</h4>
+          <p class="donator-number">{{candidate.people_donated}}</p>
+          <h4 class="text-success" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">Meta</h4>
+          <p class="raising-goal" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">{{candidate.raising_goal.toFixed(2) | currency}}</p>
+
+          <p><a class="btn btn-success btn-lg btn-block btn-donate" href="#/doar">Doar</a></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="candidate-tabs col-md-12">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#tab-projetos" role="tab" data-toggle="tab">Projetos prioritários</a></li>
+            <li><a href="#tab-contas" role="tab" data-toggle="tab">Planejamento de gastos</a></li>
+            <li><a href="#tab-gastos" ng-click="candidate_expenditures(candidate)" role="tab" data-toggle="tab">Despesas</a></li>
+            <li><a href="#tab-historico" ng-click="candidate_donations(candidate)" role="tab" data-toggle="tab">Doações</a></li>
+            <li><a href="#tab-sobre" role="tab" data-toggle="tab">Sobre mim</a></li>
+            <li class="hide"><a href="#tab-denuncia" role="tab" data-toggle="tab">Denunciar</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab-projetos">
+              <div class="row">
+                <div class="col-md-12" ng-repeat="p in candidate.projects">
+
+                  <div class="panel panel-default panel--projeto">
+                    <div class="panel-heading">{{$index + 1}} - {{p.title}}</div>
+                    <div class="panel-body">
+                      <p>{{p.scope}}</p>
+                    </div>
+                  </div>
+
+                </div>
+                <br class="divider">
+              </div>
+
+              <hr>
+
+              <div class="project-votes hide">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="text-success">Projetos de lei mais votados:</h4>
+                  </div>
+                </div>
+
+                <div class="row" ng-repeat="p in candidate.projects">
+                  <div class="col-md-6">
+                    <span class="text-muted">Projeto {{$index + 1}}) {{p.title}}</span>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{make_percent(p.votes, p.total)}}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <small>{{p.votes}} votos ({{make_percent(p.votes, p.total)}})</small>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="tab-contas">
+              <br class="divider">
+              <div class="col-md-12">
+                <p>Faça o download da planilha simplificada de gastos da campanha de {{candidate.name}}:</p>
+                <p><a class="btn btn-success btn-lg" href="{{candidate.spending_spreadsheet}}"> <i class="fa fa-download"></i> Fazer download da planilha </a></p>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="tab-gastos">
+              <div id="expenditures-table" class="hide">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-success">
+                      <p>Total gasto</p>
+                      <strong style="font-size:24px">{{ (expenditures.total_amount/100) || 0.0  | currency }}</strong>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+
+                    <div class="company-panel" ng-repeat="i in expenditures.expenditure">
+                      <p><strong class="text-success">{{ i.name }}</strong> <span class="pull-right">{{ (i.amount/100) | currency }}</span></p>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ ((i.amount * 100)/expenditures.total_amount) || '0' }}%;"></div>
+                      </div>
+                      <p><small>{{ ((i.amount * 100) / expenditures.total_amount).toFixed(1) }}%</small> <small class="pull-right">{{ i.cpf_cnpj }}</small></p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div id="loading-expenditures" class="text-center">
+                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
+                <p class="text-success">Carregando</p>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="tab-historico">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4>
+                    Acompanhe o histórico de doações do candidato:
+                    <a class="btn btn-link pull-right hide" href="#"> <i class="fa fa-download"></i> Imprimir</a>&nbsp;
+                    <a class="btn btn-link pull-right hide" href="#"> <i class="fa fa-print"></i> Download</a>&nbsp;
+                  </h4>
+
+                  <br class="divider">
+                </div>
+
+                <div class="col-md-12">
+                  <div id="donations-table" class="hide">
+                    <table class="table table-striped table-bordered"  at-table at-list="donations" at-config="config" at-paginated>
+                      <thead>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td at-implicit at-attribute="name" at-title="Nome do doador:"></td>
+                          <td at-attribute="transaction_hash" at-title="Endereço na Blockchain:">
+                            <a href="//etherscan.io/tx/{{item.transaction_hash}}" target="_blank">{{item.transaction_hash | limitTo : 10}}...</a>
+                          </td>
+                          <td at-implicit at-attribute="species" at-title="Tipo:"></td>
+                          <td at-attribute="amount" at-title="Valor doado:">
+                            {{(item.amount/100) | currency}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <at-pagination at-config="config" at-list="donations"></at-pagination>
+                  </div>
+
+                  <div id="loading-donations" class="text-center">
+                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
+                    <p class="text-success">Carregando</p>
+                  </div>
+
+                  <br class="divider">
+
+                  <p class="text-center hide">
+                    <a class="btn btn-default" href="#">Carregar mais</a>
+                  </p>
+                </div>
+
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab-sobre">
+              <div class="row">
+                <div class="col-md-12">
+                  <h2 class="nome-candidato">
+                    <span class="nome">{{candidate.popular_name}}</span>
+                    <i class="fa fa-circle"></i>
+                    <span class="partido">{{candidate.party.acronym}}</span>
+                  </h2>
+                </div>
+                <div class="col-md-3">
+                  <div class="candidate-panel" style="background-image: url({{candidate.picture || '/images/candidatos/user_general.jpg' }});">
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <p>{{candidate.biography}}</p>
+                  <br>
+                  <div class="social-buttons">
+                    <ul>
+                      <li ng-show="candidate.facebook_url.length > 0"><a href="{{candidate.facebook_url}}" title="Facebook" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li>
+                      <li ng-show="candidate.twitter_url.length > 0"><a href="{{candidate.twitter_url}}" title="Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a></li>
+                      <li ng-show="candidate.video_url.length > 0"><a href="{{candidate.video_url}}" title="Vídeo do candidato" target="_blank"><i class="fa fa-play fa-2x"></i></a></li>
+                      <li ng-show="candidate.instagram_url.length > 0"><a href="{{candidate.instagram_url}}" title="Instagram" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></li>
+                      <li ng-show="candidate.website_url.length > 0"><a href="{{candidate.website_url}}" title="Website do candidato" target="_blank"><i class="fa fa-external-link fa-2x"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                </div>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="tab-denuncia">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5>Caso o candidato apresente alguma irregularidade, preencha o formulário abaixo:</h5>
+                  <br>
+                </div>
+
+                <div class="col-md-offset-4 col-md-4">
+                  <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Seu nome completo">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Seu e-mail">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Motivo da denúncia">
+                  </div>
+                  <div class="form-group">
+                    <textarea id="" class="form-control" name="" rows="6" placeholder="Mensagem"></textarea>
+                  </div>
+                  <div class="form-group text-center">
+                    <button class="btn btn-success">Enviar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="clearfix"></div>
+
+        </div>
+      </div>
+
+	</div><!--/container-->
+
+
+
+<script>
+	alert()
+</script>

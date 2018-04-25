@@ -98,6 +98,7 @@
 			<div class="col-md-offset-3 col-md-6">
 				<h3>Formulário de pagamento</h3>
 				<form name="pagamento" id="pagamento" novalidate ng-submit="submit(pagamento.$valid, pagamento)">
+
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group">
@@ -197,10 +198,10 @@
 						</div>
 						<div class="payment-type">
 							<div class="col-md-6">
-								<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required> Boleto
+								<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required ng-click="managerCondition(pagamento.typePayment)"> Boleto
 							</div>
 							<div class="col-md-6">
-								<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required> Cartão de crédito
+								<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="managerCondition(pagamento.typePayment)"> Cartão de crédito
 							</div>
 							<div class="col-md-12">
 								<label ng-if="pagamento.typePayment.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Escolha a forma de pagamento</label>
@@ -248,12 +249,12 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="form-group">
-						<span class="btn btn-success btn-lg btn-block loading" ng-if="loading"><img src="../images/ajax-loader-fbc9071e.gif" alt="" ></span>
+
+						<button class="btn btn-success btn-lg btn-block loading" ng-if="loading" type="submit" ><img src="../images/ajax-loader-fbc9071e.gif" alt="" ></button>
 						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
 						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block" ng-if="boletoUrl.length> 0" ng-click="redirectBoleto()">Imprimir boleto </a>
-						<label ng-if="error " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Tivemos um problema para gerar seu boleto poderia tentar novamente </label>
+						<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">{{error}} </label>
 
 					</div>
 					<div class=" clearfix">
@@ -306,7 +307,7 @@
     <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
     <!-- javascript -->
-    <script src="/javascripts/all-54b6cd75.js"></script>
+    <script src="/javascripts/all-21354595.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

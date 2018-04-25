@@ -1,0 +1,149 @@
+<div class="col-md-6" ng-init="tabname = 'campanha'">
+  <h4>Informações da campanha</h4>
+  <p>Os campos marcados com o asterisco (*) são de preenchimento obrigatório.</p>
+  <br class="divider">
+
+<form name="campaignForm" class="angular-form" ng-submit="save_campaign(campaignForm.$valid)" novalidate="novalidate">    <div class="row">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="raising_goal">Quanto quer arrecadar?</label>*
+        <i class="fa fa-money"></i>
+        <input class="form-control" type="text" name="raising_goal" ng-model="candidate.raising_goal" ui-number-mask="2" required>
+        <p class="help-block" ng-show="error_list.length > 0">
+          <small>A quantia a ser arrecadada deve ser definida.</small>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group icon-left icon-with-label col-md-12">
+        Quais são seus assuntos prioritarios? * Máximo 4 opções
+      </div>
+      <div class="priority-subjects--list">
+        <div class="text-danger" ng-if="issue_list.lenght">
+          Não foi possível carregar a lista de assuntos.
+        </div>
+        <div class="col-md-6" style="font-size:12px;" ng-repeat="i in issue_list | orderBy: '+name'">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="i.selected" ng-change="count_checked(this)" value="{{i.id}">&nbsp; {{i.name}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <small class="help-block">Caso não encontre um assunto de sua preferência, por favor entre em contato conosco através do e-mail: <a href="mailto:contato@votolegal.com.br">contato@votolegal.com.br</a>.</small>
+      </div>
+      <div class="form-group col-md-12 text-right hide">
+        <a data-toggle="modal" data-target="#new-issue-priority" href="javascript:void(0);">+ Adicionar um assunto</a>
+      </div>
+
+      <div class="form-group col-md-12">
+        <br class="divider">
+      </div>
+
+
+      <div class="form-group col-md-12">
+        <label>Planilhar simplificada de gastos da campanha</label>
+        <span class="help-block">Envie sua <em class="text-warning">planilha simplificada</em> de orçamento de campanha que justifique sua meta para arrecadação.</span>
+      </div>
+
+      <div class="form-group col-md-12">
+        <div class="input-group image-preview">
+        <input type="text" class="form-control image-preview-filename spending_spreadsheet_filename" value="{{candidate.spending_spreadsheet}}" disabled="disabled">
+          <span class="input-group-btn">
+            <!-- image-preview-input -->
+            <div class="btn btn-default image-preview-input">
+              <span class="fa fa-folder"></span>
+              <span class="image-preview-input-title">Escolher Arquivo</span>
+              <input type="file" name="spending_spreadsheet" ng-model="candidate.spending_spreadsheet" onchange="angular.element(this).scope().change_filename('spending_spreadsheet')" /> <!-- rename it -->
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <h3 class="text-success">Terminal de captura</h3>
+        <small>Dados da conta da operadora financeira para recebimento de doações</small>
+      </div>
+      <div class="form-group col-md-12">
+        <label>Token operadora financeira</label>
+        <span class="help-block">Após sua candidatura ser aprovada pelo <em class="text-warning" title="Trinunal Superior Eleitoral">TSE</em> você deverá assinar um contrato com alguma <em class="text-warning">operadora financeira</em> para poder receber doações na sua conta de campanha. Insira aqui o Token enviado pela da operadora.</span>
+      </div>
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="payment_gateway_id">Provedora de pagamento</label>
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="candidate.payment_gateway_id" value="1">&nbsp; Cielo
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="candidate.payment_gateway_id" value="2">&nbsp; PagSeguro
+          </label>
+        </div>
+      </div>
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="merchant_id">Chave</label>
+        <i class="fa fa-lock"></i>
+        <input class="form-control" type="text" name="merchant_id" ng-model="candidate.merchant_id" placeholder="E-mail de pagamento" required>
+        <small class="help-block">Você deve colocar a chave de integração da empresa financeira.</small>
+      </div>
+      <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="merchant_key">Token</label>
+        <i class="fa fa-lock"></i>
+        <input class="form-control" type="text" name="merchant_key" ng-model="candidate.merchant_key" placeholder="Token de pagamento" required>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <h3 class="text-success">Sincronizar com TSE</h3>
+        <small>Você pode permitir que o VotoLegal utilize os dados do TSE para dar mais transparência as informações de doações da sua campanha.</small>
+      </div>
+      <div class="form-group col-md-12">
+        <label>Sincronizar conta com TSE?</label>
+        <select id="crawlable" name="crawlable" ng-model="candidate.crawlable" class="form-control">
+          <option value=''>- Selecione uma opção -</option>
+          <option ng-value="true" ng-selected="candidate.crawlable">Sim, desejo que o VotoLegal sincronize minha conta</option>
+          <option ng-value="false" ng-selected="!candidate.crawlable">Não, não quero mostrar as informações do TSE</option>
+        </select>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+      <div class="form-group col-md-12" ng-init="submit_disabled = false">
+        <p class="text-right">
+          <button type="submit" id="btn-enviar" ng-disabled="submit_disabled" class="btn btn-success btn-lg">Gravar</button>
+        </p>
+        <div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
+          <h4>Os seguinte campos precisam ser corrigidos:</h4>
+          <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+            <li>{{error}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</form>
+<div id="new-issue-priority" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Novo assunto prioritário</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="text" class="form-control" names="issue_name" ng-model="issue_name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" ng-click="create_issue()">Cadastrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</div>

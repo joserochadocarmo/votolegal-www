@@ -1,0 +1,17 @@
+body.class1 a {
+  color: #fff; }
+body.class1 .navbar-divider {
+  background-image: ""; }
+body.class1 .btn-success {
+  background-color: #fff;
+  color: #fff; }
+body.class1 section#howto-works ul.howto-works-timeline .active .howto-works-pill a {
+  border-color: #3fb82c; }
+body.class1 .section-title {
+  color: #4ab855; }
+body.class1 .social-buttons ul li {
+  background-color: #43ac45; }
+body.class1 .social-buttons ul li a {
+  color: #43ac45 !important; }
+body.class1 a.tab-register .active {
+  background-color: #fff !important; }

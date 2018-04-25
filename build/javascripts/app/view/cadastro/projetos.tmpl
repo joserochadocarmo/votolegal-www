@@ -1,0 +1,51 @@
+<div class="col-md-6" ng-init="tabname = 'projetos'">
+  <h4>Projetos prioritários (agenda programática) *</h4>
+  <p>Escreva no <span style="font-size:18px;font-weight:500" class="text-success">mínimo 4 projetos prioritários</span> que fazem parte do seu plano de governo.</p>
+  <div style="padding: 5px 10px;margin-left: 40px;">
+  
+  <h4 class="text-success" style="margin-left:-20px;">
+    <i class="fi flaticon-information-button">
+  </i> 
+  Os projetos prioritários são muito importantes!</h4>
+    <p>Estarão abertos para visualização no seu perfil público e aqueles que finalizarem uma doação votam nos 3 projetos de maior interesse.</p>  
+    <p>A visualização do resultado da enquete estará pública no perfil.</p>
+  </div>
+  <br class="divider">
+
+  <!-- project list form -->
+  <div class="row project-item well well-sm" ng-repeat="i in projects | orderBy: 'id'" data-index="{{$index}}" data-id="{{i.id || 0}}" style="margin-top: 50px">
+    <div class="form-group col-md-12">
+      <strong>Projeto {{$index + 1}}:</strong>
+      <span class="saved-badge text-success pull-right hide" ng-show="{{!i.changed}}">
+        <i class="fa fa-check" style="font-size:16px"></i>&nbsp;Salvo
+      </span>
+    </div>
+    <div class="form-group icon-left icon-with-label col-md-12">
+      <label>Titulo</label>
+      <i class="fa fa-certificate"></i>    
+      <input class="form-control" ng-model="projects[$index].title" ng-change="changed_project($index)" type="text" ng-value="i.title" name="project_title" required>
+    </div>
+    <div class="form-group icon-left icon-with-label col-md-12">
+      <label>Breve descrição</label>
+      <i class="fa fa-edit"></i>    
+      <textarea name="project_content" ng-model="projects[$index].scope" ng-change="changed_project($index)" class="form-control" rows="6">{{i.scope}}</textarea>
+    </div>
+    <div class="form-group col-md-12 text-right">
+      <a href="javascript:void(0);" class="btn btn-default btn-xs" ng-click="remove_project($index)" style="margin-right:20px;">
+        <strong>&times</strong> Desfazer
+      </a>
+      <a href="javascript:void(0);" class="btn btn-success btn-sm" ng-click="save_project($index)">Salvar projeto</a>
+    </div>
+  </div>
+
+
+  <!-- add new project -->
+  <div class="row">
+    <div class="form-group col-md-12 text-right">
+        <a href="javascript:void(0);" ng-click="new_project()" class="btn btn-success btn-lg">
+          <i class="fa fa-plus"></i> Incluir projetos
+        </a>
+    </div>
+  </div>
+
+</div>

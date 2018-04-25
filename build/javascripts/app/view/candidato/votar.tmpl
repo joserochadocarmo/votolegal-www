@@ -1,0 +1,49 @@
+
+  <div class="container" style="margin-top: 80px;" ng-controller="VoteController"  ng-init="set_page('votar')">
+    <div class="row">
+      <div class="confirma-doacao text-center">
+        <h1 class="page-title">
+          Confirmado!
+        </h1>
+        <div class="c-d-mensagem-wrap">
+          <strong>Doação confirmada!</strong><br>
+          Sua doação para o candidato "{{candidate.popular_name}}" foi confirmada com sucesso.
+        </div>
+
+      </div>
+      <div class="votacao-projetos-wrap">
+        <div class="txt-explica-votacao">
+          Vote em 3 projetos do candidato que mais lhe agrada
+        </div>
+        <div class="form-vota-prj-wrap">
+          <div class="col-md-3 foto-candidato-wrap">
+            <div class="cand-img-redondo">
+              <img ng-src="{{candidate.picture || '/images/candidatos/user_general.jpg'}}" class="img-circle" width="175px" height="175px" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}">
+            </div>
+          </div>
+          <div class="col-md-9">
+            <form class="votacao-projetos-form" id="votacao-projetos-form" ng-submit="save_vote()">
+              <div id="project--list" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              </div>
+              <div class="col-md-6 col-md-offset-3">
+                <button type="submit" class="btn btn-success btn-lg btn-block">Votar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script id="project-template" type="text/template">
+    <div class="painel panel-default container-proj">
+      <div class="panel-heading" id="heading-projeto-1">
+        <input type="checkbox" class="vote--item" value="{{= value}}"> {{= title }} <a role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="projeto-1" href="#projeto-1" class="collapsed colapsa-proj pull-right"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <div id="projeto-1" class="collapse in" role="tabpanel" aria-labelledby="heading-projeto-1">
+        <div class="panel-body">
+          {{= description }}
+        </div>
+      </div>
+    </div>
+  </script>

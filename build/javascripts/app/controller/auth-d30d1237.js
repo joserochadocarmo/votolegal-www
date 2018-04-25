@@ -145,7 +145,6 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 				);
 				document.location = '/cadastro-completo';
 			}
-
 		}
 	  }
     }, function(response){
