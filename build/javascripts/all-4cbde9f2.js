@@ -6710,7 +6710,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
 
 app.votolegal.controller('DefaultController', ["$scope", "$http", "auth_service", "serialize", function($scope, $http, auth_service, serialize){
   // validate user
-  auth_service.validate_user({role: 'user'});
+//   auth_service.validate_user({role: 'user'});
 }]);
 (function() {
   this.VotoLegal = this.VotoLegal || {};
@@ -7351,6 +7351,7 @@ app.votolegal.controller("PaymentController", [
 									$scope.loading = false;
 									$scope.success = 'Sucesso';
 									Storage.removeItem('userId');
+									document.location = '/pre-cadastro/success'
 								}).error(function(err){
 
 									$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
