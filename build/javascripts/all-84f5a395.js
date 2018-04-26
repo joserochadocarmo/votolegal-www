@@ -4735,7 +4735,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 				document.location = '/pagamento';
 				localStorage.removeItem('paymentRedirect')
 			}else if(res.paid == 0 && res.signed_contract == 1 && res.signed_contract == res.payment_created == 1){
-				localStorage.setItem('paymentRedirect')
+				localStorage.setItem('paymentRedirect', 1)
 				document.location = '/pagamento/analise';
 
 			}else if(res.paid == 1 && res.signed_contract == 1 && res.signed_contract == res.payment_created == 1){
