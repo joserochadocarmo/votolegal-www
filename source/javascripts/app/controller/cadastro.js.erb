@@ -488,11 +488,12 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 					$scope.candidate = response.data.candidate;
 
-					if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 0) {
+					if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 0 &&  $scope.candidate.payment_created == 0) {
 						document.location = '/contrato';
-					}
-					if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 1) {
+					}else if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 1 &&  $scope.candidate.payment_created == 0) {
 						document.location = '/pagamento';
+					}else if ($scope.candidate.paid == 0 && $scope.candidate.signed_contract == 1 &&  $scope.candidate.payment_created == 1) {
+						document.location = '/pre-cadastro/analise';
 					}
 
 					(function () {

@@ -482,8 +482,6 @@ app = window.app || {};
 
 		var user = this.current_user() || undefined;
 
-		console.log(user, 'user')
-
         // validate session
         if(user == undefined)
           document.location = this.sign_page;
