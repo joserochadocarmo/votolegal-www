@@ -4,6 +4,7 @@
 app.votolegal.controller('DefaultController', ["$scope", "$http", "auth_service", "serialize", function($scope, $http, auth_service, serialize){
 
   // validate user
+	localStorage.removeItem('paymentRedirect')
 
 
 
