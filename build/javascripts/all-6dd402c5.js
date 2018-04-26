@@ -4725,20 +4725,21 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
 
-
-
-
-			if (res.paid == 0 && res.signed_contract == 0) {
+			if (res.paid == 0 && res.signed_contract == 0 && res.signed_contract == res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/contrato';
+				localStorage.removeItem('paymentRedirect')
 
-			}
-			if (res.paid == 0  && res.signed_contract == 1) {
+			}else if (res.paid == 0 && res.signed_contract == 1 && res.signed_contract == res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/pagamento';
-			}
-			if(res.paid == 1 && res.signed_contract == 1){
+				localStorage.removeItem('paymentRedirect')
+			}else if(res.paid == 0 && res.signed_contract == 1 && res.signed_contract == res.payment_created == 1){
+				localStorage.setItem('paymentRedirect')
+				document.location = '/pagamento/analise';
 
+			}else if(res.paid == 1 && res.signed_contract == 1 && res.signed_contract == res.payment_created == 1){
+				localStorage.removeItem('paymentRedirect')
 				// save session
 				var session = auth_service.session();
 				session.set(
@@ -6711,6 +6712,7 @@ app.votolegal.controller('DashboardController', ["$scope", "$http", "auth_servic
 app.votolegal.controller('DefaultController', ["$scope", "$http", "auth_service", "serialize", function($scope, $http, auth_service, serialize){
 
   // validate user
+	localStorage.removeItem('paymentRedirect')
 
 
 
@@ -7200,7 +7202,7 @@ app.votolegal.controller("PaymentController", [
 			document.location = "/";
 		}
 
-		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId");
+		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId") || '';
 
 		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
 
@@ -7344,7 +7346,6 @@ app.votolegal.controller("PaymentController", [
 									$scope.loading = false;
 
 								})
-
 							}
 
 			$scope.$apply();

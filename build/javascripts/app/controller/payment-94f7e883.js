@@ -37,7 +37,7 @@ app.votolegal.controller("PaymentController", [
 			document.location = "/";
 		}
 
-		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId");
+		$scope.user = JSON.parse(localStorage.getItem("user")) || localStorage.getItem("userId") || '';
 
 		$scope.userIdDefined = ($scope.user.id) ? $scope.user.id : $scope.user;
 
@@ -181,7 +181,6 @@ app.votolegal.controller("PaymentController", [
 									$scope.loading = false;
 
 								})
-
 							}
 
 			$scope.$apply();
