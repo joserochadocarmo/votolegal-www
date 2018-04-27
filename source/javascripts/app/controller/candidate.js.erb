@@ -47,7 +47,7 @@ if(!(/^https:\/\/participe.votolegal.com.br/.test(currentURL.origin)) && /\?.?&?
 /**
  * Candidate Controller
  */
-app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "certi_face_token","SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $http, $sce, $route, $routeParams, $location, serialize, auth_service,certi_face_token, SweetAlert, payment_doacao, trouble, postmon){
+app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "certi_face_token","SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $rootScope,$http, $sce, $route, $routeParams, $location, serialize, auth_service,certi_face_token, SweetAlert, payment_doacao, trouble, postmon){
   var load   = document.querySelector('#loading');
 
 
@@ -67,6 +67,14 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$ro
   $scope.urlBoleto = null;
   $scope.waitResponseCertiSign = false;
   $scope.responseResponseCertiSign = false;
+
+  $rootScope.theme = '';
+
+  $scope.choiceTheme = function(){
+
+    console.log( $rootScope.theme)
+
+  }
 
   // payment
   $scope.paymentMethodDonate = null,

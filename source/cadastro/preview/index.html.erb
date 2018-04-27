@@ -62,12 +62,12 @@ title:  Pré-visualizaçao do perfil
 
 
     <div class="row">
-      <div class="col-md-12 text-center">
+      <div class="col-md-12 text-center ">
         <h1 class="page-title">Pré-visualização do Perfil</h1>
       </div>
 
-      <div class="col-md-12 text-right">
-        <p><a class="btn btn-default btn-sm" href="/cadastro-completo/">Voltar ao inicio</a></p>
+      <div class="col-md-12 pull-left">
+        <p><a class="btn btn-success btn-sm" href="/cadastro-completo/">Voltar ao inicio</a></p>
       </div>
 
       <div class="col-md-12">
@@ -81,11 +81,11 @@ title:  Pré-visualizaçao do perfil
 		  </pre> -->
 		  <div class="input-group">
 			  <label for="theme">Escolha a cor do tema</label>
-			  <input name="theme"  type="radio" value="" [ng-value]="" ng-model="theme">Default
-			  <input name="theme" type="radio" value="rosa" [ng-value]="rosa"  ng-model="theme">Rosa
-			  <input name="theme" type="radio" value="azul" [ng-value]="azul" ng-model="theme">Azul
-			  <input name="theme" type="radio" value="verde" [ng-value]="verde" ng-model="theme">Verde
-			  <input name="theme" type="radio" value="vermelho" [ng-value]="vermelho" ng-model="theme">Vermelho
+			  <input name="theme"  type="radio" value="" [ng-value]="" ng-model="theme" ng-click="choiceTheme()" >Default
+			  <input name="theme" type="radio" value="rosa" [ng-value]="rosa"  ng-model="theme" ng-click="choiceTheme()" >Rosa
+			  <input name="theme" type="radio" value="azul" [ng-value]="azul" ng-model="theme" ng-click="choiceTheme()" >Azul
+			  <input name="theme" type="radio" value="verde" [ng-value]="verde" ng-model="theme" ng-click="choiceTheme()" >Verde
+			  <input name="theme" type="radio" value="vermelho" [ng-value]="vermelho" ng-model="theme" ng-click="choiceTheme()" >Vermelho
 
 		  </div>
         </div>
@@ -107,23 +107,23 @@ title:  Pré-visualizaçao do perfil
 
               <!-- preview -->
               <div class="tab-pane fade in active" id="tab1default">
-                <p class="text-right"><a id="btn-fullscreen" href="javascript:void(0);" title="Tela cheia" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#fullscreen_modal"> <i class="fa fa-expand"></i> </a></p>
-                <iframe id="preview" ng-src="{{candidate.profile_url()}}" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%" ></iframe>
+                <p class="text-right"><a id="btn-fullscreen" href="javascript:void(0);" title="Tela cheia" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#fullscreen_modal"> <i class="fa fa-expand"></i> </a></p>
+                <iframe id="preview" ng-src="{{candidate.profile_url()}}" class="{{theme}}" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%" ></iframe>
               </div>
 
               <!-- code -->
               <div class="tab-pane fade" id="tab2default">
                 <h4>Para uma pagina completa:</h4>
                 <pre>
-  &lt;body style="margin:0px;padding:0px;overflow:hidden"  class="{{theme}}"&gt;
-    &lt;iframe src="{{candidate.profile_url()}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
+  &lt;body style="margin:0px;padding:0px;overflow:hidden" &gt;
+    &lt;iframe src="{{candidate.profile_url()}}" class="{{$root.theme}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
   &lt;/body&gt; </pre>
                 <br>
                 <br>
                 <br>
                 <h4>Para colocar em uma pagina existente:</h4>
                 <pre>
-  &lt;iframe src="{{candidate.profile_url()}} frameborder="0" id="iframe-candidate"  style="overflow:hidden; height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
+  &lt;iframe src="{{candidate.profile_url()}}" class="{{$root.theme}}" frameborder="0" id="iframe-candidate"  style="overflow:hidden; height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
                 </pre>
                 <small class="help-block">Onde <code>700px</code> é a altura que ficará a janela onde será exibido o seu perfil na sua pagina.</small>
               </div>
@@ -145,7 +145,7 @@ title:  Pré-visualizaçao do perfil
             <h4 class="modal-title" id="myModalLabel">VotoLegal - Visulização do Perfil</h4>
           </div>
           <div class="modal-body">
-            <iframe id="preview" ng-src="{{candidate.profile_url()}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%"></iframe>
+            <iframe id="preview" ng-src="{{candidate.profile_url()}}" class="{{$root.theme}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%"></iframe>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

@@ -1,6 +1,6 @@
 $class-change: (
-	'class1': (
-      'font-color':#fff,
+	'rosa': (
+      'font-color':green,
       'links---font-color': #fff,
       'btn--success-font-color':#fff,
       'btn--success-background-color':#fff,
@@ -16,37 +16,41 @@ $class-change: (
 
 @each $class-palette, $rules in $class-change {
   body.#{$class-palette} {
-    a{
-    	color: map-get($rules, 'font-color');
-    }
-    .navbar-divider{
-      background-image: map-get($rules, 'navbar--divider-img');
+	  border: solid 2px red;
 
-    }
-    .btn-success{
-      background-color: map-get($rules, 'btn--success-background-color');
-      color: map-get($rules, 'btn--success-font-color');
 
-    }
-    section#howto-works ul.howto-works-timeline .active .howto-works-pill a{
-      border-color: map-get($rules, 'howto--works-pill-border-color');
+    // .label.label-success.ng-binding {
 
-    }
-    .section-title{
-      color: map-get($rules, 'section__title--font-color');
+    // 	color: map-get($rules, 'font-color');
+    // }
+    // .navbar-divider{
+    //   background-image: map-get($rules, 'navbar--divider-img');
 
-    }
-    .social-buttons ul li{
-      background-color: map-get($rules,'social--buttons-background-color' );
+    // }
+    // .btn-success{
+    //   background-color: map-get($rules, 'btn--success-background-color');
+    //   color: map-get($rules, 'btn--success-font-color');
 
-    }
-    .social-buttons ul li a {
-      color: map-get($rules,'social--buttons-background-color' )!important;
-	}
-	a.tab-register .active {
-			background-color: map-get($rules, 'btn--success-background-color') !important;
+    // }
+    // section#howto-works ul.howto-works-timeline .active .howto-works-pill a{
+    //   border-color: map-get($rules, 'howto--works-pill-border-color');
 
-		}
+    // }
+    // .section-title{
+    //   color: map-get($rules, 'section__title--font-color');
+
+    // }
+    // .social-buttons ul li{
+    //   background-color: map-get($rules,'social--buttons-background-color' );
+
+    // }
+    // .social-buttons ul li a {
+    //   color: map-get($rules,'social--buttons-background-color' )!important;
+	// }
+	// a.tab-register .active {
+	// 		background-color: map-get($rules, 'btn--success-background-color') !important;
+
+	// 	}
 
 
   }

@@ -22,7 +22,7 @@ title:  Complete seu cadastro
             <i class="fi flaticon-curriculum-1"></i> Projetos prioritários
           </a>
         </div>
-        
+
         <div class="side-panel">
           <h3>Status do preenchimento</h3>
           <div class="progress">
@@ -59,12 +59,14 @@ title:  Complete seu cadastro
           </p>
         </div>
 
-
-        <div id="show-boleto" class="side-panel hide">
+<!-- TODO: Recolocar no dia (a partir de 15/08)
+        <div class="side-panel hide" id="show-boleto">
           <h3>Gerar Boleto</h3>
-          <p><a href="/cadastro/boleto" target="_blank" title="Gerar boleto"><img src="/images/candidatos/votolegal2-barcode.png" alt="Código de Barras" class="img-responsive" style="opacity: 0.4;"></a></p>
-          <p><a href="/cadastro/boleto" target="_blank" title="Gerar boleto" class="btn btn-block btn-success"> <i class="fa fa-barcode"></i> Gerar boleto</a></p>
+          <p><a href="/cadastro/boleto" title="Gerar boleto" target="_blank"><img class="img-responsive" src="/images/candidatos/votolegal2-barcode.png" alt="Código de Barras" style="opacity: 0.4;"></a></p>
+          <p><a class="btn btn-block btn-success" href="/cadastro/boleto" title="Gerar boleto" target="_blank"> <i class="fa fa-barcode"></i> Gerar boleto</a></p>
         </div>
+ -->
+
 
         <div class="side-panel">
           <h3>Visualize o template do perfil do candidato</h3>
@@ -93,7 +95,7 @@ title:  Complete seu cadastro
       this.settab   = function(t){
         var list = document.querySelectorAll('a.tab-register-default');
         for (var i in list) if(list[i].classList) list[i].classList.remove('active');
-        
+
         var tab = document.querySelector('a.tab-register-default[data-tabname='+t+']');
         if(tab) tab.classList.add('active');
       };
@@ -108,7 +110,7 @@ title:  Complete seu cadastro
     });
 
     // check if browser has hashchange
-    if (! "onhashchange" in window) 
+    if (! "onhashchange" in window)
       console.error("The browser supports the hashchange event!");
 
     window.onhashchange = function(){

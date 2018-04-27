@@ -1,13 +1,18 @@
 /**
  * Candidate Controller
  */
-app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
+app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $rootScope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
   var load   = document.querySelector('#loading');
 
-  console.log(window.location, 'location')
   var locationHost = window.location.host;
+$scope.theme = '';
+  $scope.choiceTheme = function(){
 
+	$rootScope.rootTheme = $scope.theme;
 
+    console.log( $rootScope.rootTheme)
+
+  }
 
   // defaults
   $scope.candidate  = {};
