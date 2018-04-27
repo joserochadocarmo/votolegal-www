@@ -66,13 +66,17 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
   $scope.dataForm  = '';
   $scope.urlBoleto = null;
   $scope.waitResponseCertiSign = false;
-  $scope.responseResponseCertiSign = false;
-
+  $scope.responseResponseCertiSign = false;	$scope.donateServiceStatus = false;
   $rootScope.theme = '';
 
   $scope.choiceTheme = function(){
 
     console.log( $rootScope.theme)
+
+  }
+
+  $scope.donationService =  function(){
+	$scope.donateServiceStatus = !$scope.donateServiceStatus;
 
   }
 
@@ -725,7 +729,8 @@ $scope.teste = function(event){
               }
 
               // format amount
-              params.amount = parseInt((params.amount * 100));
+			  params.amount = parseInt((params.amount * 100));
+			  params.method = $scope.paymentMethodDonate;
 
 
               // send to backend
@@ -738,7 +743,9 @@ $scope.teste = function(event){
               then(function(response){
                 document.location = '#/doar/success';
               }, function(response){
-                $scope.error_list = [];
+				$scope.error_list = [];
+
+				console.log(response, 'achei')
 
                 if(response && response.data && response.data.form_error){
                   var res = response.data.form_error;
