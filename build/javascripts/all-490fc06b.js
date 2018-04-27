@@ -5202,7 +5202,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 		$scope.error_list = [];
 		var params = $scope.campaign_params();
-		console.log(params);
+		console.log(params, 'ss');
 
 		var user = auth_service.current_user();
 		params.api_key = user.api_key;
@@ -5214,17 +5214,30 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				url: BASE_API_JS + '/candidate/' + user.id + "?api_key=" + user.api_key,
 				data: params,
 				headers: {
+					//# 'Content-Type': 'application/x-www-form-urlencoded'
 					'Content-Type': undefined
 				},
 				transformRequest: function (data) {
 					var fd = new FormData();
+					console.log(fd, 'file data', data)
+
 					for (var p in data) fd.append(p, data[p]);
+
 					// add file to form_data
+					/*
+					CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
+
 					var file_field = document.querySelector('input[name=spending_spreadsheet]');
+					console.log(file_field, 'file')
 					if (file_field.files.length > 0) {
+						console.log(file_field, 'file')
 						var file = file_field.files[0];
 						fd.append("spending_spreadsheet", file, file.name);
 					}
+					*/
+					console.log(fd, 'file data', data)
+
+
 					return fd;
 				}
 			}).then(function (response) {
@@ -5383,24 +5396,46 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.candidate_params = function () {
 		return Params
 			.require($scope.candidate)
-			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code')
+			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf')
+
+
+		/* CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
+		.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code')
+		*/
 	};
 
 	$scope.campaign_params = function () {
+		/*
+		 TODO: Recolocar no dia (a partir de 15/08)
+
 		var selected_list = $scope.issue_list.filter(function (i) {
 			if (i.selected) return true;
 		});
 
 		var list = [];
 		for (var i in selected_list) list.push(selected_list[i].id);
+		*/
+
 
 		// fallback for decimal number
 		var raising_goal_field = 0.0;
 		if ($scope.candidate.raising_goal && $scope.candidate.raising_goal !== undefined) {
+
 			raising_goal_field = parseFloat($scope.candidate.raising_goal || 0);
-			if (raising_goal_field.toString().indexOf('.') != -1) raising_goal_field += '.00';
+
+
+			/*
+			if (raising_goal_field.toString().indexOf('.') != -1)	{
+					raising_goal_field += '.00';
+					console.log(raising_goal_field, 'in if')
+
+				}
+				*/
 		}
 
+
+		/*
+		   TODO: Recolocar no dia (a partir de 15/08)
 		var p = {
 			raising_goal: raising_goal_field,
 			issue_priorities: list.join(','),
@@ -5409,10 +5444,21 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			merchant_key: $scope.candidate.merchant_key,
 			crawlable: $scope.candidate.crawlable || 'false'
 		};
-
 		return Params
 			.require(p)
 			.permit('raising_goal', 'issue_priorities', 'merchant_key', 'merchant_id', 'payment_gateway_id', 'crawlable');
+		*/
+
+		var p = {
+			raising_goal: raising_goal_field,
+			crawlable: $scope.candidate.crawlable || 'false'
+		};
+
+		console.log(Params, 'param')
+
+		return Params
+			.require(p)
+			.permit('raising_goal', 'crawlable');
 	};
 
 	$scope.projects_params = function () {
