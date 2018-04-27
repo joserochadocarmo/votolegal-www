@@ -65,7 +65,7 @@
           <h4 class="text-success" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">Meta</h4>
           <p class="raising-goal" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">{{candidate.raising_goal.toFixed(2) | currency}}</p>
 
-          <p><a class="btn btn-success btn-lg btn-block btn-donate" href="#/doar">Doar</a></p>
+          <p><a class="btn btn-success btn-lg btn-block btn-donate" href="#/doar">Participe</a></p>
         </div>
       </div>
 
@@ -139,8 +139,11 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="alert alert-success">
-                      <p>Total gasto</p>
-                      <strong style="font-size:24px">{{ (expenditures.total_amount/100) || 0.0  | currency }}</strong>
+
+					  <strong> Esta informação manterei durante o período de campanha</strong>
+					  <!-- TODO: Recolocar no dia (a partir de 15/08)
+						  <p>Total gasto</p>
+						<strong style="font-size:24px">{{ (expenditures.total_amount/100) || 0.0  | currency }}</strong> -->
                     </div>
                   </div>
                   <div class="col-md-12">
