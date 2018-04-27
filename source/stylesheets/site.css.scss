@@ -534,14 +534,6 @@ section#pre-candidate {
 
 section#contact {}
 
-section#estatistica {
-	text-align: left !important;
-	h2 {
-		color: #999;
-		font-size: 22px;
-	}
-}
-
 div.header-filter {
 	margin-top: -20px;
 	text-align: center;
@@ -1683,47 +1675,6 @@ input[name="theme"] {
 	border-left: solid 5px #4eaa5b;
 }
 
-.estatistica {
-	border-left: solid 5px #379040;
-	min-height: 0;
-	.panel-body {
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-box-align: center;
-		-ms-flex-align: center;
-		align-items: center;
-		min-height: 86px;
-	}
-	.green & {
-		background: #4eab5b;
-		color: #fff;
-		p {
-			color: rgb(176, 255, 190);
-		}
-	}
-	h3 {
-		font-size: 30px;
-		font-weight: 300;
-		margin: 0;
-		text-align: right;
-		-webkit-box-flex: 1;
-		-ms-flex: 1;
-		flex: 1;
-	}
-	p {
-		color: #4eaa5b;
-		margin: 0;
-		max-width: 50%;
-		-webkit-box-flex: 1;
-		-ms-flex: 1;
-		flex: 1;
-		strong {
-			font-weight: 300;
-			vertical-align: middle;
-		}
-	}
-}
 
 $class-change: ( 'class1': ( 'font-color':#fff,
 'links---font-color': #fff,
