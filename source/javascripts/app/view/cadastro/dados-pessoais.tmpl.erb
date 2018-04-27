@@ -41,12 +41,12 @@
         <small>Sua imagem deve ter o tamanho máximo de <code>1MB</code> e conter uma das seguintes extenções: <code>.jpg</code>, <code>.png</code>, <code>.gif</code> ou <code>.bmp</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="video_url">URL Candidato</label>*
+        <label for="candidate_url">URL Candidato</label>*
         <i class="fa fa-user"></i>
-        <input class="form-control" type="text" value="https://votolegal.com.br/em/{{candidate.username}}" disabled>
+        <input name="candidate_url" class="form-control" type="text" value="https://votolegal.com.br/em/{{candidate.username}}" disabled>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="video_url">CNPJ do Candidato</label>*
+        <label for="cnpj">CNPJ do Candidato</label>*
         <i class="fa fa-user"></i>
         <input class="form-control" type="text" name="cnpj" ng-model="candidate.cnpj" mask="99.999.999/9999-99" mask-restrict="reject" required>
       </div>
