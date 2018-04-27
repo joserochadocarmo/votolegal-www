@@ -31,7 +31,7 @@
 		<i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i><br>
 	</div>
 	
-<main class="home-page__main">
+<main class="home-page__main" ng-controller="AuthController">
 <form name="signinForm" class="login-form angular-form" ng-submit="authenticate(signinForm.$valid)" novalidate="novalidate">		<p class="text-center">
 			<input type="text" class="form-control" name="email" ng-model="signin.email" placeholder="E-mail" autofocus required>
 		</p>
