@@ -1,5 +1,5 @@
 
-<main class="home-page__main">
+<main class="home-page__main" ng-controller="AuthController">
 	<% content_tag :form, name: 'signinForm', class: 'login-form angular-form', 'ng-submit' => "authenticate(signinForm.$valid)", novalidate: '' do %>
 		<p class="text-center">
 			<input type="text" class="form-control" name="email" ng-model="signin.email" placeholder="E-mail" autofocus required>
