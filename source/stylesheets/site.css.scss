@@ -32,6 +32,8 @@ $verde-escuro: #29673e;
 
 html {
 	@include font-normal();
+
+	height: 100%;
 }
 
 body {
@@ -39,6 +41,7 @@ body {
 	color: $txt_color;
 	background-color: $bg_color;
 	margin-top: 62px;
+	height: 100%;
 }
 
 .container-fluid {
@@ -327,37 +330,92 @@ section#howto-works {
 	width: 150px;
 }
 
-section#media {
-	padding: 40px 0px;
-	background: linear-gradient( #e5e5e5, #ffffff);
-	@media all and ($max-screen: 991px) {
-		text-align: center;
+/* home styles */
+body.index {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	background-image: url('/images/home/bg-art-01--445w.jpg');
+	background-position: 50% 6em;
+	background-repeat: no-repeat;
+
+	@media screen and (min-width: 768px) {
+		background-image: url('/images/home/bg-art-01.jpg');
 	}
-	h2 {
-		color: #999999
+
+	@media screen and (min-height: 1024px) {
+		background-position: 50% 50%;
 	}
-	img {
-		border: none;
-		background-color: transparent !important;
-		.img-thumbnail {
-			border: none;
-		}
+
+	@media screen and (min-width: 1024px) {
+		background-image: url('/images/home/foto-bg-destaque-art--1024w.jpg');
+		background-position: 100% 100%;
 	}
-	.carousel-control.left,
-	.carousel-control.right {
-		background-image: none;
-		background-repeat: no-repeat;
-		opacity: 1;
-	}
-	.carousel-control.left {
-		background-image: url(../images/home/before.png);
-		background-position: left center;
-	}
-	.carousel-control.right {
-		background-image: url(../images/home/after.png);
-		background-position: right center;
+
+	@media screen and (min-width: 1280px) {
+		background-image: url('/images/home/foto-bg-destaque-art.jpg');
 	}
 }
+
+.home-page__main {
+	flex: 1 0 auto;
+	position: relative;
+}
+
+.site-label {
+	padding: 15px 60px;
+	max-width: 100%;
+	width: 260px;
+
+	@media screen and (min-height: 768px) {
+		width: 300px;
+		margin-top: 3rem;
+	}
+}
+
+.site-label a {
+	display: block;
+	padding: 0;
+	direction: ltr;
+	text-indent: -105%;
+	overflow: hidden;
+	background-image: url('/images/logo-votolegal.svg');
+	background-repeat: no-repeat;
+	width: 21.428571428571427em;
+	height: 0;
+	padding-bottom: #{92 / 300 * 100%};
+	width: 100%;
+
+	@media screen and (min-width: 768px) {
+		margin-left: 0;
+	}
+}
+
+
+.login-form {
+	background-color: white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 1.4285714285714286em;
+	box-shadow: 0 30px 60px rgba(30, 130, 80, 0.3);
+	max-width: 30em;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 2em;
+	min-width: 18.571428571428573em;
+
+	@media screen and (min-width: 768px) {
+		padding: 4em;
+	}
+}
+
+.login-form p:last-child {
+	margin-bottom: 0;
+}
+
 
 /* footer style */
 
@@ -1781,6 +1839,11 @@ input[type=checkbox].contract-ckeck {
 	font-size: 1.5rem;
 }
 
+.col-centered {
+	float: none;
+	margin-right: auto;
+	margin-left: auto;
+}
 @import 'choicecolors.scss';
 
 

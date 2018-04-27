@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="votolegal">
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width">
+	<title><%= current_page.data.title ? "VotoLegal - #{current_page.data.title}" : "VotoLegal" %></title>
+	<link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<%= stylesheet_link_tag "all.css" %>
+
+	<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="<%= page_classes %>" data-controller="<%= current_page.data.controller %>" data-action="<%= current_page.data.action %>">
+	<div class="container">
+		<header class="site-label row">
+			<a href="https://votolegal.com.br/" class="col-md-2">
+				Participe do Voto Legal
+			</a>
+		</header>
+	</div>
+	<div id="loading" class="load-backdrop" style="display: none">
+		<i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i><br>
+	</div>
+	<%= yield %>
+
+	<!-- styles -->
+	<%= stylesheet_link_tag "sweetalert" %>
+
+	<!-- javascript -->
+	<%# javascript_include_tag 'classList.min.js'%>
+	<%# javascript_include_tag 'sweetalert.js' %>
+	<%# javascript_include_tag 'underscore.min.js' %>
+	<%# javascript_include_tag 'angular.all.js' %>
+	<%# javascript_include_tag 'jquery.min.js' %>
+	<%# javascript_include_tag 'bootstrap.min.js' %>
+	<%= javascript_include_tag 'all' %>
+
+	<!-- image plugin -->
+	<%= stylesheet_link_tag 'ekko-lightbox.css' %>
+	<%= javascript_include_tag 'ekko-lightbox.min.js' %>
+
+	<script>
+		// TODO: colocar todo esse js em um arquivo separado
+		$(function(){
+
+			/**
+				* Change color of
+				*/
+			$('.howto-works-timeline').on('mouseover', '.howto-works-text, .howto-works-pill', function(){
+				$('.howto-works-timeline li').removeClass('active');
+				$(this).parent().addClass('active');
+			});
+
+			/**
+				* Faq chevrom image change
+				*/
+			$('#accordion').on('show.bs.collapse', function (e) {
+				$(e.target).parent().find('i.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+			});
+			$('#accordion').on('hide.bs.collapse', function (e) {
+				$(e.target).parent().find('i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+			});
+
+			// start popover elements
+			$('[data-toggle="popover"]').popover();
+
+			// delegate calls to data-toggle="lightbox"
+			$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+				event.preventDefault();
+				return $(this).ekkoLightbox({ always_show_close: true });
+			});
+
+		});
+	</script>
+
+	<script>
+		var $buoop = {vs:{i:8,f:25,o:12.1,s:7},c:2};
+		function $buo_f(){
+		var e = document.createElement("script");
+		e.src = "//browser-update.org/update.min.js";
+		document.body.appendChild(e);
+		};
+		try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+		catch(e){window.attachEvent("onload", $buo_f)}
+	</script>
+
+	<%= partial "partial/ga" %>
+	<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
+</body>
+</html>

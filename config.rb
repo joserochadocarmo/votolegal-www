@@ -12,7 +12,7 @@ page '/admin/signin/index.html', layout: false
 
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
-#page 'index.html', layout: false
+page 'index.html', :layout => :home
 page "/admin/*.html", :layout => :admin
 page "/candidato/*.html", :layout => :candidato
 page '/error/config-error/index.html', layout: false
