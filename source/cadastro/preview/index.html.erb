@@ -77,16 +77,22 @@ title:  Pré-visualizaçao do perfil
             <input type="text" class="form-control" placeholder="Username" value="votolegal.com.br/em/" disabled>
             <span class="input-group-addon" id="basic-addon1">{{candidate.username}}</span>
 		  </div>
-		  <!-- <pre>
-		  </pre> -->
+		</div>
+		<div class="form-group">
 		  <div class="input-group">
-			  <label for="theme">Escolha a cor do tema</label>
-			  <input name="theme"  type="radio" value="" [ng-value]="" ng-model="theme" ng-click="choiceTheme()" >Default
-			  <input name="theme" type="radio" value="rosa" [ng-value]="rosa"  ng-model="theme" ng-click="choiceTheme()" >Rosa
-			  <input name="theme" type="radio" value="azul" [ng-value]="azul" ng-model="theme" ng-click="choiceTheme()" >Azul
-			  <input name="theme" type="radio" value="verde" [ng-value]="verde" ng-model="theme" ng-click="choiceTheme()" >Verde
-			  <input name="theme" type="radio" value="vermelho" [ng-value]="vermelho" ng-model="theme" ng-click="choiceTheme()" >Vermelho
+			<p>Escolha a cor do tema</p>
 
+			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				<label for="theme--default" class="btn btn-success active">
+					<input id="theme--default" name="theme" type="radio" value="default" ng-model="theme" ng-click="choiceTheme()" >Padrão
+				</label>
+				<label for="theme--blue" class="btn btn-primary">
+					<input id="theme--blue" name="theme" type="radio" value="blue" ng-model="theme" ng-click="choiceTheme()" >Azul
+				</label>
+				<label for="theme--red" class="btn btn-danger">
+					<input id="theme--red" name="theme" type="radio" value="red" ng-model="theme" ng-click="choiceTheme()" >Vermelho
+				</label>
+			</div>
 		  </div>
         </div>
       </div>
