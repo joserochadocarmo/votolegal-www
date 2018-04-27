@@ -187,6 +187,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				$scope.submit_disabled = false;
 				$scope.check_percent();
 			}, function (response) {
+
 				var res = response;
 
 				// send generic error
@@ -199,9 +200,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 					SweetAlert.swal('Erro ao salvar os dados!');
 					return false
 				}
-
 				res = response.data.form_error;
-
 				var f = function (field) {
 					return document.querySelector('form[name=candidateForm] label[for=' + field + ']');
 				};
