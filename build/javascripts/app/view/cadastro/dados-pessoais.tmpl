@@ -44,10 +44,11 @@
         <i class="fa fa-user"></i>
         <input name="candidate_url" class="form-control" type="text" value="https://votolegal.com.br/em/{{candidate.username}}" disabled>
       </div>
-      <div class="form-group icon-left icon-with-label col-md-12">
+      <!-- TODO: Recolocar no dia (a partir de 15/08)
+		  <div class="form-group icon-left icon-with-label col-md-12">
         <label for="cnpj">CNPJ do Candidato</label>*
         <i class="fa fa-user"></i>
-        <input class="form-control" type="text" name="cnpj" ng-model="candidate.cnpj" mask="99.999.999/9999-99" mask-restrict="reject" required>
+        <input class="form-control" type="text" name="cnpj" ng-model="candidate.cnpj" mask="99.999.999/9999-99" mask-restrict="reject" required> -->
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="video_url">Link do video (youtube ou vimeo)</label>*
@@ -105,18 +106,21 @@
         <label for="responsible_email">E-mail do responsável pelo cadastro</label>
         <i class="fa fa-envelope"></i>
         <input class="form-control" type="text" name="responsible_email" ng-model="candidate.responsible_email">
-      </div>
+	  </div>
 
 
+<!-- TODO: Recolocar no dia (a partir de 15/08)
       <div class="form-group col-md-12">
         <h3 class="text-success">Dados da Conta Bancária</h3>
         <small>Dados da conta bancária do candidato para prestação de contas</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="bank_code">Banco</label>
-        <select id="bank" name="bank_code" ng-model="candidate.bank_code" class="form-control" ng-options="item.id as item.name for item in bank_list">
+        <select class="form-control" id="bank" name="bank_code" ng-model="candidate.bank_code" ng-options="item.id as item.name for item in bank_list">
         </select>
       </div>
+
+
 
 
       <div class="form-group icon-left icon-with-label col-md-8">
@@ -141,7 +145,7 @@
         <input class="form-control" type="text" name="bank_account_dv" placeholder="0" ng-model="candidate.bank_account_dv" mask="%" mask-repeat="10" mask-restrict="reject" mask-validate="false" mask-clean="true">
       </div>
 
-
+ -->
 
       <div class="form-group col-md-12" ng-init="submit_disabled = false">
         <p class="text-right">

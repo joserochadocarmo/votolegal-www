@@ -21,13 +21,14 @@
         <div class="text-danger" ng-if="issue_list.lenght">
           Não foi possível carregar a lista de assuntos.
         </div>
-        <div class="col-md-6" style="font-size:12px;" ng-repeat="i in issue_list | orderBy: '+name'">
+        <!-- TODO: Recolocar no dia (a partir de 15/08)
+			<div class="col-md-6" style="font-size:12px;" ng-repeat="i in issue_list | orderBy: '+name'">
           <div class="checkbox">
             <label>
               <input type="checkbox" ng-model="i.selected" ng-change="count_checked(this)" value="{{i.id}">&nbsp; {{i.name}}
             </label>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <small class="help-block">Caso não encontre um assunto de sua preferência, por favor entre em contato conosco através do e-mail: <a href="mailto:contato@votolegal.com.br">contato@votolegal.com.br</a>.</small>
@@ -41,7 +42,9 @@
       </div>
 
 
-      <div class="form-group col-md-12">
+      <!-- TODO: Recolocar no dia (a partir de 15/08)
+
+		<div class="form-group col-md-12">
         <label>Planilhar simplificada de gastos da campanha</label>
         <span class="help-block">Envie sua <em class="text-warning">planilha simplificada</em> de orçamento de campanha que justifique sua meta para arrecadação.</span>
       </div>
@@ -50,16 +53,21 @@
         <div class="input-group image-preview">
         <input type="text" class="form-control image-preview-filename spending_spreadsheet_filename" value="{{candidate.spending_spreadsheet}}" disabled="disabled">
           <span class="input-group-btn">
-            <!-- image-preview-input -->
+
             <div class="btn btn-default image-preview-input">
               <span class="fa fa-folder"></span>
               <span class="image-preview-input-title">Escolher Arquivo</span>
-              <input type="file" name="spending_spreadsheet" ng-model="candidate.spending_spreadsheet" onchange="angular.element(this).scope().change_filename('spending_spreadsheet')" /> <!-- rename it -->
+			  <input type="file" name="spending_spreadsheet" ng-model="candidate.spending_spreadsheet" onchange="angular.element(this).scope().change_filename('spending_spreadsheet')" />
+
             </div>
           </span>
         </div>
       </div>
-    </div>
+	</div>
+	-->
+
+<!--
+
     <div class="row">
       <div class="form-group col-md-12">
         <h3 class="text-success">Terminal de captura</h3>
@@ -95,7 +103,9 @@
       </div>
 
     </div>
-    <div class="row">
+  -->
+
+	<div class="row">
       <div class="form-group col-md-12">
         <h3 class="text-success">Sincronizar com TSE</h3>
         <small>Você pode permitir que o VotoLegal utilize os dados do TSE para dar mais transparência as informações de doações da sua campanha.</small>

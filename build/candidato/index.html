@@ -11,7 +11,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
   <link href="/stylesheets/bootstrap.min-ff00d0a6.css" rel="stylesheet" />
-  <link href="/stylesheets/site-4b81038b.css" rel="stylesheet" />
+  <link href="/stylesheets/site-14c13df6.css" rel="stylesheet" />
   <link href="/stylesheets/font-awesome.min-3c43a9b6.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-0eb48cf0.css" rel="stylesheet" />
 
@@ -34,9 +34,10 @@
 
       <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
-
+{{ rootTheme}}ss
 <section id="candidate" ng-controller="CandidateController">
-  <div class="candidate-header container">
+
+  <div class="candidate-header container " >
     <div class="row">
       <div class="col-md-12 col-xs-12 text-center hidden-lg hidden-md hidden-sm" style="min-height:175px;">
         <img ng-src="{{candidate.picture || '/images/candidatos/user_general-37bc8bd3.jpg'}}" class="img-circle" width="175px" height="175px" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}">
@@ -49,8 +50,9 @@
         </h1>
         <p class="assuntos">{{candidate.issues_decorator}}</p>
         <p class="cidade">
-          <span class="label label-success">{{(candidate.office_id === 1? 'Prefeito' : (candidate.office_id === 2? 'Vereador' : (candidate.office_id === 3? 'Vice-prefeito' : ''))) }}</span>
-          {{candidate.address_city}} - {{candidate.address_state}} - CNPJ: {{candidate.cnpj}}
+		  <span class="label label-success">{{(candidate.office_id === 1? 'Prefeito' : (candidate.office_id === 2? 'Vereador' : (candidate.office_id === 3? 'Vice-prefeito' : ''))) }}</span>
+		<!-- CNPJ:  TODO: Recolocar no dia (a partir de 15/08) -->
+         {{candidate.address_city}} - {{candidate.address_state}} - cpf: {{candidate.cpf}}
         </p>
       </div>
       <div class="col-md-6 col-sm-4 text-right hidden-xs">
@@ -114,7 +116,7 @@
     <!-- javascript -->
 
 
-    <script src="/javascripts/all-f20d2cbc.js"></script>
+    <script src="/javascripts/all-a4cb3bed.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

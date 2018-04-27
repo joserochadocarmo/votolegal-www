@@ -8,7 +8,7 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-  <link href="/stylesheets/all-8e61d1ea.css" rel="stylesheet" />
+  <link href="/stylesheets/all-19deca6f.css" rel="stylesheet" />
 
   <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -111,7 +111,7 @@
             <i class="fi flaticon-curriculum-1"></i> Projetos prioritários
           </a>
         </div>
-        
+
         <div class="side-panel">
           <h3>Status do preenchimento</h3>
           <div class="progress">
@@ -148,12 +148,14 @@
           </p>
         </div>
 
-
-        <div id="show-boleto" class="side-panel hide">
+<!-- TODO: Recolocar no dia (a partir de 15/08)
+        <div class="side-panel hide" id="show-boleto">
           <h3>Gerar Boleto</h3>
-          <p><a href="/cadastro/boleto" target="_blank" title="Gerar boleto"><img src="/images/candidatos/votolegal2-barcode-57d99cbe.png" alt="Código de Barras" class="img-responsive" style="opacity: 0.4;"></a></p>
-          <p><a href="/cadastro/boleto" target="_blank" title="Gerar boleto" class="btn btn-block btn-success"> <i class="fa fa-barcode"></i> Gerar boleto</a></p>
+          <p><a href="/cadastro/boleto" title="Gerar boleto" target="_blank"><img class="img-responsive" src="/images/candidatos/votolegal2-barcode-57d99cbe.png" alt="Código de Barras" style="opacity: 0.4;"></a></p>
+          <p><a class="btn btn-block btn-success" href="/cadastro/boleto" title="Gerar boleto" target="_blank"> <i class="fa fa-barcode"></i> Gerar boleto</a></p>
         </div>
+ -->
+
 
         <div class="side-panel">
           <h3>Visualize o template do perfil do candidato</h3>
@@ -182,7 +184,7 @@
       this.settab   = function(t){
         var list = document.querySelectorAll('a.tab-register-default');
         for (var i in list) if(list[i].classList) list[i].classList.remove('active');
-        
+
         var tab = document.querySelector('a.tab-register-default[data-tabname='+t+']');
         if(tab) tab.classList.add('active');
       };
@@ -197,7 +199,7 @@
     });
 
     // check if browser has hashchange
-    if (! "onhashchange" in window) 
+    if (! "onhashchange" in window)
       console.error("The browser supports the hashchange event!");
 
     window.onhashchange = function(){
@@ -250,7 +252,7 @@
     <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
     <!-- javascript -->
-    <script src="/javascripts/all-f20d2cbc.js"></script>
+    <script src="/javascripts/all-a4cb3bed.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

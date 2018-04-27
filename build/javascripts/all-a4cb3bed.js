@@ -5247,8 +5247,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 				// setting error message
 				for (var field in res) {
-					var name = f(field).innerText;
-					$scope.error_list.push(name + error_msg(res[field]));
+					if ( f(field) != null ){
+						var name = f(field).innerText;
+						$scope.error_list.push(name + error_msg(res[field]));
+					}
 				}
 
 				// enable submit
@@ -5611,7 +5613,7 @@ if(!(/^https:\/\/participe.votolegal.com.br/.test(currentURL.origin)) && /\?.?&?
 /**
  * Candidate Controller
  */
-app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "certi_face_token","SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $http, $sce, $route, $routeParams, $location, serialize, auth_service,certi_face_token, SweetAlert, payment_doacao, trouble, postmon){
+app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "certi_face_token","SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $rootScope,$http, $sce, $route, $routeParams, $location, serialize, auth_service,certi_face_token, SweetAlert, payment_doacao, trouble, postmon){
   var load   = document.querySelector('#loading');
 
 
@@ -5631,6 +5633,14 @@ app.votolegal.controller('CandidateController', ["$scope", "$http", "$sce", "$ro
   $scope.urlBoleto = null;
   $scope.waitResponseCertiSign = false;
   $scope.responseResponseCertiSign = false;
+
+  $rootScope.theme = '';
+
+  $scope.choiceTheme = function(){
+
+    console.log( $rootScope.theme)
+
+  }
 
   // payment
   $scope.paymentMethodDonate = null,
@@ -6716,6 +6726,7 @@ app.votolegal.controller('DefaultController', ["$scope", "$http", "auth_service"
 
   auth_service.validate_user({role: 'user'});
 }]);
+
 (function() {
   this.VotoLegal = this.VotoLegal || {};
 
@@ -7607,13 +7618,18 @@ app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serializ
  * Candidate Controller
  */
 
-app.votolegal.controller('PreviewController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
+app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $rootScope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
   var load   = document.querySelector('#loading');
 
-  console.log(window.location, 'location')
   var locationHost = window.location.host;
+$scope.theme = '';
+  $scope.choiceTheme = function(){
 
+	$rootScope.rootTheme = $scope.theme;
 
+    console.log( $rootScope.rootTheme)
+
+  }
 
   // defaults
   $scope.candidate  = {};

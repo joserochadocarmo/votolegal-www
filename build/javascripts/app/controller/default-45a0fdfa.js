@@ -11,3 +11,4 @@ app.votolegal.controller('DefaultController', ["$scope", "$http", "auth_service"
 
   auth_service.validate_user({role: 'user'});
 }]);
+

@@ -287,8 +287,10 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 				// setting error message
 				for (var field in res) {
-					var name = f(field).innerText;
-					$scope.error_list.push(name + error_msg(res[field]));
+					if ( f(field) != null ){
+						var name = f(field).innerText;
+						$scope.error_list.push(name + error_msg(res[field]));
+					}
 				}
 
 				// enable submit
