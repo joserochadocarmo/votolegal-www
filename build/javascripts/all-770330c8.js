@@ -6423,7 +6423,6 @@ app.votolegal.controller("ContractController", [
 				var response = contract_service
 					.contract($scope.user )
 					.success(function(data) {
-						console.log("sucesss", data);
 
 						if(data.id > 0){
 							document.location = "/pagamento";
@@ -6431,7 +6430,6 @@ app.votolegal.controller("ContractController", [
 						}
 					})
 					.error(function(data) {
-						console.log("error", data);
 						$scope.error_list = 'Você já confirmou o contrato'
 						if (data.form_error.user_id.length > 0) {
 							setTimeout(function () {
