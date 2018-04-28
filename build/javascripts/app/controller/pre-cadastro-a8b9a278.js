@@ -11,7 +11,7 @@ var userLocal = localStorage.getItem('user');
 
 
   if(userLocal){
-	  window.location = 'cadastro-completo/#/dados-pessoais'
+	  window.location = '/cadastro-completo'
   }
 
   // getting form params
