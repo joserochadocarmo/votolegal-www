@@ -4358,7 +4358,7 @@ app = window.app || {};
 
     $scope.logout = function(){
 	  auth_service.logout('/');
-	  localstorage.removeItem('userId');
+	  localStorage.removeItem('userId');
       return false;
     };
   }]);
@@ -4522,18 +4522,20 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 			if (res.paid == 0 && res.signed_contract == 0 && res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/contrato';
-				localStorage.removeItem('paymentRedirect')
 
-			}else if (res.paid == 0 && res.signed_contract == 1 && res.payment_created == 0) {
+
+			}else if (res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/pagamento';
-				localStorage.removeItem('paymentRedirect')
-			}else if(res.paid == 0 && res.signed_contract == 1 && res.payment_created == 1){
-				localStorage.setItem('paymentRedirect', 1)
+
+			}else if(res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 1){
+
+				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/pagamento/analise';
 
 			}else if(res.paid == 1 && res.signed_contract == 1 && res.payment_created == 1){
-				localStorage.removeItem('paymentRedirect')
+
+				localStorage.removeItem('userId')
 				// save session
 				var session = auth_service.session();
 				session.set(
@@ -6412,7 +6414,8 @@ app.votolegal.controller("ContractController", [
 		$scope.error_list = '';
 		$scope.confirmContract = false;
 
-		$scope.user = (JSON.parse(localStorage.getItem("user"))) ? JSON.parse(localStorage.getItem("user")) : localStorage.getItem("userId");
+
+		$scope.user = localStorage.getItem("userId");
 
 		$scope.confirm = function() {
 			console.log($scope.confirmContract, $scope.error, $scope.user)
@@ -6851,9 +6854,9 @@ app.votolegal.controller("PaymentController", [
 	) {
 
 
-	if (JSON.parse(localStorage.getItem("user") !== null) && localStorage.getItem("userId") == null && localStorage.getItem('paymentRedirect') == null ){
+	if (localStorage.getItem("userId") == null  ){
 			document.location = "/";
-		}else if (document.location.pathname == '/pagamento'){
+		}
 
 
 		$scope.candidate = {
@@ -7067,7 +7070,7 @@ app.votolegal.controller("PaymentController", [
 			}
 		}
 
-		}
+
 
 	}]);
 /**
@@ -7078,6 +7081,13 @@ app.votolegal.controller("PaymentController", [
 app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon', 'serialize', function($scope, $http, postmon, serialize){
   $scope.candidate = {};
   $scope.submit_disabled = false;
+
+var userLocal = localStorage.getItem('user');
+
+
+  if(userLocal){
+	  window.location = 'cadastro-completo/#/dados-pessoais'
+  }
 
   // getting form params
   $scope.register_params = function(){

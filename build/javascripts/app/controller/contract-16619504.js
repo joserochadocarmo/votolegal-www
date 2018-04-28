@@ -25,7 +25,8 @@ app.votolegal.controller("ContractController", [
 		$scope.error_list = '';
 		$scope.confirmContract = false;
 
-		$scope.user = (JSON.parse(localStorage.getItem("user"))) ? JSON.parse(localStorage.getItem("user")) : localStorage.getItem("userId");
+
+		$scope.user = localStorage.getItem("userId");
 
 		$scope.confirm = function() {
 			console.log($scope.confirmContract, $scope.error, $scope.user)

@@ -7,6 +7,13 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
   $scope.candidate = {};
   $scope.submit_disabled = false;
 
+var userLocal = localStorage.getItem('user');
+
+
+  if(userLocal){
+	  window.location = 'cadastro-completo/#/dados-pessoais'
+  }
+
   // getting form params
   $scope.register_params = function(){
     return $scope.candidate;
