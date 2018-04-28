@@ -29,7 +29,7 @@ app.votolegal.controller("ContractController", [
 		$scope.user = localStorage.getItem("userId");
 
 		$scope.confirm = function() {
-			console.log($scope.confirmContract, $scope.error, $scope.user)
+
 			if ($scope.confirmContract && $scope.error == false && $scope.user != null) {
 				var response = contract_service
 					.contract($scope.user )
@@ -41,11 +41,9 @@ app.votolegal.controller("ContractController", [
 						}
 					})
 					.error(function(data) {
-						$scope.error_list = 'Você já confirmou o contrato'
+
 						if (data.form_error.user_id.length > 0) {
-							setTimeout(function () {
-									document.location = "/";
-							}, 2000)
+							$scope.error_list = 'Você já confirmou o contrato tente logar para verificar em qual etapa você está'
 						}
 					});
 			} else if ($scope.user == null && $scope.error == true) {
