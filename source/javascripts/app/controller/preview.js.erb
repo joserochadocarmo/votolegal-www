@@ -1,16 +1,23 @@
 /**
  * Candidate Controller
  */
+
+
 app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $rootScope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
   var load   = document.querySelector('#loading');
 
   var locationHost = window.location.host;
 $scope.theme = '';
+
   $scope.choiceTheme = function(){
+	  alert()
 
-	$rootScope.rootTheme = $scope.theme;
+// console.log(window.location, 'locatino')
 
-    console.log( $rootScope.rootTheme)
+
+
+//  	window.postMessage("hello there!", window.location.href );
+
 
   }
 

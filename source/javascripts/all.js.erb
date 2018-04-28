@@ -5,6 +5,7 @@
 
 
 
+
 // base uri
 var BASE_API = '<%= config[:api_host] %>';
 
@@ -609,7 +610,8 @@ app = window.app || {};
     };
 
     $scope.logout = function(){
-      auth_service.logout('/');
+	  auth_service.logout('/');
+	  localstorage.removeItem('userId');
       return false;
     };
   }]);

@@ -3752,6 +3752,7 @@ d.parent(".dropdown-menu").length&&(d=d.closest("li.dropdown").addClass("active"
 
 
 
+
 // base uri
 var BASE_API = '//dapi.votolegal.com.br/api';
 
@@ -4356,7 +4357,8 @@ app = window.app || {};
     };
 
     $scope.logout = function(){
-      auth_service.logout('/');
+	  auth_service.logout('/');
+	  localstorage.removeItem('userId');
       return false;
     };
   }]);
@@ -4517,20 +4519,20 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
 
-			if (res.paid == 0 && res.signed_contract == 0 && res.signed_contract == res.payment_created == 0) {
+			if (res.paid == 0 && res.signed_contract == 0 && res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/contrato';
 				localStorage.removeItem('paymentRedirect')
 
-			}else if (res.paid == 0 && res.signed_contract == 1 && res.signed_contract == res.payment_created == 0) {
+			}else if (res.paid == 0 && res.signed_contract == 1 && res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/pagamento';
 				localStorage.removeItem('paymentRedirect')
-			}else if(res.paid == 0 && res.signed_contract == 1 && res.signed_contract == res.payment_created == 1){
+			}else if(res.paid == 0 && res.signed_contract == 1 && res.payment_created == 1){
 				localStorage.setItem('paymentRedirect', 1)
 				document.location = '/pagamento/analise';
 
-			}else if(res.paid == 1 && res.signed_contract == 1 && res.signed_contract == res.payment_created == 1){
+			}else if(res.paid == 1 && res.signed_contract == 1 && res.payment_created == 1){
 				localStorage.removeItem('paymentRedirect')
 				// save session
 				var session = auth_service.session();
@@ -7262,16 +7264,23 @@ app.votolegal.controller('PreCandidateController', ["$scope", "$http", "serializ
  * Candidate Controller
  */
 
+
+
 app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $rootScope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
   var load   = document.querySelector('#loading');
 
   var locationHost = window.location.host;
 $scope.theme = '';
+
   $scope.choiceTheme = function(){
+	  alert()
 
-	$rootScope.rootTheme = $scope.theme;
+// console.log(window.location, 'locatino')
 
-    console.log( $rootScope.rootTheme)
+
+
+//  	window.postMessage("hello there!", window.location.href );
+
 
   }
 

@@ -8,7 +8,7 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-  <link href="/stylesheets/all-842e7913.css" rel="stylesheet" />
+  <link href="/stylesheets/all-0261c9f9.css" rel="stylesheet" />
 
   <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -160,21 +160,28 @@
 
       <div class="col-md-12">
         <div class="form-group">
-          <div class="input-group">
+		  <div class="input-group">
+		  <div class="teste" ng-click="choiceTheme()">dsads</div>
             <span class="input-group-addon" id="basic-addon1">http://</span>
             <input type="text" class="form-control" placeholder="Username" value="votolegal.com.br/em/" disabled>
             <span class="input-group-addon" id="basic-addon1">{{candidate.username}}</span>
 		  </div>
-		  <!-- <pre>
-		  </pre> -->
+		</div>
+		<div class="form-group">
 		  <div class="input-group">
-			  <label for="theme">Escolha a cor do tema</label>
-			  <input name="theme"  type="radio" value="" [ng-value]="" ng-model="theme" ng-click="choiceTheme()" >Default
-			  <input name="theme" type="radio" value="rosa" [ng-value]="rosa"  ng-model="theme" ng-click="choiceTheme()" >Rosa
-			  <input name="theme" type="radio" value="azul" [ng-value]="azul" ng-model="theme" ng-click="choiceTheme()" >Azul
-			  <input name="theme" type="radio" value="verde" [ng-value]="verde" ng-model="theme" ng-click="choiceTheme()" >Verde
-			  <input name="theme" type="radio" value="vermelho" [ng-value]="vermelho" ng-model="theme" ng-click="choiceTheme()" >Vermelho
+			<p>Escolha a cor do tema</p>
 
+			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				<label for="theme--default" class="btn btn-success active">
+					<input id="theme--default" name="theme" type="radio" value="default" ng-model="theme" ng-change="choiceTheme()" >Padrão
+				</label>
+				<label for="theme--blue" class="btn btn-primary">
+					<input id="theme--blue" name="theme" type="radio" value="blue" ng-model="theme" ng-change="choiceTheme()" >Azul
+				</label>
+				<label for="theme--red" class="btn btn-danger">
+					<input id="theme--red" name="theme" type="radio" value="red" ng-model="theme" ng-change="choiceTheme()" >Vermelho
+				</label>
+			</div>
 		  </div>
         </div>
       </div>
@@ -292,7 +299,7 @@
     <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
     <!-- javascript -->
-    <script src="/javascripts/all-02c6b8ed.js"></script>
+    <script src="/javascripts/all-a7371550.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
