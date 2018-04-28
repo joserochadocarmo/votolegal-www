@@ -611,7 +611,7 @@ app = window.app || {};
 
     $scope.logout = function(){
 	  auth_service.logout('/');
-	  localstorage.removeItem('userId');
+	  localStorage.removeItem('userId');
       return false;
     };
   }]);

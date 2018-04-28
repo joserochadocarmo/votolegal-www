@@ -33,9 +33,9 @@ app.votolegal.controller("PaymentController", [
 	) {
 
 
-	if (JSON.parse(localStorage.getItem("user") !== null) && localStorage.getItem("userId") == null && localStorage.getItem('paymentRedirect') == null ){
+	if (localStorage.getItem("userId") == null == null ){
 			document.location = "/";
-		}else if (document.location.pathname == '/pagamento'){
+		}
 
 
 		$scope.candidate = {
@@ -249,6 +249,6 @@ app.votolegal.controller("PaymentController", [
 			}
 		}
 
-		}
+
 
 	}]);

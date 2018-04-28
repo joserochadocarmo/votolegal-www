@@ -130,18 +130,20 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 			if (res.paid == 0 && res.signed_contract == 0 && res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/contrato';
-				localStorage.removeItem('paymentRedirect')
 
-			}else if (res.paid == 0 && res.signed_contract == 1 && res.payment_created == 0) {
+
+			}else if (res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/pagamento';
-				localStorage.removeItem('paymentRedirect')
-			}else if(res.paid == 0 && res.signed_contract == 1 && res.payment_created == 1){
-				localStorage.setItem('paymentRedirect', 1)
+
+			}else if(res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 1){
+
+				localStorage.setItem('userId', res.candidate_id)
 				document.location = '/pagamento/analise';
 
 			}else if(res.paid == 1 && res.signed_contract == 1 && res.payment_created == 1){
-				localStorage.removeItem('paymentRedirect')
+
+				localStorage.removeItem('userId')
 				// save session
 				var session = auth_service.session();
 				session.set(
