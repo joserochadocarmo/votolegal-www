@@ -5794,8 +5794,8 @@ $scope.teste = function(event){
             route: document.location.href, error: JSON.stringify(response)
           });
 
-          SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
-          throw new Error('Expenditures list is invalid or cannot be found!');
+        //  SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
+        //   throw new Error('Expenditures list is invalid or cannot be found!');
         }
       );
     }
@@ -7270,19 +7270,19 @@ app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", 
   var load   = document.querySelector('#loading');
 
   var locationHost = window.location.host;
-$scope.theme = '';
+// $scope.theme = '';
 
-  $scope.choiceTheme = function(){
-	  alert()
+//   $scope.choiceTheme = function(){
+// 	  alert()
 
-// console.log(window.location, 'locatino')
-
-
-
-//  	window.postMessage("hello there!", window.location.href );
+// // console.log(window.location, 'locatino')
 
 
-  }
+
+// //  	window.postMessage("hello there!", window.location.href );
+
+
+//   }
 
   // defaults
   $scope.candidate  = {};

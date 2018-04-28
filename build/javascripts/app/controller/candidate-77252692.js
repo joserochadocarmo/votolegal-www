@@ -386,8 +386,8 @@ $scope.teste = function(event){
             route: document.location.href, error: JSON.stringify(response)
           });
 
-          SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
-          throw new Error('Expenditures list is invalid or cannot be found!');
+        //  SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
+        //   throw new Error('Expenditures list is invalid or cannot be found!');
         }
       );
     }
