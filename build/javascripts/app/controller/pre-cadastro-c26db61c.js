@@ -17,12 +17,14 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
     var params = $scope.register_params();
     $scope.error_list = [];
 
+	/*
     if (!$scope.accept_terms && !$scope.transparent_campaign){
       if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
       if(!$scope.transparent_campaign) $scope.error_list.push("Você deve aceitar fazer uma campanha transparente.");
 
       return false;
-    }
+	}
+	*/
 
     // password confirmation error
     if(!$scope.candidate.password || ($scope.candidate.password != $scope.candidate.confirm_password)){
@@ -70,11 +72,13 @@ app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon',
         // password confirmation error
         if($scope.candidate.password && ($scope.candidate.password != $scope.candidate.confirm_password)){
           $scope.error_list.push("Os campos de senha devem ser iguais.");
-        }
+		}
+		/*
         if (!$scope.accept_terms && !$scope.transparent_campaign){
           if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
           if(!$scope.transparent_campaign) $scope.error_list.push("Você deve aceitar fazer uma campanha transparente.");
-        }
+		}
+		*/
 
         // enable submit
         $scope.submit_disabled = false;
