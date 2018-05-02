@@ -9,9 +9,11 @@ title:  Candidato(a)
   <!-- script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script -->
 <% end %>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+
 <section id="candidate" ng-controller="CandidateController">
 
-  <div class="candidate-header container " >
+
+  <div class="candidate-header container " ng-if="candidate " >
     <div class="row">
       <div class="col-md-12 col-xs-12 text-center hidden-lg hidden-md hidden-sm" style="min-height:175px;">
         <img ng-src="{{candidate.picture || '/images/candidatos/user_general.jpg'}}" class="img-circle" width="175px" height="175px" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}">
@@ -38,7 +40,7 @@ title:  Candidato(a)
       </div>
     </div>
   </div>
-	<div id="candidate-container" class="container-fluid degrade-default" ng-view>
+	<div id="candidate-container" class="container-fluid degrade-default"  ng-if="candidate" ng-view>
 		<h3 class="text-center text-muted">Carregando perfil do candidato...</h3>
 	</div>
 </section>

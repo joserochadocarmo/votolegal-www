@@ -3,38 +3,16 @@
  */
 
 
-app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $rootScope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
+app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", "$sce", "serialize", "auth_service", "edit_cadidate", "SweetAlert", "trouble", "postmon", function ($scope, $rootScope, $http, $sce, serialize, auth_service, edit_cadidate, SweetAlert, trouble, postmon){
   var load   = document.querySelector('#loading');
 
-  var locationHost = window.location.host;
-// $scope.theme = '';
-
-//   $scope.choiceTheme = function(){
-// 	  alert()
-
-// // console.log(window.location, 'locatino')
-
-
-
-// //  	window.postMessage("hello there!", window.location.href );
-
-
-//   }
-
   // defaults
-  $scope.candidate  = {};
-var BASE_API_JS = '';
+$scope.candidate  = {};
 
 
+$scope.iframeStatus = {}
 
-
-var server = window.location;
-if(server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' ){
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
-}else{
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
-}
-
+var locationHost = window.location.host;
 
 
 
@@ -50,7 +28,8 @@ if(server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'lo
     $http.get(BASE_API_JS+'/candidate/' + user.id +'?api_key=' + user.api_key)
     .then(
       function(response){
-        $scope.candidate = response.data.candidate;
+		$scope.candidate = response.data.candidate;
+
 
         (function(){
           var boleto = document.querySelector('#show-boleto');
@@ -59,12 +38,44 @@ if(server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'lo
 
         $scope.candidate.profile_url = function(){
           return $sce.trustAsResourceUrl("//" + locationHost + "/candidato?id=" + $scope.candidate.username);
-        };
+		};
+
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }
     );
     return false;
   };
+
+  //Verify preview status, theme aand publish
+
+
+	$scope.choiceTheme = function () {
+		var previewWindow = document.getElementById('preview');
+
+
+		previewWindow.contentWindow.postMessage($scope.iframeStatus, window.location.href);
+
+	}
+
+  $scope.editConfigSite = function(valid, formData){
+	var previewWindow = document.getElementById('preview');
+
+	if ( previewWindow != null ) {
+		console.log ('pain of salvation');
+		previewWindow.contentWindow.postMessage({active:true, classTheme:'azul'}, window.location.href);
+	}
+
+	  var user = auth_service.current_user();
+
+	  console.log(formData.themeActive, 'teste')
+
+    edit_cadidate.edit($scope.themeActive, user)
+    .success(function (res) {
+      console.log(res, 'res')
+    }).error(function (er) {
+      console.log(er)
+	})
+}
 
   /**
    * initializations

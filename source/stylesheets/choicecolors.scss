@@ -1,22 +1,83 @@
 $class-change: (
-	'rosa': (
-      'font-color':green,
-      'links---font-color': #fff,
-      'btn--success-font-color':#fff,
-      'btn--success-background-color':#fff,
-      'icon--font-color':'#fff',
-      'navbar--divider-img':'',
-      'howto--works-pill-border-color': #3fb82c,
-      'section__title--font-color': #4ab855,
-      'social--buttons-background-color': #43ac45,
-      'social--buttons-font-color': #fff,
-    ),
+	'theme--red': (
+      'default': #a6090e,
+	  'navbar-divider': '../images/barra.png',
+	  'footer': #7e0001,
 
+	),
+	'theme--blue': (
+      'default':#2959aa,
+	  'navbar-divider': '../images/barra.png',
+	  'footer': #1c2e5c,
+
+	),
 );
 
 @each $class-palette, $rules in $class-change {
-  body.#{$class-palette} {
-	  border: solid 2px red;
+  html.#{$class-palette} {
+
+
+	.label.label-success {
+		background-color: map-get($rules, 'default');
+
+	}
+	.reg-doa-side-p .reg-doa-title,
+	.cidade.ng-binding{
+		color: map-get($rules, 'default');
+
+	}
+	.valor-doa-container .valor-doa-txt-nbr .doar-txt{
+		color: map-get($rules, 'default');
+
+	}
+	.doa-container-active{
+		    border: 1px solid map-get($rules, 'default') !important;
+	}
+	a{
+		color: map-get($rules, 'default');
+
+	}
+	.text-success {
+		color: map-get($rules, 'default');
+	}
+
+	.navbar-divider {
+		background-color: map-get($rules, 'default');
+		background-image: map-get($rules, 'navbar-divider');
+	}
+
+	.btn-success {
+		color: #fff;
+		background-color: map-get($rules, 'default');
+		border-color: map-get($rules, 'default');
+	}
+	section#candidate .candidate-tabs ul.nav-tabs li.active>a,
+	section#candidate .candidate-tabs ul.nav-tabs li.active>a:focus,
+	section#candidate .candidate-tabs ul.nav-tabs li.active>a:hover{
+		border-top: 3px solid map-get($rules, 'default');
+
+	}
+
+	.candidate-header .nome-candidato .fa-circle{
+		color: map-get($rules, 'default');
+
+	}
+
+
+	footer#footer{
+		background-color: map-get($rules, 'footer');
+	}
+	.btn.btn-verde-doar{
+		background-color: map-get($rules, 'default');
+	}
+	.icon-left i{
+		color: map-get($rules, 'default');
+
+	}
+
+
+
+
 
 
     // .label.label-success.ng-binding {

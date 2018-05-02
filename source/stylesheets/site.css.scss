@@ -1029,7 +1029,7 @@ a {
 
 .video-container {
 	position: relative;
-	padding-bottom: 56.25%;
+	padding-bottom: 63.25%;
 	padding-top: 30px;
 	height: 0;
 	overflow: hidden;
@@ -1848,6 +1848,20 @@ input[type=checkbox].contract-ckeck {
 }
 @import 'choicecolors.scss';
 
+.configSite input[type=radio] {
+	margin: 3px 8px 0px;
+}
+.card{
+	display: inline-block;
+	width: 33%;
+	border: solid 1px #ddd;
+	 vertical-align:top;
+	 padding: 1rem;
+	 min-height: 15rem;
+	 margin-bottom: 2rem;
+	 border-radius: 3px;
+
+}
 
 
 
