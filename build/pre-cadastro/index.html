@@ -8,7 +8,7 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-  <link href="/stylesheets/all-75a79e00.css" rel="stylesheet" />
+  <link href="/stylesheets/all-8360df20.css" rel="stylesheet" />
 
   <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -99,14 +99,17 @@
 		<span class="badge badge-status badge-default">Contrato</span>
 		<span class="badge badge-status badge-default ">Pagamento</span>
 		<span class="badge badge-status badge-default">Análise de pagamento</span>
-      </div>
-      <div class="col-md-12 text-center">
-        <h1 class="page-title">Pré-cadastro</h1>
+	  </div>
+
+	  <div class="col-md-offset-3 col-md-6 text-center ">
+	     <p class="pre-head">
+        Seja bem-vindo ao Voto legal. Realize o passo a passo para iniciar a contratação da plataforma. <strong> Importante: </strong>Todos os dados para contratação devem ser do pré-candidato, estando vedada a contratação em nome de terceiros. Se houver divergências ou inconformidades das informações, os valores arrecadados poderão ser devolvidos aos doadores ou tesouro nacional.
+        </p>
+		<h1 class="page-title">Pré-cadastro</h1>
+		<p class="pos-head">Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo.</p>
       </div>
       <div class="col-md-offset-3 col-md-6">
-        <p>
-          Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo. Após a aprovação dos candidatos pelo TSE, sua conta será liberada para a realização do cadastro completo.
-        </p>
+
 
 <form name="candidateForm" class="angular-form" ng-submit="create(candidateForm.$valid)" novalidate="novalidate">          <div class="row">
             <div class="form-group _icon-left col-md-12">
@@ -114,7 +117,7 @@
               <a class="btn-info" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: votolegal.com.br/em/seunome">
                 <i class="fa fa-info"></i>
               </a>
-              <span class="help-block">Entre com o nome de usuário pelo qual você será identificado por nossa equipe</span>
+              <span class="help-block">Entre com o nome de usuário pelo qual você será identificado por nossa equipe e seus apoiadores. Escreva sem utilizar espaço, pois esta informação será utilizada para registro do seu domínio na plataforma</span>
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-envelope"></i>
@@ -142,7 +145,8 @@
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>
-              <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
+			  <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
+			<span class="help-block">Utilize o nome de usuário idêntico ao RG do pré-candidato. Importante: O CPF para a contratação devem ser obrigatoriamente do pré- candidato, sendo vedada a contratação com informações de terceiros.</span>
             </div>
             <div class="form-group _icon-left col-md-12">
               <i class="fa fa-flag hide"></i>

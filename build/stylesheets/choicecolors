@@ -34,6 +34,15 @@ html.theme--red .btn.btn-verde-doar {
   background-color: #a6090e; }
 html.theme--red .icon-left i {
   color: #a6090e; }
+html.theme--red .table thead {
+  background-color: #a6090e; }
+html.theme--red .pagination .active a {
+  background-color: #a6090e !important;
+  border-color: #a6090e !important; }
+html.theme--red .social-buttons ul li {
+  background-color: #a6090e; }
+html.theme--red section#candidate .candidate-tabs #tab-sobre i.fa-circle {
+  color: #a6090e; }
 
 html.theme--blue .label.label-success {
   background-color: #2959aa; }
@@ -70,4 +79,13 @@ html.theme--blue footer#footer {
 html.theme--blue .btn.btn-verde-doar {
   background-color: #2959aa; }
 html.theme--blue .icon-left i {
+  color: #2959aa; }
+html.theme--blue .table thead {
+  background-color: #2959aa; }
+html.theme--blue .pagination .active a {
+  background-color: #2959aa !important;
+  border-color: #2959aa !important; }
+html.theme--blue .social-buttons ul li {
+  background-color: #2959aa; }
+html.theme--blue section#candidate .candidate-tabs #tab-sobre i.fa-circle {
   color: #2959aa; }
