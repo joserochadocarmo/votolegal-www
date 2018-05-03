@@ -70,10 +70,10 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
   $scope.theme = '';
 
   var whiteListhost = [
-	  'dev-participe.votolegal.com.br',
-	  'votolegal.com.br',
-	  '2018.votolegal.com.br',
-	  'participe.votolegal.com.br',
+	  'https://dev-participe.votolegal.com.br',
+	  'https://votolegal.com.br',
+	  'https://2018.votolegal.com.br',
+	  'https://participe.votolegal.com.br',
 	  'http://localhost:4567',
 	  'http://localhost'
   ];
