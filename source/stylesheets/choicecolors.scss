@@ -1,13 +1,14 @@
 $class-change: (
 	'theme--red': (
       'default': #a6090e,
-	  'navbar-divider': '../images/barra.png',
+	  'navbar-divider': '../images/candidatos/theme-red.png',
+
 	  'footer': #7e0001,
 
 	),
 	'theme--blue': (
       'default':#2959aa,
-	  'navbar-divider': '../images/barra.png',
+	  'navbar-divider': '../images/candidatos/theme-blue.png',
 	  'footer': #1c2e5c,
 
 	),
@@ -43,7 +44,14 @@ $class-change: (
 
 	.navbar-divider {
 		background-color: map-get($rules, 'default');
-		background-image: map-get($rules, 'navbar-divider');
+		background-image: url(map-get($rules, 'navbar-divider'));
+
+	}
+	.btn-donate:focus,
+	.btn-donate:active,
+	.btn-donate:hover{
+		background-color: map-get($rules, 'default');
+
 	}
 
 	.btn-success {

@@ -11,9 +11,10 @@ title:  Candidato(a)
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
 <section id="candidate" ng-controller="CandidateController">
+	<div class="maintenance container text-center" ng-if="candidate.publish == 0 || candidate == undefined"> Site em manutencão </div>
 
 
-  <div class="candidate-header container " ng-if="candidate " >
+  <div class="candidate-header container " ng-if="candidate && candidate.publish == 1" >
     <div class="row">
       <div class="col-md-12 col-xs-12 text-center hidden-lg hidden-md hidden-sm" style="min-height:175px;">
         <img ng-src="{{candidate.picture || '/images/candidatos/user_general.jpg'}}" class="img-circle" width="175px" height="175px" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}">
@@ -40,9 +41,10 @@ title:  Candidato(a)
       </div>
     </div>
   </div>
-	<div id="candidate-container" class="container-fluid degrade-default"  ng-if="candidate" ng-view>
+	<div id="candidate-container" class="container-fluid degrade-default" ng-if="candidate && candidate.publish == 1" ng-view>
 		<h3 class="text-center text-muted">Carregando perfil do candidato...</h3>
 	</div>
+
 </section>
 
 

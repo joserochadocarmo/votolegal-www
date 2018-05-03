@@ -654,14 +654,16 @@ app.votolegal.factory('certi_face_token', ['$http', 'serialize', 'store', functi
 
 }]);
 
-app.votolegal.factory('edit_cadidate', ['$http', 'serialize', 'store', function ($http, serialize, store) {
+app.votolegal.factory('site_publish_service', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
 	return {
 
-		edit: function (data, user) {
+		edit: function (publish, user) {
+
+		console.log(publish, 'qa')
 			return $http({
 				method: 'POST',
-				url: BASE_API_JS + '/candidate/' + user.id + '/' + data + "?api_key=" + user.api_key,
+				url: BASE_API_JS + '/candidate/' + user.id + '/' + publish + "?api_key=" + user.api_key,
 
 			})
 		}
@@ -669,14 +671,15 @@ app.votolegal.factory('edit_cadidate', ['$http', 'serialize', 'store', function 
 
 }]);
 
-app.votolegal.factory('', ['$http', 'serialize', 'store', function ($http, serialize, store) {
+app.votolegal.factory('color_theme_service', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
 	return {
 
-		edit: function (data, user) {
+		edit: function (color, user) {
+			console.log(color)
 			return $http({
 				method: 'PUT',
-				url: BASE_API_JS + '/candidate/' + user.id + '/?color=' + color + "&api_key=" + user.api_key,
+				url: BASE_API_JS + '/candidate/' + user.id + '/?color=' + color.theme + "&api_key=" + user.api_key,
 
 			})
 		}
