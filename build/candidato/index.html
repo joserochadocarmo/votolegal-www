@@ -11,7 +11,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
   <link href="/stylesheets/bootstrap.min-ff00d0a6.css" rel="stylesheet" />
-  <link href="/stylesheets/site-7d94853f.css" rel="stylesheet" />
+  <link href="/stylesheets/site-39581293.css" rel="stylesheet" />
   <link href="/stylesheets/font-awesome.min-3c43a9b6.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-0eb48cf0.css" rel="stylesheet" />
 
@@ -24,7 +24,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="candidato candidato_index" data-ng-class="{{theme}}">
+<body class="candidato candidato_index" >
     <div id="loading" class="load-backdrop">
       <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i><br>
     </div>
@@ -34,9 +34,12 @@
 
       <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<section id="candidate" ng-controller="CandidateController">
 
-  <div class="candidate-header container " >
+<section id="candidate" ng-controller="CandidateController">
+	<div class="maintenance container text-center" ng-if="candidate.publish == 0 || candidate == undefined"> Site em manutencão </div>
+
+
+  <div class="candidate-header container " ng-if="candidate && candidate.publish == 1" >
     <div class="row">
       <div class="col-md-12 col-xs-12 text-center hidden-lg hidden-md hidden-sm" style="min-height:175px;">
         <img ng-src="{{candidate.picture || '/images/candidatos/user_general-37bc8bd3.jpg'}}" class="img-circle" width="175px" height="175px" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}">
@@ -59,9 +62,10 @@
       </div>
     </div>
   </div>
-	<div id="candidate-container" class="container-fluid degrade-default" ng-view>
+	<div id="candidate-container" class="container-fluid degrade-default" ng-if="candidate && candidate.publish == 1" ng-view>
 		<h3 class="text-center text-muted">Carregando perfil do candidato...</h3>
 	</div>
+
 </section>
 
 
@@ -115,7 +119,7 @@
     <!-- javascript -->
 
 
-    <script src="/javascripts/all-e827a9a7.js"></script>
+    <script src="/javascripts/all-5b3dd7cb.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

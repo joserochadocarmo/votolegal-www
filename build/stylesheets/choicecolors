@@ -1,2 +1,73 @@
-body.rosa {
-  border: solid 2px red; }
+html.theme--red .label.label-success {
+  background-color: #a6090e; }
+html.theme--red .reg-doa-side-p .reg-doa-title,
+html.theme--red .cidade.ng-binding {
+  color: #a6090e; }
+html.theme--red .valor-doa-container .valor-doa-txt-nbr .doar-txt {
+  color: #a6090e; }
+html.theme--red .doa-container-active {
+  border: 1px solid #a6090e !important; }
+html.theme--red a {
+  color: #a6090e; }
+html.theme--red .text-success {
+  color: #a6090e; }
+html.theme--red .navbar-divider {
+  background-color: #a6090e;
+  background-image: url("../images/candidatos/theme-red.png"); }
+html.theme--red .btn-donate:focus,
+html.theme--red .btn-donate:active,
+html.theme--red .btn-donate:hover {
+  background-color: #a6090e; }
+html.theme--red .btn-success {
+  color: #fff;
+  background-color: #a6090e;
+  border-color: #a6090e; }
+html.theme--red section#candidate .candidate-tabs ul.nav-tabs li.active > a,
+html.theme--red section#candidate .candidate-tabs ul.nav-tabs li.active > a:focus,
+html.theme--red section#candidate .candidate-tabs ul.nav-tabs li.active > a:hover {
+  border-top: 3px solid #a6090e; }
+html.theme--red .candidate-header .nome-candidato .fa-circle {
+  color: #a6090e; }
+html.theme--red footer#footer {
+  background-color: #7e0001; }
+html.theme--red .btn.btn-verde-doar {
+  background-color: #a6090e; }
+html.theme--red .icon-left i {
+  color: #a6090e; }
+
+html.theme--blue .label.label-success {
+  background-color: #2959aa; }
+html.theme--blue .reg-doa-side-p .reg-doa-title,
+html.theme--blue .cidade.ng-binding {
+  color: #2959aa; }
+html.theme--blue .valor-doa-container .valor-doa-txt-nbr .doar-txt {
+  color: #2959aa; }
+html.theme--blue .doa-container-active {
+  border: 1px solid #2959aa !important; }
+html.theme--blue a {
+  color: #2959aa; }
+html.theme--blue .text-success {
+  color: #2959aa; }
+html.theme--blue .navbar-divider {
+  background-color: #2959aa;
+  background-image: url("../images/candidatos/theme-blue.png"); }
+html.theme--blue .btn-donate:focus,
+html.theme--blue .btn-donate:active,
+html.theme--blue .btn-donate:hover {
+  background-color: #2959aa; }
+html.theme--blue .btn-success {
+  color: #fff;
+  background-color: #2959aa;
+  border-color: #2959aa; }
+html.theme--blue section#candidate .candidate-tabs ul.nav-tabs li.active > a,
+html.theme--blue section#candidate .candidate-tabs ul.nav-tabs li.active > a:focus,
+html.theme--blue section#candidate .candidate-tabs ul.nav-tabs li.active > a:hover {
+  border-top: 3px solid #2959aa; }
+html.theme--blue .candidate-header .nome-candidato .fa-circle {
+  color: #2959aa; }
+html.theme--blue footer#footer {
+  background-color: #1c2e5c; }
+html.theme--blue .btn.btn-verde-doar {
+  background-color: #2959aa; }
+html.theme--blue .icon-left i {
+  color: #2959aa; }

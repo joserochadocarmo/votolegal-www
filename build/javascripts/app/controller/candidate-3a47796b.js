@@ -67,13 +67,44 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
   $scope.urlBoleto = null;
   $scope.waitResponseCertiSign = false;
   $scope.responseResponseCertiSign = false;	$scope.donateServiceStatus = false;
-  $rootScope.theme = '';
+  $scope.theme = '';
 
-  $scope.choiceTheme = function(){
+  var whiteListhost = [
+	  'dev-participe.votolegal.com.br',
+	  'votolegal.com.br',
+	  '2018.votolegal.com.br',
+	  'participe.votolegal.com.br',
+	  'http://localhost:4567',
+	  'http://localhost'
+  ];
 
-    console.log( $rootScope.theme)
+window.addEventListener("message", receiveMessage, false);
 
-  }
+function receiveMessage(event) {
+
+	if (whiteListhost.indexOf(event.origin) === -1){
+		return false;
+	}
+
+	if (event.data.theme) {
+		$scope.themeSelection(event.data.theme);
+	}
+}
+
+
+$scope.themeSelection = function(data){
+
+	document.documentElement.className = document.documentElement.className.split(' ').filter(
+		function (c) {
+			return (c.indexOf('theme--') === -1);
+		}
+	).join(' ');
+
+	document.documentElement.className += ' ' + data;
+}
+// $scope.themeSelection('theme--red')
+
+
 
   $scope.donationService =  function(){
 	$scope.donateServiceStatus = !$scope.donateServiceStatus;
@@ -82,7 +113,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
 
   // payment
   $scope.paymentMethodDonate = null,
-
 
   // getting candidate name from url
   $scope.name = (function get_subdomain(){
@@ -176,10 +206,9 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
     then(
       function(response){
 		var res = response.data.candidate;
-		  $scope.candidateName  = response.data.candidate
 
+		$scope.candidate = res;
 
-        $scope.candidate = res;
 
         (function(){
           var title = document.querySelector('title');
@@ -198,7 +227,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
               $scope.candidate.video_url = 'https://www.youtube.com/embed/' + code;
             }
           }
-        })();
+		})();
+		  $scope.themeSelection($scope.candidate.color);
 
         // header issues list
         $scope.candidate.issues_decorator = $scope._issues_priorities_decorator();
@@ -227,9 +257,7 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
     );
     return false;
   };
-$scope.teste = function(event){
-	alert(event)
-}
+
   /* fetch zip_code info */
   $scope.billing_by_zipcode = function(event){
 	var zipcode = $scope.doar.billing_address_zipcode;
@@ -744,9 +772,6 @@ $scope.teste = function(event){
                 document.location = '#/doar/success';
               }, function(response){
 				$scope.error_list = [];
-
-				console.log(response, 'achei')
-
                 if(response && response.data && response.data.form_error){
                   var res = response.data.form_error;
 
@@ -901,8 +926,6 @@ $scope.serverError = false;
 
 
   $scope.certiFaceVerify = function(){
-
-  console.log($routeParams.$$search.token, 'token')
 
 		if($routeParams.$$search.token && $routeParams.$$search.token.length > 0){
 			certi_face_token.tokenVerify($routeParams.$$search.token).

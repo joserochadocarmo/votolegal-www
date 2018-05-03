@@ -8,7 +8,7 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-  <link href="/stylesheets/all-0261c9f9.css" rel="stylesheet" />
+  <link href="/stylesheets/all-75a79e00.css" rel="stylesheet" />
 
   <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -20,7 +20,7 @@
   <![endif]-->
 </head>
 <body class="cadastro cadastro_preview cadastro_preview_index" data-controller="" data-action="">
-  <div id="loading" class="load-backdrop" style="display: none">
+  <div id="loading" class="load-backdrop teste" style="display: none">
     <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i><br>
   </div>
 
@@ -91,173 +91,233 @@
 
 
     <section id="profile-preview" ng-controller="PreviewController">
-  <div class="container">
-    <style>
-		#preview body{
-			display: none;
-		}
-      .panel.with-nav-tabs .panel-heading{
-          padding: 5px 5px 0 5px;
-      }
-      .panel.with-nav-tabs .nav-tabs{
-        border-bottom: none;
-      }
-      .panel.with-nav-tabs .nav-justified{
-        margin-bottom: -1px;
-      }
-      /********************************************************************/
-      /*** PANEL DEFAULT ***/
-      .with-nav-tabs.panel-default .nav-tabs > li > a,
-      .with-nav-tabs.panel-default .nav-tabs > li > a:hover,
-      .with-nav-tabs.panel-default .nav-tabs > li > a:focus {
-          color: #777;
-      }
-      .with-nav-tabs.panel-default .nav-tabs > .open > a,
-      .with-nav-tabs.panel-default .nav-tabs > .open > a:hover,
-      .with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
-      .with-nav-tabs.panel-default .nav-tabs > li > a:hover,
-      .with-nav-tabs.panel-default .nav-tabs > li > a:focus {
-          color: #777;
-        background-color: #ddd;
-        border-color: transparent;
-      }
-      .with-nav-tabs.panel-default .nav-tabs > li.active > a,
-      .with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
-      .with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
-        color: #555;
-        background-color: #fff;
-        border-color: #ddd;
-        border-bottom-color: transparent;
-      }
-      .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu {
-          background-color: #f5f5f5;
-          border-color: #ddd;
-      }
-      .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a {
-          color: #777;
-      }
-      .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
-      .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
-          background-color: #ddd;
-      }
-      .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a,
-      .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
-      .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-          color: #fff;
-          background-color: #555;
-      }
-    </style>
+	<div class="container">
+		<style>
+			#preview body {
+				display: none;
+			}
+
+			.panel.with-nav-tabs .panel-heading {
+				padding: 5px 5px 0 5px;
+			}
+
+			.panel.with-nav-tabs .nav-tabs {
+				border-bottom: none;
+			}
+
+			.panel.with-nav-tabs .nav-justified {
+				margin-bottom: -1px;
+			}
+
+			/********************************************************************/
+
+			/*** PANEL DEFAULT ***/
+
+			.with-nav-tabs.panel-default .nav-tabs>li>a,
+			.with-nav-tabs.panel-default .nav-tabs>li>a:hover,
+			.with-nav-tabs.panel-default .nav-tabs>li>a:focus {
+				color: #777;
+			}
+
+			.with-nav-tabs.panel-default .nav-tabs>.open>a,
+			.with-nav-tabs.panel-default .nav-tabs>.open>a:hover,
+			.with-nav-tabs.panel-default .nav-tabs>.open>a:focus,
+			.with-nav-tabs.panel-default .nav-tabs>li>a:hover,
+			.with-nav-tabs.panel-default .nav-tabs>li>a:focus {
+				color: #777;
+				background-color: #ddd;
+				border-color: transparent;
+			}
+
+			.with-nav-tabs.panel-default .nav-tabs>li.active>a,
+			.with-nav-tabs.panel-default .nav-tabs>li.active>a:hover,
+			.with-nav-tabs.panel-default .nav-tabs>li.active>a:focus {
+				color: #555;
+				background-color: #fff;
+				border-color: #ddd;
+				border-bottom-color: transparent;
+			}
+
+			.with-nav-tabs.panel-default .nav-tabs>li.dropdown .dropdown-menu {
+				background-color: #f5f5f5;
+				border-color: #ddd;
+			}
+
+			.with-nav-tabs.panel-default .nav-tabs>li.dropdown .dropdown-menu>li>a {
+				color: #777;
+			}
+
+			.with-nav-tabs.panel-default .nav-tabs>li.dropdown .dropdown-menu>li>a:hover,
+			.with-nav-tabs.panel-default .nav-tabs>li.dropdown .dropdown-menu>li>a:focus {
+				background-color: #ddd;
+			}
+
+			.with-nav-tabs.panel-default .nav-tabs>li.dropdown .dropdown-menu>.active>a,
+			.with-nav-tabs.panel-default .nav-tabs>li.dropdown .dropdown-menu>.active>a:hover,
+			.with-nav-tabs.panel-default .nav-tabs>li.dropdown .dropdown-menu>.active>a:focus {
+				color: #fff;
+				background-color: #555;
+			}
+
+		</style>
+
+		<div class="row">
+			<div class="col-md-12 text-center ">
+				<h1 class="page-title">Pré-visualização do Perfil</h1>
+			</div>
+			<div class="col-md-12 pull-left">
+				<p>
+					<a class="btn btn-success btn-sm" href="/cadastro-completo/">Voltar ao inicio</a>
+				</p>
+			</div>
+			<div class="col-md-12 ">
+				<div class="card">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">http://</span>
+							<input type="text" class="form-control" placeholder="Username" value="votolegal.com.br/em/" disabled>
+							<span class="input-group-addon" id="basic-addon1">{{candidate.username}}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="form-group ">
+						<form class="configSite" name="editConfig" ng-submit="editConfigSite($valid, editConfig)" novalidate >
+							<div class="form-group">
+								<div class="input-group">
+									<p>Escolha a cor do tema</p>
+									<div>
+										<label for="theme--default" class="radio-theme-container">
+											<input id="theme--default" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--default" class="radio-theme" ng-class="{'active': candidate.color == 'theme--default' }">
+											<span class="radio-span default"></span>
+										</label>
+										<label for="theme--blue" class="radio-theme-container">
+											<input id="theme--blue" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--blue" class="radio-theme" ng-class="{'active': candidate.color == 'theme--blue' }">
+											<span class="radio-span blue"></span>
+										</label>
+										<label for="theme--red" class="radio-theme-container">
+											<input id="theme--red" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--red" class="radio-theme" ng-class="{'active': candidate.color == 'theme--red' }">
+											<span class="radio-span red"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+							<div class="responseSubmit alert alert-success" ng-if="reponseTheme.length > 0">{{reponseTheme}}</div>
+							<div class="responseSubmit alert alert-danger" ng-if="reponseThemeError.length > 0">{{reponseThemeError}}</div>
+								<button class="btn btn-success btn-large" type="submit">Salvar tema</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="card">
+					<div class="form-group">
+						<form class="configSite" name="statusSiteForm" ng-submit="publishSite(statusSiteForm)" novalidate >
+							<div class="input-group">
+								<p>Site <span ng-if="publish == true"> Ativado</span><span ng-if="publish == false"> Desativado</span></p>
+								<div>
+									<label class="switch" ng-if="candidate.publish != null">
+									<input name="themeActive" ng-model="publish" type="checkbox" value="publish" ng-class="{'active': publish}" ng-click="controlPublishStatus()">Ativo
+										<span class="slider"></span>
+									</label>
+
+								</div>
+
+							</div>
+							<div class="form-group">
+								<div class="responseSubmit alert alert-success" ng-if="responsePublish.length > 0">{{responsePublish}}</div>
+								<div class="responseSubmit alert alert-danger" ng-if="erroPublish.length > 0">{{erroPublish}}</div>
+								<button class="btn btn-success" type="submit">Ativar site</button>
+							</div>
+						</form>
+					</div>
+				</div>
 
 
-    <div class="row">
-      <div class="col-md-12 text-center ">
-        <h1 class="page-title">Pré-visualização do Perfil</h1>
-      </div>
 
-      <div class="col-md-12 pull-left">
-        <p><a class="btn btn-success btn-sm" href="/cadastro-completo/">Voltar ao inicio</a></p>
-      </div>
+				<div class="col-md-12">
+					<div class="panel with-nav-tabs panel-default">
 
-      <div class="col-md-12">
-        <div class="form-group">
-		  <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1">http://</span>
-            <input type="text" class="form-control" placeholder="Username" value="votolegal.com.br/em/" disabled>
-            <span class="input-group-addon" id="basic-addon1">{{candidate.username}}</span>
-		  </div>
-		</div>
-		<div class="form-group">
-		  <div class="input-group">
-			<p>Escolha a cor do tema</p>
+						<!-- tabs (buttons) -->
+						<div class="panel-heading">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a href="#tab1default" data-toggle="tab">Visualização</a>
+								</li>
+								<li>
+									<a href="#tab2default" data-toggle="tab">Código</a>
+								</li>
+							</ul>
+						</div>
 
-			<!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
-				<label for="theme--default" class="btn btn-success active">
-					<input id="theme--default" name="theme" type="radio" value="default" ng-model="theme" ng-change="choiceTheme()" >Padrão
-				</label>
-				<label for="theme--blue" class="btn btn-primary">
-					<input id="theme--blue" name="theme" type="radio" value="blue" ng-model="theme" ng-change="choiceTheme()" >Azul
-				</label>
-				<label for="theme--red" class="btn btn-danger">
-					<input id="theme--red" name="theme" type="radio" value="red" ng-model="theme" ng-change="choiceTheme()" >Vermelho
-				</label>
-			</div> -->
-		  </div>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="panel with-nav-tabs panel-default">
+						<!-- tabs (panels) -->
+						<div class="panel-body">
+							<div class="tab-content">
 
-          <!-- tabs (buttons) -->
-          <div class="panel-heading">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab1default" data-toggle="tab">Visualização</a></li>
-              <li><a href="#tab2default" data-toggle="tab">Código</a></li>
-            </ul>
-          </div>
+								<!-- preview -->
+								<div class="tab-pane fade in active" id="tab1default">
+									<p class="text-right">
+										<a id="btn-fullscreen" href="javascript:void(0);" title="Tela cheia" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#fullscreen_modal">
+											<i class="fa fa-expand"></i>
+										</a>
+									</p>
+									<iframe id="preview" ng-src="{{candidate.profile_url()}}" class="{{theme}}" frameborder="0" style="overflow:hidden;height:700px;width:100%"
+									    height="100%" width="100%"></iframe>
+								</div>
 
-          <!-- tabs (panels) -->
-          <div class="panel-body">
-            <div class="tab-content">
-
-              <!-- preview -->
-              <div class="tab-pane fade in active" id="tab1default">
-                <p class="text-right"><a id="btn-fullscreen" href="javascript:void(0);" title="Tela cheia" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#fullscreen_modal"> <i class="fa fa-expand"></i> </a></p>
-                <iframe id="preview" ng-src="{{candidate.profile_url()}}" class="{{theme}}" frameborder="0" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%" ></iframe>
-              </div>
-
-              <!-- code -->
-              <div class="tab-pane fade" id="tab2default">
-                <h4>Para uma pagina completa:</h4>
-                <pre>
+								<!-- code -->
+								<div class="tab-pane fade" id="tab2default">
+									<h4>Para uma pagina completa:</h4>
+									<pre>
   &lt;body style="margin:0px;padding:0px;overflow:hidden" &gt;
-    &lt;iframe src="{{candidate.profile_url()}}" class="{{$root.theme}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
+    &lt;iframe src="{{candidate.profile_url()}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"&gt;&lt;/iframe&gt;
   &lt;/body&gt; </pre>
-                <br>
-                <br>
-                <br>
-                <h4>Para colocar em uma pagina existente:</h4>
-                <pre>
-  &lt;iframe src="{{candidate.profile_url()}}" class="{{$root.theme}}" frameborder="0" id="iframe-candidate"  style="overflow:hidden; height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
+									<br>
+									<br>
+									<br>
+									<h4>Para colocar em uma pagina existente:</h4>
+									<pre>
+  &lt;iframe src="{{candidate.profile_url()}}"  frameborder="0" id="iframe-candidate"  style="overflow:hidden; height:700px;width:100%" height="700px" width="100%"&gt;&lt;/iframe&gt;
                 </pre>
-                <small class="help-block">Onde <code>700px</code> é a altura que ficará a janela onde será exibido o seu perfil na sua pagina.</small>
-              </div>
+									<small class="help-block">Onde
+										<code>700px</code> é a altura que ficará a janela onde será exibido o seu perfil na sua pagina.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="fullscreen_modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document" style="width:100%;heigth:100% !important;">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">VotoLegal - Visulização do Perfil</h4>
-          </div>
-          <div class="modal-body">
-            <iframe id="preview" ng-src="{{candidate.profile_url()}}" class="{{$root.theme}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:700px;width:100%" height="100%" width="100%"></iframe>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
+			<!-- Modal -->
+			<div class="modal fade" id="fullscreen_modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document" style="width:100%;heigth:100% !important;">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">VotoLegal - Visulização do Perfil</h4>
+						</div>
+						<div class="modal-body">
+							<iframe id="preview" ng-src="{{candidate.profile_url()}}" frameborder="0" id="iframe-candidate" style="overflow:hidden;height:700px;width:100%"
+							    height="100%" width="100%"></iframe>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </section>
 
 <script>
-  //setTimeout(function(){
-  //  prettyPrint()
-  //}, 5000);
-</script>
+	//setTimeout(function(){
+	//  prettyPrint()
+	//}, 5000);
 
+</script>
 
 
 
@@ -298,7 +358,7 @@
     <link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
     <!-- javascript -->
-    <script src="/javascripts/all-e827a9a7.js"></script>
+    <script src="/javascripts/all-5b3dd7cb.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
