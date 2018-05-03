@@ -71,55 +71,38 @@ $class-change: (
 
 	}
 
-
-	footer#footer{
+	footer#footer {
 		background-color: map-get($rules, 'footer');
 	}
-	.btn.btn-verde-doar{
+
+	.btn.btn-verde-doar {
 		background-color: map-get($rules, 'default');
 	}
+
 	.icon-left i{
 		color: map-get($rules, 'default');
 
 	}
 
+	.table thead {
+		background-color: map-get($rules, 'default');
 
+	}
+	.pagination .active a {
+		background-color: map-get($rules, 'default')!important;
+		border-color: map-get($rules, 'default') !important;
 
+	}
+	.social-buttons ul li {
+		background-color: map-get($rules, 'default');
 
+	}
+	section#candidate .candidate-tabs #tab-sobre i.fa-circle {
 
+		color: map-get($rules, 'default');
 
-    // .label.label-success.ng-binding {
+	}
 
-    // 	color: map-get($rules, 'font-color');
-    // }
-    // .navbar-divider{
-    //   background-image: map-get($rules, 'navbar--divider-img');
-
-    // }
-    // .btn-success{
-    //   background-color: map-get($rules, 'btn--success-background-color');
-    //   color: map-get($rules, 'btn--success-font-color');
-
-    // }
-    // section#howto-works ul.howto-works-timeline .active .howto-works-pill a{
-    //   border-color: map-get($rules, 'howto--works-pill-border-color');
-
-    // }
-    // .section-title{
-    //   color: map-get($rules, 'section__title--font-color');
-
-    // }
-    // .social-buttons ul li{
-    //   background-color: map-get($rules,'social--buttons-background-color' );
-
-    // }
-    // .social-buttons ul li a {
-    //   color: map-get($rules,'social--buttons-background-color' )!important;
-	// }
-	// a.tab-register .active {
-	// 		background-color: map-get($rules, 'btn--success-background-color') !important;
-
-	// 	}
 
 
   }
