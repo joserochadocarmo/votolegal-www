@@ -660,7 +660,6 @@ app.votolegal.factory('site_publish_service', ['$http', 'serialize', 'store', fu
 
 		edit: function (publish, user) {
 
-		console.log(publish, 'qa')
 			return $http({
 				method: 'POST',
 				url: BASE_API_JS + '/candidate/' + user.id + '/' + publish + "?api_key=" + user.api_key,

@@ -4407,7 +4407,6 @@ app.votolegal.factory('site_publish_service', ['$http', 'serialize', 'store', fu
 
 		edit: function (publish, user) {
 
-		console.log(publish, 'qa')
 			return $http({
 				method: 'POST',
 				url: BASE_API_JS + '/candidate/' + user.id + '/' + publish + "?api_key=" + user.api_key,
@@ -5581,6 +5580,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
   ];
 
 window.addEventListener("message", receiveMessage, false);
+
+
 
 function receiveMessage(event) {
 
@@ -7466,8 +7467,7 @@ var locationHost = window.location.host;
 
 	$scope.choiceTheme = function () {
 		var previewWindow = document.getElementById('preview');
-
-		previewWindow.contentWindow.postMessage($scope.iframeStatus, window.location.href);
+		previewWindow.contentWindow.postMessage($scope.iframeStatus, window.location.origin);
 
 	}
 

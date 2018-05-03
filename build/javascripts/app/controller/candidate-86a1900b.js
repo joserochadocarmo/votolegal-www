@@ -80,6 +80,8 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
 
 window.addEventListener("message", receiveMessage, false);
 
+
+
 function receiveMessage(event) {
 
 	if (whiteListhost.indexOf(event.origin) === -1){

@@ -79,8 +79,7 @@ var locationHost = window.location.host;
 
 	$scope.choiceTheme = function () {
 		var previewWindow = document.getElementById('preview');
-
-		previewWindow.contentWindow.postMessage($scope.iframeStatus, window.location.href);
+		previewWindow.contentWindow.postMessage($scope.iframeStatus, window.location.origin);
 
 	}
 
