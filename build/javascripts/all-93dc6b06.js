@@ -4421,6 +4421,7 @@ app.votolegal.factory('color_theme_service', ['$http', 'serialize', 'store', fun
 	return {
 
 		edit: function (color, user) {
+
 			return $http({
 				method: 'PUT',
 				url: BASE_API_JS + '/candidate/' + user.id + '/?color=' + color.theme + "&api_key=" + user.api_key,
@@ -5106,7 +5107,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				transformRequest: function (data) {
 					var fd = new FormData();
 
-
 					for (var p in data) fd.append(p, data[p]);
 
 					// add file to form_data
@@ -5114,14 +5114,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 					CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
 
 					var file_field = document.querySelector('input[name=spending_spreadsheet]');
-
+					console.log(file_field, 'file')
 					if (file_field.files.length > 0) {
+						console.log(file_field, 'file')
 						var file = file_field.files[0];
 						fd.append("spending_spreadsheet", file, file.name);
 					}
 					*/
-
-
 
 					return fd;
 				}
@@ -5130,7 +5129,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				$scope.submit_disabled = false;
 				$scope.check_percent();
 			}, function (response) {
-
 				var res = response.data.form_error;
 
 				// spreadsheet invalid
@@ -5338,7 +5336,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			raising_goal: raising_goal_field,
 			crawlable: $scope.candidate.crawlable || 'false'
 		};
-
 
 		return Params
 			.require(p)
@@ -6905,7 +6902,6 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
   // setting download of donations table
   $scope.download.csv_file = function(){
     var user = $scope.user;
-    console.log(BASE_API_JS + '/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key);
     return BASE_API_JS + '/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key;
   };
 
@@ -7061,6 +7057,7 @@ app.votolegal.controller("PaymentController", [
 
 		payment = function (data) {
 
+		console.log($scope.senderHash, 'sender')
 			if (data.errors) {
 				$scope.error = 'Tivemos um problema com as informações do seu cartão poderia verificar os dados';
 			} else {
@@ -7496,7 +7493,6 @@ app.votolegal.controller('VoteController', ["$scope", "$http", "$sce", "serializ
     var projetos = document.querySelectorAll('.vote--item');
     projetos.forEach(function(i){ if(i.checked) list.push(i) });
 
-    console.log(el);
 
     if(list.length > 3){
       // TODO: uncheck recent box
@@ -7514,7 +7510,7 @@ app.votolegal.controller('VoteController', ["$scope", "$http", "$sce", "serializ
 
       list.forEach(function(item, i){
         var rendered = compiled({
-          title: "Projeto"+(i +1)+") " + item.title, 
+          title: "Projeto"+(i +1)+") " + item.title,
           description: item.scope,
           value: item.id
         });
@@ -7542,22 +7538,20 @@ app.votolegal.controller('VoteController', ["$scope", "$http", "$sce", "serializ
     // TODO: validate
     var list = document.querySelectorAll('.vote--item');
     list = _.filter(list, function(item){ if(item.checked) return item });
-    console.log(list);
 
     // save data
     if(list && list.length === 3){
       var votes = _.map(list, function(item){ return item.value });
 
-      console.log(votes);
       $http({
         method: 'POST',
         url: '/',
         data: serialize.from_object(params),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       }).then(function(response){
-        console.log(response);
+
       }, function(response){
-        console.log(response);
+
       });
 
       // TODO: send to back-end
