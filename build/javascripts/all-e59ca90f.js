@@ -4421,7 +4421,6 @@ app.votolegal.factory('color_theme_service', ['$http', 'serialize', 'store', fun
 	return {
 
 		edit: function (color, user) {
-			console.log(color)
 			return $http({
 				method: 'PUT',
 				url: BASE_API_JS + '/candidate/' + user.id + '/?color=' + color.theme + "&api_key=" + user.api_key,
@@ -5090,7 +5089,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 		$scope.error_list = [];
 		var params = $scope.campaign_params();
-		console.log(params, 'ss');
 
 		var user = auth_service.current_user();
 		params.api_key = user.api_key;
@@ -5107,7 +5105,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				},
 				transformRequest: function (data) {
 					var fd = new FormData();
-					console.log(fd, 'file data', data)
+
 
 					for (var p in data) fd.append(p, data[p]);
 
@@ -5116,14 +5114,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 					CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
 
 					var file_field = document.querySelector('input[name=spending_spreadsheet]');
-					console.log(file_field, 'file')
+
 					if (file_field.files.length > 0) {
-						console.log(file_field, 'file')
 						var file = file_field.files[0];
 						fd.append("spending_spreadsheet", file, file.name);
 					}
 					*/
-					console.log(fd, 'file data', data)
+
 
 
 					return fd;
@@ -5133,7 +5130,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				$scope.submit_disabled = false;
 				$scope.check_percent();
 			}, function (response) {
-				console.log(response, 'response')
+
 				var res = response.data.form_error;
 
 				// spreadsheet invalid
@@ -5342,7 +5339,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			crawlable: $scope.candidate.crawlable || 'false'
 		};
 
-		console.log(Params, 'param')
 
 		return Params
 			.require(p)
@@ -6418,7 +6414,6 @@ $scope.serverError = false;
 
 		 response = payment_doacao.payment($scope.candidate.id, $scope.doar.name, $scope.doar.cpf, $scope.doar.phone, $scope.doar.birthdate)
 				.success(function(response){
-				console.log('suscess', response)
 				window.location = response.url;
 				}).error(function(response){
 
@@ -7066,7 +7061,6 @@ app.votolegal.controller("PaymentController", [
 
 		payment = function (data) {
 
-		console.log($scope.senderHash, 'sender')
 			if (data.errors) {
 				$scope.error = 'Tivemos um problema com as informações do seu cartão poderia verificar os dados';
 			} else {
