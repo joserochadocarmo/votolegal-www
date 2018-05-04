@@ -53,6 +53,7 @@ var userLocal = localStorage.getItem('user');
 		if($scope.error_list.length == 0)
 
 			localStorage.setItem('userId', response.data.id);
+			localStorage.setItem('address', JSON.stringify(response.data));
         	 document.location = '/contrato';
 
         return false;

@@ -64,7 +64,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.formDisable = true;
 		$scope.loading = false;
 		$scope.error_list = [],
-			$scope.paymentMethod = '';
+		$scope.paymentMethod = '';
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
 		$scope.boletoUrl = null;
@@ -92,10 +92,26 @@ app.votolegal.controller("PaymentController", [
 			.then(function (val) {
 				$scope.boletoUrl = null;
 				$scope.SetSessionId(val.data.id)
+				//charge data user in form
+
+				var localStorageUserData = JSON.parse(localStorage.getItem('address'));
+
+				$scope.candidate = {
+					name: localStorageUserData.name,
+					email: localStorageUserData.email,
+					phone: localStorageUserData.phone,
+					zipCode: localStorageUserData.address_zipcode,
+					addressState: localStorageUserData.address_state,
+					addressCity: localStorageUserData.address_city,
+					addressDistrict: localStorageUserData.address_street.split('-')[1],
+					addressStreet: localStorageUserData.address_street,
+					addressHouseNumber: localStorageUserData.address_house_number
+				}
+				$scope.$apply();
+
 			})
 
 		$scope.creditCardPayment = function () {
-
 
 			var num = $scope.candidate.card.cardNumber + '';
 			num = num.split(' ').join('');
@@ -141,7 +157,6 @@ app.votolegal.controller("PaymentController", [
 
 		payment = function (data) {
 
-		console.log($scope.senderHash, 'sender')
 			if (data.errors) {
 				$scope.error = 'Tivemos um problema com as informações do seu cartão poderia verificar os dados';
 			} else {
@@ -156,7 +171,6 @@ app.votolegal.controller("PaymentController", [
 					$scope.paymentMethod,
 					$scope.candidate.card.name,
 					$scope.candidate.email,
-					$scope.candidate.cpf,
 					$scope.candidate.phone,
 					$scope.candidate.zipCode,
 					$scope.candidate.addressState,
@@ -167,6 +181,7 @@ app.votolegal.controller("PaymentController", [
 				).success(function (successs) {
 
 					localStorage.removeItem('userId');
+					localStorage.removeItem('address');
 					localStorage.setItem('paymentRedirect', 1)
 					$scope.loading = false;
 					$scope.success = 'Sucesso';
@@ -204,6 +219,8 @@ app.votolegal.controller("PaymentController", [
 		$scope.submit = function (valid, form) {
 			$scope.error = '';
 
+			console.log($scope.candidate, 'candidate', form)
+
 			if (valid) {
 
 				if (form.typePayment.$viewValue == 'boleto') {
@@ -219,7 +236,6 @@ app.votolegal.controller("PaymentController", [
 						$scope.paymentMethod,
 						$scope.candidate.name,
 						$scope.candidate.email,
-						$scope.candidate.cpf,
 						$scope.candidate.phone,
 						$scope.candidate.zipCode,
 						$scope.candidate.addressState,
@@ -228,6 +244,8 @@ app.votolegal.controller("PaymentController", [
 						$scope.candidate.addressStreet,
 						$scope.candidate.addressHouseNumber,
 					).success(function (val) {
+						localStorage.removeItem('userId');
+						localStorage.removeItem('address');
 						$scope.loading = false;
 						$scope.boletoUrl = val.url;
 

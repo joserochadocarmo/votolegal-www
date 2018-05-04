@@ -1261,8 +1261,6 @@ angular.module('angular-storage.localStorage', ['angular-storage.cookieStorage']
     var localStorageAvailable;
 
     try {
-      $window.localStorage.setItem('testKey', 'test');
-      $window.localStorage.removeItem('testKey');
       localStorageAvailable = true;
     } catch(e) {
       localStorageAvailable = false;
@@ -1280,7 +1278,7 @@ angular.module('angular-storage.localStorage', ['angular-storage.cookieStorage']
       this.remove = function (what) {
         return $window.localStorage.removeItem(what);
       };
-      
+
       this.clear = function () {
         $window.localStorage.clear();
       };
@@ -4334,7 +4332,7 @@ app.votolegal.factory('session_pagseguro', ['$http', 'serialize', 'store', funct
 app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
 	return {
-		payment: function (id, sender_hash, credit_card_token, method, name, email, cpf, phone, address_zipcode, address_state, address_city, address_district, address_street, address_house_number) {
+		payment: function (id, sender_hash, credit_card_token, method, name, email, phone, address_zipcode, address_state, address_city, address_district, address_street, address_house_number) {
 
 			return $http({
 				method: 'POST',
@@ -4345,7 +4343,6 @@ app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', funct
 					'method': method,
 					"name": name,
 					"email": email,
-					"cpf": cpf,
 					"address_zipcode": address_zipcode,
 					"address_state": address_state,
 					"address_city": address_city,
@@ -4611,21 +4608,46 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 
 			if (res.paid == 0 && res.signed_contract == 0 && res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
+
+				var objectDataAdress = {
+					address_state: res.address_state,
+					email: res.email,
+					name: res.name,
+					address_zipcode: res.address_zipcode,
+					address_city: res.address_city,
+					address_street: res.address_street,
+					phone: res.phone,
+					address_house_number: res.address_house_number
+
+				}
+				localStorage.setItem('address', JSON.stringify(objectDataAdress));
 				document.location = '/contrato';
 
 
 			}else if (res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 0) {
-				localStorage.setItem('userId', res.candidate_id)
+				localStorage.setItem('userId', res.candidate_id);
+				var objectDataAdress = {
+					address_state: res.address_state,
+					email: res.email,
+					name: res.name,
+					address_zipcode: res.address_zipcode,
+					address_city: res.address_city,
+					address_street: res.address_street,
+					phone: res.phone,
+					address_house_number: res.address_house_number
+
+				}
+				localStorage.setItem('address', JSON.stringify(objectDataAdress));
 				document.location = '/pagamento';
 
 			}else if(res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 1){
-
-				localStorage.setItem('userId', res.candidate_id)
+				localStorage.setItem('userId', res.candidate_id);
 				document.location = '/pagamento/analise';
 
 			}else if(res.paid == 1 && res.signed_contract == 1 && res.payment_created == 1){
 
 				localStorage.removeItem('userId')
+				localStorage.removeItem('address')
 				// save session
 				var session = auth_service.session();
 				session.set(
@@ -6979,7 +7001,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.formDisable = true;
 		$scope.loading = false;
 		$scope.error_list = [],
-			$scope.paymentMethod = '';
+		$scope.paymentMethod = '';
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
 		$scope.boletoUrl = null;
@@ -7007,10 +7029,26 @@ app.votolegal.controller("PaymentController", [
 			.then(function (val) {
 				$scope.boletoUrl = null;
 				$scope.SetSessionId(val.data.id)
+				//charge data user in form
+
+				var localStorageUserData = JSON.parse(localStorage.getItem('address'));
+
+				$scope.candidate = {
+					name: localStorageUserData.name,
+					email: localStorageUserData.email,
+					phone: localStorageUserData.phone,
+					zipCode: localStorageUserData.address_zipcode,
+					addressState: localStorageUserData.address_state,
+					addressCity: localStorageUserData.address_city,
+					addressDistrict: localStorageUserData.address_street.split('-')[1],
+					addressStreet: localStorageUserData.address_street,
+					addressHouseNumber: localStorageUserData.address_house_number
+				}
+				$scope.$apply();
+
 			})
 
 		$scope.creditCardPayment = function () {
-
 
 			var num = $scope.candidate.card.cardNumber + '';
 			num = num.split(' ').join('');
@@ -7056,7 +7094,6 @@ app.votolegal.controller("PaymentController", [
 
 		payment = function (data) {
 
-		console.log($scope.senderHash, 'sender')
 			if (data.errors) {
 				$scope.error = 'Tivemos um problema com as informações do seu cartão poderia verificar os dados';
 			} else {
@@ -7071,7 +7108,6 @@ app.votolegal.controller("PaymentController", [
 					$scope.paymentMethod,
 					$scope.candidate.card.name,
 					$scope.candidate.email,
-					$scope.candidate.cpf,
 					$scope.candidate.phone,
 					$scope.candidate.zipCode,
 					$scope.candidate.addressState,
@@ -7082,6 +7118,7 @@ app.votolegal.controller("PaymentController", [
 				).success(function (successs) {
 
 					localStorage.removeItem('userId');
+					localStorage.removeItem('address');
 					localStorage.setItem('paymentRedirect', 1)
 					$scope.loading = false;
 					$scope.success = 'Sucesso';
@@ -7119,6 +7156,8 @@ app.votolegal.controller("PaymentController", [
 		$scope.submit = function (valid, form) {
 			$scope.error = '';
 
+			console.log($scope.candidate, 'candidate', form)
+
 			if (valid) {
 
 				if (form.typePayment.$viewValue == 'boleto') {
@@ -7134,7 +7173,6 @@ app.votolegal.controller("PaymentController", [
 						$scope.paymentMethod,
 						$scope.candidate.name,
 						$scope.candidate.email,
-						$scope.candidate.cpf,
 						$scope.candidate.phone,
 						$scope.candidate.zipCode,
 						$scope.candidate.addressState,
@@ -7143,6 +7181,8 @@ app.votolegal.controller("PaymentController", [
 						$scope.candidate.addressStreet,
 						$scope.candidate.addressHouseNumber,
 					).success(function (val) {
+						localStorage.removeItem('userId');
+						localStorage.removeItem('address');
 						$scope.loading = false;
 						$scope.boletoUrl = val.url;
 
@@ -7221,6 +7261,7 @@ var userLocal = localStorage.getItem('user');
 		if($scope.error_list.length == 0)
 
 			localStorage.setItem('userId', response.data.id);
+			localStorage.setItem('address', JSON.stringify(response.data));
         	 document.location = '/contrato';
 
         return false;
