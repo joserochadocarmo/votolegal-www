@@ -2,14 +2,6 @@
  * Explore Controller
  */
 
- var BASE_API_JS = '';
-
-var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
-} else {
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
-}
 app.votolegal.controller('ExploreController', ["$scope", "$http", "auth_service", "serialize", "SweetAlert", "trouble", function($scope, $http, auth_service, serialize, SweetAlert, trouble){
   // defaults
   $scope.list       = [];

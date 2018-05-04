@@ -1,7 +1,3 @@
-//= require vendors
-//= require_self
-//= require_tree ./app/controller/
-
 
 
 // base uri
@@ -10,14 +6,19 @@ var BASE_API = '<%= config[:api_host] %>';
 var BASE_API_JS = '';
 
 
-
-
 var server = window.location;
 if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
 } else {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
 }
+
+
+//= require vendors
+//= require_self
+//= require_tree ./app/controller/
+
+
 
 
 
