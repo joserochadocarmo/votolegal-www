@@ -6991,7 +6991,6 @@ app.votolegal.controller("PaymentController", [
 			return new Promise(function (resolve) {
 				var res = localStorage.getItem("userId");
 				resolve(session_pagseguro.getSessionId(res))
-				return sessionId;
 
 			})
 		}
