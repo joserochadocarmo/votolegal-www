@@ -43,15 +43,7 @@ title: Pagamento
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<input class="form-control" name="cpf" ng-model="candidate.cpf" type="text" placeholder="*CPF" data-cpf="CPF" mask="999.999.999-99"
-								    required>
-								<label ng-if="pagamento.cpf.$error.mask  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">CPF Inváido</label>
-								<label ng-if="pagamento.cpf.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">CPF Inváido</label>
-							</div>
-						</div>
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="form-group">
 								<input class="form-control" name="phone" ng-model="candidate.phone" type="text" placeholder="*Tel" mask="(99)99999-9999"
 								    required>
