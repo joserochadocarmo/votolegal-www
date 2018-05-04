@@ -95,8 +95,6 @@ angular.module('angular-storage.localStorage', ['angular-storage.cookieStorage']
     var localStorageAvailable;
 
     try {
-      $window.localStorage.setItem('testKey', 'test');
-      $window.localStorage.removeItem('testKey');
       localStorageAvailable = true;
     } catch(e) {
       localStorageAvailable = false;
@@ -114,7 +112,7 @@ angular.module('angular-storage.localStorage', ['angular-storage.cookieStorage']
       this.remove = function (what) {
         return $window.localStorage.removeItem(what);
       };
-      
+
       this.clear = function () {
         $window.localStorage.clear();
       };

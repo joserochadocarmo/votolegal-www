@@ -129,21 +129,46 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 
 			if (res.paid == 0 && res.signed_contract == 0 && res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
+
+				var objectDataAdress = {
+					address_state: res.address_state,
+					email: res.email,
+					name: res.name,
+					address_zipcode: res.address_zipcode,
+					address_city: res.address_city,
+					address_street: res.address_street,
+					phone: res.phone,
+					address_house_number: res.address_house_number
+
+				}
+				localStorage.setItem('address', JSON.stringify(objectDataAdress));
 				document.location = '/contrato';
 
 
 			}else if (res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 0) {
-				localStorage.setItem('userId', res.candidate_id)
+				localStorage.setItem('userId', res.candidate_id);
+				var objectDataAdress = {
+					address_state: res.address_state,
+					email: res.email,
+					name: res.name,
+					address_zipcode: res.address_zipcode,
+					address_city: res.address_city,
+					address_street: res.address_street,
+					phone: res.phone,
+					address_house_number: res.address_house_number
+
+				}
+				localStorage.setItem('address', JSON.stringify(objectDataAdress));
 				document.location = '/pagamento';
 
 			}else if(res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 1){
-
-				localStorage.setItem('userId', res.candidate_id)
+				localStorage.setItem('userId', res.candidate_id);
 				document.location = '/pagamento/analise';
 
 			}else if(res.paid == 1 && res.signed_contract == 1 && res.payment_created == 1){
 
 				localStorage.removeItem('userId')
+				localStorage.removeItem('address')
 				// save session
 				var session = auth_service.session();
 				session.set(
