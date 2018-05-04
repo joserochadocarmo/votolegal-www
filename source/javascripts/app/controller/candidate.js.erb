@@ -918,6 +918,7 @@ $scope.serverError = false;
 
 		 response = payment_doacao.payment($scope.candidate.id, $scope.doar.name, $scope.doar.cpf, $scope.doar.phone, $scope.doar.birthdate)
 				.success(function(response){
+				console.log('suscess', response)
 				window.location = response.url;
 				}).error(function(response){
 

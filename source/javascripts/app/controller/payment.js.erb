@@ -142,6 +142,7 @@ app.votolegal.controller("PaymentController", [
 
 		payment = function (data) {
 
+		console.log($scope.senderHash, 'sender')
 			if (data.errors) {
 				$scope.error = 'Tivemos um problema com as informações do seu cartão poderia verificar os dados';
 			} else {
