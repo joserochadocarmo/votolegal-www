@@ -380,7 +380,7 @@ body.index {
 	display: block;
 	padding: 0;
 	direction: ltr;
-	text-indent: -105%;
+	text-indent: 105%;
 	overflow: hidden;
 	background-image: url('/images/logo-votolegal.svg');
 	background-repeat: no-repeat;
@@ -388,6 +388,8 @@ body.index {
 	height: 0;
 	padding-bottom: #{92 / 300 * 100%};
 	width: 100%;
+	white-space: nowrap;
+
 
 	@media screen and (min-width: 768px) {
 		margin-left: 0;
