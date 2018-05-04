@@ -242,7 +242,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 
 		$scope.error_list = [];
 		var params = $scope.campaign_params();
-		console.log(params, 'ss');
 
 		var user = auth_service.current_user();
 		params.api_key = user.api_key;
@@ -259,7 +258,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				},
 				transformRequest: function (data) {
 					var fd = new FormData();
-					console.log(fd, 'file data', data)
 
 					for (var p in data) fd.append(p, data[p]);
 
@@ -275,8 +273,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 						fd.append("spending_spreadsheet", file, file.name);
 					}
 					*/
-					console.log(fd, 'file data', data)
-
 
 					return fd;
 				}
@@ -285,7 +281,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 				$scope.submit_disabled = false;
 				$scope.check_percent();
 			}, function (response) {
-				console.log(response, 'response')
 				var res = response.data.form_error;
 
 				// spreadsheet invalid
@@ -493,8 +488,6 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			raising_goal: raising_goal_field,
 			crawlable: $scope.candidate.crawlable || 'false'
 		};
-
-		console.log(Params, 'param')
 
 		return Params
 			.require(p)
