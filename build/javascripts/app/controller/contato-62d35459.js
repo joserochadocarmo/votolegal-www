@@ -17,7 +17,7 @@ app.votolegal.controller('ContatoController', ['$scope', '$http', 'serialize', f
 
     $http({
       method: 'POST', 
-      url: '//dapi.votolegal.com.br/api/contact', 
+      url: '/contact', 
       data: serialize.from_object(params),
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
     })
