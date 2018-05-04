@@ -587,7 +587,7 @@ app.votolegal.factory('session_pagseguro', ['$http', 'serialize', 'store', funct
 app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
 	return {
-		payment: function (id, sender_hash, credit_card_token, method, name, email, cpf, phone, address_zipcode, address_state, address_city, address_district, address_street, address_house_number) {
+		payment: function (id, sender_hash, credit_card_token, method, name, email, phone, address_zipcode, address_state, address_city, address_district, address_street, address_house_number) {
 
 			return $http({
 				method: 'POST',
@@ -598,7 +598,6 @@ app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', funct
 					'method': method,
 					"name": name,
 					"email": email,
-					"cpf": cpf,
 					"address_zipcode": address_zipcode,
 					"address_state": address_state,
 					"address_city": address_city,
