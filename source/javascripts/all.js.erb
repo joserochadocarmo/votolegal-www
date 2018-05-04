@@ -674,7 +674,6 @@ app.votolegal.factory('color_theme_service', ['$http', 'serialize', 'store', fun
 	return {
 
 		edit: function (color, user) {
-			console.log(color)
 			return $http({
 				method: 'PUT',
 				url: BASE_API_JS + '/candidate/' + user.id + '/?color=' + color.theme + "&api_key=" + user.api_key,
