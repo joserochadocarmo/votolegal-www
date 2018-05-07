@@ -4969,11 +4969,12 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.check_percent = function () {
 		var p = 0;
 
-		// personal data
+		// personal data CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
+
 		if ($scope.candidate) {
 			var $c = $scope.candidate;
 			if ($c.picture && $c.picture.length > 0) p += 4;
-			if ($c.cnpj && $c.cnpj.length > 0) p += 4;
+			// if ($c.cnpj && $c.cnpj.length > 0) p += 4;
 			if ($c.video_url && $c.video_url.length > 0) p += 4;
 			if ($c.facebook_url && $c.facebook_url.length > 0) p += 4;
 			if ($c.twitter_url && $c.twitter_url.length > 0) p += 4;
@@ -4985,12 +4986,13 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			if ($c.responsible_name && $c.responsible_name.length > 0) p += 4;
 			if ($c.responsible_email && $c.responsible_email.length > 0) p += 4;
 
+			// CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
 
 
 			if ($c.raising_goal && $c.raising_goal.length > 0) p += 5;
-			if ($c.merchant_id && $c.merchant_id.length > 0) p += 5;
-			if ($c.merchant_key && $c.merchant_key !== undefined) p += 5;
-			if ($c.spending_spreadsheet && $c.spending_spreadsheet.length > 0) p += 7;
+			// if ($c.merchant_id && $c.merchant_id.length > 0) p += 5;
+			// if ($c.merchant_key && $c.merchant_key !== undefined) p += 5;
+			// if ($c.spending_spreadsheet && $c.spending_spreadsheet.length > 0) p += 7;
 		}
 
 		// personal data
