@@ -32,9 +32,13 @@ title:  Pré-cadastro
               </a>
               <span class="help-block">Entre com o nome de usuário pelo qual você será identificado por nossa equipe e seus apoiadores. Escreva sem utilizar espaço, pois esta informação será utilizada para registro do seu domínio na plataforma</span>
             </div>
-            <div class="form-group icon-left col-md-12">
+            <div class="form-group icon-left col-md-8">
               <i class="fa fa-envelope"></i>
               <input class="form-control" type="text" name="email" placeholder="E-mail" ng-model="candidate.email" >
+			</div>
+			 <div class="form-group icon-left col-md-4">
+              <i class="fa fa-envelope"></i>
+              <input class="form-control" type="text" name="birth_date" placeholder="Nascimento" ng-model="candidate.birth_date" mask="99/99/9999" mask-restrict="reject" required>
             </div>
           </div>
           <div class="row">
