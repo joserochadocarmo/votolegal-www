@@ -140,9 +140,13 @@
               </a>
               <span class="help-block">Entre com o nome de usuário pelo qual você será identificado por nossa equipe e seus apoiadores. Escreva sem utilizar espaço, pois esta informação será utilizada para registro do seu domínio na plataforma</span>
             </div>
-            <div class="form-group icon-left col-md-12">
+            <div class="form-group icon-left col-md-8">
               <i class="fa fa-envelope"></i>
               <input class="form-control" type="text" name="email" placeholder="E-mail" ng-model="candidate.email" >
+			</div>
+			 <div class="form-group icon-left col-md-4">
+              <i class="fa fa-envelope"></i>
+              <input class="form-control" type="text" name="birth_date" placeholder="Nascimento" ng-model="candidate.birth_date" mask="99/99/9999" mask-restrict="reject" required>
             </div>
           </div>
           <div class="row">
@@ -181,6 +185,13 @@
               <select class="form-control" name="party_id" placeholder="Partido" ng-model="candidate.party_id">
                 <option value="" disabled selected ng-selected="selected">Partido</option>
                 <option ng-repeat="party in party_list" value="{{party.id}}">{{party.acronym}}</option>
+              </select>
+			</div>
+			<div class="form-group _icon-left col-md-12">
+              <i class="fa fa-flag hide"></i>
+              <select class="form-control" name="political_movement" placeholder="Movimento Político" ng-model="candidate.political_movement">
+                <option value="" disabled selected ng-selected="selected">Movimento</option>
+                <option ng-repeat="mov in political_movement" value="{{mov.id}}">{{mov.name}}</option>
               </select>
             </div>
           </div>
@@ -706,7 +717,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-6311bfc6.js"></script>
+												<script src="/javascripts/all-1b04334d.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

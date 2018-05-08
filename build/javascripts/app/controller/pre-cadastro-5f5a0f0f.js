@@ -3,9 +3,10 @@
  * Register a new candidate to be moderated by admin team
  */
 
-app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon', 'serialize', function($scope, $http, postmon, serialize){
+app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon', 'serialize', 'moviment', function($scope, $http, postmon, serialize,moviment) {
   $scope.candidate = {};
   $scope.submit_disabled = false;
+
 
 var userLocal = localStorage.getItem('user');
 
@@ -38,6 +39,9 @@ var userLocal = localStorage.getItem('user');
       $scope.error_list.push("Os campos de senha devem ser iguais.");
       return false;
     }
+	if($scope.candidate.birth_date == undefined){
+        $scope.error_list.push("Data de nascimento é obrigatório");
+	}
 
     $scope.submit_disabled = true;
     $http({
@@ -54,7 +58,7 @@ var userLocal = localStorage.getItem('user');
 
 			localStorage.setItem('userId', response.data.id);
 			localStorage.setItem('address', JSON.stringify(response.data));
-        	 document.location = '/contrato';
+        	document.location = '/contrato';
 
         return false;
       },
@@ -81,6 +85,8 @@ var userLocal = localStorage.getItem('user');
         if($scope.candidate.password && ($scope.candidate.password != $scope.candidate.confirm_password)){
           $scope.error_list.push("Os campos de senha devem ser iguais.");
 		}
+
+
 		/*
         if (!$scope.accept_terms && !$scope.transparent_campaign){
           if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
@@ -153,6 +159,16 @@ var userLocal = localStorage.getItem('user');
     );
   };
 
+
+  // getMoviments
+$scope.getMoviment = function(){
+	moviment.getMoviment()
+		.success(function(res){
+		$scope.political_movement = res.political_movement
+		})
+}
+
+
   // reset form fields
   $scope.reset = function(){
     $scope.candidate = {};
@@ -162,4 +178,5 @@ var userLocal = localStorage.getItem('user');
   // load parties from api
   $scope.load_offices();
   $scope.load_parties();
+  $scope.getMoviment();
 }]);

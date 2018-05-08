@@ -4387,22 +4387,18 @@ app.votolegal.factory('certi_face_token', ['$http', 'serialize', 'store', functi
 
 	return {
 		tokenVerify: function (token) {
-
 			return $http({
 				method: 'POST',
 				url: BASE_API_JS + '/certiface/token/validate?token=' + token,
 			})
 		}
 	}
-
 }]);
 
 app.votolegal.factory('site_publish_service', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
 	return {
-
 		edit: function (publish, user) {
-
 			return $http({
 				method: 'POST',
 				url: BASE_API_JS + '/candidate/' + user.id + '/' + publish + "?api_key=" + user.api_key,
@@ -4410,13 +4406,11 @@ app.votolegal.factory('site_publish_service', ['$http', 'serialize', 'store', fu
 			})
 		}
 	}
-
 }]);
 
 app.votolegal.factory('color_theme_service', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
 	return {
-
 		edit: function (color, user) {
 
 			return $http({
@@ -4426,9 +4420,19 @@ app.votolegal.factory('color_theme_service', ['$http', 'serialize', 'store', fun
 			})
 		}
 	}
-
 }]);
+app.votolegal.factory('moviment', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
+	return {
+		getMoviment: function () {
+			return $http({
+				method: 'GET',
+				url: BASE_API_JS + '/political_movement',
+
+			})
+		}
+	}
+}]);
 
 
 
@@ -6980,7 +6984,6 @@ app.votolegal.controller("PaymentController", [
 		$scope.candidate = {
 			name: '',
 			email: '',
-			cpf: '',
 			phone: '',
 			zipCode: '',
 			addressState: '',
@@ -7011,6 +7014,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.senderHash = '';
 
 
+
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
 				var res = localStorage.getItem("userId");
@@ -7024,30 +7028,43 @@ app.votolegal.controller("PaymentController", [
 
 			})
 		}
+	$scope.chargeUser = function () {
+
+		var localStorageUserData = JSON.parse(localStorage.getItem('address'));
+			$scope.candidate = {
+				name: localStorageUserData.name,
+				email: localStorageUserData.email,
+				phone: localStorageUserData.phone,
+				zipCode: localStorageUserData.address_zipcode,
+				addressState: localStorageUserData.address_state,
+				addressCity: localStorageUserData.address_city,
+				addressDistrict: localStorageUserData.address_street.split('-')[1],
+				addressStreet: localStorageUserData.address_street,
+				addressHouseNumber: localStorageUserData.address_house_number
+			}
+	}
 
 
 		//Start session
 		$scope.getSessionId()
 			.then(function (val) {
+
+				console.log(val, 'aqui')
 				$scope.boletoUrl = null;
 				$scope.SetSessionId(val.data.id)
 				//charge data user in form
 
 				var localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-				$scope.candidate = {
-					name: localStorageUserData.name,
-					email: localStorageUserData.email,
-					phone: localStorageUserData.phone,
-					zipCode: localStorageUserData.address_zipcode,
-					addressState: localStorageUserData.address_state,
-					addressCity: localStorageUserData.address_city,
-					addressDistrict: localStorageUserData.address_street.split('-')[1],
-					addressStreet: localStorageUserData.address_street,
-					addressHouseNumber: localStorageUserData.address_house_number
-				}
-				$scope.$apply();
+				$scope.chargeUser()
+				$scope.$digest();
 
+			}, function(resp){
+
+				if (resp.data.error == "user did not sign contract") {
+
+					window.location = '/contrato';
+				}
 			})
 
 		$scope.creditCardPayment = function () {
@@ -7213,9 +7230,10 @@ app.votolegal.controller("PaymentController", [
  * Register a new candidate to be moderated by admin team
  */
 
-app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon', 'serialize', function($scope, $http, postmon, serialize){
+app.votolegal.controller('PreCadastroController', ['$scope', '$http', 'postmon', 'serialize', 'moviment', function($scope, $http, postmon, serialize,moviment) {
   $scope.candidate = {};
   $scope.submit_disabled = false;
+
 
 var userLocal = localStorage.getItem('user');
 
@@ -7248,6 +7266,9 @@ var userLocal = localStorage.getItem('user');
       $scope.error_list.push("Os campos de senha devem ser iguais.");
       return false;
     }
+	if($scope.candidate.birth_date == undefined){
+        $scope.error_list.push("Data de nascimento é obrigatório");
+	}
 
     $scope.submit_disabled = true;
     $http({
@@ -7264,7 +7285,7 @@ var userLocal = localStorage.getItem('user');
 
 			localStorage.setItem('userId', response.data.id);
 			localStorage.setItem('address', JSON.stringify(response.data));
-        	 document.location = '/contrato';
+        	document.location = '/contrato';
 
         return false;
       },
@@ -7291,6 +7312,8 @@ var userLocal = localStorage.getItem('user');
         if($scope.candidate.password && ($scope.candidate.password != $scope.candidate.confirm_password)){
           $scope.error_list.push("Os campos de senha devem ser iguais.");
 		}
+
+
 		/*
         if (!$scope.accept_terms && !$scope.transparent_campaign){
           if(!$scope.accept_terms) $scope.error_list.push("Você deve aceitar os termos de uso.");
@@ -7363,6 +7386,16 @@ var userLocal = localStorage.getItem('user');
     );
   };
 
+
+  // getMoviments
+$scope.getMoviment = function(){
+	moviment.getMoviment()
+		.success(function(res){
+		$scope.political_movement = res.political_movement
+		})
+}
+
+
   // reset form fields
   $scope.reset = function(){
     $scope.candidate = {};
@@ -7372,6 +7405,7 @@ var userLocal = localStorage.getItem('user');
   // load parties from api
   $scope.load_offices();
   $scope.load_parties();
+  $scope.getMoviment();
 }]);
 /**
  * PreCandidate Controller
