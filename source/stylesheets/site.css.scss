@@ -32,7 +32,6 @@ $verde-escuro: #29673e;
 
 html {
 	@include font-normal();
-
 	height: 100%;
 }
 
@@ -57,6 +56,15 @@ nav.navbar {
 	margin-bottom: 0px !important;
 }
 
+.navbar-bg {
+	background-image: url(../images/bg-topo-internas.png);
+	background-repeat: no-repeat;
+	background-position-y: 122%;
+	background-position-x: 50%;
+	padding-bottom: 20px;
+	box-shadow: 0px 5px 22px -7px #B2B1B0;
+}
+
 .navbar-fixed-top {
 	position: fixed;
 	z-index: 99;
@@ -70,10 +78,11 @@ nav.navbar-votolegal {
 	border: none;
 	border-radius: 0px;
 	a.navbar-brand {
-		float: left;
-		height: 50px;
-		padding: 0px;
 		line-height: 20px;
+		margin-bottom: 1rem;
+		display: block;
+		float: none;
+		min-height: 100px;
 	}
 	.navbar-toggle {
 		background-color: transparent !important;
@@ -93,10 +102,25 @@ nav.navbar-votolegal {
 	.dropdown {
 		background-color: transparent;
 		border: solid 1px transparent;
+		margin-top: 3rem;
 		a:first-child {
 			color: #4daa59;
 			font-weight: bold;
 			background-color: transparent;
+			.icon::before {
+				display: inline-block;
+				content: ">";
+				padding-right: 3px;
+			}
+		}
+		>a:first-child {
+			font-size: 18px;
+			font-weight: 400;
+			color: #336666;
+		}
+		>a:first-child:focus,
+		>a:first-child:hover {
+			color: #00D9AF;
 		}
 		a:focus,
 		a:hover {
@@ -201,7 +225,7 @@ header.cover {
 }
 
 section {
-	padding: 20px 0px;
+	padding: 70px 0px;
 	@media all and ($max-screen: 480px) {
 		padding: 0px 0px;
 	}
@@ -331,6 +355,7 @@ section#howto-works {
 }
 
 /* home styles */
+
 body.index {
 	padding: 0;
 	margin: 0;
@@ -339,21 +364,17 @@ body.index {
 	background-image: url('/images/home/bg-art-01--445w.jpg');
 	background-position: 50% 6em;
 	background-repeat: no-repeat;
-
 	@media screen and (min-width: 768px) {
 		background-image: url('/images/home/bg-art-01.jpg');
 	}
-
 	@media screen and (min-height: 1024px) {
 		background-position: 50% 50%;
 	}
-
 	@media screen and (min-height: 768px) {
 		@media screen and (min-width: 1024px) {
 			background-image: url('/images/home/foto-bg-destaque-art--1024w.jpg');
 			background-position: 100% 100%;
 		}
-
 		@media screen and (min-width: 1280px) {
 			background-image: url('/images/home/foto-bg-destaque-art.jpg');
 		}
@@ -369,7 +390,6 @@ body.index {
 	padding: 15px 60px;
 	max-width: 100%;
 	width: 260px;
-
 	@media screen and (min-height: 768px) {
 		width: 300px;
 		margin-top: 3rem;
@@ -389,13 +409,10 @@ body.index {
 	padding-bottom: #{92 / 300 * 100%};
 	width: 100%;
 	white-space: nowrap;
-
-
 	@media screen and (min-width: 768px) {
 		margin-left: 0;
 	}
 }
-
 
 .login-form {
 	background-color: white;
@@ -410,7 +427,6 @@ body.index {
 	margin-left: auto;
 	padding: 2em;
 	min-width: 18.571428571428573em;
-
 	@media screen and (min-width: 768px) {
 		padding: 4em;
 	}
@@ -420,16 +436,15 @@ body.index {
 	margin-bottom: 0;
 }
 
-
 /* footer style */
 
 footer#footer {
-	color: #ffffff;
+	color: #336666;
 	font-size: 12px;
-	padding: 50px 0px;
-	background-color: #29673e;
+	padding: 100px 0px 30px 0;
+	background-color: #2de36d;
 	a {
-		color: #ffffff;
+		color: #336666;
 		&:hover {
 			color: #68ff6e;
 			text-decoration: none;
@@ -442,23 +457,27 @@ footer#footer {
 	.copyright {
 		text-align: center;
 		margin: 40px 0px;
+		font-size: 1.8rem;
 	}
+	.footer-terms{
+		font-weight: 400;
+	}
+
 }
 
 footer .logo {
 	margin-top: 36px;
-	text-align: right;
-	@media (max-width: 768px) {
-		text-align: center;
-	}
+	text-align: center;
 }
 
 .social-buttons {
-	text-align: left;
 	h4 {
 		color: #fff;
 		font-size: 14px;
 		font-weight: bolder;
+	}
+	i {
+		font-size: 2.5em;
 	}
 	ul {
 		color: #fff;
@@ -472,12 +491,11 @@ footer .logo {
 			float: left;
 			width: 40px;
 			height: 40px;
-			margin: 2px;
-			padding-top: 3px;
+			margin: 4px;
+			padding-top: 4px;
 			line-height: 45px;
 			text-align: center;
 			border-radius: 30px;
-			background-color: #43ac45;
 			a {
 				color: #fff !important;
 				&:hover {
@@ -593,8 +611,6 @@ section#pre-candidate {
 		}
 	}
 }
-
-section#contact {}
 
 div.header-filter {
 	margin-top: -20px;
@@ -1737,7 +1753,6 @@ input[name="theme"] {
 	border-left: solid 5px #4eaa5b;
 }
 
-
 $class-change: ( 'class1': ( 'font-color':#fff,
 'links---font-color': #fff,
 'btn--success-font-color':#fff,
@@ -1848,49 +1863,44 @@ input[type=checkbox].contract-ckeck {
 	margin-right: auto;
 	margin-left: auto;
 }
-@import 'choicecolors.scss';
 
+@import 'choicecolors.scss';
 .configSite input[type=radio] {
 	margin: 3px 8px 0px;
 }
-.card{
+
+.card {
 	display: inline-block;
 	width: 33%;
 	border: solid 1px #ddd;
-	 vertical-align:top;
-	 padding: 1rem;
-	 min-height: 15rem;
-	 margin-bottom: 2rem;
-	 border-radius: 3px;
-	 position: relative;
-
-	 @media (max-width:991px) {
-		 width: 100%;
-
-	 }
-
+	vertical-align: top;
+	padding: 1rem;
+	min-height: 15rem;
+	margin-bottom: 2rem;
+	border-radius: 3px;
+	position: relative;
+	@media (max-width: 991px) {
+		width: 100%;
+	}
 }
-.card .btn{
+
+.card .btn {
 	position: absolute;
 	right: 1rem;
 	bottom: 1rem;
-
 }
+
 .card .switch {
 	position: relative;
 	width: 60px;
-	height: 34px;
-	//  display: inline-block;
-
+	height: 34px; //  display: inline-block;
 }
 
 .card .switch input {
-
 	display: none;
 }
 
 .card .slider {
-
 	position: absolute;
 	cursor: pointer;
 	top: 0;
@@ -1903,7 +1913,6 @@ input[type=checkbox].contract-ckeck {
 }
 
 .card .slider:before {
-
 	position: absolute;
 	content: "";
 	height: 26px;
@@ -1915,16 +1924,16 @@ input[type=checkbox].contract-ckeck {
 	transition: .4s;
 }
 
-.card input.active+.slider{
+.card input.active+.slider {
 	background-color: #5cb85c;
-
 }
 
 .card input:focus+.slider {
 	box-shadow: 0 0 1px #5cb85c;
-
 }
-.card .switch input.active+.slider:before,{
+
+.card .switch input.active+.slider:before,
+	{
 	-webkit-transform: translateX(26px);
 	-ms-transform: translateX(26px);
 	transform: translateX(26px);
@@ -1937,7 +1946,6 @@ input[type=checkbox].contract-ckeck {
 	display: inline-block;
 	vertical-align: top;
 	margin: 0 1rem;
-
 }
 
 .card .radio-theme {
@@ -1958,17 +1966,14 @@ input[type=checkbox].contract-ckeck {
 
 .card .radio-span.default {
 	border: 5px solid #5cb85c;
-
 }
 
 .card .radio-span.blue {
 	border: 5px solid #2959aa;
-
 }
 
 .card .radio-span.red {
 	border: 5px solid #a6090e;
-
 }
 
 .card .radio-theme-container input.active~.radio-span.default,
@@ -1979,30 +1984,26 @@ input[type=checkbox].contract-ckeck {
 .card .radio-theme-container input.active~.radio-span.blue,
 .card .radio-theme-container input:checked~.radio-span.blue {
 	background-color: #2959aa;
-
 }
 
 .card .radio-theme-container input.active~.radio-span.red,
 .card .radio-theme-container input:checked~.radio-span.red {
 	background-color: #a6090e;
-
 }
+
 .responseSubmit {
 	position: absolute;
 	bottom: 0;
-    margin-bottom: 1rem;
-
+	margin-bottom: 1rem;
 }
 
 .maintenance {
 	font-size: 4rem;
-
 }
 
 .pre-head {
 	margin: 4rem 0;
 	text-align: left;
-
 }
 
 .pos-head {
@@ -2011,16 +2012,6 @@ input[type=checkbox].contract-ckeck {
 	text-align: left;
 }
 
-
-
-#termos .pos-head{
+#termos .pos-head {
 	text-align: center;
 }
-
-
-
-
-
-
-
-
