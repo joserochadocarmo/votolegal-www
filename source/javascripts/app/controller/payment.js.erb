@@ -41,7 +41,6 @@ app.votolegal.controller("PaymentController", [
 		$scope.candidate = {
 			name: '',
 			email: '',
-			cpf: '',
 			phone: '',
 			zipCode: '',
 			addressState: '',
@@ -72,6 +71,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.senderHash = '';
 
 
+
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
 				var res = localStorage.getItem("userId");
@@ -85,30 +85,43 @@ app.votolegal.controller("PaymentController", [
 
 			})
 		}
+	$scope.chargeUser = function () {
+
+		var localStorageUserData = JSON.parse(localStorage.getItem('address'));
+			$scope.candidate = {
+				name: localStorageUserData.name,
+				email: localStorageUserData.email,
+				phone: localStorageUserData.phone,
+				zipCode: localStorageUserData.address_zipcode,
+				addressState: localStorageUserData.address_state,
+				addressCity: localStorageUserData.address_city,
+				addressDistrict: localStorageUserData.address_street.split('-')[1],
+				addressStreet: localStorageUserData.address_street,
+				addressHouseNumber: localStorageUserData.address_house_number
+			}
+	}
 
 
 		//Start session
 		$scope.getSessionId()
 			.then(function (val) {
+
+				console.log(val, 'aqui')
 				$scope.boletoUrl = null;
 				$scope.SetSessionId(val.data.id)
 				//charge data user in form
 
 				var localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-				$scope.candidate = {
-					name: localStorageUserData.name,
-					email: localStorageUserData.email,
-					phone: localStorageUserData.phone,
-					zipCode: localStorageUserData.address_zipcode,
-					addressState: localStorageUserData.address_state,
-					addressCity: localStorageUserData.address_city,
-					addressDistrict: localStorageUserData.address_street.split('-')[1],
-					addressStreet: localStorageUserData.address_street,
-					addressHouseNumber: localStorageUserData.address_house_number
-				}
-				$scope.$apply();
+				$scope.chargeUser()
+				$scope.$digest();
 
+			}, function(resp){
+
+				if (resp.data.error == "user did not sign contract") {
+
+					window.location = '/contrato';
+				}
 			})
 
 		$scope.creditCardPayment = function () {
