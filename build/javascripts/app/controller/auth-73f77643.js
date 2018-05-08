@@ -124,46 +124,43 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         return false;
 	  }
 
+	  $scope.setUserLocalStorage = function(res){
+	  				var objectDataAdress = {
+					address_state: res.address_state,
+					email: res.email,
+					name: res.name,
+					address_zipcode: res.address_zipcode,
+					address_city: res.address_city,
+					address_street: res.address_street,
+					phone: res.phone,
+					address_house_number: res.address_house_number,
+					payment_method: res.payment_method
+
+				}
+				localStorage.setItem('address', JSON.stringify(objectDataAdress));
+	  }
+
       for(var i in role_list){
         if(role_list[i] === 'admin') document.location = '/admin';
         if(role_list[i] === 'user'){
 
 			if (res.paid == 0 && res.signed_contract == 0 && res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id)
+				$scope.setUserLocalStorage(res)
 
-				var objectDataAdress = {
-					address_state: res.address_state,
-					email: res.email,
-					name: res.name,
-					address_zipcode: res.address_zipcode,
-					address_city: res.address_city,
-					address_street: res.address_street,
-					phone: res.phone,
-					address_house_number: res.address_house_number
-
-				}
-				localStorage.setItem('address', JSON.stringify(objectDataAdress));
 				document.location = '/contrato';
 
 
 			}else if (res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 0) {
 				localStorage.setItem('userId', res.candidate_id);
-				var objectDataAdress = {
-					address_state: res.address_state,
-					email: res.email,
-					name: res.name,
-					address_zipcode: res.address_zipcode,
-					address_city: res.address_city,
-					address_street: res.address_street,
-					phone: res.phone,
-					address_house_number: res.address_house_number
+				$scope.setUserLocalStorage(res)
 
-				}
-				localStorage.setItem('address', JSON.stringify(objectDataAdress));
 				document.location = '/pagamento';
 
 			}else if(res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 1){
 				localStorage.setItem('userId', res.candidate_id);
+				$scope.setUserLocalStorage(res)
+
 				document.location = '/pagamento/analise';
 
 			}else if(res.paid == 1 && res.signed_contract == 1 && res.payment_created == 1){
