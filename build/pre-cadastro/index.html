@@ -189,7 +189,7 @@
 			</div>
 			<div class="form-group _icon-left col-md-12">
               <i class="fa fa-flag hide"></i>
-              <select class="form-control" name="political_movement" placeholder="Movimento Político" ng-model="candidate.political_movement">
+              <select class="form-control" name="political_movement" placeholder="Movimento Político" ng-model="candidate.political_movement_id">
                 <option value="" disabled selected ng-selected="selected">Movimento</option>
                 <option ng-repeat="mov in political_movement" value="{{mov.id}}">{{mov.name}}</option>
               </select>
