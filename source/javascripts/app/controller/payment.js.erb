@@ -98,7 +98,8 @@ app.votolegal.controller("PaymentController", [
 				addressDistrict: localStorageUserData.address_street.split('-')[1],
 				addressStreet: localStorageUserData.address_street,
 				addressHouseNumber: localStorageUserData.address_house_number,
-				amount: localStorageUserData.amount
+				amount: localStorageUserData.amount,
+				payment_method: localStorageUserData.payment_method
 
 			}
 	}
