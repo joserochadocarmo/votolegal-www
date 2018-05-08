@@ -78,6 +78,13 @@ title:  Pré-cadastro
                 <option value="" disabled selected ng-selected="selected">Partido</option>
                 <option ng-repeat="party in party_list" value="{{party.id}}">{{party.acronym}}</option>
               </select>
+			</div>
+			<div class="form-group _icon-left col-md-12">
+              <i class="fa fa-flag hide"></i>
+              <select class="form-control" name="political_movement" placeholder="Movimento Político" ng-model="candidate.political_movement">
+                <option value="" disabled selected ng-selected="selected">Movimento</option>
+                <option ng-repeat="mov in political_movement" value="{{mov.id}}">{{mov.name}}</option>
+              </select>
             </div>
           </div>
           <div class="row">

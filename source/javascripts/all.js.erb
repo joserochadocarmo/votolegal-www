@@ -642,22 +642,18 @@ app.votolegal.factory('certi_face_token', ['$http', 'serialize', 'store', functi
 
 	return {
 		tokenVerify: function (token) {
-
 			return $http({
 				method: 'POST',
 				url: BASE_API_JS + '/certiface/token/validate?token=' + token,
 			})
 		}
 	}
-
 }]);
 
 app.votolegal.factory('site_publish_service', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
 	return {
-
 		edit: function (publish, user) {
-
 			return $http({
 				method: 'POST',
 				url: BASE_API_JS + '/candidate/' + user.id + '/' + publish + "?api_key=" + user.api_key,
@@ -665,13 +661,11 @@ app.votolegal.factory('site_publish_service', ['$http', 'serialize', 'store', fu
 			})
 		}
 	}
-
 }]);
 
 app.votolegal.factory('color_theme_service', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
 	return {
-
 		edit: function (color, user) {
 
 			return $http({
@@ -681,9 +675,19 @@ app.votolegal.factory('color_theme_service', ['$http', 'serialize', 'store', fun
 			})
 		}
 	}
-
 }]);
+app.votolegal.factory('moviment', ['$http', 'serialize', 'store', function ($http, serialize, store) {
 
+	return {
+		getMoviment: function () {
+			return $http({
+				method: 'GET',
+				url: BASE_API_JS + '/political_movement',
+
+			})
+		}
+	}
+}]);
 
 
 
