@@ -7040,7 +7040,9 @@ app.votolegal.controller("PaymentController", [
 				addressCity: localStorageUserData.address_city,
 				addressDistrict: localStorageUserData.address_street.split('-')[1],
 				addressStreet: localStorageUserData.address_street,
-				addressHouseNumber: localStorageUserData.address_house_number
+				addressHouseNumber: localStorageUserData.address_house_number,
+				amount: localStorageUserData.amount
+
 			}
 	}
 
