@@ -195,7 +195,7 @@ title: Pagamento
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cod. de segurança"
 								    required>
-								<label ng-if="(pagamento.cvvCard.$error.min || pagamento.cvvCard.$error.max) && (pagamento.$submitted &&  pagamento.cvvCard.$touched)"
+								<label ng-if="pagamento.$submitted || pagamento.cvvCard.$touched"
 								    style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
 							</div>
 						</div>
