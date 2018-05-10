@@ -198,19 +198,9 @@ app.votolegal.controller("PaymentController", [
 				}
 
 				for (var i = 0; i < errors.length; i++) {
-					if (errors[i]['code'] == '53122') {
-						errorList.push({
-							title: 'Nome inválido'
-						})
-					} else if (errors[i]['code'] == "53015" || errors[i]['code'] == "53044") {
-						errorList.push({
-							title: 'Email invalido'
-						})
-					} else {
-						errorList.push({
-							title: errors[i]['code'] + ':'+ errors[i]['message']
-						})
-					}
+					var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':'+ errors[i]['message'];
+
+					errorList.push(message);
 				}
 
 				if (errorList.length > 0){
