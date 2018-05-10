@@ -164,6 +164,8 @@ app.votolegal.controller("PaymentController", [
 		}
 
 
+
+
 		$scope.createCardToken = function (brand) {
 			$scope.loading = true;
 			var num = ($scope.candidate.card.cardNumber + '').split(' ').join('');
@@ -183,6 +185,7 @@ app.votolegal.controller("PaymentController", [
 
 		}
 
+
 		convertErrorToJson = function (string) {
 
 			var xmlValue = Object.values(string)
@@ -198,14 +201,14 @@ app.votolegal.controller("PaymentController", [
 				}
 
 				for (var i = 0; i < errors.length; i++) {
-					var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':'+ errors[i]['message'];
 
-					errorList.push(message);
+					var message = error_msg(errors[0][i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
+
+					errorList.push({title:message});
 				}
 
 				if (errorList.length > 0){
 					$scope.errorListPaymentServer = errorList;
-					console.log( 'serrver dentro', $scope.errorListPaymentServer, errorList);
 				}
 			}
 		}

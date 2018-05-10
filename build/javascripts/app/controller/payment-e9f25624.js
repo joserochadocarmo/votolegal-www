@@ -1,3 +1,5 @@
+
+
 app.votolegal.controller("PaymentController", [
 	"$scope",
 	"$http",
@@ -31,11 +33,7 @@ app.votolegal.controller("PaymentController", [
 
 	) {
 
-		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-		// if (localStorage.getItem("userId") == null || $scope.localStorageUserData.id ){
-		// 		document.location = "/";
-		// 	}
 
 
 		$scope.candidate = {
@@ -63,13 +61,14 @@ app.votolegal.controller("PaymentController", [
 		$scope.formDisable = true;
 		$scope.loading = false;
 		$scope.error_list = [],
-			$scope.paymentMethod = '';
+		$scope.paymentMethod = '';
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
 		$scope.boletoUrl = null;
 		$scope.error = '';
 		$scope.senderHash = '';
 		$scope.errorListPaymentServer = [];
+		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
 
 
@@ -165,6 +164,8 @@ app.votolegal.controller("PaymentController", [
 		}
 
 
+
+
 		$scope.createCardToken = function (brand) {
 			$scope.loading = true;
 			var num = ($scope.candidate.card.cardNumber + '').split(' ').join('');
@@ -184,6 +185,7 @@ app.votolegal.controller("PaymentController", [
 
 		}
 
+
 		convertErrorToJson = function (string) {
 
 			var xmlValue = Object.values(string)
@@ -199,24 +201,14 @@ app.votolegal.controller("PaymentController", [
 				}
 
 				for (var i = 0; i < errors.length; i++) {
-					if (errors[i]['code'] == '53122') {
-						errorList.push({
-							title: 'Nome inválido'
-						})
-					} else if (errors[i]['code'] == "53015" || errors[i]['code'] == "53044") {
-						errorList.push({
-							title: 'Email invalido'
-						})
-					} else {
-						errorList.push({
-							title: errors[i]['code'] + ':'+ errors[i]['message']
-						})
-					}
+
+					var message = error_msg(errors[0][i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
+
+					errorList.push({title:message});
 				}
 
 				if (errorList.length > 0){
 					$scope.errorListPaymentServer = errorList;
-					console.log( 'serrver dentro', $scope.errorListPaymentServer, errorList);
 				}
 			}
 		}
