@@ -33,9 +33,9 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-		if (localStorage.getItem("userId") == null || $scope.localStorageUserData.id ){
-				document.location = "/";
-			}
+		// if (localStorage.getItem("userId") == null || $scope.localStorageUserData.id ){
+		// 		document.location = "/";
+		// 	}
 
 
 		$scope.candidate = {
