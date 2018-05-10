@@ -88,19 +88,25 @@ app.votolegal.controller("PaymentController", [
 		$scope.chargeUser = function () {
 
 			var localStorageUserData = JSON.parse(localStorage.getItem('address'));
-			$scope.candidate = {
-				name: localStorageUserData.name,
-				email: localStorageUserData.email,
-				phone: localStorageUserData.phone,
-				zipCode: localStorageUserData.address_zipcode,
-				addressState: localStorageUserData.address_state,
-				addressCity: localStorageUserData.address_city,
-				addressDistrict: localStorageUserData.address_street.split('-')[1],
-				addressStreet: localStorageUserData.address_street,
-				addressHouseNumber: localStorageUserData.address_house_number,
-				amount: localStorageUserData.amount,
+
+			if(localStorageUserData){
+				$scope.candidate = {
+					name: localStorageUserData.name,
+					email: localStorageUserData.email,
+					phone: localStorageUserData.phone,
+					zipCode: localStorageUserData.address_zipcode,
+					addressState: localStorageUserData.address_state,
+					addressCity: localStorageUserData.address_city,
+					addressDistrict: localStorageUserData.address_street.split('-')[1],
+					addressStreet: localStorageUserData.address_street,
+					addressHouseNumber: localStorageUserData.address_house_number,
+					amount: localStorageUserData.amount,
+					peyment_method: localStorageUserData.peyment_method,
+
+				}
 
 			}
+
 		}
 		$scope.chargeUser()
 
