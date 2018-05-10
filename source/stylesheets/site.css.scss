@@ -1816,7 +1816,79 @@ $rules in $class-change {
 }
 
 .value-payment {
-	font-size: 2rem;
+	border-radius: 5px;
+	box-shadow: 0px 5px 0 0 rgba(86, 121, 192, 0.4);
+	background-color: #ffffff;
+	border: dashed 1px #3366cc;
+	padding: 26px;
+	position: relative;
+	z-index: 10;
+	color: #3366cc;
+	margin-bottom: 80px;
+	font-weight: bold;
+
+	&:after {
+		content: '';
+		height: 0;
+		clear: both;
+		display: block;
+	}
+}
+
+.value-payment ul,
+.value-payment li {
+	list-style: none;
+	display: block;
+}
+
+.value-payment ul {
+	padding: 0;
+	margin: 0;
+}
+
+.value-payment__intro {
+	text-transform: uppercase;
+	font-size: 23px;
+	max-width: 8em;
+}
+
+.value-payment__setup {
+	text-transform: uppercase;
+	position: relative;
+}
+
+.value-payment__setup .value-payment__info {
+	color: #5395f4;
+}
+
+.value-payment__setup .value-payment__value {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	font-size: 61.5px;
+	line-height: 1;
+}
+
+.value-payment__setup .value-payment__currency {
+	font-size: 35px;
+}
+
+.value-payment__fee {
+	border-radius: 0 0 5px 5px;
+	background-color: #3366cc;
+	padding: 10px 20px;
+	box-shadow: 0px 5px 0 0 inset rgba(33, 71, 175, 0.4);
+
+	font-size: 18.5px;
+	color: white;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	z-index: -1;
+}
+
+.value-payment__fee .value-payment__value {
+	font-size: 23px;
 }
 
 .payment-type {

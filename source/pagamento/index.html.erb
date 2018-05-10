@@ -15,14 +15,39 @@
 		<div ng-controller="PaymentController">
 
 			<div class="col-md-offset-3 col-md-6">
-				<p class="pre-head">
-					Pagamento: Nesta fase você deve inserir os dados financeiros para pagamento da plataforma. Esta etapa deve ser realizada
-					obrigatoriamente com a concordância e ciência do pré-candidato.
-					<strong>Importante:</strong> os dados para pagamento da plataforma, tanto no cartão ou no boleto bancário, devem ser do pré-candidato.
-				</p>
-				<h3>Formulário de pagamento</h3>
-				<form name="pagamento" id="pagamento" novalidate ng-submit="submit(pagamento.$valid, pagamento)">
+				<div class="row">
+					<div class="col-xs-12">
+						<h3>Pagamento pré-campanha</h3>
+						<p class="pre-head">
+						Nesta fase você deve inserir os dados financeiros para pagamento da plataforma. Esta etapa deve ser realizada obrigatoriamente com a concordância e ciência do pré-candidato. <strong>Importante: os dados para pagamento da plataforma, tanto no cartão ou no boleto bancário, devem ser do pré-candidato.</strong>
+						</p>
+					</div>
+				</div>
+				<div class="row" ng-if="candidate.amount">
+					<div class="col-md-12">
+						<div class="value-payment">
+							<p class="value-payment__intro">
+								Valores pré&#8209;campanha:
+							</p>
+							<ul>
+								<li class="value-payment__setup">
+									<span class="value-payment__info">Parcela única para setup</span>
+									<span class="value-payment__value">
+										<span class="value-payment__currency">R$</span>{{candidate.amount}}
+									</span>
+								</li>
+								<li class="value-payment__fee">
+									<span class="value-payment__value">
+										+10%
+									</span>
+									<span class="value-payment__info">de taxas administrativas por transação</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
+				<form name="pagamento" id="pagamento" novalidate ng-submit="submit(pagamento.$valid, pagamento)">
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group">
@@ -186,9 +211,6 @@
 
 					</div>
 					<div class=" clearfix">
-						<div class="col-md-6 pull-right value-payment">
-							<b>Total: R$ {{candidate.amount}}</b>
-						</div>
 						<div class="col-md-12">
 							<div ng-show="errorListPaymentServer.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 							    class="error-panel">
