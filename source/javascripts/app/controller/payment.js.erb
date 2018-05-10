@@ -1,3 +1,5 @@
+
+
 app.votolegal.controller("PaymentController", [
 	"$scope",
 	"$http",
@@ -31,11 +33,7 @@ app.votolegal.controller("PaymentController", [
 
 	) {
 
-		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-		// if (localStorage.getItem("userId") == null || $scope.localStorageUserData.id ){
-		// 		document.location = "/";
-		// 	}
 
 
 		$scope.candidate = {
@@ -63,13 +61,14 @@ app.votolegal.controller("PaymentController", [
 		$scope.formDisable = true;
 		$scope.loading = false;
 		$scope.error_list = [],
-			$scope.paymentMethod = '';
+		$scope.paymentMethod = '';
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
 		$scope.boletoUrl = null;
 		$scope.error = '';
 		$scope.senderHash = '';
 		$scope.errorListPaymentServer = [];
+		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
 
 
