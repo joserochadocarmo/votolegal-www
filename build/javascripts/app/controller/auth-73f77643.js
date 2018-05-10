@@ -134,8 +134,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 					address_street: res.address_street,
 					phone: res.phone,
 					address_house_number: res.address_house_number,
-					payment_method: res.payment_method,
-					amount: res.amount
+					payment_method: res.payment_method
 
 				}
 				localStorage.setItem('address', JSON.stringify(objectDataAdress));

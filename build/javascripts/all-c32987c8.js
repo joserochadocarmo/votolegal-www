@@ -4616,8 +4616,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 					address_street: res.address_street,
 					phone: res.phone,
 					address_house_number: res.address_house_number,
-					payment_method: res.payment_method,
-					amount: res.amount
+					payment_method: res.payment_method
 
 				}
 				localStorage.setItem('address', JSON.stringify(objectDataAdress));
@@ -6939,7 +6938,6 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
   $scope.history_list($scope.user);
 
 }]);
-
 app.votolegal.controller("PaymentController", [
 	"$scope",
 	"$http",
@@ -6974,9 +6972,9 @@ app.votolegal.controller("PaymentController", [
 	) {
 
 
-	if (localStorage.getItem("userId") == null  ){
-			document.location = "/";
-		}
+		if (localStorage.getItem("userId") == null  ){
+				document.location = "/";
+			}
 
 
 		$scope.candidate = {
@@ -7004,12 +7002,13 @@ app.votolegal.controller("PaymentController", [
 		$scope.formDisable = true;
 		$scope.loading = false;
 		$scope.error_list = [],
-		$scope.paymentMethod = '';
+			$scope.paymentMethod = '';
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
 		$scope.boletoUrl = null;
 		$scope.error = '';
 		$scope.senderHash = '';
+		$scope.errorListPaymentServer = [];
 
 
 
@@ -7026,41 +7025,44 @@ app.votolegal.controller("PaymentController", [
 
 			})
 		}
-	$scope.chargeUser = function () {
+		$scope.chargeUser = function () {
 
-		var localStorageUserData = JSON.parse(localStorage.getItem('address'));
-			$scope.candidate = {
-				name: localStorageUserData.name,
-				email: localStorageUserData.email,
-				phone: localStorageUserData.phone,
-				zipCode: localStorageUserData.address_zipcode,
-				addressState: localStorageUserData.address_state,
-				addressCity: localStorageUserData.address_city,
-				addressDistrict: localStorageUserData.address_street.split('-')[1],
-				addressStreet: localStorageUserData.address_street,
-				addressHouseNumber: localStorageUserData.address_house_number,
-				amount: localStorageUserData.amount,
-				payment_method: localStorageUserData.payment_method
+			var localStorageUserData = JSON.parse(localStorage.getItem('address'));
+
+			if(localStorageUserData){
+				$scope.candidate = {
+					name: localStorageUserData.name,
+					email: localStorageUserData.email,
+					phone: localStorageUserData.phone,
+					zipCode: localStorageUserData.address_zipcode,
+					addressState: localStorageUserData.address_state,
+					addressCity: localStorageUserData.address_city,
+					addressDistrict: localStorageUserData.address_street.split('-')[1],
+					addressStreet: localStorageUserData.address_street,
+					addressHouseNumber: localStorageUserData.address_house_number,
+					amount: localStorageUserData.amount,
+					peyment_method: localStorageUserData.peyment_method,
+
+				}
 
 			}
-	}
+
+		}
+		$scope.chargeUser()
 
 
 		//Start session
 		$scope.getSessionId()
 			.then(function (val) {
-
-				console.log(val, 'aqui')
 				$scope.boletoUrl = null;
 				$scope.SetSessionId(val.data.id)
 				//charge data user in form
 
 				var localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-				$scope.chargeUser()
 				$scope.$digest();
 
-			}, function(resp){
+			}, function (resp) {
 
 				if (resp.data.error == "user did not sign contract") {
 
@@ -7073,23 +7075,31 @@ app.votolegal.controller("PaymentController", [
 			var num = $scope.candidate.card.cardNumber + '';
 			num = num.split(' ').join('');
 
-			return PagSeguroDirectPayment.getBrand({
+			PagSeguroDirectPayment.getBrand({
 				cardBin: num,
 				complete: function (response) {
 					$scope.loading = false;
+					if (response.error) {
+						var error = 'Tivemos um problema com as identificação da bandeira do cartão poderia tentar novamento'
 
-					if (response.erro) {
-						$scope.error = 'Tivemos um problema com as informações do seu cartão poderia verificar os dados';
+						$scope.manageError(response.error, error)
+
+
 					} else {
 						$scope.createCardToken(response.brand.name)
 					}
 				}
 			});
-		}
 
+		}
 
 		$scope.redirectBoleto = function () {
 			$scope.boletoUrl = null;
+
+		}
+		$scope.manageError = function (data, message) {
+			$scope.error = message;
+			$scope.$apply();
 
 		}
 
@@ -7106,16 +7116,50 @@ app.votolegal.controller("PaymentController", [
 				expirationYear: $scope.candidate.card.yearCardExpire,
 
 				complete: function (response) {
+
 					payment(response)
 				},
 			});
 
 		}
 
+		convertErrorToJson = function (string) {
+
+
+			var xmlValue = Object.values(string)
+			var x2js = new X2JS();
+			var JsonError = x2js.xml_str2json(xmlValue);
+
+			console.log(JsonError.errors.error, 'erro map')
+
+			for (var i = 0; i >= JsonError.errors.error.length; i++) {
+				console.log(jsonError.errors.error, 'rr')
+				if (JsonError.errors.error[i] == "53015") {
+					$scope.$apply(function () {
+					return	$scope.errorListPaymentServer.push({
+							title: 'Nome inválido'
+						})
+					});
+				}
+
+
+				if (JsonError.errors.error[i] == "53122") {
+					$scope.$apply(function () {
+					return	$scope.errorListPaymentServer.push({
+							title: 'Email invalido'
+						})
+					});
+				}
+			}
+
+			// $scope.$digest();
+		}
+
 		payment = function (data) {
 
 			if (data.errors) {
-				$scope.error = 'Tivemos um problema com as informações do seu cartão poderia verificar os dados';
+				$scope.error = 'Tivemos um problema com os dados do cartão, por gentileza confirme seus dados.';
+				$scope.loading = false;
 			} else {
 
 				var credit_card_token = data.card.token;
@@ -7137,21 +7181,24 @@ app.votolegal.controller("PaymentController", [
 					$scope.candidate.addressHouseNumber,
 				).success(function (successs) {
 
-					localStorage.removeItem('userId');
+					// localStorage.removeItem('userId');
 					localStorage.removeItem('address');
-					localStorage.setItem('paymentRedirect', 1)
+
 					$scope.loading = false;
 					$scope.success = 'Sucesso';
+					localStorage.setItem('paymentRedirect', 1)
+
 					document.location = '/pagamento/analise';
+
+
 
 				}).error(function (err) {
 
-					$scope.error = 'Tivemos um problema com seu pagamento poderia tentar novamente';
 					$scope.loading = false;
 
+					convertErrorToJson(err.form_error);
 				})
 			}
-
 			$scope.$apply();
 		}
 		$scope.manageCondition = function (t) {
@@ -7175,8 +7222,8 @@ app.votolegal.controller("PaymentController", [
 
 		$scope.submit = function (valid, form) {
 			$scope.error = '';
+			$scope.errorListPaymentServer = [];
 
-			console.log($scope.candidate, 'candidate', form)
 
 			if (valid) {
 
@@ -7190,7 +7237,7 @@ app.votolegal.controller("PaymentController", [
 						userId,
 						$scope.senderHash,
 						credit_card_token,
-						$scope.paymentMethod,
+						form.typePayment.$viewValue,
 						$scope.candidate.name,
 						$scope.candidate.email,
 						$scope.candidate.phone,
@@ -7206,10 +7253,11 @@ app.votolegal.controller("PaymentController", [
 						$scope.loading = false;
 						$scope.boletoUrl = val.url;
 
+
 					}).error(function (err) {
 
-						if (err['error']) {
-							$scope.error = 'Tivemos um problema para gerar seu boleto poderia tentar novamente';
+						if (err['error'] === 'candidate not found') {
+							$scope.error = 'Candidato nao encontrado';
 							$scope.loading = false;
 
 						}
@@ -7222,10 +7270,10 @@ app.votolegal.controller("PaymentController", [
 				}
 			}
 		}
+	}
 
 
-
-	}]);
+]);
 /**
  * PreCadastro controller
  * Register a new candidate to be moderated by admin team
