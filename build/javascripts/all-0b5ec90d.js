@@ -7255,10 +7255,7 @@ app.votolegal.controller("PaymentController", [
 				errors = jsonError.errors.error;
 				errorList = [];
 
-				console.log('before', errors);
-
 				if (errors.code && errors.message) {
-					console.log('errors', errors);
 					var message = error_msg(errors.code) || errors.code + ':' + errors.message;
 					if (message !==  undefined) {
 						errorList.push({
@@ -7267,7 +7264,6 @@ app.votolegal.controller("PaymentController", [
 					}
 				} else {
 					for (var i = 0; i < errors.length; i++) {
-						console.log('errors[i]', errors[i]);
 						var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
 						if (message !==  undefined) {
 							errorList.push({
