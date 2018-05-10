@@ -196,45 +196,31 @@ app.votolegal.controller("PaymentController", [
 				errors = jsonError.errors.error;
 				errorList = [];
 
-			 if (errors.isArray) {
+				console.log('before', errors);
 
-			 	for (var i = 0; i < errors.length; i++) {
+				if (errors.code && errors.message) {
+					console.log('errors', errors);
+					var message = error_msg(errors.code) || errors.code + ':' + errors.message;
+					if (message !==  undefined) {
+						errorList.push({
+							title: message
+						});
+					}
+				} else {
+					for (var i = 0; i < errors.length; i++) {
+						console.log('errors[i]', errors[i]);
+						var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
+						if (message !==  undefined) {
+							errorList.push({
+								title: message
+							});
+						}
+					}
+				}
 
-			 		var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
-
-			 		if (message) {
-
-			 			errorList.push({
-			 				title: message
-			 			});
-
-			 		}
-
-			 	}
-
-			 } else {
-
-			 	for (error in errors) {
-
-			 		var message = error_msg(error['code']) || error['code'] + ':' + error['message'];
-
-			 		if (message) {
-
-			 			errorList.push({
-
-			 				title: message
-
-			 			});
-
-			 		}
-
-				 }
-				      console.log('after', errors);
-
-
+				$scope.errorListPaymentServer = errorList;
+			}
 		}
-	}
-}
 
 		payment = function (data) {
 
