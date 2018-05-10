@@ -124,6 +124,8 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         return false;
 	  }
 
+	  console.log(res)
+
 	  $scope.setUserLocalStorage = function(res){
 	  				var objectDataAdress = {
 					address_state: res.address_state,
@@ -134,7 +136,8 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 					address_street: res.address_street,
 					phone: res.phone,
 					address_house_number: res.address_house_number,
-					payment_method: res.payment_method
+					payment_method: res.payment_method,
+					amount: res.amount
 
 				}
 				localStorage.setItem('address', JSON.stringify(objectDataAdress));
@@ -155,7 +158,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 				localStorage.setItem('userId', res.candidate_id);
 				$scope.setUserLocalStorage(res)
 
-				document.location = '/pagamento';
+				# document.location = '/pagamento';
 
 			}else if(res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 1){
 				localStorage.setItem('userId', res.candidate_id);

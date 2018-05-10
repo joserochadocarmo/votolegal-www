@@ -4722,6 +4722,8 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
         return false;
 	  }
 
+	  console.log(res)
+
 	  $scope.setUserLocalStorage = function(res){
 	  				var objectDataAdress = {
 					address_state: res.address_state,
@@ -4732,7 +4734,8 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 					address_street: res.address_street,
 					phone: res.phone,
 					address_house_number: res.address_house_number,
-					payment_method: res.payment_method
+					payment_method: res.payment_method,
+					amount: res.amount
 
 				}
 				localStorage.setItem('address', JSON.stringify(objectDataAdress));
@@ -4753,7 +4756,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 				localStorage.setItem('userId', res.candidate_id);
 				$scope.setUserLocalStorage(res)
 
-				document.location = '/pagamento';
+				# document.location = '/pagamento';
 
 			}else if(res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 1){
 				localStorage.setItem('userId', res.candidate_id);
@@ -7196,7 +7199,7 @@ app.votolegal.controller("PaymentController", [
 				complete: function (response) {
 					$scope.loading = false;
 					if (response.error) {
-						var error = 'Tivemos um problema com as identificação da bandeira do cartão poderia tentar novamento'
+						var error = 'Tivemos um problema com as identificação da bandeira do cartão poderia tentar novamente'
 
 						$scope.manageError(response.error, error)
 
@@ -7252,20 +7255,25 @@ app.votolegal.controller("PaymentController", [
 				errors = jsonError.errors.error;
 				errorList = [];
 
-				if (typeof errors === 'object') {
-					errors = [errors];
+				if (errors.code && errors.message) {
+					var message = error_msg(errors.code) || errors.code + ':' + errors.message;
+					if (message !==  undefined) {
+						errorList.push({
+							title: message
+						});
+					}
+				} else {
+					for (var i = 0; i < errors.length; i++) {
+						var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
+						if (message !==  undefined) {
+							errorList.push({
+								title: message
+							});
+						}
+					}
 				}
 
-				for (var i = 0; i < errors.length; i++) {
-
-					var message = error_msg(errors[0][i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
-
-					errorList.push({title:message});
-				}
-
-				if (errorList.length > 0){
-					$scope.errorListPaymentServer = errorList;
-				}
+				$scope.errorListPaymentServer = errorList;
 			}
 		}
 
