@@ -7196,7 +7196,7 @@ app.votolegal.controller("PaymentController", [
 				complete: function (response) {
 					$scope.loading = false;
 					if (response.error) {
-						var error = 'Tivemos um problema com as identificação da bandeira do cartão poderia tentar novamento'
+						var error = 'Tivemos um problema com as identificação da bandeira do cartão poderia tentar novamente'
 
 						$scope.manageError(response.error, error)
 
@@ -7252,20 +7252,29 @@ app.votolegal.controller("PaymentController", [
 				errors = jsonError.errors.error;
 				errorList = [];
 
-				if (typeof errors === 'object') {
-					errors = [errors];
+				console.log('before', errors);
+
+				if (errors.code && errors.message) {
+					console.log('errors', errors);
+					var message = error_msg(errors.code) || errors.code + ':' + errors.message;
+					if (message !==  undefined) {
+						errorList.push({
+							title: message
+						});
+					}
+				} else {
+					for (var i = 0; i < errors.length; i++) {
+						console.log('errors[i]', errors[i]);
+						var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
+						if (message !==  undefined) {
+							errorList.push({
+								title: message
+							});
+						}
+					}
 				}
 
-				for (var i = 0; i < errors.length; i++) {
-
-					var message = error_msg(errors[0][i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
-
-					errorList.push({title:message});
-				}
-
-				if (errorList.length > 0){
-					$scope.errorListPaymentServer = errorList;
-				}
+				$scope.errorListPaymentServer = errorList;
 			}
 		}
 
