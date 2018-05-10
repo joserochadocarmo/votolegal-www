@@ -16,17 +16,17 @@ $verde-escuro: #29673e;
 /* font defaults */
 
 @mixin font-normal() {
-	font-family: 'Open Sans', sans-serif !important;
-	font-weight: 300;
+	font-family: 'Miriam Libre', sans-serif !important;
+	font-weight: 400;
 }
 
 @mixin font-light() {
-	font-family: 'Open Sans', sans-serif !important;
+	font-family: 'Miriam Libre', sans-serif !important;
 	font-weight: 400;
 }
 
 @mixin font-bold() {
-	font-family: 'Open Sans', sans-serif !important;
+	font-family: 'Miriam Libre', sans-serif !important;
 	font-weight: 700;
 }
 
@@ -41,6 +41,10 @@ body {
 	background-color: $bg_color;
 	margin-top: 62px;
 	height: 100%;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smoothing: antialiased;
 }
 
 .container-fluid {
