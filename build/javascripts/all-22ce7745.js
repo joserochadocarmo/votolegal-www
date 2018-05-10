@@ -6971,8 +6971,9 @@ app.votolegal.controller("PaymentController", [
 
 	) {
 
+		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-		if (localStorage.getItem("userId") == null  ){
+		if (localStorage.getItem("userId") == null || $scope.localStorageUserData.id ){
 				document.location = "/";
 			}
 
@@ -7029,7 +7030,7 @@ app.votolegal.controller("PaymentController", [
 
 			var localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-			if(localStorageUserData){
+			if ($scope.localStorageUserData){
 				$scope.candidate = {
 					name: localStorageUserData.name,
 					email: localStorageUserData.email,
@@ -7058,7 +7059,7 @@ app.votolegal.controller("PaymentController", [
 				$scope.SetSessionId(val.data.id)
 				//charge data user in form
 
-				var localStorageUserData = JSON.parse(localStorage.getItem('address'));
+				// var localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
 				$scope.$digest();
 
@@ -7125,34 +7126,39 @@ app.votolegal.controller("PaymentController", [
 
 		convertErrorToJson = function (string) {
 
-
 			var xmlValue = Object.values(string)
 			var x2js = new X2JS();
-			var JsonError = x2js.xml_str2json(xmlValue);
+			var jsonError = x2js.xml_str2json(xmlValue);
 
-			console.log(JsonError.errors.error, 'erro map')
+			if (jsonError.errors && jsonError.errors.error){
+				errors = jsonError.errors.error;
+				errorList = [];
 
-			for (var i = 0; i >= JsonError.errors.error.length; i++) {
-				console.log(jsonError.errors.error, 'rr')
-				if (JsonError.errors.error[i] == "53015") {
-					$scope.$apply(function () {
-					return	$scope.errorListPaymentServer.push({
+				if (typeof errors === 'object') {
+					errors = [errors];
+				}
+
+				for (var i = 0; i < errors.length; i++) {
+					if (errors[i]['code'] == '53122') {
+						errorList.push({
 							title: 'Nome inválido'
 						})
-					});
-				}
-
-
-				if (JsonError.errors.error[i] == "53122") {
-					$scope.$apply(function () {
-					return	$scope.errorListPaymentServer.push({
+					} else if (errors[i]['code'] == "53015" || errors[i]['code'] == "53044") {
+						errorList.push({
 							title: 'Email invalido'
 						})
-					});
+					} else {
+						errorList.push({
+							title: errors[i]['code'] + ':'+ errors[i]['message']
+						})
+					}
+				}
+
+				if (errorList.length > 0){
+					$scope.errorListPaymentServer = errorList;
+					console.log( 'serrver dentro', $scope.errorListPaymentServer, errorList);
 				}
 			}
-
-			// $scope.$digest();
 		}
 
 		payment = function (data) {

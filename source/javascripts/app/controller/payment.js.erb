@@ -31,8 +31,9 @@ app.votolegal.controller("PaymentController", [
 
 	) {
 
+		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-		if (localStorage.getItem("userId") == null  ){
+		if (localStorage.getItem("userId") == null || $scope.localStorageUserData.id ){
 				document.location = "/";
 			}
 
@@ -89,7 +90,7 @@ app.votolegal.controller("PaymentController", [
 
 			var localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-			if(localStorageUserData){
+			if ($scope.localStorageUserData){
 				$scope.candidate = {
 					name: localStorageUserData.name,
 					email: localStorageUserData.email,
@@ -118,7 +119,7 @@ app.votolegal.controller("PaymentController", [
 				$scope.SetSessionId(val.data.id)
 				//charge data user in form
 
-				var localStorageUserData = JSON.parse(localStorage.getItem('address'));
+				// var localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
 				$scope.$digest();
 
