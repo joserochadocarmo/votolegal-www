@@ -7,18 +7,18 @@ title:  Pré-cadastro
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <br class="divider">
-		<span class="badge badge-status badge-default badge-success">Pré-cadastro</span>
-		<span class="badge badge-status badge-default">Contrato</span>
-		<span class="badge badge-status badge-default ">Pagamento</span>
-		<span class="badge badge-status badge-default">Análise de pagamento</span>
-	  </div>
+        <span class="badge badge-status badge-default badge-success">Pré-cadastro</span>
+        <span class="badge badge-status badge-default">Contrato</span>
+        <span class="badge badge-status badge-default ">Pagamento</span>
+        <span class="badge badge-status badge-default">Análise de pagamento</span>
+      </div>
 
-	  <div class="col-md-offset-3 col-md-6 text-center ">
-	     <p class="pre-head">
+      <div class="col-md-offset-3 col-md-6 text-center ">
+         <p class="pre-head">
         Seja bem-vindo ao Voto legal. Realize o passo a passo para iniciar a contratação da plataforma. <strong> Importante: </strong>Todos os dados para contratação devem ser do pré-candidato, estando vedada a contratação em nome de terceiros. Se houver divergências ou inconformidades das informações, os valores arrecadados poderão ser devolvidos aos doadores ou tesouro nacional.
         </p>
-		<h1 class="page-title">Pré-cadastro</h1>
-		<p class="pos-head">Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo.</p>
+        <h1 class="page-title">Pré-cadastro</h1>
+        <p class="pos-head">Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo.</p>
       </div>
       <div class="col-md-offset-3 col-md-6">
 
@@ -35,8 +35,8 @@ title:  Pré-cadastro
             <div class="form-group icon-left col-md-8">
               <i class="fa fa-envelope"></i>
               <input class="form-control" type="text" name="email" placeholder="E-mail" ng-model="candidate.email" >
-			</div>
-			 <div class="form-group icon-left col-md-4">
+            </div>
+             <div class="form-group icon-left col-md-4">
               <i class="fa fa-envelope"></i>
               <input class="form-control" type="text" name="birth_date" placeholder="Nascimento" ng-model="candidate.birth_date" mask="99/99/9999" mask-restrict="reject" required>
             </div>
@@ -55,6 +55,7 @@ title:  Pré-cadastro
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>
               <input class="form-control" type="text" name="name" placeholder="Nome completo" ng-model="candidate.name" >
+              <span class="help-block">Utilize o nome de usuário idêntico ao RG do pré-candidato.</span>
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>
@@ -62,28 +63,28 @@ title:  Pré-cadastro
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>
-			  <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
-			<span class="help-block">Utilize o nome de usuário idêntico ao RG do pré-candidato. Importante: O CPF para a contratação devem ser obrigatoriamente do pré- candidato, sendo vedada a contratação com informações de terceiros.</span>
+              <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
+              <span class="help-block">Importante: O CPF para a contratação devem ser obrigatoriamente do pré- candidato, sendo vedada a contratação com informações de terceiros.</span>
             </div>
             <div class="form-group _icon-left col-md-12">
               <i class="fa fa-flag hide"></i>
               <select class="form-control" name="office_id" placeholder="Cargo" ng-model="candidate.office_id">
                 <option value="" disabled selected ng-selected="selected">Cargo</option>
-                <option ng-repeat="office in office_list" value="{{office.id}}">{{office.name}}</option>
+                <option ng-repeat="office in office_list | orderBy: 'name'" value="{{office.id}}">{{office.name}}</option>
               </select>
             </div>
             <div class="form-group _icon-left col-md-12">
               <i class="fa fa-flag hide"></i>
               <select class="form-control" name="party_id" placeholder="Partido" ng-model="candidate.party_id">
                 <option value="" disabled selected ng-selected="selected">Partido</option>
-                <option ng-repeat="party in party_list" value="{{party.id}}">{{party.acronym}}</option>
+                <option ng-repeat="party in party_list | orderBy: 'name'" value="{{party.id}}">{{party.acronym}}</option>
               </select>
-			</div>
-			<div class="form-group _icon-left col-md-12">
+            </div>
+            <div class="form-group _icon-left col-md-12">
               <i class="fa fa-flag hide"></i>
               <select class="form-control" name="political_movement" placeholder="Movimento Político" ng-model="candidate.political_movement_id">
                 <option value="" disabled selected ng-selected="selected">Movimento</option>
-                <option ng-repeat="mov in political_movement" value="{{mov.id}}">{{mov.name}}</option>
+                <option ng-repeat="mov in political_movement | orderBy: 'name'" value="{{mov.id}}">{{mov.name}}</option>
               </select>
             </div>
           </div>
