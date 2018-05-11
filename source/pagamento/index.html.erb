@@ -182,7 +182,7 @@ title: Pagamento
 								<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.monthCardExpire.$error.required)"
 									style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
 
-								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted && paymentMethod === 'creditCard)"
+								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted && paymentMethod === 'creditCard')"
 								    style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
 							</div>
 
@@ -206,8 +206,7 @@ title: Pagamento
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cod. de segurança"
 								    required >
-<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard')" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O Código de segurança do cartão é obrigatório</label>
-
+<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.cvvCard.$error.required)" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O Código de segurança do cartão é obrigatório</label>
 
 
 							</div>
