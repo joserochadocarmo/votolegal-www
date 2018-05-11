@@ -16,7 +16,7 @@ title:  Candidato(a)
 	<div class="maintenance container text-center" ng-if="candidate.publish == 0 || candidate == undefined"> Site em manutencão </div>
 
 
-  <div class="candidate-header container " ng-if="candidate && candidate.publish == 1" >
+  <div class="candidate-header container " ng-if="candidate && candidate.publish == 1">
     <div class="row">
       <div class="col-md-12 col-xs-12 text-center hidden-lg hidden-md hidden-sm" style="min-height:175px;">
         <img ng-src="{{candidate.picture || '/images/candidatos/user_general.jpg'}}" class="img-circle" width="175px" height="175px" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}">
@@ -29,16 +29,16 @@ title:  Candidato(a)
         </h1>
         <p class="assuntos">{{candidate.issues_decorator}}</p>
         <p class="cidade">
-		  <span class="label label-success">{{(candidate.office_id === 1? 'Prefeito' : (candidate.office_id === 2? 'Vereador' : (candidate.office_id === 3? 'Vice-prefeito' : ''))) }}</span>
+		  <span class="label label-success">
+			  {{(candidate.office_id === 1 ? 'Prefeito ' : (candidate.office_id === 2 ? 'Vereador ' : (candidate.office_id === 3 ? 'Vice-prefeito ' : ''))) }}
+			  {{(candidate.office_id === 4 ? 'Presidente ' : (candidate.office_id === 5 ? 'Senador ' : (candidate.office_id === 6 ? 'Governador ' : ''))) }}
+			  {{(candidate.office_id === 7 ? 'Deputado Estadual ' : (candidate.office_id === 8? 'Deputado Federal ' : '')) }}
+		  </span>
 		<!-- CNPJ:  TODO: Recolocar no dia (a partir de 15/08) -->
          {{candidate.address_city}} - {{candidate.address_state}} - CPF: {{candidate.cpf}}
         </p>
       </div>
       <div class="col-md-6 col-sm-4 text-right hidden-xs">
-        <%# img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
-        <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
-        <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="">
-        <img src="/images/mocks/candidate-stamp.png" class="profile-stamp" alt="" %>
         <a href="#/"><img ng-src="{{candidate.picture || '/images/candidatos/user_general.jpg'}}" class="profile-image" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}"></a>
       </div>
     </div>
