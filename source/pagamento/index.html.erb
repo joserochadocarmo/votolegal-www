@@ -182,7 +182,7 @@ title: Pagamento
 								<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.monthCardExpire.$error.required)"
 									style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
 
-								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted && paymentMethod === 'creditCard)"
+								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted && paymentMethod === 'creditCard')"
 								    style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
 							</div>
 							<div class="form-group icon-left col-md-4">
