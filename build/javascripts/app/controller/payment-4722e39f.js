@@ -53,7 +53,7 @@ app.votolegal.controller("PaymentController", [
 			}
 		};
 
-
+		$scope.sendButtonAllow = true;
 		$scope.BrandCard = '';
 		$scope.senderHash = '';
 		$scope.formDisable = true;
@@ -245,6 +245,8 @@ app.votolegal.controller("PaymentController", [
 			if (t.$modelValue = 'creditCard') {
 				$scope.boletoUrl = null;
 			}
+			$scope.sendButtonAllow = false;
+
 		}
 
 		$scope.cepRequest = function () {
@@ -274,7 +276,7 @@ app.votolegal.controller("PaymentController", [
 						userId,
 						$scope.senderHash,
 						credit_card_token,
-						$scope.typePayment.$viewValue,
+						$scope.paymentMethod,
 						$scope.candidate.name,
 						$scope.candidate.email,
 						$scope.candidate.phone,
@@ -287,20 +289,18 @@ app.votolegal.controller("PaymentController", [
 					).success(function (val) {
 						localStorage.removeItem('userId');
 						localStorage.removeItem('address');
-						$scope.loading = 			false;
+						$scope.loading = false;
 						$scope.boletoUrl = val.url;
 
 					}).error(function (err) {
+						$scope.loading = false;
+						convertErrorToJson(err.form_error);
 
 						if (err['error'] === 'candidate not found') {
 							$scope.error = 'Candidato nao encontrado';
-							$scope.loading = false;
-
 						}
 					})
-
 				} else {
-
 					$scope.senderHash = PagSeguroDirectPayment.getSenderHash();
 					$scope.creditCardPayment();
 
