@@ -224,7 +224,7 @@ app.votolegal.controller("PaymentController", [
 					$scope.candidate.addressStreet,
 					$scope.candidate.addressHouseNumber,
 				).success(function (success) {
-					console.log(success, 'data')
+
 					localStorage.removeItem('address');
 					$scope.loading = false;
 					$scope.success = 'Sucesso';
@@ -272,6 +272,7 @@ app.votolegal.controller("PaymentController", [
 					$scope.senderHash = PagSeguroDirectPayment.getSenderHash();
 					var credit_card_token = null;
 					$scope.loading = true;
+
 					payment_pagseguro.payment(
 						userId,
 						$scope.senderHash,
