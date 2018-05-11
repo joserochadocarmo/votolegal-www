@@ -70,7 +70,7 @@ title:  Pré-cadastro
               <i class="fa fa-flag hide"></i>
               <select class="form-control" name="office_id" placeholder="Cargo" ng-model="candidate.office_id">
                 <option value="" disabled selected ng-selected="selected">Cargo</option>
-                <option ng-repeat="office in office_list | orderBy: 'name'" value="{{office.id}}">{{office.name}}</option>
+                <option ng-repeat="office in office_list" value="{{office.id}}">{{office.name}}</option>
               </select>
             </div>
             <div class="form-group _icon-left col-md-12">
