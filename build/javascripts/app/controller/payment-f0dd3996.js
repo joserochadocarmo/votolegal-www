@@ -69,6 +69,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.senderHash = '';
 		$scope.errorListPaymentServer = [];
 		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
+		$scope.paymentFields = true;
 
 
 
@@ -232,7 +233,7 @@ app.votolegal.controller("PaymentController", [
 					userId,
 					$scope.senderHash,
 					credit_card_token,
-					$scope.paymentMethod,
+					form.typePayment.$viewValue,
 					$scope.candidate.card.name,
 					$scope.candidate.email,
 					$scope.candidate.phone,
