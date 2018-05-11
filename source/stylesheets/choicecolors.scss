@@ -17,9 +17,9 @@ $class-change: (
 @each $class-palette, $rules in $class-change {
   html.#{$class-palette} {
 
-
 	.label.label-success {
 		background-color: map-get($rules, 'default');
+		margin-right: 1rem;
 
 	}
 	.reg-doa-side-p .reg-doa-title,

@@ -29,13 +29,13 @@ title:  Candidato(a)
         </h1>
         <p class="assuntos">{{candidate.issues_decorator}}</p>
         <p class="cidade">
-		  <span class="label label-success">
-			  {{(candidate.office_id === 1 ? 'Prefeito ' : (candidate.office_id === 2 ? 'Vereador ' : (candidate.office_id === 3 ? 'Vice-prefeito ' : ''))) }}
-			  {{(candidate.office_id === 4 ? 'Presidente ' : (candidate.office_id === 5 ? 'Senador ' : (candidate.office_id === 6 ? 'Governador ' : ''))) }}
-			  {{(candidate.office_id === 7 ? 'Deputado Estadual ' : (candidate.office_id === 8? 'Deputado Federal ' : '')) }}
+		  <span class="label label-success label-position">
+			  {{(candidate.office_id === 1 ? 'Prefeito' : (candidate.office_id === 2 ? 'Vereador' : (candidate.office_id === 3 ? 'Vice-prefeito' : ''))) }}
+			  {{(candidate.office_id === 4 ? 'Presidente' : (candidate.office_id === 5 ? 'Senador' : (candidate.office_id === 6 ? 'Governador' : ''))) }}
+			  {{(candidate.office_id === 7 ? 'Deputado Estadual' : (candidate.office_id === 8? 'Deputado Federal' : '')) }}
 		  </span>
 		<!-- CNPJ:  TODO: Recolocar no dia (a partir de 15/08) -->
-         {{candidate.address_city}} - {{candidate.address_state}} - CPF: {{candidate.cpf}}
+           {{candidate.address_city}} - {{candidate.address_state}} - CPF: {{candidate.cpf}}
         </p>
       </div>
       <div class="col-md-6 col-sm-4 text-right hidden-xs">
