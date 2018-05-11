@@ -11,7 +11,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
   <link href="/stylesheets/bootstrap.min-ff00d0a6.css" rel="stylesheet" />
-  <link href="/stylesheets/site-8f60a5b4.css" rel="stylesheet" />
+  <link href="/stylesheets/site-3c8a0831.css" rel="stylesheet" />
   <link href="/stylesheets/font-awesome.min-3c43a9b6.css" rel="stylesheet" />
   <link href="/stylesheets/flaticon-0eb48cf0.css" rel="stylesheet" />
 
@@ -41,7 +41,7 @@
 	<div class="maintenance container text-center" ng-if="candidate.publish == 0 || candidate == undefined"> Site em manutencão </div>
 
 
-  <div class="candidate-header container " ng-if="candidate && candidate.publish == 1" >
+  <div class="candidate-header container " ng-if="candidate && candidate.publish == 1">
     <div class="row">
       <div class="col-md-12 col-xs-12 text-center hidden-lg hidden-md hidden-sm" style="min-height:175px;">
         <img ng-src="{{candidate.picture || '/images/candidatos/user_general-37bc8bd3.jpg'}}" class="img-circle" width="175px" height="175px" title="{{candidate.popular_name}}" alt="{{candidate.popular_name}}">
@@ -54,7 +54,11 @@
         </h1>
         <p class="assuntos">{{candidate.issues_decorator}}</p>
         <p class="cidade">
-		  <span class="label label-success">{{(candidate.office_id === 1? 'Prefeito' : (candidate.office_id === 2? 'Vereador' : (candidate.office_id === 3? 'Vice-prefeito' : ''))) }}</span>
+		  <span class="label label-success">
+			  {{(candidate.office_id === 1 ? 'Prefeito ' : (candidate.office_id === 2 ? 'Vereador ' : (candidate.office_id === 3 ? 'Vice-prefeito ' : ''))) }}
+			  {{(candidate.office_id === 4 ? 'Presidente ' : (candidate.office_id === 5 ? 'Senador ' : (candidate.office_id === 6 ? 'Governador ' : ''))) }}
+			  {{(candidate.office_id === 7 ? 'Deputado Estadual ' : (candidate.office_id === 8? 'Deputado Federal ' : '')) }}
+		  </span>
 		<!-- CNPJ:  TODO: Recolocar no dia (a partir de 15/08) -->
          {{candidate.address_city}} - {{candidate.address_state}} - CPF: {{candidate.cpf}}
         </p>
@@ -121,7 +125,7 @@
     <!-- javascript -->
 
 
-    <script src="/javascripts/all-d8dcfc49.js"></script>
+    <script src="/javascripts/all-43b1c31e.js"></script>
 
     <!-- image plugin -->
     <link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

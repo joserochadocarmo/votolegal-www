@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-051be9c7.css" rel="stylesheet" />
+	<link href="/stylesheets/all-19555a84.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -116,18 +116,18 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <br class="divider">
-		<span class="badge badge-status badge-default badge-success">Pré-cadastro</span>
-		<span class="badge badge-status badge-default">Contrato</span>
-		<span class="badge badge-status badge-default ">Pagamento</span>
-		<span class="badge badge-status badge-default">Análise de pagamento</span>
-	  </div>
+        <span class="badge badge-status badge-default badge-success">Pré-cadastro</span>
+        <span class="badge badge-status badge-default">Contrato</span>
+        <span class="badge badge-status badge-default ">Pagamento</span>
+        <span class="badge badge-status badge-default">Análise de pagamento</span>
+      </div>
 
-	  <div class="col-md-offset-3 col-md-6 text-center ">
-	     <p class="pre-head">
+      <div class="col-md-offset-3 col-md-6 text-center ">
+         <p class="pre-head">
         Seja bem-vindo ao Voto legal. Realize o passo a passo para iniciar a contratação da plataforma. <strong> Importante: </strong>Todos os dados para contratação devem ser do pré-candidato, estando vedada a contratação em nome de terceiros. Se houver divergências ou inconformidades das informações, os valores arrecadados poderão ser devolvidos aos doadores ou tesouro nacional.
         </p>
-		<h1 class="page-title">Pré-cadastro</h1>
-		<p class="pos-head">Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo.</p>
+        <h1 class="page-title">Pré-cadastro</h1>
+        <p class="pos-head">Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo.</p>
       </div>
       <div class="col-md-offset-3 col-md-6">
 
@@ -143,8 +143,8 @@
             <div class="form-group icon-left col-md-8">
               <i class="fa fa-envelope"></i>
               <input class="form-control" type="text" name="email" placeholder="E-mail" ng-model="candidate.email" >
-			</div>
-			 <div class="form-group icon-left col-md-4">
+            </div>
+             <div class="form-group icon-left col-md-4">
               <i class="fa fa-envelope"></i>
               <input class="form-control" type="text" name="birth_date" placeholder="Nascimento" ng-model="candidate.birth_date" mask="99/99/9999" mask-restrict="reject" required>
             </div>
@@ -163,6 +163,7 @@
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>
               <input class="form-control" type="text" name="name" placeholder="Nome completo" ng-model="candidate.name" >
+              <span class="help-block">Utilize o nome de usuário idêntico ao RG do pré-candidato.</span>
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>
@@ -170,8 +171,8 @@
             </div>
             <div class="form-group icon-left col-md-12">
               <i class="fa fa-user"></i>
-			  <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
-			<span class="help-block">Utilize o nome de usuário idêntico ao RG do pré-candidato. Importante: O CPF para a contratação devem ser obrigatoriamente do pré- candidato, sendo vedada a contratação com informações de terceiros.</span>
+              <input class="form-control" type="text" name="cpf" placeholder="CPF" ng-model="candidate.cpf" mask="999.999.999-99" mask-restrict="reject" mask-clean="true" >
+              <span class="help-block">Importante: O CPF para a contratação devem ser obrigatoriamente do pré&#8209;candidato, sendo vedada a contratação com informações de terceiros.</span>
             </div>
             <div class="form-group _icon-left col-md-12">
               <i class="fa fa-flag hide"></i>
@@ -184,14 +185,14 @@
               <i class="fa fa-flag hide"></i>
               <select class="form-control" name="party_id" placeholder="Partido" ng-model="candidate.party_id">
                 <option value="" disabled selected ng-selected="selected">Partido</option>
-                <option ng-repeat="party in party_list" value="{{party.id}}">{{party.acronym}}</option>
+                <option ng-repeat="party in party_list | orderBy: 'name'" value="{{party.id}}">{{party.acronym}}</option>
               </select>
-			</div>
-			<div class="form-group _icon-left col-md-12">
+            </div>
+            <div class="form-group _icon-left col-md-12">
               <i class="fa fa-flag hide"></i>
               <select class="form-control" name="political_movement" placeholder="Movimento Político" ng-model="candidate.political_movement_id">
                 <option value="" disabled selected ng-selected="selected">Movimento</option>
-                <option ng-repeat="mov in political_movement" value="{{mov.id}}">{{mov.name}}</option>
+                <option ng-repeat="mov in political_movement | orderBy: 'name'" value="{{mov.id}}">{{mov.name}}</option>
               </select>
             </div>
           </div>
@@ -672,43 +673,20 @@
 									</a>
 								</div>
 
-								<div class="social-buttons text-center col-xs-12">
-
-									<ul>
-										<li>
-											<a href="//twitter.com/fichalimpa" title="Twitter" target="_blank">
-												<i class="fa fa-twitter fa-2x"></i>
-											</a>
-										</li>
-										<li>
-											<a href="//www.youtube.com/user/CANALMCCE" title="Youtube" target="_blank">
-												<i class="fa fa-youtube-play fa-2x"></i>
-											</a>
-										</li>
-
-										<li>
-											<a href="//www.facebook.com/MCCEFichaLimpa" title="Facebook" target="_blank">
-												<i class="fa fa-facebook fa-2x"></i>
-											</a>
-										</li>
-									</ul>
-								</div>
-
 								<div class="copyright col-md-12 col-sm-12 col-xs-12">
-									<p>Voto Legal é uma plataforma aberta e baseada em software livre os realizadores não se responsabilizam pelas informações
-										fornecidas pelos candidatos, nem pelo comportamento deles durante o período eleitoral, e se eleitos, durante seus
-										respectivos mandatos. Este projeto é distribuido sob a licença
+									<p>
+										Voto Legal é uma plataforma aberta e baseada em software livre, os realizadores não se responsabilizam pelas informações fornecidas pelos candidatos, nem pelo comportamento deles durante o período eleitoral, e se eleitos, durante seus respectivos mandatos. VotoLegal opera sob o CNPJ 30.217.474/0001-50, razão social Pague Junto - Tecnologia de Intermediação LTDA. Este projeto é distribuído sob a licença
+
 										<a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank">
 											<strong>Affero General Public License</strong>
-										</a>.</p>
+										</a>.
+									</p>
 								</div>
 								<div class="copyright col-md-12 footer-terms">
 									<p>
-										© 2016-2018 VotoLegal • Uma iniciativa AppCívico • Termos de uso
-
+										© 2016-2018 VotoLegal • Uma iniciativa AppCívico
 									</p>
 								</div>
-
 							</div>
 						</div>
 					</footer>
@@ -717,7 +695,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-d8dcfc49.js"></script>
+												<script src="/javascripts/all-43b1c31e.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
