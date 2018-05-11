@@ -1859,14 +1859,19 @@ $rules in $class-change {
 
 .value-payment__setup .value-payment__info {
 	color: #5395f4;
+	display: block;
 }
 
 .value-payment__setup .value-payment__value {
-	position: absolute;
-	right: 0;
-	bottom: 0;
 	font-size: 61.5px;
 	line-height: 1;
+
+	@media (min-width: 450px) {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+
+	}
 }
 
 .value-payment__setup .value-payment__currency {
