@@ -167,37 +167,39 @@ app.votolegal.controller("PaymentController", [
 		}
 
 		convertErrorToJson = function (string) {
+			if (string.error == 'form_error'){
+				var xmlValue = Object.values(string.form_error)
 
-			var xmlValue = Object.values(string)
-			var x2js = new X2JS();
-			var jsonError = x2js.xml_str2json(xmlValue);
+				var x2js = new X2JS();
+				var jsonError = x2js.xml_str2json(xmlValue);
 
-			if (jsonError.errors && jsonError.errors.error) {
-				errors = jsonError.errors.error;
-				errorList = [];
+				if (jsonError.errors && jsonError.errors.error) {
+					errors = jsonError.errors.error;
+					errorList = [];
 
-				if (errors.code && errors.message) {
-					var message = error_msg(errors.code) || errors.code + ':' + errors.message;
-					if (message !== undefined) {
-						errorList.push({
-							title: message
-						});
-					}
-				} else {
-					for (var i = 0; i < errors.length; i++) {
-						var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
+					if (errors.code && errors.message) {
+						var message = error_msg(errors.code) || errors.code + ':' + errors.message;
 						if (message !== undefined) {
 							errorList.push({
 								title: message
 							});
 						}
+					} else {
+						for (var i = 0; i < errors.length; i++) {
+							var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
+							if (message !== undefined) {
+								errorList.push({
+									title: message
+								});
+							}
+						}
 					}
+					$scope.errorListPaymentServer = errorList;
 				}
-
-				$scope.errorListPaymentServer = errorList;
+			} else {
+				$scope.error = 'Usário não encontrado'
 			}
 		}
-
 
 		$scope.payment = function (data) {
 			if (data.errors) {
@@ -224,19 +226,18 @@ app.votolegal.controller("PaymentController", [
 					$scope.candidate.addressStreet,
 					$scope.candidate.addressHouseNumber,
 				).success(function (success) {
-					console.log(success, 'data')
+
 					localStorage.removeItem('address');
 					$scope.loading = false;
 					$scope.success = 'Sucesso';
 					localStorage.setItem('paymentRedirect', 1)
 					document.location = '/pagamento/analise';
 
-				}).error(function (err) {
+					}).error(function (err) {
+						$scope.loading = false;
+						convertErrorToJson(err);
 
-					$scope.loading = false;
-					convertErrorToJson(err.form_error);
-				})
-
+					})
 				})
 			}
 		}
@@ -272,6 +273,7 @@ app.votolegal.controller("PaymentController", [
 					$scope.senderHash = PagSeguroDirectPayment.getSenderHash();
 					var credit_card_token = null;
 					$scope.loading = true;
+
 					payment_pagseguro.payment(
 						userId,
 						$scope.senderHash,
@@ -294,11 +296,7 @@ app.votolegal.controller("PaymentController", [
 
 					}).error(function (err) {
 						$scope.loading = false;
-						convertErrorToJson(err.form_error);
-
-						if (err['error'] === 'candidate not found') {
-							$scope.error = 'Candidato nao encontrado';
-						}
+						convertErrorToJson(err);
 					})
 				} else {
 					$scope.senderHash = PagSeguroDirectPayment.getSenderHash();
