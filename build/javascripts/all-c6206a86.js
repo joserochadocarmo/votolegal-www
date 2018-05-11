@@ -5637,7 +5637,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 }]);
 var currentURL = document.location;
 
-if(!(/^https:\/\/participe.votolegal.com.br/.test(currentURL.origin)) && /\?.?&?id=[a-z0-9_-]+/.test(currentURL.search) && /\/candidato/.test(currentURL.pathname)) {
+if(/\?.?&?id=[a-z0-9_-]+/.test(currentURL.search) && /\/candidato/.test(currentURL.pathname)) {
 
   app.votolegal.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
