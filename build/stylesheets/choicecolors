@@ -1,6 +1,5 @@
 html.theme--red .label.label-success {
-  background-color: #a6090e;
-  margin-right: 1rem; }
+  background-color: #a6090e; }
 html.theme--red .reg-doa-side-p .reg-doa-title,
 html.theme--red .cidade.ng-binding {
   color: #a6090e; }
@@ -46,8 +45,7 @@ html.theme--red section#candidate .candidate-tabs #tab-sobre i.fa-circle {
   color: #a6090e; }
 
 html.theme--blue .label.label-success {
-  background-color: #2959aa;
-  margin-right: 1rem; }
+  background-color: #2959aa; }
 html.theme--blue .reg-doa-side-p .reg-doa-title,
 html.theme--blue .cidade.ng-binding {
   color: #2959aa; }
