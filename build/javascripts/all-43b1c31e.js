@@ -4472,7 +4472,7 @@ app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', funct
 				}
 			}, function (response) {
 
-				return response;
+       			 return response;
 
 			})
 		}
@@ -7093,8 +7093,6 @@ app.votolegal.controller("PaymentController", [
 	) {
 
 
-
-
 		$scope.candidate = {
 			name: '',
 			email: '',
@@ -7127,7 +7125,6 @@ app.votolegal.controller("PaymentController", [
 		$scope.error = '';
 		$scope.senderHash = '';
 		$scope.errorListPaymentServer = [];
-		$scope.localStorageUserData = JSON.parse(localStorage.getItem('address'));
 		$scope.paymentFields = true;
 
 
@@ -7136,7 +7133,6 @@ app.votolegal.controller("PaymentController", [
 			return new Promise(function (resolve) {
 				var res = localStorage.getItem("userId");
 				resolve(session_pagseguro.getSessionId(res))
-
 			})
 		}
 		$scope.SetSessionId = function (id) {
@@ -7149,7 +7145,7 @@ app.votolegal.controller("PaymentController", [
 
 			var localStorageUserData = JSON.parse(localStorage.getItem('address'));
 
-			if ($scope.localStorageUserData){
+			if (localStorageUserData) {
 				$scope.candidate = {
 					name: localStorageUserData.name,
 					email: localStorageUserData.email,
@@ -7162,28 +7158,17 @@ app.votolegal.controller("PaymentController", [
 					addressHouseNumber: localStorageUserData.address_house_number,
 					amount: localStorageUserData.amount,
 					peyment_method: localStorageUserData.peyment_method,
-
 				}
-
 			}
-
 		}
 		$scope.chargeUser()
-
-
 		//Start session
 		$scope.getSessionId()
 			.then(function (val) {
 				$scope.boletoUrl = null;
 				$scope.SetSessionId(val.data.id)
-				//charge data user in form
-
-				// var localStorageUserData = JSON.parse(localStorage.getItem('address'));
-
-				$scope.$digest();
 
 			}, function (resp) {
-
 				if (resp.data.error == "user did not sign contract") {
 
 					window.location = '/contrato';
@@ -7204,29 +7189,25 @@ app.votolegal.controller("PaymentController", [
 
 						$scope.manageError(response.error, error)
 
-
 					} else {
 						$scope.createCardToken(response.brand.name)
 					}
 				}
 			});
-
 		}
 
 		$scope.redirectBoleto = function () {
 			$scope.boletoUrl = null;
 
 		}
+
 		$scope.manageError = function (data, message) {
 			$scope.error = message;
 			$scope.$apply();
-
 		}
 
-
-
-
 		$scope.createCardToken = function (brand) {
+
 			$scope.loading = true;
 			var num = ($scope.candidate.card.cardNumber + '').split(' ').join('');
 
@@ -7239,12 +7220,10 @@ app.votolegal.controller("PaymentController", [
 
 				complete: function (response) {
 
-					payment(response)
+					$scope.payment(response);
 				},
 			});
-
 		}
-
 
 		convertErrorToJson = function (string) {
 
@@ -7252,13 +7231,13 @@ app.votolegal.controller("PaymentController", [
 			var x2js = new X2JS();
 			var jsonError = x2js.xml_str2json(xmlValue);
 
-			if (jsonError.errors && jsonError.errors.error){
+			if (jsonError.errors && jsonError.errors.error) {
 				errors = jsonError.errors.error;
 				errorList = [];
 
 				if (errors.code && errors.message) {
 					var message = error_msg(errors.code) || errors.code + ':' + errors.message;
-					if (message !==  undefined) {
+					if (message !== undefined) {
 						errorList.push({
 							title: message
 						});
@@ -7266,7 +7245,7 @@ app.votolegal.controller("PaymentController", [
 				} else {
 					for (var i = 0; i < errors.length; i++) {
 						var message = error_msg(errors[i]['code']) || errors[i]['code'] + ':' + errors[i]['message'];
-						if (message !==  undefined) {
+						if (message !== undefined) {
 							errorList.push({
 								title: message
 							});
@@ -7278,21 +7257,22 @@ app.votolegal.controller("PaymentController", [
 			}
 		}
 
-		payment = function (data) {
 
+		$scope.payment = function (data) {
 			if (data.errors) {
 				$scope.error = 'Tivemos um problema com os dados do cartão, por gentileza confirme seus dados.';
 				$scope.loading = false;
 			} else {
-
 				var credit_card_token = data.card.token;
 				var userId = localStorage.getItem("userId");
+
+			$scope.$apply(function(){
 
 				var response = payment_pagseguro.payment(
 					userId,
 					$scope.senderHash,
 					credit_card_token,
-					form.typePayment.$viewValue,
+					$scope.paymentMethod,
 					$scope.candidate.card.name,
 					$scope.candidate.email,
 					$scope.candidate.phone,
@@ -7302,30 +7282,25 @@ app.votolegal.controller("PaymentController", [
 					$scope.candidate.addressDistrict,
 					$scope.candidate.addressStreet,
 					$scope.candidate.addressHouseNumber,
-				).success(function (successs) {
-
-					// localStorage.removeItem('userId');
+				).success(function (success) {
+					console.log(success, 'data')
 					localStorage.removeItem('address');
-
 					$scope.loading = false;
 					$scope.success = 'Sucesso';
 					localStorage.setItem('paymentRedirect', 1)
-
 					document.location = '/pagamento/analise';
-
-
 
 				}).error(function (err) {
 
 					$scope.loading = false;
-
 					convertErrorToJson(err.form_error);
 				})
-			}
-			$scope.$apply();
-		}
-		$scope.manageCondition = function (t) {
 
+				})
+			}
+		}
+
+		$scope.manageCondition = function (t) {
 			if (t.$modelValue = 'creditCard') {
 				$scope.boletoUrl = null;
 			}
@@ -7347,7 +7322,6 @@ app.votolegal.controller("PaymentController", [
 			$scope.error = '';
 			$scope.errorListPaymentServer = [];
 
-
 			if (valid) {
 
 				if (form.typePayment.$viewValue == 'boleto') {
@@ -7355,12 +7329,11 @@ app.votolegal.controller("PaymentController", [
 					$scope.senderHash = PagSeguroDirectPayment.getSenderHash();
 					var credit_card_token = null;
 					$scope.loading = true;
-
-					var response = payment_pagseguro.payment(
+					payment_pagseguro.payment(
 						userId,
 						$scope.senderHash,
 						credit_card_token,
-						form.typePayment.$viewValue,
+						$scope.typePayment.$viewValue,
 						$scope.candidate.name,
 						$scope.candidate.email,
 						$scope.candidate.phone,
@@ -7373,9 +7346,8 @@ app.votolegal.controller("PaymentController", [
 					).success(function (val) {
 						localStorage.removeItem('userId');
 						localStorage.removeItem('address');
-						$scope.loading = false;
+						$scope.loading = 			false;
 						$scope.boletoUrl = val.url;
-
 
 					}).error(function (err) {
 
@@ -7385,6 +7357,7 @@ app.votolegal.controller("PaymentController", [
 
 						}
 					})
+
 				} else {
 
 					$scope.senderHash = PagSeguroDirectPayment.getSenderHash();
@@ -7394,7 +7367,6 @@ app.votolegal.controller("PaymentController", [
 			}
 		}
 	}
-
 
 ]);
 /**
