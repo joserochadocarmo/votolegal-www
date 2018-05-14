@@ -80,8 +80,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
 
 window.addEventListener("message", receiveMessage, false);
 
-
-
 function receiveMessage(event) {
 
 	if (whiteListhost.indexOf(event.origin) === -1){
@@ -104,9 +102,6 @@ $scope.themeSelection = function(data){
 
 	document.documentElement.className += ' ' + data;
 }
-// $scope.themeSelection('theme--red')
-
-
 
   $scope.donationService =  function(){
 	$scope.donateServiceStatus = !$scope.donateServiceStatus;
@@ -198,8 +193,6 @@ $scope.themeSelection = function(data){
       .join(separator || ', ')
   };
 
-
-
   $scope.candidate_by_name = function(name){
     $http({
       method: 'GET',
@@ -207,10 +200,10 @@ $scope.themeSelection = function(data){
     }).
     then(
       function(response){
+
 		var res = response.data.candidate;
-
 		$scope.candidate = res;
-
+		window.ga('create', $scope.candidate.google_analytics, 'auto');
 
         (function(){
           var title = document.querySelector('title');
@@ -639,7 +632,8 @@ $scope.themeSelection = function(data){
 
     // CIELO Payment
     if($scope.candidate.payment_gateway_id === 1){
-      // adding brand
+	  // adding brand
+	  params.google_analytics = $scope.candidate.analytics;
       params.amount = parseInt((params.amount * 100));
       params.credit_card_brand = $scope.doar.credit_card_brand;
       params.credit_card_validity = (function(){
