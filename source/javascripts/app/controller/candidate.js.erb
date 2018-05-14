@@ -200,10 +200,10 @@ $scope.themeSelection = function(data){
     }).
     then(
       function(response){
+
 		var res = response.data.candidate;
-
 		$scope.candidate = res;
-
+		window.ga('create', $scope.candidate.google_analytics, 'auto');
 
         (function(){
           var title = document.querySelector('title');
@@ -632,7 +632,8 @@ $scope.themeSelection = function(data){
 
     // CIELO Payment
     if($scope.candidate.payment_gateway_id === 1){
-      // adding brand
+	  // adding brand
+	  params.google_analytics = $scope.candidate.analytics;
       params.amount = parseInt((params.amount * 100));
       params.credit_card_brand = $scope.doar.credit_card_brand;
       params.credit_card_validity = (function(){
