@@ -27,7 +27,7 @@ $verde-escuro: #29673e;
 
 @mixin font-bold() {
 	font-family: 'Miriam Libre', sans-serif !important;
-	font-weight: 700;
+	font-weight: bold;
 }
 
 html {
@@ -229,7 +229,11 @@ header.cover {
 }
 
 section {
-	padding: 70px 0px;
+	padding-top: 8em;
+	padding-bottom: 8em;
+	padding-left: 0;
+	padding-right: 0;
+
 	@media all and ($max-screen: 480px) {
 		padding: 0px 0px;
 	}
@@ -514,9 +518,15 @@ footer .logo {
 }
 
 section#pre-register {
+	padding-top: 5em;
+	padding-bottom: 5em;
+	padding-left: 0;
+	padding-right: 0;
+
 	p {
-		margin-bottom: 30px;
+		margin-top: 1em;
 	}
+
 	img {
 		margin-bottom: 20px;
 	}
@@ -1004,45 +1014,76 @@ section#candidate {
 }
 
 .page-title {
-	@include font-light();
+	@include font-normal();
 	font-weight: 100;
 	display: inline-block;
-	padding-bottom: 5px;
+	font-size: 40px;
 	position: relative;
-	margin: 30px 0px 30px 0px;
-	@media all and ($max-screen: 480px) {
-		margin-top: 50px;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: 10px;
+	margin-left: 0;
+	color: rgb(51, 153, 153);
+
+	@media (min-width: 480px) {
+		font-size: 50px;
 	}
+}
+
+.page-subtitle {
+	@include font-bold();
+	margin-top: 0;
+
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 28px;
+	color: rgb(86, 215, 168);
+
+}
+
+.nav-links-register {
+	padding-bottom: 4em;
+}
+
+.nav-link-process {
+	padding: 0;
+	margin-left: 0;
+	margin-right: 0.5em;
+	margin-bottom: 0.5em;
+	margin-top: 0;
+	font-weight: bold;
+	font-size: 16px;
+	display: inline-block;
+	color: rgb(204, 204, 204);
+
+	@media (min-width: 480px) {
+		margin-right: 1em;
+		font-size: 18px;
+	}
+}
+
+.nav-link-sucess {
+	color: rgb(51, 204, 102);
+}
+
+.nav-link-active {
+	color: rgb(51, 204, 102);
+	position: relative;
+
 	&:before {
-		content: "";
+		background-color: #33cc66;
 		position: absolute;
-		width: 80%;
-		height: 3px;
-		bottom: 0;
-		left: 10%;
+		width: 10px;
+		height: 10px;
 		border-bottom: 3px solid #63d35c;
+		border-radius: 100%;
+		left: 50%;
+		top: 0;
+		margin-top: -0.8em;
+		margin-left: -5px;
+
+		content: "";
 	}
-}
-
-.badge-status {
-	font-size: 14px;
-	padding: 4px 12px;
-	margin-top: 20px !important;
-	background-color: transparent !important;
-	@media all and ($max-screen: 480px) {
-		width: 100%;
-	}
-}
-
-.badge-default {
-	color: #cccccc;
-	border: 2px solid #cccccc;
-}
-
-.badge-success {
-	color: #ffffff;
-	background-color: #63d35c !important;
-	border: 2px solid #63d35c;
 }
 
 a {
@@ -1801,6 +1842,10 @@ $rules in $class-change {
 	}
 }
 
+#pagamento {
+	margin-bottom: 5em;
+}
+
 #pagamento .icon-left i {
 	padding: 10px 10px 10px 10px;
 }
@@ -1814,6 +1859,7 @@ $rules in $class-change {
 	margin-top: 2rem;
 	min-width: 9rem;
 }
+
 
 .value-payment {
 	border-radius: 5px;
@@ -2083,7 +2129,8 @@ input[type=checkbox].contract-ckeck {
 }
 
 .pre-head {
-	margin: 4rem 0;
+	margin-top: 1em;
+	margin-bottom: 2em;
 	text-align: left;
 }
 
