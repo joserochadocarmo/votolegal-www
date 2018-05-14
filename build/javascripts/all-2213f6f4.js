@@ -3757,7 +3757,7 @@ var BASE_API_JS = '';
 
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server == '192.168.1.190') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
 } else {
 	BASE_API_JS = '//api.votolegal.com.br/api';
@@ -5036,7 +5036,7 @@ var BASE_API = '';
 var BASE_API_JS = '';
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server.hostname == '192.168.1.190') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
 } else {
 	BASE_API_JS = '//api.votolegal.com.br/api';
