@@ -4,25 +4,35 @@ title:  Pré-cadastro
 
 <section id="pre-candidate" ng-controller="PreCadastroController as precadastro">
   <div class="container">
+			<div class="container">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="nav-links-register">
         <br class="divider">
-        <span class="badge badge-status badge-default badge-success">Pré-cadastro</span>
-        <span class="badge badge-status badge-default">Contrato</span>
-        <span class="badge badge-status badge-default ">Pagamento</span>
-        <span class="badge badge-status badge-default">Análise de pagamento</span>
+							<p class="nav-link-process nav-link-active">Pré-cadastro</p>
+							<p class="nav-link-process">Contrato</p>
+							<p class="nav-link-process">Pagamento</p>
+							<p class="nav-link-process">Análise de pagamento</p>
+						</div>
+					</div>
+				</div>
       </div>
 
-      <div class="col-md-offset-3 col-md-6 text-center ">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 text-center ">
          <p class="pre-head">
         Seja bem-vindo ao Voto legal. Realize o passo a passo para iniciar a contratação da plataforma. <strong> Importante: </strong>Todos os dados para contratação devem ser do pré-candidato, estando vedada a contratação em nome de terceiros. Se houver divergências ou inconformidades das informações, os valores arrecadados poderão ser devolvidos aos doadores ou tesouro nacional.
         </p>
         <h1 class="page-title">Pré-cadastro</h1>
         <p class="pos-head">Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo.</p>
       </div>
-      <div class="col-md-offset-3 col-md-6">
+				</div>
+			</div>
 
-
+			<div class="container">
+				<div class="row">
+				<div class="col-md-6">
         <% content_tag :form, name: 'candidateForm', class: 'angular-form', 'ng-submit' => "create(candidateForm.$valid)", novalidate: '' do %>
           <div class="row">
             <div class="form-group _icon-left col-md-12">
