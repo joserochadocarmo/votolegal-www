@@ -413,8 +413,10 @@
 	</form>
 	<div ng-if="error_list" ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 	    class="error-panel">
-		<ul ng-if="error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope">
-			<li>{{error_list}} </li>
+		<ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope">
+			<li>
+			{{error.title}}
+			</li>
 		</ul>
 	</div>
 
@@ -466,7 +468,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-79a93883.js"></script>
+												<script src="/javascripts/all-acb84786.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
