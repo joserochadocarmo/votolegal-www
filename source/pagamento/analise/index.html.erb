@@ -6,19 +6,23 @@ title: Análise do Pagamento
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="nav-links-register">
 						<br class="divider">
-				<span class="badge badge-status badge-default">Pré-cadastro</span>
-				<span class="badge badge-status badge-default">Contrato</span>
-				<span class="badge badge-status badge-default">Pagamento</span>
-				<span class="badge badge-status badge-default badge-success">Análise de pagamento</span>
+						<p class="nav-link-process nav-link-sucess">Pré-cadastro</p>
+						<p class="nav-link-process nav-link-sucess">Contrato</p>
+						<p class="nav-link-process nav-link-sucess">Pagamento</p>
+						<p class="nav-link-process nav-link-active">Análise de pagamento</p>
 					</div>
-			<div class="col-md-12 text-center">
+				</div>
+			</div>
+		</div>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
 
 				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' ">>
-				<h1 class="page-title">
+					<h1 class="page-title">
 
 					Seu boleto foi gerado com sucesso!</h1>
 
@@ -32,11 +36,11 @@ title: Análise do Pagamento
 					</p>
 
 					<div class="jumbotron alert alert-warning">
-					<p>Caso tenha tido algum problema com seu boleto refaça a operação.
-						<a href="/pagamento" class="">Gerar boleto</a>
-					</p>
+						<p>Caso tenha tido algum problema com seu boleto refaça a operação.
+							<a href="/pagamento" class="">Gerar boleto</a>
+						</p>
+					</div>
 				</div>
-			</div>
 
 				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' ">
 
