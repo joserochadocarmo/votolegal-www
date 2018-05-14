@@ -5269,6 +5269,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 					return fd;
 				}
 			}).then(function (response) {
+
+
 				SweetAlert.swal('Os dados da campanha foram salvos!');
 				$scope.submit_disabled = false;
 				$scope.check_percent();
