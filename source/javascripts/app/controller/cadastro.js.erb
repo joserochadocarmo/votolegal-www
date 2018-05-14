@@ -450,7 +450,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.candidate_params = function () {
 		return Params
 			.require($scope.candidate)
-			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf')
+			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf', 'google_analytics')
 
 
 		/* CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
