@@ -167,6 +167,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			var user = auth_service.current_user();
 			params.api_key = user.api_key;
 			params.google_analytics = $scope.candidate.google_analytics;
+			params.collect_donor_phone = ($scope.candidate.collect_donor_phone) ? 1 : 0;
+			params.collect_donor_address = ($scope.candidate.collect_donor_address) ? 1 : 0;
 			$scope.submit_disabled = true;
 
 			try {
@@ -450,11 +452,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.candidate_params = function () {
 		return Params
 			.require($scope.candidate)
-			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf', 'google_analytics')
+			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf', 'google_analytics', )
 
 
 		/* CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
-		.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code')
+		.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code', 'collect_donor_address', 'collect_donor_phone')
 		*/
 	};
 
