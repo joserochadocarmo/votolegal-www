@@ -247,7 +247,13 @@ app.votolegal.controller("PaymentController", [
 				$scope.boletoUrl = null;
 			}
 			$scope.sendButtonAllow = false;
+		}
 
+		$scope.focusErrorForm = function(){
+			var elementError = document.querySelector('#pagamento .ng-invalid');
+			elementError.focus()
+			var react = elementError.getBoundingClientRect();
+			window.scroll(react.x, react.y)
 		}
 
 		$scope.cepRequest = function () {
@@ -303,6 +309,8 @@ app.votolegal.controller("PaymentController", [
 					$scope.creditCardPayment();
 
 				}
+			}else{
+				$scope.focusErrorForm();
 			}
 		}
 	}
