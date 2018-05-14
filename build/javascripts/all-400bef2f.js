@@ -5269,6 +5269,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 					return fd;
 				}
 			}).then(function (response) {
+
+
 				SweetAlert.swal('Os dados da campanha foram salvos!');
 				$scope.submit_disabled = false;
 				$scope.check_percent();
@@ -7326,7 +7328,13 @@ app.votolegal.controller("PaymentController", [
 				$scope.boletoUrl = null;
 			}
 			$scope.sendButtonAllow = false;
+		}
 
+		$scope.focusErrorForm = function(){
+			var elementError = document.querySelector('#pagamento .ng-invalid');
+			elementError.focus()
+			var react = elementError.getBoundingClientRect();
+			window.scroll(react.x, react.y)
 		}
 
 		$scope.cepRequest = function () {
@@ -7382,6 +7390,8 @@ app.votolegal.controller("PaymentController", [
 					$scope.creditCardPayment();
 
 				}
+			}else{
+				$scope.focusErrorForm();
 			}
 		}
 	}
