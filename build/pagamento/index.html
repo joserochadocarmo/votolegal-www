@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-051be9c7.css" rel="stylesheet" />
+	<link href="/stylesheets/all-baf6a7ed.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -145,10 +145,10 @@
 							</p>
 							<ul>
 								<li class="value-payment__setup">
-									<span class="value-payment__info">Parcela única para setup</span>
 									<span class="value-payment__value">
 										<span class="value-payment__currency">R$</span>{{candidate.amount}}
 									</span>
+									<span class="value-payment__info">Parcela única para setup</span>
 								</li>
 								<li class="value-payment__fee">
 									<span class="value-payment__value">
@@ -253,10 +253,10 @@
 						</div>
 						<div class="payment-type">
 							<div class="col-md-6">
-								<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required ng-click="managerCondition(pagamento.typePayment)"> Boleto
+								<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required ng-click="manageCondition(pagamento.typePayment)"> Boleto
 							</div>
 							<div class="col-md-6">
-								<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="managerCondition(pagamento.typePayment)"> Cartão de crédito
+								<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="manageCondition(pagamento.typePayment)"> Cartão de crédito
 							</div>
 							<div class="col-md-12">
 								<label ng-if="pagamento.typePayment.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Escolha a forma de pagamento</label>
@@ -292,49 +292,33 @@
 								<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.monthCardExpire.$error.required)"
 									style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
 
-								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted && paymentMethod === 'creditCard)"
+								<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted && paymentMethod === 'creditCard')"
 								    style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
 							</div>
-
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
-								<input class="form-control" name="yearCardExpire" data-yearCardExpire="Ano que o cartão expira" ng-model="candidate.card.yearCardExpire"
-								    type="number" min="{{currentYear}}" placeholder="Ano de vencimento" mask="9999" ng-required="paymentMethod === 'creditCard'">
-
+								<input class="form-control" name="yearCardExpire" data-yearCardExpire="Ano que o cartão expira" ng-model="candidate.card.yearCardExpire" type="number" min="{{currentYear}}" placeholder="Ano de vencimento" mask="9999" ng-required="paymentMethod === 'creditCard'">
 								<div ng-if="paymentFields  == true">
-<label ng-if="pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.yearCardExpire.$error.required"
-
-										style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
-
-<label ng-if="pagamento.yearCardExpire.$error.min && pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.yearCardExpire.$error"
-    style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão deve ser a partir do ano {{currentYear}}</l abel>
-
+									<label ng-if="pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.yearCardExpire.$error.required" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
+									<label ng-if="pagamento.yearCardExpire.$error.min && pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.yearCardExpire.$error" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão deve ser a partir do ano {{currentYear}}</label>
 								</div>
-
 							</div>
 							<div class="form-group icon-left col-md-4">
 								<i class="fa fa-credit-card"></i>
 								<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cod. de segurança"
 								    required >
-<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard')" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O Código de segurança do cartão é obrigatório</label>
-
-
-
+									<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.cvvCard.$error.required)" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O Código de segurança do cartão é obrigatório</label>
 							</div>
 						</div>
 					</div>
-
 					<div class="form-group">
-
-						<button class="btn btn-success btn-lg btn-block loading" ng-if="loading" type="submit">
+						<button class="btn btn-success btn-lg btn-block loading" ng-if="loading" type="submit" >
 							<img src="../images/ajax-loader-fbc9071e.gif" alt="">
 						</button>
 						<input class="btn btn-success btn-lg btn-block" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
-						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block alert alert-warning " ng-if="boletoUrl.length> 0"
-						    ng-click="redirectBoleto()">Imprimir boleto </a>
-						<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{error}} </label>
-						<label ng-if="success.length > 0 " style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{success}} </label>
-
+						<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block alert alert-warning " ng-if="boletoUrl.length> 0" ng-click="redirectBoleto()">Imprimir boleto </a>
+							<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{error}} </label>
+							<label ng-if="success.length > 0 " style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{success}} </label>
 					</div>
 					<div class=" clearfix">
 						<div class="col-md-12">
@@ -343,10 +327,8 @@
 								<h4>Os seguinte campos precisam ser corrigidos:</h4>
 								<ul style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope">
 									<li ng-repeat="error in errorListPaymentServer">{{error.title}}</li>
-
 								</ul>
 							</div>
-
 						</div>
 					</div>
 				</form>
@@ -373,43 +355,20 @@
 									</a>
 								</div>
 
-								<div class="social-buttons text-center col-xs-12">
-
-									<ul>
-										<li>
-											<a href="//twitter.com/fichalimpa" title="Twitter" target="_blank">
-												<i class="fa fa-twitter fa-2x"></i>
-											</a>
-										</li>
-										<li>
-											<a href="//www.youtube.com/user/CANALMCCE" title="Youtube" target="_blank">
-												<i class="fa fa-youtube-play fa-2x"></i>
-											</a>
-										</li>
-
-										<li>
-											<a href="//www.facebook.com/MCCEFichaLimpa" title="Facebook" target="_blank">
-												<i class="fa fa-facebook fa-2x"></i>
-											</a>
-										</li>
-									</ul>
-								</div>
-
 								<div class="copyright col-md-12 col-sm-12 col-xs-12">
-									<p>Voto Legal é uma plataforma aberta e baseada em software livre os realizadores não se responsabilizam pelas informações
-										fornecidas pelos candidatos, nem pelo comportamento deles durante o período eleitoral, e se eleitos, durante seus
-										respectivos mandatos. Este projeto é distribuido sob a licença
+									<p>
+										Voto Legal é uma plataforma aberta e baseada em software livre, os realizadores não se responsabilizam pelas informações fornecidas pelos candidatos, nem pelo comportamento deles durante o período eleitoral, e se eleitos, durante seus respectivos mandatos. VotoLegal opera sob o CNPJ 30.217.474/0001-50, razão social Pague Junto - Tecnologia de Intermediação LTDA. Este projeto é distribuído sob a licença
+
 										<a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank">
 											<strong>Affero General Public License</strong>
-										</a>.</p>
+										</a>.
+									</p>
 								</div>
 								<div class="copyright col-md-12 footer-terms">
 									<p>
-										© 2016-2018 VotoLegal • Uma iniciativa AppCívico • Termos de uso
-
+										© 2016-2018 VotoLegal • Uma iniciativa AppCívico
 									</p>
 								</div>
-
 							</div>
 						</div>
 					</footer>
@@ -418,7 +377,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-d8dcfc49.js"></script>
+												<script src="/javascripts/all-1cac27be.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

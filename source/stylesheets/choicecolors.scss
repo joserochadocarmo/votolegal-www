@@ -17,7 +17,6 @@ $class-change: (
 @each $class-palette, $rules in $class-change {
   html.#{$class-palette} {
 
-
 	.label.label-success {
 		background-color: map-get($rules, 'default');
 

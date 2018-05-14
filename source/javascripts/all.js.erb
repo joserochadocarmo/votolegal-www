@@ -12,13 +12,11 @@ var BASE_API_JS = '';
 
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server.hostname == '192.168.1.190') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
 } else {
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
+	BASE_API_JS = '//api.votolegal.com.br/api';
 }
-
-
 
 
 app = window.app || {};
@@ -338,7 +336,9 @@ var error_msg = function (token) {
 		"already exists": " já foi cadastrado.",
 		"access denied": "Acesso negado!",
 		"Bad email or password.": "E-mail ou senha inválidos.",
-		"invalid token": " é invalido ou esta expirado."
+		"invalid token": " é invalido ou esta expirado.",
+		"Candidate not found": 'Seu usuário não foi identificado',
+		"user_id": 'Você já confirmou o contrato, por favor tente logar.'
 	};
 
 	var pagseguroMessages = {
@@ -727,7 +727,7 @@ app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', funct
 				}
 			}, function (response) {
 
-				return response;
+       			 return response;
 
 			})
 		}
