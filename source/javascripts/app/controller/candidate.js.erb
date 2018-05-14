@@ -80,8 +80,6 @@ app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http"
 
 window.addEventListener("message", receiveMessage, false);
 
-
-
 function receiveMessage(event) {
 
 	if (whiteListhost.indexOf(event.origin) === -1){
@@ -104,9 +102,6 @@ $scope.themeSelection = function(data){
 
 	document.documentElement.className += ' ' + data;
 }
-// $scope.themeSelection('theme--red')
-
-
 
   $scope.donationService =  function(){
 	$scope.donateServiceStatus = !$scope.donateServiceStatus;
@@ -197,8 +192,6 @@ $scope.themeSelection = function(data){
       .map(function(i){ return i.name })
       .join(separator || ', ')
   };
-
-
 
   $scope.candidate_by_name = function(name){
     $http({
