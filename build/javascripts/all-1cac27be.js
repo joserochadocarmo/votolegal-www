@@ -3757,13 +3757,11 @@ var BASE_API_JS = '';
 
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server.hostname == '192.168.1.190') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
 } else {
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
+	BASE_API_JS = '//api.votolegal.com.br/api';
 }
-
-
 
 
 app = window.app || {};
@@ -4083,7 +4081,9 @@ var error_msg = function (token) {
 		"already exists": " já foi cadastrado.",
 		"access denied": "Acesso negado!",
 		"Bad email or password.": "E-mail ou senha inválidos.",
-		"invalid token": " é invalido ou esta expirado."
+		"invalid token": " é invalido ou esta expirado.",
+		"Candidate not found": 'Seu usuário não foi identificado',
+		"user_id": 'Você já confirmou o contrato, por favor tente logar.'
 	};
 
 	var pagseguroMessages = {
@@ -5036,7 +5036,7 @@ var BASE_API = '';
 var BASE_API_JS = '';
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost') {
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server.hostname == '192.168.1.190') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
 } else {
 	BASE_API_JS = '//api.votolegal.com.br/api';
@@ -6662,37 +6662,57 @@ app.votolegal.controller("ContractController", [
 	) {
 		$scope.error = false;
 		$scope.errorServer = false;
-		$scope.error_list = '';
+		$scope.error_list = [];
 		$scope.confirmContract = false;
 
 
 		$scope.user = localStorage.getItem("userId");
 
-		$scope.confirm = function() {
+		$scope.confirm = function () {
+			errorList = [];
 
-			if ($scope.confirmContract && $scope.error == false && $scope.user != null) {
-				var response = contract_service
-					.contract($scope.user )
-					.success(function(data) {
-
-						if(data.id > 0){
+			if ($scope.confirmContract && $scope.user != null) {
+				contract_service
+					.contract($scope.user)
+					.success(function (data) {
+						if (data.id > 0) {
 							document.location = "/pagamento";
-
 						}
 					})
-					.error(function(data) {
+					.error(function (data) {
+						if (data.error == 'Candidate not found') {
 
-						if (data.form_error.user_id.length > 0) {
-							$scope.error_list = 'Você já confirmou o contrato tente logar para verificar em qual etapa você está'
+							var error = [data];
+							error.map(function (m) {
+								var messages = error_msg(Object.values(m))
+
+								errorList.push({
+									title: messages
+								});
+							}, 0)
+						} else {
+							var error = [data.form_error];
+							error.map(function (m) {
+								var messages = error_msg(Object.keys(m))
+								errorList.push({
+									title: messages
+								});
+							}, 0)
 						}
+
+						$scope.error_list = errorList
 					});
 			} else if ($scope.user == null && $scope.error == true) {
 				$scope.errorUser = true;
-				$scope.error_list = 'Não conseguimos te identificar. Por gentileza faça seu pre cadastro, caso ja tenha feito faça seu login. '
+				$scope.error_list.push({
+					title: 'Não conseguimos te identificar. Por gentileza faça seu pre cadastro, caso já tenha feito, faça seu login.'
+				});
 				$scope.error = true;
 
 			} else if ($scope.confirmContract == false) {
-				$scope.error_list = 'É necessário confirmar o contrato';
+				$scope.error_list.push({
+					title: 'É necessário confirmar o contrato'
+				});
 				$scope.error = true;
 			}
 		};
