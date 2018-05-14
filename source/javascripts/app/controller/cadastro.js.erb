@@ -149,96 +149,111 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 		$scope.projects[index].changed = true;
 	};
 
-	// save candidate data
-	$scope.save_candidate = function (index) {
-		$scope.error_list = [];
-		var params = $scope.candidate_params();
+	$scope.focusErrorForm = function(){
+		var elementError = document.querySelector('#candidateForm .ng-invalid-email');
+		elementError.focus();
+	}
 
-		var user = auth_service.current_user();
-		params.api_key = user.api_key;
+	// save candidate datas
+	$scope.save_candidate = function (index, form) {
+	$scope.error_list = [];
 
-		$scope.submit_disabled = true;
-		try {
-			$http({
-				method: 'PUT',
-				url: BASE_API_JS + '/candidate/' + user.id + "?api_key=" + user.api_key,
-				data: params,
-				headers: {
-					'Content-Type': undefined
-				},
-				transformRequest: function (data) {
+		if (form.$error && form.$error.pattern || form.$error.email){
 
-					var fd = new FormData();
-					for (var p in data) fd.append(p, data[p]);
-					// add file to form_data
-					var file_field = document.querySelector('input[name=picture]');
-					if (file_field.files.length > 0) {
-						var file = file_field.files[0];
-						fd.append("picture", file, file.name);
+			$scope.focusErrorForm()
+		}else{
 
-						if ((Math.round(file.size * 100 / (1024 * 1024)) / 100) > 1) {
-							SweetAlert.swal("Sua imagem de perfil é muito grande", "A imagem deve ter no máximo 1MB de tamanho!");
-							$scope.submit_disabled = false;
-							return new FormData();
+			var params = $scope.candidate_params();
+			var user = auth_service.current_user();
+			params.api_key = user.api_key;
+			params.google_analytics = $scope.candidate.google_analytics;
+			$scope.submit_disabled = true;
+
+			try {
+				$http({
+					method: 'PUT',
+					url: BASE_API_JS + '/candidate/' + user.id + "?api_key=" + user.api_key,
+					data: params,
+					headers: {
+						'Content-Type': undefined
+					},
+					transformRequest: function (data) {
+
+						var fd = new FormData();
+						for (var p in data) fd.append(p, data[p]);
+						// add file to form_data
+						var file_field = document.querySelector('input[name=picture]');
+						if (file_field.files.length > 0) {
+							var file = file_field.files[0];
+							fd.append("picture", file, file.name);
+
+							if ((Math.round(file.size * 100 / (1024 * 1024)) / 100) > 1) {
+								SweetAlert.swal("Sua imagem de perfil é muito grande", "A imagem deve ter no máximo 1MB de tamanho!");
+								$scope.submit_disabled = false;
+								return new FormData();
+							}
 						}
+						return fd;
 					}
-					return fd;
-				}
-			}).then(function (response) {
-				SweetAlert.swal('Os dados da campanha foram salvos!');
-				$scope.submit_disabled = false;
-				$scope.check_percent();
-			}, function (response) {
+				}).then(function (response) {
+					SweetAlert.swal('Os dados da campanha foram salvos!');
+					$scope.submit_disabled = false;
+					$scope.check_percent();
+				}, function (response) {
 
-				var res = response;
+					var res = response;
 
-				// send generic error
+					// send generic error
+					trouble.shoot({
+						route: document.location.href,
+						error: JSON.stringify(res)
+					});
+
+					if (!res.data) {
+						SweetAlert.swal('Erro ao salvar os dados!');
+						return false
+					}
+					res = response.data.form_error;
+					var f = function (field) {
+						return document.querySelector('form[name=candidateForm] label[for=' + field + ']');
+					};
+
+					// setting error message
+					for (var field in res) {
+						if (field == 'picture' && res[field] === 'invalid image') {
+							$scope.error_list.push("Arquivo de imagem inválido!");
+							return false;
+						}
+						var name = f(field).innerText;
+						$scope.error_list.push(name + error_msg(field));
+					}
+
+					// enable submit
+					$scope.submit_disabled = false;
+
+					// throw an exception
+					SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
+					throw new Error('ERROR_SAVING_CANDIDATE');
+
+					return false;
+				});
+			} catch (e) {
 				trouble.shoot({
 					route: document.location.href,
-					error: JSON.stringify(res)
+					error: JSON.stringify(e)
 				});
 
-				if (!res.data) {
-					SweetAlert.swal('Erro ao salvar os dados!');
-					return false
-				}
-				res = response.data.form_error;
-				var f = function (field) {
-					return document.querySelector('form[name=candidateForm] label[for=' + field + ']');
-				};
-
-				// setting error message
-				for (var field in res) {
-					if (field == 'picture' && res[field] === 'invalid image') {
-						$scope.error_list.push("Arquivo de imagem inválido!");
-						return false;
-					}
-
-					var name = f(field).innerText;
-					$scope.error_list.push(name + error_msg(res[field]));
-				}
-
-				// enable submit
 				$scope.submit_disabled = false;
+				console.error(e);
+			}
 
-				// throw an exception
-				//SweetAlert.swal('Error', 'Os dados da campanha não puderam ser salvos!');
-				throw new Error('ERROR_SAVING_CANDIDATE');
+			return false;
+		};
+	}
 
-				return false;
-			});
-		} catch (e) {
-			trouble.shoot({
-				route: document.location.href,
-				error: JSON.stringify(e)
-			});
 
-			$scope.submit_disabled = false;
-			console.error(e);
-		}
 
-		return false;
-	};
+
 	// save campaign data
 	$scope.save_campaign = function (index) {
 
@@ -435,7 +450,7 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.candidate_params = function () {
 		return Params
 			.require($scope.candidate)
-			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf')
+			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf', 'google_analytics')
 
 
 		/* CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
