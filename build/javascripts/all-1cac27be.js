@@ -3757,7 +3757,7 @@ var BASE_API_JS = '';
 
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server == '192.168.1.190') {
+if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server.hostname == '192.168.1.190') {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
 } else {
 	BASE_API_JS = '//api.votolegal.com.br/api';
@@ -4083,7 +4083,7 @@ var error_msg = function (token) {
 		"Bad email or password.": "E-mail ou senha inválidos.",
 		"invalid token": " é invalido ou esta expirado.",
 		"Candidate not found": 'Seu usuário não foi identificado',
-		"user_id": 'Você já se cadastrou, por favor tente logar.'
+		"user_id": 'Você já confirmou o contrato, por favor tente logar.'
 	};
 
 	var pagseguroMessages = {
