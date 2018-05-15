@@ -142,12 +142,20 @@ title: Pré-visualizaçao do perfil
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="responseSubmit alert alert-success" ng-if="responsePublish.length > 0">{{responsePublish}}</div>
-								<div class="responseSubmit alert alert-danger" ng-if="erroPublish.length > 0">{{erroPublish}}</div>
+
 								<button class="btn btn-success" type="submit">Ativar site</button>
 							</div>
 						</form>
 					</div>
+				</div>
+				<div class="responseSubmit alert alert-success" ng-if="responsePublish.length > 0">{{responsePublish}}</div>
+				<div ng-show="error_list.length > 0" class=" col-md-12 " style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color:
+    rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px; ">
+					<ul>
+						<li style=" margin: 0px; list-style-type: square; padding: 0px 0px 0px 10px;" ng-repeat="error in error_list">
+							{{error.title}}
+						</li>
+					</ul>
 				</div>
 				<div class="col-md-12">
 					<div class="panel with-nav-tabs panel-default">
