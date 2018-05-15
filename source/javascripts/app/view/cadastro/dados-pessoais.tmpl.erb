@@ -1,5 +1,7 @@
 <div class="col-md-6">
-  <h4>Informações pessoais</h4>
+  <h1 class="page-title">Cadastro</h1>
+  <h2 class="page-subtitle">Candidato</h2>
+
   <p>Os campos marcados com o asterisco (*) são de preenchimento obrigatório.</p>
   <br class="divider">
   <% content_tag :form, name: 'candidateForm', class: 'angular-form',  id:'candidateForm' ,'ng-submit' => "save_candidate(candidateForm.$valid, candidateForm)", novalidate: '' do %>
