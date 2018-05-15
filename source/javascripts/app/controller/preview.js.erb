@@ -10,12 +10,11 @@ app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", 
   var load   = document.querySelector('#loading');
 
   // defaults
-$scope.candidate  = {};
+$scope.candidate = {};
 $scope.publish = false;
-$scope.reponseTheme='';
-
-
-$scope.iframeStatus = {}
+$scope.reponseTheme = '';
+$scope.iframeStatus = {};
+$scope.error_list = [];
 
 var locationHost = window.location.host;
 
