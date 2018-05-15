@@ -95,29 +95,32 @@ title: Pré-visualizaçao do perfil
 
 				<div class="card">
 					<div class="form-group ">
-						<form class="configSite" name="editConfig" ng-submit="editConfigSite($valid, editConfig)" novalidate >
+						<form class="configSite" name="editConfig" ng-submit="editConfigSite($valid, editConfig)" novalidate>
 							<div class="form-group">
 								<div class="input-group">
 									<p>Escolha a cor do tema</p>
 									<div>
 										<label for="theme--default" class="radio-theme-container">
-											<input id="theme--default" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--default" class="radio-theme" ng-class="{'active': candidate.color == 'theme--default' }">
+											<input id="theme--default" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--default"
+											    class="radio-theme" ng-class="{'active': candidate.color == 'theme--default' }">
 											<span class="radio-span default"></span>
 										</label>
 										<label for="theme--blue" class="radio-theme-container">
-											<input id="theme--blue" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--blue" class="radio-theme" ng-class="{'active': candidate.color == 'theme--blue' }">
+											<input id="theme--blue" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--blue"
+											    class="radio-theme" ng-class="{'active': candidate.color == 'theme--blue' }">
 											<span class="radio-span blue"></span>
 										</label>
 										<label for="theme--red" class="radio-theme-container">
-											<input id="theme--red" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--red" class="radio-theme" ng-class="{'active': candidate.color == 'theme--red' }">
+											<input id="theme--red" name="theme" ng-change="choiceTheme()" ng-model="iframeStatus.theme" type="radio" value="theme--red"
+											    class="radio-theme" ng-class="{'active': candidate.color == 'theme--red' }">
 											<span class="radio-span red"></span>
 										</label>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-							<div class="responseSubmit alert alert-success" ng-if="reponseTheme.length > 0">{{reponseTheme}}</div>
-							<div class="responseSubmit alert alert-danger" ng-if="reponseThemeError.length > 0">{{reponseThemeError}}</div>
+								<div class="responseSubmit alert alert-success" ng-if="reponseTheme.length > 0">{{reponseTheme}}</div>
+								<div class="responseSubmit alert alert-danger" ng-if="reponseThemeError.length > 0">{{reponseThemeError}}</div>
 								<button class="btn btn-success btn-large" type="submit">Salvar tema</button>
 							</div>
 						</form>
@@ -125,32 +128,37 @@ title: Pré-visualizaçao do perfil
 				</div>
 				<div class="card">
 					<div class="form-group">
-						<form class="configSite" name="statusSiteForm" ng-submit="publishSite(statusSiteForm)" novalidate >
+						<form class="configSite" name="statusSiteForm" ng-submit="publishSite(statusSiteForm)" novalidate>
 							<div class="input-group">
-								<p>Site <span ng-if="publish == true"> Ativado</span><span ng-if="publish == false"> Desativado</span></p>
+								<p>Site
+									<span ng-if="publish == true"> Ativado</span>
+									<span ng-if="publish == false"> Desativado</span>
+								</p>
 								<div>
 									<label class="switch" ng-if="candidate.publish != null">
-									<input name="themeActive" ng-model="publish" type="checkbox" value="publish" ng-class="{'active': publish}" ng-click="controlPublishStatus()">Ativo
+										<input name="themeActive" ng-model="publish" type="checkbox" value="publish" ng-class="{'active': publish}" ng-click="controlPublishStatus()">Ativo
 										<span class="slider"></span>
 									</label>
-
 								</div>
-
 							</div>
 							<div class="form-group">
-								<div class="responseSubmit alert alert-success" ng-if="responsePublish.length > 0">{{responsePublish}}</div>
-								<div class="responseSubmit alert alert-danger" ng-if="erroPublish.length > 0">{{erroPublish}}</div>
+
 								<button class="btn btn-success" type="submit">Ativar site</button>
 							</div>
 						</form>
 					</div>
 				</div>
-
-
-
+				<div class="responseSubmit alert alert-success" ng-if="responsePublish.length > 0">{{responsePublish}}</div>
+				<div ng-show="error_list.length > 0" class=" col-md-12 " style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color:
+    rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px; ">
+					<ul>
+						<li style=" margin: 0px; list-style-type: square; padding: 0px 0px 0px 10px;" ng-repeat="error in error_list">
+							{{error.title}}
+						</li>
+					</ul>
+				</div>
 				<div class="col-md-12">
 					<div class="panel with-nav-tabs panel-default">
-
 						<!-- tabs (buttons) -->
 						<div class="panel-heading">
 							<ul class="nav nav-tabs">
@@ -162,11 +170,9 @@ title: Pré-visualizaçao do perfil
 								</li>
 							</ul>
 						</div>
-
 						<!-- tabs (panels) -->
 						<div class="panel-body">
 							<div class="tab-content">
-
 								<!-- preview -->
 								<div class="tab-pane fade in active" id="tab1default">
 									<p class="text-right">

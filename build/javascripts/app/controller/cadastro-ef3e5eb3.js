@@ -46,10 +46,10 @@ var BASE_API = '';
 var BASE_API_JS = '';
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server.hostname == '192.168.1.190') {
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
-} else {
+if (server.hostname == 'participe.votolegal.com.br') {
 	BASE_API_JS = '//api.votolegal.com.br/api';
+	} else {
+		BASE_API_JS = '//dapi.votolegal.com.br/api';
 }
 
 /**
@@ -166,7 +166,9 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			var params = $scope.candidate_params();
 			var user = auth_service.current_user();
 			params.api_key = user.api_key;
-			params.google_analytics = $scope.candidate.google_analytics;
+			// params.google_analytics = $scope.candidate.google_analytics;
+			params.collect_donor_phone = ($scope.candidate.collect_donor_phone) ? 1 : 0;
+			params.collect_donor_address = ($scope.candidate.collect_donor_address) ? 1 : 0;
 			$scope.submit_disabled = true;
 
 			try {
@@ -450,11 +452,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.candidate_params = function () {
 		return Params
 			.require($scope.candidate)
-			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf', 'google_analytics')
+			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf')
 
 
 		/* CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
-		.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code')
+		.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code', 'collect_donor_address', 'collect_donor_phone')
 		*/
 	};
 

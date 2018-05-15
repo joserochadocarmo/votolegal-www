@@ -3757,10 +3757,10 @@ var BASE_API_JS = '';
 
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server.hostname == '192.168.1.190') {
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
-} else {
+if (server.hostname == 'participe.votolegal.com.br') {
 	BASE_API_JS = '//api.votolegal.com.br/api';
+	} else {
+	BASE_API_JS = '//dapi.votolegal.com.br/api';
 }
 
 
@@ -4084,7 +4084,8 @@ var error_msg = function (token) {
 		"invalid token": " é invalido ou esta expirado.",
 		"Candidate not found": 'Seu usuário não foi identificado',
 		"user_id": 'Você já confirmou o contrato, por favor tente logar.',
-		"google_analytics": "O Id do google analytics está errado"
+		"google_analytics": "O Id do google analytics está errado",
+		"video_url": "Para ativar o site vc precisa termina coloca a url do seu video"
 	};
 
 	var pagseguroMessages = {
@@ -5037,10 +5038,10 @@ var BASE_API = '';
 var BASE_API_JS = '';
 
 var server = window.location;
-if (server.hostname == 'dev-participe.votolegal.com.br' || server.hostname == 'localhost' || server.hostname == '192.168.1.190') {
-	BASE_API_JS = '//dapi.votolegal.com.br/api';
-} else {
+if (server.hostname == 'participe.votolegal.com.br') {
 	BASE_API_JS = '//api.votolegal.com.br/api';
+	} else {
+		BASE_API_JS = '//dapi.votolegal.com.br/api';
 }
 
 /**
@@ -5157,7 +5158,9 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			var params = $scope.candidate_params();
 			var user = auth_service.current_user();
 			params.api_key = user.api_key;
-			params.google_analytics = $scope.candidate.google_analytics;
+			// params.google_analytics = $scope.candidate.google_analytics;
+			params.collect_donor_phone = ($scope.candidate.collect_donor_phone) ? 1 : 0;
+			params.collect_donor_address = ($scope.candidate.collect_donor_address) ? 1 : 0;
 			$scope.submit_disabled = true;
 
 			try {
@@ -5441,11 +5444,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.candidate_params = function () {
 		return Params
 			.require($scope.candidate)
-			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf', 'google_analytics')
+			.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cpf')
 
 
 		/* CNPJ:  TODO: Recolocar no dia (a partir de 15/08)
-		.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code')
+		.permit('picture', 'video_url', 'facebook_url', 'twitter_url', 'instagram_url', 'website_url', 'public_email', 'summary', 'biography', 'responsible_name', 'responsible_email', 'cnpj', 'bank_agency', 'bank_agency_dv', 'bank_account_number', 'bank_account_dv', 'bank_code', 'collect_donor_address', 'collect_donor_phone')
 		*/
 	};
 
@@ -6288,7 +6291,7 @@ $scope.themeSelection = function(data){
     // CIELO Payment
     if($scope.candidate.payment_gateway_id === 1){
 	  // adding brand
-	  params.google_analytics = $scope.candidate.analytics;
+	//   params.google_analytics = $scope.candidate.analytics;
       params.amount = parseInt((params.amount * 100));
       params.credit_card_brand = $scope.doar.credit_card_brand;
       params.credit_card_validity = (function(){
@@ -7639,12 +7642,11 @@ app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", 
   var load   = document.querySelector('#loading');
 
   // defaults
-$scope.candidate  = {};
+$scope.candidate = {};
 $scope.publish = false;
-$scope.reponseTheme='';
-
-
-$scope.iframeStatus = {}
+$scope.reponseTheme = '';
+$scope.iframeStatus = {};
+$scope.error_list = [];
 
 var locationHost = window.location.host;
 
@@ -7689,35 +7691,36 @@ var locationHost = window.location.host;
 
   }
   $scope.publishSite = function (statusSiteForm) {
+	  $scope.error_list = [];
 		var user = auth_service.current_user();
-
 		var publish = (statusSiteForm.themeActive.$viewValue) ? 'publish' : 'unpublish';
 
 	site_publish_service.edit(publish, user)
 		.success(function(res){
 			$scope.responsePublish = 'Salvo'
 			$scope.candidate.publish = ($scope.publish) ? 1 : 0;
-
 		})
-		.error(function(res){
-				$scope.erroPublish = 'Houve um erro, por favor tentar novamente'
+		.error(function(error){
+			if(error.form_error)
+				var errors = Object.keys(error.form_error);
+				errors.map(function (error) {
+					var message = error_msg(error);
+					$scope.error_list.push({
+						title: message
+					})
+				}, 0)
 		})
-
-  }
+	}
 
 	$scope.choiceTheme = function () {
 		var previewWindow = document.getElementById('preview');
 		previewWindow.contentWindow.postMessage($scope.iframeStatus, window.location.origin);
-
 	}
 
   $scope.editConfigSite = function(valid, formData){
 	var previewWindow = document.getElementById('preview');
-
 	var user = auth_service.current_user();
-
 	color_theme_service.edit($scope.iframeStatus, user)
-
 		.success(function (res) {
 			$scope.candidate.color = $scope.iframeStatus.theme;
 
