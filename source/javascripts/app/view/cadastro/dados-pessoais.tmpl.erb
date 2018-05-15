@@ -100,9 +100,8 @@
         <label for="public_email">E-mail de contato para eleitores</label>
         <i class="fa fa-envelope"></i>
 		<input class="form-control" type="email" name="public_email" ng-model="candidate.public_email" >
-<div class="" ng-if="candidateForm.$submitted && candidateForm.public_email.$error.email" style="margin: 5px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
-    class="error-panel">E-mail inválido</div>
-
+		<div class="" ng-if="candidateForm.$submitted && candidateForm.public_email.$error.email" style="margin: 5px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+			class="error-panel">E-mail inválido</div>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="summary">Breve apresentação pessoal e da campanha</label>*
@@ -111,7 +110,7 @@
         <span class="help-block text-right">{{candidate.summary.length || 0}} de <strong>400</strong> caracteres</span>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="biography">Sobre você (biografia)</label>
+        <label for="biography">Sobre você (biografia)</label>*
         <i class="fa fa-user"></i>
         <textarea class="form-control" cols="30" rows="6" maxlength="400" name="biography" ng-model="candidate.biography"></textarea>
         <span class="help-block text-right">{{candidate.biography.length || 0}} de <strong>400</strong> caracteres</span>
