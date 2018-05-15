@@ -46,9 +46,17 @@
 	  </div>
 	  <!-- <div class="form-group icon-left icon-with-label col-md-12">
         <label for="google_analytics">ID do Analytics</label>*
-        <i class="fa fa-user"></i>
+        <i class="fa fa-pie-chart"></i>
         <input name="google_analytics" class="form-control" type="text" ng-model="candidate.google_analytics">
-      </div> -->
+	  </div> -->
+	    <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="collect_donor_address">Capturar endereço dos daadores no formulário?</label>*
+        <input name="collect_donor_address" class="form-control" type="checkbox" ng-model="candidate.collect_donor_address" value="1">
+	  </div>
+	   <div class="form-group icon-left icon-with-label col-md-12">
+        <label for="collect_donor_phone">Capturar telefone dos doadores</label>*
+        <input name="collect_donor_phone" class="form-control" type="checkbox" ng-model="candidate.collect_donor_phone" value="1">
+      </div>
       <!-- TODO: Recolocar no dia (a partir de 15/08)
 		  <div class="form-group icon-left icon-with-label col-md-12">
         <label for="cnpj">CNPJ do Candidato</label>*
