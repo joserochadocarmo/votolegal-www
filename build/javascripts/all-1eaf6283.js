@@ -4086,7 +4086,8 @@ var error_msg = function (token) {
 		"user_id": 'Você já confirmou o contrato, por favor tente logar.',
 		"google_analytics": "está errado.",
 		"video_url": "Para ativar o site vc precisa terminar seu cadastro e colocar a url do seu video.",
-		"summary": "Termine seu cadastro e preeencha o campo da sua breve descrição."
+		"summary": "Termine seu cadastro e preeencha o campo da sua breve descrição.",
+		"biography": "Preencha o campo biografia para poder ativar o site"
 	};
 
 	var pagseguroMessages = {
