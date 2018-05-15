@@ -66,9 +66,7 @@
 		  <p class="raising-goal" ng-if="((candidate.party_fund+candidate.total_donated)/100) <= candidate.raising_goal">{{candidate.raising_goal.toFixed(2) | currency}}</p>
 		  <div class="row">
 			   <a class="col-md-6" href="#/doar"><span class="btn btn-success btn-block btn-donate"  >Doar</span></a>
-
-			<p class="col-md-6"><a class="btn btn-success btn-block btn-donate" href="" ng-click="donationService()">Participe</a></p>
-
+				<a class="col-md-6" href="" ng-click="donationService()"><span class="btn btn-success btn-block btn-donate" >Participe</span</a>
 			<div class="col-md-12" ng-show="donateServiceStatus">
 				<div class="alert alert-success">
 					<strong>   Iremos disponibilizar essa opção à partir do dia 15.05.2018</strong>
