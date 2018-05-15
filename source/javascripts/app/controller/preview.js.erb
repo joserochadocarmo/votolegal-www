@@ -10,12 +10,11 @@ app.votolegal.controller('PreviewController', ["$scope", "$rootScope", "$http", 
   var load   = document.querySelector('#loading');
 
   // defaults
-$scope.candidate  = {};
+$scope.candidate = {};
 $scope.publish = false;
-$scope.reponseTheme='';
-
-
-$scope.iframeStatus = {}
+$scope.reponseTheme = '';
+$scope.iframeStatus = {};
+$scope.error_list = [];
 
 var locationHost = window.location.host;
 
@@ -60,35 +59,36 @@ var locationHost = window.location.host;
 
   }
   $scope.publishSite = function (statusSiteForm) {
+	  $scope.error_list = [];
 		var user = auth_service.current_user();
-
 		var publish = (statusSiteForm.themeActive.$viewValue) ? 'publish' : 'unpublish';
 
 	site_publish_service.edit(publish, user)
 		.success(function(res){
 			$scope.responsePublish = 'Salvo'
 			$scope.candidate.publish = ($scope.publish) ? 1 : 0;
-
 		})
-		.error(function(res){
-				$scope.erroPublish = 'Houve um erro, por favor tentar novamente'
+		.error(function(error){
+			if(error.form_error)
+				var errors = Object.keys(error.form_error);
+				errors.map(function (error) {
+					var message = error_msg(error);
+					$scope.error_list.push({
+						title: message
+					})
+				}, 0)
 		})
-
-  }
+	}
 
 	$scope.choiceTheme = function () {
 		var previewWindow = document.getElementById('preview');
 		previewWindow.contentWindow.postMessage($scope.iframeStatus, window.location.origin);
-
 	}
 
   $scope.editConfigSite = function(valid, formData){
 	var previewWindow = document.getElementById('preview');
-
 	var user = auth_service.current_user();
-
 	color_theme_service.edit($scope.iframeStatus, user)
-
 		.success(function (res) {
 			$scope.candidate.color = $scope.iframeStatus.theme;
 

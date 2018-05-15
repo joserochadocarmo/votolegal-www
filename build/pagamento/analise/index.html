@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-baf6a7ed.css" rel="stylesheet" />
+	<link href="/stylesheets/all-0e0f3d08.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -112,38 +112,64 @@
 
 
 				<section id="pre-register" ng-controller="PaymentController">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12">
-				<br class="divider">
-				<span class="badge badge-status badge-default">Pré-cadastro</span>
-				<span class="badge badge-status badge-default">Contrato</span>
-				<span class="badge badge-status badge-default">Pagamento</span>
-				<span class="badge badge-status badge-default badge-success">Análise de pagamento</span>
-			</div>
-			<div class="col-md-12 text-center">
-				<h1 class="page-title">
-					Enviado com sucesso
-				</h1>
-			</div>
-			<div class="col-md-12">
-				<p>Seu pagamento foi realizado e esta em análise.</p>
-				<p>Você será notificado por e-mail sobre a aprovação do seu pagamento assim que tivermos a aprovação você será notificado
-					por e-mail.</p>
-				<p>Dúvidas? Acesse
-					<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.</p>
-			</div>
-			<div class="col-md-12">
-				<div class="jumbotron alert alert-warning" ng-if="candidate.payment_method == 'boleto' ">
-					<p>Caso tenha tido algum problema com seu boleto refaça a operação.
-						<a href="/pagamento" class="">Gerar boleto</a>
-					</p>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="nav-links-register">
+						<br class="divider">
+						<p class="nav-link-process nav-link-sucess">Pré-cadastro</p>
+						<p class="nav-link-process nav-link-sucess">Contrato</p>
+						<p class="nav-link-process nav-link-sucess">Pagamento</p>
+						<p class="nav-link-process nav-link-active">Análise de pagamento</p>
+					</div>
 				</div>
 			</div>
 		</div>
 
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+
+				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' ">>
+					<h1 class="page-title">
+
+					Seu boleto foi gerado com sucesso!</h1>
+
+					<p>A confirmação do pagamento ocorre em até 2 dias úteis.</p>
+					<p>
+						Você será notificado por e-mail sobre o status do seu pagamento assim que o pagamento for identificado.
+					</p>
+					<p>
+						Dúvidas? Acesse
+						<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.
+					</p>
+
+					<div class="jumbotron alert alert-warning">
+						<p>Caso tenha tido algum problema com seu boleto refaça a operação.
+							<a href="/pagamento" class="">Gerar boleto</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' ">
+
+					<h1 class="page-title">Pagamento realizado</h1>
+
+					<p>Seu pagamento foi realizado e está em análise.</p>
+					<p>
+						Você será notificado por e-mail sobre o status do seu pagamento assim que o pagamento for identificado.
+					</p>
+					<p>
+						Dúvidas? Acesse
+						<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
+
+
 
 
 
@@ -185,7 +211,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-659e1981.js"></script>
+												<script src="/javascripts/all-1eaf6283.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
