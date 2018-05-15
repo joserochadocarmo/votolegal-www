@@ -633,7 +633,7 @@ $scope.themeSelection = function(data){
     // CIELO Payment
     if($scope.candidate.payment_gateway_id === 1){
 	  // adding brand
-	  params.google_analytics = $scope.candidate.analytics;
+	//   params.google_analytics = $scope.candidate.analytics;
       params.amount = parseInt((params.amount * 100));
       params.credit_card_brand = $scope.doar.credit_card_brand;
       params.credit_card_validity = (function(){
