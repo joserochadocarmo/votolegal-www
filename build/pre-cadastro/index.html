@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-0e0f3d08.css" rel="stylesheet" />
+	<link href="/stylesheets/all-51fccd26.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -113,42 +113,45 @@
 
 				<section id="pre-candidate" ng-controller="PreCadastroController as precadastro">
 	<div class="container">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="nav-links-register">
-							<br class="divider">
-							<p class="nav-link-process nav-link-active">Pré-cadastro</p>
-							<p class="nav-link-process">Contrato</p>
-							<p class="nav-link-process">Pagamento</p>
-							<p class="nav-link-process">Análise de pagamento</p>
-						</div>
-					</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="nav-links-register">
+					<br class="divider">
+					<p class="nav-link-process nav-link-active">Pré-cadastro</p>
+					<p class="nav-link-process">Contrato</p>
+					<p class="nav-link-process">Pagamento</p>
+					<p class="nav-link-process">Análise de pagamento</p>
 				</div>
 			</div>
+		</div>
+	</div>
 
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 text-center ">
-						<p class="pre-head">
-							Seja bem-vindo ao Voto legal. Realize o passo a passo para iniciar a contratação da plataforma. <strong> Importante: </strong>Todos os dados para contratação devem ser do pré-candidato, estando vedada a contratação em nome de terceiros. Se houver divergências ou inconformidades das informações, os valores arrecadados poderão ser devolvidos aos doadores ou tesouro nacional.
-						</p>
-						<h1 class="page-title">Pré-cadastro</h1>
-						<p class="pos-head">Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo.</p>
-					</div>
-				</div>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-6">
+				<p class="pre-head text-center">
+					Seja bem-vindo ao Voto legal. Realize o passo a passo para iniciar a contratação da plataforma. <strong> Importante: </strong>Todos os dados para contratação devem ser do pré-candidato, estando vedada a contratação em nome de terceiros. Se houver divergências ou inconformidades das informações, os valores arrecadados poderão ser devolvidos aos doadores ou tesouro nacional.
+				</p>
+				<h1 class="page-title">Pré-cadastro</h1>
+				<p class="pos-head">Pré-candidato, faça parte do Voto Legal. Para receber doações de pessoas físicas, faça o pré-cadastro abaixo.</p>
 			</div>
+		</div>
 
-			<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+
+<form name="candidateForm" class="angular-form" ng-submit="create(candidateForm.$valid)" novalidate="novalidate">
 				<div class="row">
-				<div class="col-md-6">
-<form name="candidateForm" class="angular-form" ng-submit="create(candidateForm.$valid)" novalidate="novalidate">					<div class="row">
 					<div class="form-group _icon-left col-md-12">
-						<input type="text" class="form-control" name="username" placeholder="Nome de usuário" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
-						<a class="btn-info" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: votolegal.com.br/em/seunome">
+						<input type="text" class="form-control position-relative" name="username" placeholder="Nome de usuário" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
+
+						<a class="btn-info-absolute" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: votolegal.com.br/em/seunome">
 						<i class="fa fa-info"></i>
 						</a>
+
 						<span class="help-block">Entre com o nome de usuário pelo qual você será identificado por nossa equipe e seus apoiadores. Escreva sem utilizar espaços, pois este será o nome utilizado para identificação na URL do VotoLegal.</span>
+
 					</div>
 					<div class="form-group icon-left col-md-8">
 						<i class="fa fa-envelope"></i>
@@ -158,8 +161,10 @@
 						<i class="fa fa-envelope"></i>
 						<input class="form-control" type="text" name="birth_date" placeholder="Nascimento" ng-model="candidate.birth_date" mask="99/99/9999" mask-restrict="reject" required>
 					</div>
-					</div>
-					<div class="row">
+				</div>
+
+
+				<div class="row">
 					<div class="col-md-6 form-group icon-left">
 						<i class="fa fa-lock"></i>
 						<input class="form-control" type="password" name="password" placeholder="Senha" ng-model="candidate.password" >
@@ -168,8 +173,9 @@
 						<i class="fa fa-lock"></i>
 						<input class="form-control" type="password" name="confirm_password" placeholder="Confirmar senha" ng-model="candidate.confirm_password" >
 					</div>
-					</div>
-					<div class="row">
+				</div>
+
+				<div class="row">
 					<div class="form-group icon-left col-md-12">
 						<i class="fa fa-user"></i>
 						<input class="form-control" type="text" name="name" placeholder="Nome completo" ng-model="candidate.name" >
@@ -205,8 +211,9 @@
 						<option ng-repeat="mov in political_movement | orderBy: 'name'" value="{{mov.id}}">{{mov.name}}</option>
 						</select>
 					</div>
-					</div>
-					<div class="row">
+				</div>
+
+				<div class="row">
 					<div class="col-md-6 form-group icon-left">
 						<i class="fa fa-home"></i>
 						<input class="form-control" type="text" name="address_zipcode" placeholder="CEP" ng-blur="address_by_zipcode($event)" ng-model="candidate.address_zipcode" mask="99999-999" mask-restrict="reject" mask-clean="false" >
@@ -216,8 +223,8 @@
 						<i class="fa fa-home"></i>
 						<input class="form-control" type="text" name="address_state" placeholder="Estado" ng-model="candidate.address_state" disabled >
 					</div>
-					</div>
-					<div class="row">
+				</div>
+				<div class="row">
 					<div class="form-group icon-left col-md-12">
 						<i class="fa fa-home"></i>
 						<input class="form-control" type="text" name="address_city" placeholder="Cidade" ng-model="candidate.address_city" disabled >
@@ -226,8 +233,9 @@
 						<i class="fa fa-home"></i>
 						<input class="form-control" type="text" name="address_street" placeholder="Endereço" ng-model="candidate.address_street" disabled >
 					</div>
-					</div>
-					<div class="row">
+				</div>
+
+				<div class="row">
 					<div class="col-md-6 form-group icon-left">
 						<i class="fa fa-home"></i>
 						<input class="form-control" type="text" name="address_house_number" placeholder="Número" ng-model="candidate.address_house_number" mask="d" mask-repeat="5" mask-restrict="reject" mask-validate="false" mask-clean="true">
@@ -236,8 +244,9 @@
 						<i class="fa fa-home"></i>
 						<input class="form-control" type="text" name="address_complement" placeholder="Complemento">
 					</div>
-					</div>
-					<div class="row">
+				</div>
+
+				<div class="row">
 					<div class="form-group col-md-12 hide">
 						<div class="col-md-3" style="padding:0px;">
 						<span>Ficha limpa?</span>
@@ -269,30 +278,26 @@
 						<input type="checkbox" name="transparent_campaign" ng-model="transparent_campaign" value="1"> Me comprometo a realizar uma campanha transparente, ética e que não utilizarei caixa dois.
 						</label>
 					</div>
-					<!-- <div class="checkbox col-md-12">
-						<label class="checkbox-inline">
-						<input type="checkbox" name="accept_terms" ng-model="accept_terms" value="1"> Ao fazer o cadastro eu declaro-me de acordo com os <a href="./contrato">termos de uso</a>
-						<a href="#" target="_blank" data-toggle="modal" data-target="#termos_modal">termos de uso</a>
+				<!-- <div class="checkbox col-md-12">
+					<label class="checkbox-inline">
+					<input type="checkbox" name="accept_terms" ng-model="accept_terms" value="1"> Ao fazer o cadastro eu declaro-me de acordo com os <a href="./contrato">termos de uso</a>
+					<a href="#" target="_blank" data-toggle="modal" data-target="#termos_modal">termos de uso</a>
 
-						do Voto Legal.
-						</label>
+					do Voto Legal.
+					</label>
 					</div> -->
 					<div class="form-group col-md-12">
-						<button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="btn btn-success btn-lg btn-block">Enviar</button>
+						<button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="register-submit">Enviar</button>
 						<div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
 						<h4>Os seguinte campos precisam ser corrigidos:</h4>
 						<ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
 							<li>{{error}}</li>
 						</ul>
-						</div>
 					</div>
-					</div>
+
 </form>			</div>
-
-
 		</div>
 	</div>
-
 
 	<!-- Modal -->
 	<div class="modal fade" id="termos_modal" tabindex="-1" role="dialog">
@@ -706,7 +711,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-1eaf6283.js"></script>
+												<script src="/javascripts/all-7f755d06.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

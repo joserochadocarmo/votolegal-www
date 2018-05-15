@@ -229,13 +229,17 @@ header.cover {
 }
 
 section {
-	padding-top: 8em;
-	padding-bottom: 8em;
-	padding-left: 0;
-	padding-right: 0;
+		padding-top: 8em;
+		padding-bottom: 5em;
+		padding-left: 0;
+		padding-right: 0;
 
-	@media all and ($max-screen: 480px) {
-		padding: 0px 0px;
+
+	@media (min: 480px) {
+		padding-top: 8em;
+		padding-bottom: 6em;
+		padding-left: 0;
+		padding-right: 0;
 	}
 }
 
@@ -521,6 +525,7 @@ section {
 
 	p {
 		margin-top: 1em;
+		font-size: 16px;
 	}
 
 	img {
@@ -1038,19 +1043,26 @@ section#candidate {
 }
 
 .nav-links-register {
-	padding-bottom: 4em;
+	padding-bottom: 2em;
+
+	@media (min-width: 480px) {
+		padding-bottom: 3em;
+
+	}
+
+
 }
 
 .nav-link-process {
 	padding: 0;
 	margin-left: 0;
 	margin-right: 0.5em;
-	margin-bottom: 0.5em;
+	margin-bottom: 1em;
 	margin-top: 0;
 	font-weight: bold;
 	font-size: 16px;
-	display: inline-block;
 	color: rgb(204, 204, 204);
+	display: inline-block;
 
 	@media (min-width: 480px) {
 		margin-right: 1em;
@@ -1075,8 +1087,13 @@ section#candidate {
 		border-radius: 100%;
 		left: 50%;
 		top: 0;
-		margin-top: -0.8em;
+		margin-top: -0.6em;
 		margin-left: -5px;
+
+		@media (min-width: 480px) {
+			margin-top: -0.8em;
+		}
+
 
 		content: "";
 	}
@@ -1227,29 +1244,70 @@ a {
 	}
 }
 
+
+
 .btn-info {
 	float: right;
 	position: relative;
-	margin-right: -20px;
+	margin-right: 0;
 	margin-top: -30px;
 	background-color: transparent;
 	color: #888;
 	width: 20px;
 	height: 30px;
+
 	&:hover,
 	&:active,
+	&:active:hover,
 	&:visited,
 	&:focus {
 		color: #555;
 		background-color: transparent;
 		text-decoration: none;
+		outline: none;
 	}
+
 	i {
 		margin: 0px;
 		line-height: 20px;
 		padding: 0px 8px;
 	}
 }
+
+.position-relative {
+	position: relative;
+	z-index: 0;
+}
+
+.btn-info-absolute {
+	position: absolute;
+	background-color: transparent;
+	color: #888;
+	width: 1em;
+	height: 1em;
+	right: 1.5em;
+	top: 0.5em;
+	z-index: 1;
+
+	&:hover,
+	&:active,
+	&:active:hover,
+	&:visited,
+	&:focus {
+		color: #555;
+		background-color: transparent;
+		text-decoration: none;
+		outline: none;
+	}
+
+	i {
+		margin: 0px;
+		line-height: 20px;
+		padding: 0px 8px;
+	}
+
+}
+
 
 .side-panel {
 	width: 100%;
@@ -1859,6 +1917,10 @@ $rules in $class-change {
 	margin-left: 10px;
 }
 
+.list-contracti {
+	list-style: none;
+}
+
 .value-payment {
 	border-radius: 5px;
 	box-shadow: 0px 5px 0 0 rgba(86, 121, 192, 0.4);
@@ -2134,7 +2196,7 @@ input[type=checkbox].contract-ckeck {
 
 .pos-head {
 	margin-top: 1rem;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 	text-align: left;
 }
 
@@ -2146,3 +2208,28 @@ input[type=checkbox].contract-ckeck {
 	margin-right: 1rem;
 }
 
+.register-submit {
+	display: block;
+	font-size: 23px;
+	font-weight: bold;
+	text-align: left;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 1em;
+	padding-right: 0;
+	width: 190px;
+	margin-top: 1em;
+	background-color: rgb(51, 204, 102);
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+	border: 0;
+	text-transform: lowercase;
+
+	&:hover,
+	&:active,
+	&:focus {
+		border: 0;
+		color: rgb(255, 255, 255);
+		background-color: rgb(43, 187, 91);
+	}
+}
