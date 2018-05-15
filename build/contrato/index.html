@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-0e0f3d08.css" rel="stylesheet" />
+	<link href="/stylesheets/all-51fccd26.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -112,37 +112,34 @@
 
 
 				<section id="termos" ng-controller="ContractController">
+
 	<div class="container">
 		<div class="row">
-			<div id="pre-register">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="nav-links-register">
-								<br class="divider">
-								<p class="nav-link-process nav-link-sucess">Pré-cadastro</p>
-								<p class="nav-link-process nav-link-active">Contrato</p>
-								<p class="nav-link-process">Pagamento</p>
-								<p class="nav-link-process">Análise de pagamento</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-12">
-					<h1 class="page-title">Contrato</h1>
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="nav-links-register">
 					<br class="divider">
-					<div ng-controller="ContractController">
+					<p class="nav-link-process nav-link-sucess">Pré-cadastro</p>
+					<p class="nav-link-process nav-link-active">Contrato</p>
+					<p class="nav-link-process">Pagamento</p>
+					<p class="nav-link-process">Análise de pagamento</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<br class="divider">
+				<div ng-controller="ContractController">
 
 	<div class="row">
 		<div class="col-md-12">
-			<h1> Contrato de prestação de serviço para candidato</h1>
+			<h1 class="page-title"> Contrato de prestação de serviço para candidato</h1>
 
-			<blockquote>
 				<p>
 					Pelo presente <strong>CONTRATO DE PRESTAÇÃO DE SERVIÇOS</strong> entre nós abaixo assinado, figurando, de um lado <strong>PAGUE JUNTO TECNOLOGIA DE INTERMEDIAÇÃO LTDA.</strong>, sociedade limitada regularmente constituída, com sede em São Paulo, Estado de São Paulo, na Rua Desembargador Eliseu Guilherme, 53 – Cj. 21 – Paraíso – São Paulo - SP – CEP 04004-030, CNPJ/MF sob o nº 30.217.474/0001-50, doravante chamada simplesmente <strong>CONTRATADA</strong>; e de outro lado parte devidamente qualificada pelos dados informados em seu cadastro eletrônico na plataforma Voto Legal; fica justo e contratado o seguinte:
 				</p>
-			</blockquote>
 			<ul>
 				<li class="list-contracti">
 					<h3>1. DO OBJETO</h3>
@@ -404,7 +401,7 @@
 		<input type="checkbox" name="" id="" ng-model="confirmContract" class="contract-ckeck">
 		<b>Concordo.</b>
 
-		<input type="button" value=" enviar" ng-click="confirm()" class="btn btn-success contract">
+		<input type="button" value=" enviar" ng-click="confirm()" class="register-submit">
 	</form>
 	<div ng-if="error_list" ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 	    class="error-panel">
@@ -417,10 +414,10 @@
 
 </div>
 
-				</div>
 			</div>
 		</div>
 	</div>
+
 </section>
 
 

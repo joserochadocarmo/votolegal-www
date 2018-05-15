@@ -1,13 +1,16 @@
 <div class="col-md-6" ng-init="tabname = 'projetos'">
+  <h1 class="page-title">Cadastro</h1>
+  <h2 class="page-subtitle">Projetos</h2>
+
   <h4>Projetos prioritários (agenda programática) *</h4>
   <p>Escreva no <span style="font-size:18px;font-weight:500" class="text-success">mínimo 4 projetos prioritários</span> que fazem parte do seu plano de governo.</p>
   <div style="padding: 5px 10px;margin-left: 40px;">
-  
+
   <h4 class="text-success" style="margin-left:-20px;">
     <i class="fi flaticon-information-button">
-  </i> 
+  </i>
   Os projetos prioritários são muito importantes!</h4>
-    <p>Estarão abertos para visualização no seu perfil público e aqueles que finalizarem uma doação votam nos 3 projetos de maior interesse.</p>  
+    <p>Estarão abertos para visualização no seu perfil público e aqueles que finalizarem uma doação votam nos 3 projetos de maior interesse.</p>
     <p>A visualização do resultado da enquete estará pública no perfil.</p>
   </div>
   <br class="divider">
@@ -22,12 +25,12 @@
     </div>
     <div class="form-group icon-left icon-with-label col-md-12">
       <label>Titulo</label>
-      <i class="fa fa-certificate"></i>    
+      <i class="fa fa-certificate"></i>
       <input class="form-control" ng-model="projects[$index].title" ng-change="changed_project($index)" type="text" ng-value="i.title" name="project_title" required>
     </div>
     <div class="form-group icon-left icon-with-label col-md-12">
       <label>Breve descrição</label>
-      <i class="fa fa-edit"></i>    
+      <i class="fa fa-edit"></i>
       <textarea name="project_content" ng-model="projects[$index].scope" ng-change="changed_project($index)" class="form-control" rows="6">{{i.scope}}</textarea>
     </div>
     <div class="form-group col-md-12 text-right">

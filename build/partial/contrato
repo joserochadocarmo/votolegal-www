@@ -2,13 +2,11 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			<h1> Contrato de prestação de serviço para candidato</h1>
+			<h1 class="page-title"> Contrato de prestação de serviço para candidato</h1>
 
-			<blockquote>
 				<p>
 					Pelo presente <strong>CONTRATO DE PRESTAÇÃO DE SERVIÇOS</strong> entre nós abaixo assinado, figurando, de um lado <strong>PAGUE JUNTO TECNOLOGIA DE INTERMEDIAÇÃO LTDA.</strong>, sociedade limitada regularmente constituída, com sede em São Paulo, Estado de São Paulo, na Rua Desembargador Eliseu Guilherme, 53 – Cj. 21 – Paraíso – São Paulo - SP – CEP 04004-030, CNPJ/MF sob o nº 30.217.474/0001-50, doravante chamada simplesmente <strong>CONTRATADA</strong>; e de outro lado parte devidamente qualificada pelos dados informados em seu cadastro eletrônico na plataforma Voto Legal; fica justo e contratado o seguinte:
 				</p>
-			</blockquote>
 			<ul>
 				<li class="list-contracti">
 					<h3>1. DO OBJETO</h3>
@@ -270,7 +268,7 @@
 		<input type="checkbox" name="" id="" ng-model="confirmContract" class="contract-ckeck">
 		<b>Concordo.</b>
 
-		<input type="button" value=" enviar" ng-click="confirm()" class="btn btn-success contract">
+		<input type="button" value=" enviar" ng-click="confirm()" class="register-submit">
 	</form>
 	<div ng-if="error_list" ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 	    class="error-panel">
