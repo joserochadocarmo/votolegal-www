@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-0e0f3d08.css" rel="stylesheet" />
+	<link href="/stylesheets/all-51fccd26.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -112,32 +112,30 @@
 
 
 				<section id="pre-register" ng-controller="PaymentController">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="nav-links-register">
-						<br class="divider">
-						<p class="nav-link-process nav-link-sucess">Pré-cadastro</p>
-						<p class="nav-link-process nav-link-sucess">Contrato</p>
-						<p class="nav-link-process nav-link-sucess">Pagamento</p>
-						<p class="nav-link-process nav-link-active">Análise de pagamento</p>
-					</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="nav-links-register">
+					<br class="divider">
+					<p class="nav-link-process nav-link-sucess">Pré-cadastro</p>
+					<p class="nav-link-process nav-link-sucess">Contrato</p>
+					<p class="nav-link-process nav-link-sucess">Pagamento</p>
+					<p class="nav-link-process nav-link-active">Análise de pagamento</p>
 				</div>
 			</div>
 		</div>
+	</div>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
+				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' ">
+					<h1 class="page-title">Seu boleto foi gerado!</h1>
 
-				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' ">>
-					<h1 class="page-title">
+					<p>Após o pagamento, a confirmação ocorre em até 3 dias úteis.</p>
 
-					Seu boleto foi gerado com sucesso!</h1>
-
-					<p>A confirmação do pagamento ocorre em até 2 dias úteis.</p>
 					<p>
-						Você será notificado por e-mail sobre o status do seu pagamento assim que o pagamento for identificado.
+						Você será notificado por e-mail, sobre o status do seu pagamento, assim que o pagamento for identificado.
 					</p>
 					<p>
 						Dúvidas? Acesse
@@ -153,11 +151,11 @@
 
 				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' ">
 
-					<h1 class="page-title">Pagamento realizado</h1>
+					<h1 class="page-title">Pagamento em análise</h1>
 
 					<p>Seu pagamento foi realizado e está em análise.</p>
 					<p>
-						Você será notificado por e-mail sobre o status do seu pagamento assim que o pagamento for identificado.
+						Você será notificado por e-mail, sobre o status do seu pagamento, assim que o pagamento for identificado.
 					</p>
 					<p>
 						Dúvidas? Acesse
