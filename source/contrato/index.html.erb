@@ -23,9 +23,26 @@ title:  Contrato
 			<div class="col-md-12">
 				<br class="divider">
 				<%= partial 'partial/contrato'%>
+
+				<form action="" class="contract-form">
+					<input type="checkbox" name="" id="" ng-model="confirmContract" class="contract-ckeck">
+					<b>Concordo.</b>
+
+					<input type="button" value=" enviar" ng-click="confirm()" class="register-submit">
+				</form>
+				<div ng-if="error_list" ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
+					class="error-panel">
+					<ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope">
+						<li>
+						{{error.title}}
+						</li>
+					</ul>
+				</div>
+
 			</div>
 		</div>
 	</div>
+
 
 </section>
 
