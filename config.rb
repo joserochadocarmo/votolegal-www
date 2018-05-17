@@ -20,6 +20,7 @@ page "/contrato/index.html", :layout => :layout
 page "/certiface/index.html", :layout => :layout
 page "/pagamento/index.html", :layout => :layout
 page "/pagamento/analise/index.html", :layout => :layout
+page "/consultar-contrato/index.html", :layout => :layout
 # set :js_dir, '...'
 
 
