@@ -2152,30 +2152,31 @@ input[type=checkbox].contract-ckeck {
 }
 
 .card .radio-span.default {
-	border: 5px solid #5cb85c;
+	border: 5px solid #ff6633;
+
 }
 
 .card .radio-span.blue {
-	border: 5px solid #2959aa;
+	border: 5px solid #0072bc;
 }
 
 .card .radio-span.red {
-	border: 5px solid #a6090e;
+	border: 5px solid #ed1941;
 }
 
 .card .radio-theme-container input.active~.radio-span.default,
 .card .radio-theme-container input:checked~.radio-span.default {
-	background-color: #5cb85c;
+	background-color: #ff6633;
 }
 
 .card .radio-theme-container input.active~.radio-span.blue,
 .card .radio-theme-container input:checked~.radio-span.blue {
-	background-color: #2959aa;
+	background-color: #0072bc;
 }
 
 .card .radio-theme-container input.active~.radio-span.red,
 .card .radio-theme-container input:checked~.radio-span.red {
-	background-color: #a6090e;
+	background-color: #ed1941;
 }
 
 .responseSubmit {
