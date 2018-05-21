@@ -16,7 +16,7 @@ $scope.reponseTheme = '';
 $scope.iframeStatus = {};
 $scope.error_list = [];
 
-var locationHost = window.location.host;
+var locationHost = 'votolegal.com.br';
 
 
 
@@ -41,7 +41,7 @@ var locationHost = window.location.host;
         })();
 
         $scope.candidate.profile_url = function(){
-          return $sce.trustAsResourceUrl("//" + locationHost + "/candidato?id=" + $scope.candidate.username);
+          return $sce.trustAsResourceUrl("//" + locationHost + "/em/" + $scope.candidate.username);
 		};
 
 		$scope.publish = ($scope.candidate.publish == 1) ? true : false;
