@@ -42,7 +42,7 @@ var locationHost = window.location.host;
         })();
 
         $scope.candidate.profile_url = function(){
-          return $sce.trustAsResourceUrl("//" + locationHost + "/candidato?id=" + $scope.candidate.username);
+          return $sce.trustAsResourceUrl("//" + locationHost.replace('participe', '') + "/em/" + $scope.candidate.username);
 		};
 
 		$scope.publish = ($scope.candidate.publish == 1) ? true : false;
