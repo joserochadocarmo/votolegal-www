@@ -63,6 +63,11 @@
 							<p>d) Processamento e emissão de transações efetuadas por meio de boleto bancário;</p>
 							<p>e) Liquidação financeira de transações efetuadas com sucesso;</p>
 							<p>f) Transferências de saldo para contas bancárias cadastradas na plataforma Voto Legal após a aprovação do candidato perante a Justiça Eleitoral;</p>
+							<p>g) Sistema de detecção de fraudes com fingerprint do dispositivo utilizado para doação;</p>
+							<p>h) Registros em cartório digital de todas as doações em redes de blockchain para garantir integridade e autenticidade da plataforma, doações e do político;</p>
+							<p>i) Infra-estrutura computacional em nuvem, com firewall e recursos de segurança para evitar ataques de negação de serviço;</p>
+							<p>j) Captcha com reconhecimento facial para geração de boletos, com objetivo de controlar limites de doação diária;</p>
+							<p>k) Controle de emissão de boletos para evitar doações maiores que os limites estipulados pela justiça eleitoral;</p>
 
 						</blockquote>
 						<br>
