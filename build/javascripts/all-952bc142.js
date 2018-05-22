@@ -6095,7 +6095,7 @@ $scope.themeSelection = function(data){
     }
 
     try {
-      $http({method: 'GET', url: BASE_API_JS + '/candidate/'+ candidate.id +'/donate?results=9999'}).
+      $http({method: 'GET', url: BASE_API_JS + '/candidate/'+ candidate.id +'/votolegal-donations?results=9999'}).
       then(
         function(response){
           var res = response.data.donations;
