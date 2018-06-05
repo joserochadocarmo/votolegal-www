@@ -7040,9 +7040,14 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
           for (var i in $scope.donations){
             // parsing date
             $scope.donations[i].captured_at = Date.parse($scope.donations[i].captured_at);
-            // format birthday
-            var birth = $scope.donations[i].birthdate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-            $scope.donations[i].birthday = birth[3]+"."+birth[2]+"."+birth[1];
+
+			// format birthday
+			if ($scope.donations[i].birthdate) {
+				var birth = $scope.donations[i].birthdate.match(/^(\d{4})\-(\d{2})\-(\d{2})$/);
+				$scope.donations[i].birthday = birth[3]+"."+birth[2]+"."+birth[1];
+			} else {
+				$scope.donations[i].birthday = '';
+			}
           }
 
           // diasble loading
