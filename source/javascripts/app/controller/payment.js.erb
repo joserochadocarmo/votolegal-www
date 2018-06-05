@@ -33,6 +33,12 @@ app.votolegal.controller("PaymentController", [
 
 	) {
 
+		$scope.disabledFields = {
+			addressState: true,
+			addressCity: true,
+			addressDistrict: true,
+			addressStreet: true,
+		}
 
 		$scope.candidate = {
 			name: '',
@@ -261,6 +267,13 @@ app.votolegal.controller("PaymentController", [
 				method: 'GET',
 				url: '//api-apoiadores.appcivico.com/cep?cep=' + $scope.candidate.zipCode,
 			}).then(function (response) {
+				console.log ('response', response);
+
+				$scope.disabledFields.addressState = !!response.data.state;
+				$scope.disabledFields.addressCity = !!response.data.street;
+				$scope.disabledFields.addressDistrict = !!response.data.district;
+				$scope.disabledFields.addressStreet = !!response.data.street;
+
 				$scope.candidate.addressStreet = response.data.street;
 				$scope.candidate.addressState = response.data.state;
 				$scope.candidate.addressCity = response.data.city;

@@ -217,7 +217,7 @@
 							<div class="col-md-6">
 								<div class="form-group icon-left">
 									<i class="fa fa-home"></i>
-									<input class="form-control" name="addressState" ng-model="candidate.addressState" type="text" placeholder="Estado" required>
+									<input class="form-control" name="addressState" ng-model="candidate.addressState" type="text" placeholder="Estado" required ng-disabled="disabledFields.addressState">
 									<label ng-if="pagamento.addressState.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O Estado é obrigatório</label>
 								</div>
 							</div>
@@ -226,13 +226,13 @@
 							<div class="col-md-6">
 								<div class="form-group icon-left">
 									<i class="fa fa-home"></i>
-									<input class="form-control" name="addressCity" ng-model="candidate.addressCity" type="text" placeholder="Cidade" required>
+									<input class="form-control" name="addressCity" ng-model="candidate.addressCity" type="text" placeholder="Cidade" required ng-disabled="disabledFields.addressCity">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group icon-left">
 									<i class="fa fa-home"></i>
-									<input class="form-control" name="addressDistrict" ng-model="candidate.addressDistrict" type="text" placeholder="Bairro" required>
+									<input class="form-control" name="addressDistrict" ng-model="candidate.addressDistrict" type="text" placeholder="Bairro" required ng-disabled="disabledFields.addressDistrict">
 								</div>
 							</div>
 						</div>
@@ -240,7 +240,7 @@
 							<div class="col-md-8">
 								<div class="form-group icon-left">
 									<i class="fa fa-home"></i>
-									<input class="form-control" name="addressStreet" ng-model="candidate.addressStreet" type="text" placeholder="Rua" required>
+									<input class="form-control" name="addressStreet" ng-model="candidate.addressStreet" type="text" placeholder="Rua" required ng-disabled="disabledFields.addressStreet">
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -391,7 +391,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-dc37f5aa.js"></script>
+												<script src="/javascripts/all-b1fd580f.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
