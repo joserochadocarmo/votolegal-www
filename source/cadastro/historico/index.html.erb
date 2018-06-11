@@ -47,7 +47,7 @@ title: Histórico de doações
 										{{ item.address_complement ? ' - ' + item.address_complement : '' }}
 										{{ item.address_district ? ' - ' + item.address_district : '' }}
 										{{ item.address_city ? ' - ' + item.address_city : '' }}
-										{{ item.address_state ? ' - ' + item.address_state : '' }}{{ item.address_zipcode ? ', ' + item.address_zipcode : '' }}
+										{{ item.address_state ? ' - ' + item.address_state : '' }}{{ item.address_zipcode ? ', ' + (item.address_zipcode | brCep) : '' }}
 									</td>
 									<td at-attribute="birthday" at-title="Nascimento">{{ item.birthday || '-' }}</td>
 									<td at-attribute="method" at-title="Método">{{ item.payment_method_human }}</td>
