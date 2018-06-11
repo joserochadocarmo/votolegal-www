@@ -33,15 +33,15 @@ title: Histórico de doações
 							<thead>
 							</thead>
 							<tbody>
-								<tr>
+								<tr class="text-center">
 									<td at-implicit at-attribute="name" at-title="Nome"></td>
 									<td at-attribute="cpf" at-title="CPF">
 										<a href="https://www.receita.fazenda.gov.br/Aplicacoes/SSL/ATCTA/CPF/ConsultaPublica.asp" target="_blank" title="Consultar este CPF">{{ item.cpf | brCpf }}</a>
 									</td>
 									<td at-attribute="email" at-title="E-mail">
-										<a href="mailto:{{item.email}}" title="Enviar email para o doador">{{ item.email }}</a>
+										<a href="mailto:{{item.email}}" ng-if="item.email" title="Enviar email para o doador">{{ item.email }}</a>
 									</td>
-									<td at-attribute="pgone" at-title="Telefone">{{ item.phone | brPhoneNumber }}</td>
+									<td at-attribute="pgone" at-title="Telefone">{{ item.phone ? ( item.phone | brPhoneNumber) : '-' }}</td>
 									<td at-attribute="address" at-title="Endereço">
 										{{ item.address_street || '' }}{{ item.address_house_number ? ' ,' + item.address_house_number : '' }}
 										{{ item.address_complement ? ' - ' + item.address_complement : '' }}
@@ -49,19 +49,20 @@ title: Histórico de doações
 										{{ item.address_city ? ' - ' + item.address_city : '' }}
 										{{ item.address_state ? ' - ' + item.address_state : '' }}{{ item.address_zipcode ? ', ' + item.address_zipcode : '' }}
 									</td>
-									<td at-attribute="birthday" at-title="Nascimento">{{ item.birthday }}</td>
+									<td at-attribute="birthday" at-title="Nascimento">{{ item.birthday || '-' }}</td>
 									<td at-attribute="method" at-title="Método">{{ item.payment_method_human }}</td>
 									<td at-attribute="amount" at-title="Valor">
 										{{item.amount ? (item.amount | finance: 'R$' ) : '-' }}
 									</td>
 									<td at-attribute="transaction_link" at-title="Blockchain" class="text-center">
 										<a href="{{ item.transaction_link }}" ng-if="item.transaction_link" target="_blank"><i class="fa fa-link"></i></a>
+										<span ng-else>-</span>
 									</td>
 									<td at-attribute="created_at_human" at-title="Data">
-										{{ item.created_at_human || '' }}
+										{{ item.created_at_human || '-' }}
 									</td>
 									<td at-attribute="captured_at" at-title="Compensação bancária">
-										{{ item.captured_at ? ( item.captured_at | date:'dd/MM/yyyy hh:mm:ss') : '' }}
+										{{ item.captured_at ? ( item.captured_at | date:'dd/MM/yyyy hh:mm:ss') : '-' }}
 									</td>
 									<%# <td at-attribute="document_number" at-title="Número do Documento">{{ item.document_number }}</td> %>
 									<%# <td at-attribute="authorization_number" at-title="Número da Autorização">{{ item.authorization_number }}</td> %>
