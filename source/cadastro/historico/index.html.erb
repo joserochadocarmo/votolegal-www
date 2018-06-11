@@ -43,7 +43,7 @@ title: Histórico de doações
 									</td>
 									<td at-attribute="pgone" at-title="Telefone">{{ item.phone ? ( item.phone | brPhoneNumber) : '-' }}</td>
 									<td at-attribute="address" at-title="Endereço">
-										{{ item.address_street || '' }}{{ item.address_house_number ? ' ,' + item.address_house_number : '' }}
+										{{ item.address_street || '-' }}{{ item.address_house_number ? ' ,' + item.address_house_number : '' }}
 										{{ item.address_complement ? ' - ' + item.address_complement : '' }}
 										{{ item.address_district ? ' - ' + item.address_district : '' }}
 										{{ item.address_city ? ' - ' + item.address_city : '' }}
