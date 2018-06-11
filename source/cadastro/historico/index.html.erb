@@ -42,20 +42,26 @@ title: Histórico de doações
 										<a href="mailto:{{item.email}}" title="Enviar email para o doador">{{item.email}}</a>
 									</td>
 									<td at-attribute="pgone" at-title="Telefone">{{item.phone}}</td>
-									<td at-attribute="address" at-title="Endereço">{{ item.address_street }}, {{ item.address_house_number }} - {{ item.address_complement }} - {{ item.address_district }}, {{ item.address_city }} - {{ item.address_state }}, {{ item.address_zipcode }}  </td>
+									<td at-attribute="address" at-title="Endereço">
+										{{ item.address_street || '' }}{{ item.address_house_number ? ' ,' + item.address_house_number : '' }}
+										{{ item.address_complement ? ' - ' + item.address_complement : '' }}
+										{{ item.address_district ? ' - ' + item.address_district : '' }}
+										{{ item.address_city ? ' - ' + item.address_city : '' }}
+										{{ item.address_state ? ' - ' + item.address_state : '' }}{{ item.address_zipcode ? ', ' + item.address_zipcode : '' }}
+									</td>
 									<td at-attribute="birthday" at-title="Nascimento">{{item.birthday}}</td>
 									<td at-attribute="method" at-title="Método">{{item.payment_method_human}}</td>
 									<td at-attribute="amount" at-title="Valor">
-										R${{item.amount }}
+										{{item.amount ? 'R$' + item.amount : '-' }}
 									</td>
-									<td at-attribute="transaction_hash" at-title="Blockchain" class="text-center">
-										<a href="//etherscan.io/tx/{{item.transaction_hash}}" target="_blank"><i class="fa fa-link"></i></a>
+									<td at-attribute="transaction_link" at-title="Blockchain" class="text-center">
+										<a href="{{item.transaction_link}}" ng-if="item.transaction_link" target="_blank"><i class="fa fa-link"></i></a>
 									</td>
-									<td at-attribute="captured_at" at-title="Data">
-										<span title="{{item.captured_at}}">{{item.captured_at | date:'dd.MM.yyyy'}}</span>
+									<td at-attribute="created_at_human" at-title="Data">
+										{{ item.created_at_human || '' }}
 									</td>
 									<td at-attribute="captured_at" at-title="Compensação bancária">
-										<span title="{{item.captured_at}}">{{item.captured_at | date:'dd.MM.yyyy'}}</span>
+										{{ item.captured_at ? ( item.captured_at | date:'dd/MM/yyyy') : '' }}
 									</td>
 									<%# <td at-attribute="document_number" at-title="Número do Documento">{{item.document_number}}</td> %>
 									<%# <td at-attribute="authorization_number" at-title="Número da Autorização">{{item.authorization_number}}</td> %>
