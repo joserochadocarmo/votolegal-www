@@ -7,9 +7,21 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	// defaults
 	$scope.user       = auth_service.current_user();
 	$scope.error_list = [];
+	$scope.config = {
+		fillLastPage: 'yes',
+		paginatorLabels: {
+			first: "Primeira",
+			last: "Última",
+			jumpBack:'...',
+			stepBack:'...',
+			stepAhead:'...',
+			jumpAhead:'...'
+		},
+		itemsPerPage: 10,
+	};
+
 	$scope.donations  = [];
 	$scope.download   = {};
-
 
 	/* methods */
 	$scope.history_list = function(user){
