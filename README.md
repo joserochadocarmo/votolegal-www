@@ -1,9 +1,8 @@
+# Projeto Voto Legal
 
-## Projeto Voto Legal
+## Description
 
-# Description
-
-
+Voto Legal candidate control panel
 
 ## Instalação
 
@@ -17,59 +16,41 @@ bundle exec middleman build
 # para iniciar o servidor a partir do source
 bundle exec middleman server
 ```
+
 ## Modulo
+
 `votoLegal`
-
-
 
 ## Routes
 
 '.javascipts/app/controler'
 
-# cadastro.js.erb
+### cadastro.js.erb
 
- - `/dados-pessoais`
- - `/dados-campanha`
- - `/projetos`
+- `/dados-pessoais`
+- `/dados-campanha`
+- `/projetos`
 
- # candidate.js.erb
+### candidate.js.erb
 
- - `/`
- - `/doar`
- - `/doar/success`
- - `/votar/:token`
+- `/`
+- `/doar`
+- `/doar/success`
+- `/votar/:token`
 
- ## Services
- '.javascipts/app/alls.js'
+## Services
 
+- '.javascipts/app/alls.js'
   - `serialize`
   - `postmon`
   - `unsafe`
   - `trouble`
   - `auth_service`
 
-Controller
- - `MenuController`
+## Controllers
 
-
-
-
-
-
-
-
-
-
-
+- `MenuController`
 
 ## Informações estratégicas
 
-
-
-
-
-
-## Authors
-
-
-
+The build needs to be manually triggered and the compiled files commited.
