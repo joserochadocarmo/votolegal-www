@@ -139,8 +139,6 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 				}
 
 				for (var i in role_list) {
-					if (role_list[i] === 'admin') document.location = '/admin';
-
 					if (role_list[i] === 'user') {
 						if (res.signed_contract == 0) {
 							localStorage.setItem('userId', res.candidate_id);
@@ -180,6 +178,8 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 							document.location = '/error/erro-de-autenticacao';
 						}
 					}
+
+					if (role_list[i] === 'admin') document.location = '/admin';
 				}
 			}, function (response) {
 				SweetAlert.swal('Erro na autênticação', 'Usuário ou Senha incorretos!');
