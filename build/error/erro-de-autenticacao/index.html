@@ -6,7 +6,7 @@
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta name="viewport" content="width=device-width">
 	<title>
-		VotoLegal - Contato
+		VotoLegal - Permisão negada
 	</title>
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
@@ -23,7 +23,7 @@
   <![endif]-->
 </head>
 
-<body class="contato contato_index" data-controller="" data-action="">
+<body class="error error_erro-de-autenticacao error_erro-de-autenticacao_index" data-controller="" data-action="">
 	<div id="loading" class="load-backdrop teste" style="display: none">
 		<i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i>
 		<br>
@@ -111,79 +111,21 @@
     </div> -->
 
 
-				<section id="contact" ng-controller="ContatoController as contato">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <h1 class="page-title">Contato</h1>
-      </div>
-      <div class="col-md-offset-3 col-md-6">
-
-<form name="contactForm" class="angular-form" ng-submit="create(contactForm.$valid)" novalidate="novalidate">          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-user"></i>    
-              <input class="form-control" type="text" name="name" ng-model="message.name" placeholder="Nome completo">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <span>Você é candidato?</span>
-              <label class="radio-inline">
-                <input type="radio" name="" ng-model="message.is_candidate" placeholder="'Você é um candidato?'" value="1"> Sim
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="" ng-model="message.is_candidate" placeholder="'Você é um candidato?'" value="0"> Não
-              </label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-envelope"></i>    
-              <input class="form-control" type="text" name="email" ng-model="message.email" placeholder="E-mail">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-phone"></i>    
-              <input class="form-control" type="text" name="phone" ng-model="message.phone" placeholder="Telefone" mask="(99)d?9999-9999" mask-restrict="reject" mask-clean="false">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-list"></i>    
-              <select class="form-control" name="type" ng-model="message.type"  placeholder="Tipo de contato">
-                <option value="" disabled selected ng-selected="selected">Tipo de contato</option>
-                <option ng-repeat="type in ['Reclamação', 'Sugestão', 'Dúvidas', 'Imprensa', 'Outros']" value="{{type.id}}">{{type}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-envelope-square"></i>
-              <input class="form-control" type="text" name="subject" ng-model="message.subject" placeholder="Assunto">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <i class="fa fa-paper-plane"></i>    
-              <textarea id="" class="form-control" name="message" ng-model="message.message" cols="30" rows="10" placeholder="Mensagem"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group icon-left col-md-12">
-              <button class="btn btn-success btn-lg btn-block">Enviar</button>
-              <div ng-show="error_list" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
-                <h4>Os seguinte campos precisam ser corrigidos:</h4>
-                <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
-                  <li>{{error}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-</form>
-      </div>
-    </div>
-  </div>
+				<section id="error--permission-denied">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h1 class="page-title">Permissão de acesso negada</h1>
+			</div>
+			<div class="col-md-12 text-center" style="min-height: 200px;">
+				<p>Seu acesso a essa página foi recusado. Por favor, nos contate para avaliarmos a situação.</p>
+				<p>
+					<br class="divider">
+					<a class="btn btn-success" href="/">Voltar ao inicio</a>
+				</p>
+			</div>
+		</div>
+	</div>
 </section>
 
 
