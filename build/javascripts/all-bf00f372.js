@@ -5886,7 +5886,7 @@ $scope.themeSelection = function(data){
             }
           }
 		})();
-		  $scope.themeSelection($scope.candidate.color);
+		  $scope.themeSelection($scope.candidate.color) || 'theme--default';
 
         // header issues list
         $scope.candidate.issues_decorator = $scope._issues_priorities_decorator();
