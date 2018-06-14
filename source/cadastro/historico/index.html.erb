@@ -28,18 +28,29 @@ title: Histórico de doações
 
 				<div class="table-responsive">
 					<div id="donations-table" class="hide">
-						<at-pagination at-config="config" at-list="donations"></at-pagination>
-						<table class="table table-striped table-bordered" at-table at-list="donations" at-config="config" at-paginated>
+						<div class="form-group">
+							<label for="donations-status">Filtragem das doações</label>
+							<select id="donations-status" ng-model="query" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-show="donationsStatuses.length > 0" ng-change="updateFilteredList()">
+								<option value="">todas as doações</option>
+								<option ng-repeat="s in donationsStatuses" value="{{ s.name }}">{{ s.label }}</option>
+							</select>
+						</div>
+
+						<at-pagination class="pull-right" at-config="config" at-list="filteredDonations"></at-pagination>
+
+						<table class="table table-striped table-bordered" at-table at-list="filteredDonations" at-config="config" at-paginated>
 							<thead>
 							</thead>
 							<tbody>
-								<tr class="text-center">
-									<td at-implicit at-attribute="name" at-title="Nome"></td>
+								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}">
+									<td at-attribute="name" at-title="Nome">
+										{{ item.name }}
+										<a href="mailto:{{ item.email }}" title="Enviar email para o doador" ng-if="item.email">
+											<i class="fa fa-envelope-o"></i>
+										</a>
+									</td>
 									<td at-attribute="cpf" at-title="CPF">
 										<a href="https://www.receita.fazenda.gov.br/Aplicacoes/SSL/ATCTA/CPF/ConsultaPublica.asp" target="_blank" title="Consultar este CPF">{{ item.cpf | brCpf }}</a>
-									</td>
-									<td at-attribute="email" at-title="E-mail">
-										<a href="mailto:{{item.email}}" ng-if="item.email" title="Enviar email para o doador">{{ item.email }}</a>
 									</td>
 									<td at-attribute="pgone" at-title="Telefone">{{ item.phone ? ( item.phone | brPhoneNumber) : '-' }}</td>
 									<td at-attribute="address" at-title="Endereço">
@@ -51,35 +62,40 @@ title: Histórico de doações
 									</td>
 									<td at-attribute="birthday" at-title="Nascimento">{{ item.birthday || '-' }}</td>
 									<td at-attribute="method" at-title="Método">{{ item.payment_method_human }}</td>
-									<td at-attribute="amount" at-title="Valor">
-										{{item.amount ? (item.amount | finance: 'R$' ) : '-' }}
+									<td at-attribute="amount" at-title="Valor" class="text-nowrap">
+										{{ item.amount ? (item.amount | finance: 'R$' ) : '-' }}
+										<a ng-if="item.transaction_link" href="{{ item.transaction_link }}" target="_blank" title="Registro na blockchain">
+											<i class="fa fa-link"></i>
+										</a>
 									</td>
-									<td at-attribute="transaction_link" at-title="Blockchain" class="text-center">
-										<a href="{{ item.transaction_link }}" ng-if="item.transaction_link" target="_blank"><i class="fa fa-link"></i></a>
-										<span ng-else>-</span>
-									</td>
-									<td at-attribute="created_at_human" at-title="Data">
+									<td at-attribute="created_at_human" at-title="Data da doação">
 										{{ item.created_at_human || '-' }}
 									</td>
-									<td at-attribute="captured_at" at-title="Compensação bancária">
+									<td at-attribute="captured_at" at-title="Data da captura" class="{{ item.captured_at ? 'alert-success' : '' }}">
 										{{ item.captured_at ? ( item.captured_at | date:'dd/MM/yyyy hh:mm:ss') : '-' }}
+									</td>
+									<td at-attribute="refunded_at" at-title="Data do extorno" class="{{ item.refunded_at ? 'alert-danger' : '' }}">
+										{{ item.refunded_at ? ( item.refunded_at | date:'dd/MM/yyyy hh:mm:ss') : '-' }}
 									</td>
 									<%# <td at-attribute="document_number" at-title="Número do Documento">{{ item.document_number }}</td> %>
 									<%# <td at-attribute="authorization_number" at-title="Número da Autorização">{{ item.authorization_number }}</td> %>
+									<td at-title="Mensagens de registro">
+										{{ item.payment_lr }}
+										{{ (!!item.payment_lr === !!item.payment_message) ? '-' : '' }}
+										{{ item.payment_message }}
+									</td>
 								</tr>
 							</tbody>
 						</table>
-						<at-pagination at-config="config" at-list="donations"></at-pagination>
+						<at-pagination class="pull-right" at-config="config" at-list="filteredDonations"></at-pagination>
 					</div>
-
-					<div id="loading-donations" class="text-center">
-						<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
-						<p class="text-success">Carregando</p>
-					</div>
-
-					<div class="carrega-mais-hist-container hide">
-						<button id="carrega-mais-hist" class="btn btn-default">Carregar mais</button>
-					</div>
+				</div>
+				<div id="loading-donations" class="text-center">
+					<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
+					<p class="text-success">Carregando</p>
+				</div>
+				<div class="carrega-mais-hist-container hide">
+					<button id="carrega-mais-hist" class="btn btn-default">Carregar mais</button>
 				</div>
 			</div>
 
