@@ -159,7 +159,7 @@
 										</a>
 									</td>
 									<td at-attribute="cpf" at-title="CPF">
-										<a href="https://www.receita.fazenda.gov.br/Aplicacoes/SSL/ATCTA/CPF/ConsultaPublica.asp" target="_blank" title="Consultar este CPF">{{ item.cpf | brCpf }}</a>
+										{{ item.cpf | brCpf }}
 									</td>
 									<td at-attribute="pgone" at-title="Telefone">{{ item.phone ? ( item.phone | brPhoneNumber) : '-' }}</td>
 									<td at-attribute="address" at-title="Endereço">
