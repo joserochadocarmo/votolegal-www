@@ -6,6 +6,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 	// defaults
 	$scope.user = auth_service.current_user();
+	$scope.donationsStatuses = [];
 	$scope.error_list = [];
 	$scope.config = {
 		fillLastPage: 'yes',
@@ -22,6 +23,25 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 	$scope.donations = [];
 	$scope.download = {};
+	$scope.filteredDonations = $scope.donations;
+	$scope.query = '';
+	$scope.updateFilteredList = function() {
+		if (!!$scope.query) {
+			return $scope.filteredDonations = $scope.donations.filter(function(x) {
+				if (x.status == null) {
+					if ($scope.query === 'captured' || $scope.query === 'refunded') {
+						return !!x[$scope.query + '_at'];
+					} else {
+						return !x.captured_at && !x.refunded_at;
+					}
+				} else {
+					return x.status.indexOf($scope.query) !== -1;
+				}
+			});
+		}
+
+		return $scope.filteredDonations = $scope.donations
+	};
 
 	/* methods */
 	$scope.history_list = function (user) {
@@ -57,7 +77,23 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 						}
 					}
 
+					$scope.donationsStatuses = response.data.donations_statuses ||
+						[{
+								name: 'captured',
+								label: 'Capturadas'
+							},
+							{
+								name: 'refunded',
+								label: 'Estornadas'
+							},
+							{
+								name: 'non_completed',
+								label: 'Não concluídas'
+							}
+						];
+
 					$scope.donations = res;
+					$scope.filteredDonations = res;
 
 					// diasble loading
 					if (table) {
