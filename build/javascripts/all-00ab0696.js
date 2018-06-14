@@ -4604,190 +4604,193 @@ $(document).ready(function () {
  * Auth Controller
  */
 
-app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "SweetAlert", function($scope, $http, auth_service, SweetAlert){
-  // defaults
-  $scope.signin = {};
-  $scope.error_list = [];
+app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "SweetAlert", function ($scope, $http, auth_service, SweetAlert) {
+	// defaults
+	$scope.signin = {};
+	$scope.error_list = [];
 
-  // populate the token
-  $scope.signin.token = URI.query('token');
+	// populate the token
+	$scope.signin.token = URI.query('token');
 
-  // getting form params
-  $scope.signin_params = function(){
-    return $scope.signin;
-  };
+	// getting form params
+	$scope.signin_params = function () {
+		return $scope.signin;
+	};
 
-  $scope.forgot_password = function(isValid){
-    $scope.error_list = [];
-    var params = $scope.signin_params();
+	$scope.forgot_password = function (isValid) {
+		$scope.error_list = [];
+		var params = $scope.signin_params();
 
-    auth_service.forgot_password(params.email)
-    .then(
-      // success callback
-      function(response){
-        var res = response.data;
-        document.location = '/conta/recuperar-senha/success'
-      },
-      // error callback
-      function(response){
-        var res = response.data;
+		auth_service.forgot_password(params.email)
+			.then(
+				// success callback
+				function (response) {
+					var res = response.data;
+					document.location = '/conta/recuperar-senha/success'
+				},
+				// error callback
+				function (response) {
+					var res = response.data;
 
-        if(res.hasOwnProperty('form_error')){
-          var res = res.form_error;
+					if (res.hasOwnProperty('form_error')) {
+						var res = res.form_error;
 
-          var f = function(field){
-            return document.querySelector('form[name=forgotForm] *[name='+field+']');
-          };
+						var f = function (field) {
+							return document.querySelector('form[name=forgotForm] *[name=' + field + ']');
+						};
 
-          // setting error message
-          for(var field in res){
-            var name = f(field).attributes['placeholder'].value;
-            $scope.error_list.push(name + error_msg(res[field]));
-          }
-        }
-        else {
-          $scope.error_list.push(error_msg(res.error));
-        }
+						// setting error message
+						for (var field in res) {
+							var name = f(field).attributes['placeholder'].value;
+							$scope.error_list.push(name + error_msg(res[field]));
+						}
+					} else {
+						$scope.error_list.push(error_msg(res.error));
+					}
 
-        throw new Error('ERROR_FORGOT_PASSWORD');
-      }
-    );
-    return false;
-  };
-
-  $scope.change_password = function(isValid){
-    $scope.error_list = [];
-    var params = $scope.signin_params();
-
-    // fields validation
-    if(params.password == null)
-      $scope.error_list.push('Nova Senha é um campo obrigatório.');
-
-    if(params.password !== params.confirm_password)
-      $scope.error_list.push('Os campos de senha devem ser iguais.');
-
-    if($scope.error_list.length > 0) return false;
-
-    // request for change
-    auth_service.change_password(params.password, params.token)
-    .then(
-      // success callback
-      function(response){
-        var res = response.data;
-        document.location = '/conta/trocar-senha/success'
-      },
-      // error callback
-      function(response){
-        var res = response.data;
-
-        if(res.hasOwnProperty('form_error')){
-          var res = res.form_error;
-
-          var f = function(field){
-            return document.querySelector('form[name=changePasswordForm] *[name='+field+']');
-          };
-
-          // setting error message
-          for(var field in res){
-            var name = f(field).attributes['placeholder'].value;
-            $scope.error_list.push(name + error_msg(res[field]));
-          }
-        }
-        else {
-          $scope.error_list.push(error_msg(res.error));
-        }
-
-        throw new Error('ERROR_CHANGE_PASSWORD');
-      }
-    );
-    return false;
-  };
-
-  // authenticate an user
-  $scope.authenticate = function(isValid){
-    var params = $scope.signin_params();
-
-    auth_service.authenticate(params.email, params.password)
-    .then(function(response){
-
-      var res = response.data;
-
-      // getting role list
-      var role_list = res.roles || [];
-
-      res.candidate_name = res.candidate_name || ''; // fallback
-      var name = res.candidate_name.split(/\s+/).shift();
-
-
-	  // check roles
-
-      if(role_list.length == 0) {
-        document.location = '/admin/signin';
-        return false;
-	  }
-
-	  console.log(res)
-
-	  $scope.setUserLocalStorage = function(res){
-	  				var objectDataAdress = {
-					address_state: res.address_state,
-					email: res.email,
-					name: res.name,
-					address_zipcode: res.address_zipcode,
-					address_city: res.address_city,
-					address_street: res.address_street,
-					phone: res.phone,
-					address_house_number: res.address_house_number,
-					payment_method: res.payment_method,
-					amount: res.amount
-
+					throw new Error('ERROR_FORGOT_PASSWORD');
 				}
-				localStorage.setItem('address', JSON.stringify(objectDataAdress));
-	  }
+			);
+		return false;
+	};
 
-      for(var i in role_list){
-        if(role_list[i] === 'admin') document.location = '/admin';
-        if(role_list[i] === 'user'){
+	$scope.change_password = function (isValid) {
+		$scope.error_list = [];
+		var params = $scope.signin_params();
 
-			if (res.paid == 0 && res.signed_contract == 0 && res.payment_created == 0) {
-				localStorage.setItem('userId', res.candidate_id)
-				$scope.setUserLocalStorage(res)
+		// fields validation
+		if (params.password == null)
+			$scope.error_list.push('Nova Senha é um campo obrigatório.');
 
-				document.location = '/contrato';
+		if (params.password !== params.confirm_password)
+			$scope.error_list.push('Os campos de senha devem ser iguais.');
 
+		if ($scope.error_list.length > 0) return false;
 
-			}else if (res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 0) {
-				localStorage.setItem('userId', res.candidate_id);
-				$scope.setUserLocalStorage(res)
+		// request for change
+		auth_service.change_password(params.password, params.token)
+			.then(
+				// success callback
+				function (response) {
+					var res = response.data;
+					document.location = '/conta/trocar-senha/success'
+				},
+				// error callback
+				function (response) {
+					var res = response.data;
 
-				document.location = '/pagamento';
+					if (res.hasOwnProperty('form_error')) {
+						var res = res.form_error;
 
-			}else if(res.paid == 0 && res.signed_contract == 1 &&  res.payment_created == 1){
-				localStorage.setItem('userId', res.candidate_id);
-				$scope.setUserLocalStorage(res)
+						var f = function (field) {
+							return document.querySelector('form[name=changePasswordForm] *[name=' + field + ']');
+						};
 
-				document.location = '/pagamento/analise';
+						// setting error message
+						for (var field in res) {
+							var name = f(field).attributes['placeholder'].value;
+							$scope.error_list.push(name + error_msg(res[field]));
+						}
+					} else {
+						$scope.error_list.push(error_msg(res.error));
+					}
 
-			}else if(res.paid == 1 && res.signed_contract == 1 && res.payment_created == 1){
+					throw new Error('ERROR_CHANGE_PASSWORD');
+				}
+			);
+		return false;
+	};
 
-				localStorage.removeItem('userId')
-				localStorage.removeItem('address')
-				// save session
-				var session = auth_service.session();
-				session.set(
-					auth_service.session_key, { id: res.candidate_id, api_key: res.api_key, name: name, role: role_list[0] || null }
-				);
-				document.location = '/cadastro-completo';
-			}
-		}
-	  }
-    }, function(response){
-      SweetAlert.swal('Erro na autênticação', 'Usuário ou Senha incorretos!');
-      throw new Error('ERROR_AUTH_USER');
-    });
-    return false;
-  };
+	// authenticate an user
+	$scope.authenticate = function (isValid) {
+		var params = $scope.signin_params();
 
+		auth_service
+			.authenticate(params.email, params.password)
+			.then(function (response) {
+				var res = response.data;
+
+				// getting role list
+				var role_list = res.roles || [];
+
+				res.candidate_name = res.candidate_name || ''; // fallback
+				var name = res.candidate_name.split(/\s+/).shift();
+
+				// check roles
+				if (role_list.length == 0) {
+					document.location = '/admin/signin';
+					return false;
+				}
+
+				console.log(res);
+
+				$scope.setUserLocalStorage = function (res) {
+					var objectDataAdress = {
+						address_state: res.address_state,
+						email: res.email,
+						name: res.name,
+						address_zipcode: res.address_zipcode,
+						address_city: res.address_city,
+						address_street: res.address_street,
+						phone: res.phone,
+						address_house_number: res.address_house_number,
+						payment_method: res.payment_method,
+						amount: res.amount
+					}
+
+					localStorage.setItem('address', JSON.stringify(objectDataAdress));
+				}
+
+				for (var i in role_list) {
+					if (role_list[i] === 'user') {
+						if (res.signed_contract == 0) {
+							localStorage.setItem('userId', res.candidate_id);
+							$scope.setUserLocalStorage(res);
+
+							document.location = '/contrato';
+
+						} else if (res.paid == 0 && res.payment_created == 0) {
+							localStorage.setItem('userId', res.candidate_id);
+							$scope.setUserLocalStorage(res);
+
+							document.location = '/pagamento';
+
+						} else if (res.paid == 0) {
+							localStorage.setItem('userId', res.candidate_id);
+							$scope.setUserLocalStorage(res);
+
+							document.location = '/pagamento/analise';
+
+						} else if (res.paid == 1) {
+							localStorage.removeItem('userId');
+							localStorage.removeItem('address');
+
+							// save session
+							var session = auth_service.session();
+							session.set(
+								auth_service.session_key, {
+									id: res.candidate_id,
+									api_key: res.api_key,
+									name: name,
+									role: role_list[0] || null
+								}
+							);
+
+							document.location = '/cadastro-completo';
+						} else {
+							document.location = '/error/erro-de-autenticacao';
+						}
+					}
+
+					if (role_list[i] === 'admin') document.location = '/admin';
+				}
+			}, function (response) {
+				SweetAlert.swal('Erro na autênticação', 'Usuário ou Senha incorretos!');
+
+				throw new Error('ERROR_AUTH_USER');
+			});
+		return false;
+	};
 }]);
 /**
  * Boleto controller
@@ -7005,92 +7008,130 @@ app.votolegal.controller('FaqController', ['$scope', '$sce', function($scope, $s
  * Histórico Doações Controller
  */
 
-app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon){
-	var load   = document.querySelector('#loading');
+app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce", "serialize", "auth_service", "SweetAlert", "trouble", "postmon", function ($scope, $http, $sce, serialize, auth_service, SweetAlert, trouble, postmon) {
+	var load = document.querySelector('#loading');
 
 	// defaults
-	$scope.user       = auth_service.current_user();
+	$scope.user = auth_service.current_user();
+	$scope.donationsStatuses = [];
 	$scope.error_list = [];
 	$scope.config = {
 		fillLastPage: 'yes',
 		paginatorLabels: {
 			first: "Primeira",
 			last: "Última",
-			jumpBack:'...',
-			stepBack:'...',
-			stepAhead:'...',
-			jumpAhead:'...'
+			jumpBack: '...',
+			stepBack: '...',
+			stepAhead: '...',
+			jumpAhead: '...'
 		},
 		itemsPerPage: 10,
 	};
 
-	$scope.donations  = [];
-	$scope.download   = {};
+	$scope.donations = [];
+	$scope.download = {};
+	$scope.filteredDonations = $scope.donations;
+	$scope.query = '';
+	$scope.updateFilteredList = function() {
+		if (!!$scope.query) {
+			return $scope.filteredDonations = $scope.donations.filter(function(x) {
+				if (x.status == null) {
+					if ($scope.query === 'captured' || $scope.query === 'refunded') {
+						return !!x[$scope.query + '_at'];
+					} else {
+						return !x.captured_at && !x.refunded_at;
+					}
+				} else {
+					return x.status.indexOf($scope.query) !== -1;
+				}
+			});
+		}
+
+		return $scope.filteredDonations = $scope.donations
+	};
 
 	/* methods */
-	$scope.history_list = function(user){
-		var table   = document.querySelector('#donations-table');
+	$scope.history_list = function (user) {
+		var table = document.querySelector('#donations-table');
 		var loading = document.querySelector('#loading-donations');
-		var error   = document.querySelector('#donations-error');
-		if(error) error.classList.add('hide');
+		var error = document.querySelector('#donations-error');
+		if (error) error.classList.add('hide');
 
-		if(table) {
+		if (table) {
 			table.classList.add('hide');
-			if(loading) loading.classList.remove('hide');
+			if (loading) loading.classList.remove('hide');
 		}
 
 		try {
 			$http({
 				method: 'GET',
-				url: BASE_API_JS + '/candidate/'+ user.id +'/votolegal-donations?results=9999&api_key=' + user.api_key
+				url: BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations?results=9999&api_key=' + user.api_key
 			}).
 			then(
-				function(response){
+				function (response) {
 					var res = response.data.donations;
 
-					for (var i in res){
+					for (var i in res) {
 						// parsing date
 						res[i].captured_at = Date.parse(res[i].captured_at);
 
 						// format birthday
 						if (res[i].birthdate) {
 							var birth = res[i].birthdate.match(/^(\d{4})\-(\d{2})\-(\d{2})$/);
-							res[i].birthday = birth[3]+"/"+birth[2]+"/"+birth[1];
+							res[i].birthday = birth[3] + "/" + birth[2] + "/" + birth[1];
 						} else {
 							res[i].birthday = '';
 						}
 					}
 
+					$scope.donationsStatuses = response.data.donations_statuses ||
+						[{
+								name: 'captured',
+								label: 'Capturadas'
+							},
+							{
+								name: 'refunded',
+								label: 'Estornadas'
+							},
+							{
+								name: 'non_completed',
+								label: 'Não concluídas'
+							}
+						];
+
 					$scope.donations = res;
+					$scope.filteredDonations = res;
 
 					// diasble loading
-					if(table) {
-						if(loading) loading.classList.add('hide');
+					if (table) {
+						if (loading) loading.classList.add('hide');
 						table.classList.remove('hide');
 					}
 				},
-				function(response){
+				function (response) {
 					// diasble loading
-					if(table) {
-						if(loading) loading.classList.add('hide');
+					if (table) {
+						if (loading) loading.classList.add('hide');
 						table.classList.remove('hide');
 					}
 					trouble.shoot({
-						route: document.location.href, error: JSON.stringify(response)
+						route: document.location.href,
+						error: JSON.stringify(response)
 					});
 
 					SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
 					throw new Error('Donation list is invalid or cannot be found!');
 				}
 			);
-		} catch(e){
-			if(table) {
-				if(loading) loading.classList.add('hide');
+		} catch (e) {
+			if (table) {
+				if (loading) loading.classList.add('hide');
 				table.classList.remove('hide');
 			}
 
 			trouble.shoot({
-				route: document.location.href, error: JSON.stringify(e)
+				route: document.location.href,
+				error: JSON.stringify(e)
 			});
 
 			SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
@@ -7098,16 +7139,18 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	};
 
 	// setting download of donations table
-	$scope.download.csv_file = function(){
+	$scope.download.csv_file = function () {
 		var user = $scope.user;
-		return BASE_API_JS + '/candidate/'+ user.id +'/donate/download/csv?api_key=' + user.api_key;
+		return BASE_API_JS + '/candidate/' + user.id + '/donate/download/csv?api_key=' + user.api_key;
 	};
 
 
 	/**
 	 * initializations
 	 */
-	auth_service.validate_user({role: 'user'});
+	auth_service.validate_user({
+		role: 'user'
+	});
 	$scope.history_list($scope.user);
 
 }]);
