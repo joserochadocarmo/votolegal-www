@@ -2234,3 +2234,15 @@ input[type=checkbox].contract-ckeck {
 		background-color: rgb(43, 187, 91);
 	}
 }
+
+.alert-has-sucess {
+	color: rgb(43, 187, 91);
+	font-weight: bold;
+	padding: 0;
+}
+
+.alert-has-error {
+	color: rgb(197, 40, 40);
+	font-weight: bold;
+	padding: 0;
+}
