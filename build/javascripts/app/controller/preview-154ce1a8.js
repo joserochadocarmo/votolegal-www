@@ -73,7 +73,7 @@ var locationHost = window.location.host;
 
 	site_publish_service.edit(publish, user)
 		.success(function(res){
-			$scope.responsePublish = 'Salvo'
+			$scope.responsePublish = 'Alterações salvas'
 			$scope.candidate.publish = ($scope.publish) ? 1 : 0;
 		})
 		.error(function(error){
@@ -100,10 +100,10 @@ var locationHost = window.location.host;
 		.success(function (res) {
 			$scope.candidate.color = $scope.iframeStatus.theme;
 
-			$scope.reponseTheme = 'Tema salvo com sucesso';
+			$scope.reponseTheme = 'Alterações salvas';
 
 		}).error(function (er) {
-		$scope.reponseThemeError = 'Tivemos um erro ao salvar';
+		$scope.reponseThemeError = 'Erro ao salvar';
 
 		})
 }

@@ -119,8 +119,8 @@ title: Pré-visualizaçao do perfil
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="responseSubmit alert alert-success" ng-if="reponseTheme.length > 0">{{reponseTheme}}</div>
-								<div class="responseSubmit alert alert-danger" ng-if="reponseThemeError.length > 0">{{reponseThemeError}}</div>
+								<div class="responseSubmit alert alert-has-sucess" ng-if="reponseTheme.length > 0">{{reponseTheme}}</div>
+								<div class="responseSubmit alert alert-has-error" ng-if="reponseThemeError.length > 0">{{reponseThemeError}}</div>
 								<button class="btn btn-success btn-large" type="submit">Salvar</button>
 							</div>
 						</form>
@@ -142,13 +142,12 @@ title: Pré-visualizaçao do perfil
 								</div>
 							</div>
 							<div class="form-group">
-
-								<button class="btn btn-success" type="submit">Salvar</button>
-							</div>
+									<div class="responseSubmit alert alert-has-sucess">{{responsePublish}}</div>
+									<button class="btn btn-success btn-large" type="submit">Salvar</button>
+								</div>
 						</form>
 					</div>
 				</div>
-				<div class="responseSubmit alert alert-success" ng-if="responsePublish.length > 0">{{responsePublish}}</div>
 				<div ng-show="error_list.length > 0" class=" col-md-12 " style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color:
     rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px; ">
 					<ul>
