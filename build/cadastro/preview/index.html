@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-3a393d0d.css" rel="stylesheet" />
+	<link href="/stylesheets/all-db9ec8e0.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -228,8 +228,8 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="responseSubmit alert alert-success" ng-if="reponseTheme.length > 0">{{reponseTheme}}</div>
-								<div class="responseSubmit alert alert-danger" ng-if="reponseThemeError.length > 0">{{reponseThemeError}}</div>
+								<div class="responseSubmit alert alert-has-sucess" ng-if="reponseTheme.length > 0">{{reponseTheme}}</div>
+								<div class="responseSubmit alert alert-has-error" ng-if="reponseThemeError.length > 0">{{reponseThemeError}}</div>
 								<button class="btn btn-success btn-large" type="submit">Salvar</button>
 							</div>
 						</form>
@@ -251,13 +251,12 @@
 								</div>
 							</div>
 							<div class="form-group">
-
-								<button class="btn btn-success" type="submit">Salvar</button>
-							</div>
+									<div class="responseSubmit alert alert-has-sucess">{{responsePublish}}</div>
+									<button class="btn btn-success btn-large" type="submit">Salvar</button>
+								</div>
 						</form>
 					</div>
 				</div>
-				<div class="responseSubmit alert alert-success" ng-if="responsePublish.length > 0">{{responsePublish}}</div>
 				<div ng-show="error_list.length > 0" class=" col-md-12 " style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color:
     rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px; ">
 					<ul>
@@ -386,7 +385,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-e5d9b4ea.js"></script>
+												<script src="/javascripts/all-e832bb07.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
