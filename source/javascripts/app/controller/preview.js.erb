@@ -51,7 +51,7 @@ var locationHost = window.location.host;
           return $sce.trustAsResourceUrl("//" + url + "/em/" + $scope.candidate.username);
 		};
 
-		$scope.publish = ($scope.candidate.publish == 1) ? true : false;
+		$scope.publish = ($scope.candidate.is_published == 1) ? true : false;
 
       },
       function(response){ throw new Error('ERROR_GET_CANDIDATE') }
