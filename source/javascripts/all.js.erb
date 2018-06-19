@@ -826,6 +826,12 @@ app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'aut
 		return false;
 	};
 
+	$scope.dashboardHome = function () {
+		return (!!user && !!user.dashboard_home)
+		? user.dashboard_home
+		: '/';
+	}
+
 	$scope.logout = function () {
 		auth_service.logout('/');
 		localStorage.removeItem('userId');
