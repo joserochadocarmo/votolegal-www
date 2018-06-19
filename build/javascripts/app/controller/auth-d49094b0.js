@@ -163,6 +163,10 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 							localStorage.removeItem('userId');
 							localStorage.removeItem('address');
 
+							var dashboardHome = (res.campaign_donation_type === 'party')
+								? '/cadastro/historico'
+								: '/cadastro-completo';
+
 							// save session
 							var session = auth_service.session();
 							session.set(
@@ -170,11 +174,13 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 									id: res.candidate_id,
 									api_key: res.api_key,
 									name: name,
+									donation_type: res.campaign_donation_type,
+									dashboard_home: dashboardHome,
 									role: role_list[0] || null
 								}
 							);
 
-							document.location = '/cadastro-completo';
+							document.location = dashboardHome;
 						} else {
 							document.location = '/error/erro-de-autenticacao';
 						}

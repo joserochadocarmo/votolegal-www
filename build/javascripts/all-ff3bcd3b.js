@@ -4559,11 +4559,23 @@ app.votolegal.factory('moviment', ['$http', 'serialize', 'store', function ($htt
 app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'auth_service', function ($scope, $http, serialize, auth_service) {
 	$scope.current_user = auth_service.current_user() || {};
 
+	var user = auth_service.current_user();
+
 	$scope.is_admin = function () {
-		var user = auth_service.current_user();
 		if (user && user.role == 'user') return true;
 		return false;
 	};
+
+	$scope.is_party = function () {
+		if (user && user.donation_type == 'party') return true;
+		return false;
+	};
+
+	$scope.dashboardHome = function () {
+		return (!!user && !!user.dashboard_home)
+		? user.dashboard_home
+		: '/';
+	}
 
 	$scope.logout = function () {
 		auth_service.logout('/');
@@ -4765,6 +4777,10 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 							localStorage.removeItem('userId');
 							localStorage.removeItem('address');
 
+							var dashboardHome = (res.campaign_donation_type === 'party')
+								? '/cadastro/historico'
+								: '/cadastro-completo';
+
 							// save session
 							var session = auth_service.session();
 							session.set(
@@ -4772,11 +4788,13 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 									id: res.candidate_id,
 									api_key: res.api_key,
 									name: name,
+									donation_type: res.campaign_donation_type,
+									dashboard_home: dashboardHome,
 									role: role_list[0] || null
 								}
 							);
 
-							document.location = '/cadastro-completo';
+							document.location = dashboardHome;
 						} else {
 							document.location = '/error/erro-de-autenticacao';
 						}
