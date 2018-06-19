@@ -814,9 +814,15 @@ app.votolegal.factory('moviment', ['$http', 'serialize', 'store', function ($htt
 app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'auth_service', function ($scope, $http, serialize, auth_service) {
 	$scope.current_user = auth_service.current_user() || {};
 
+	var user = auth_service.current_user();
+
 	$scope.is_admin = function () {
-		var user = auth_service.current_user();
 		if (user && user.role == 'user') return true;
+		return false;
+	};
+
+	$scope.is_party = function () {
+		if (user && user.donation_type == 'party') return true;
 		return false;
 	};
 

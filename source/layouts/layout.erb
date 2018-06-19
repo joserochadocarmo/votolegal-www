@@ -88,13 +88,21 @@
 												<span class="caret"></span> Olá, {{current_user.name}}
 											</a>
 											<ul class="dropdown-menu">
-												<li>
+												<li ng-if="!is_party()">
 													<a href="/cadastro-completo">
 														<i class="fa fa-caret-right"></i> Editar perfil</a>
 												</li>
 												<li>
 													<a href="/cadastro/historico">
 														<i class="fa fa-caret-right"></i> Histórico de Doações</a>
+												</li>
+												<li ng-if="!is_party()">
+													<a class="tab-register-default" href="/cadastro/preview">
+														<i class="fa fa-caret-right"></i> Ver página pública</a>
+												</li>
+												<li ng-if="!is_party()">
+													<a class="tab-register-default" href="/files/guiapraticovotolegal.pdf" target="_blank">
+														<i class="fa fa-caret-right"></i> Guia Prático</a>
 												</li>
 												<li>
 													<a href="javascript:void(0);" ng-click="logout()">Sair</a>

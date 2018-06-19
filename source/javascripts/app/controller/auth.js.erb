@@ -173,6 +173,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 									id: res.candidate_id,
 									api_key: res.api_key,
 									name: name,
+									donation_type: res.campaign_donation_type,
 									dashboard_home: dashboardHome,
 									role: role_list[0] || null
 								}
