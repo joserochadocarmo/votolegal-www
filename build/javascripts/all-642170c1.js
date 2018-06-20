@@ -4077,7 +4077,7 @@ var Serializer = function () {
 var error_msg = function (token) {
 	var msg_list = {
 		"missing": " não foi preenchido.",
-		"invalid": " está inválido.",
+		"invalid": " não foi preenchido.",
 		"already exists": " já foi cadastrado.",
 		"access denied": "Acesso negado!",
 		"Bad email or password.": "E-mail ou senha inválidos.",
