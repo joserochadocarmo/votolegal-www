@@ -2247,3 +2247,22 @@ input[type=checkbox].contract-ckeck {
 	font-weight: bold;
 	padding: 0;
 }
+
+/* donations history */
+
+.donations-history__dcred-link,
+.donations-history__id {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.donations-history__dcred-link {
+	width: 2em;
+	max-width: 2em;
+}
+
+.donations-history__id {
+	width: 4em;
+	max-width: 4em;
+}
