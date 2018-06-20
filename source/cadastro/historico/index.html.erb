@@ -16,7 +16,7 @@ title: Histórico de doações
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						<li><a href="{{download.csv_file()}}" target="_blank">...doações compensadas</a></li>
+						<li><a href="{{download.csv_file()}}" target="_blank">...doações autorizadas</a></li>
 					</ul>
 				</div>
 			</div>
@@ -76,7 +76,7 @@ title: Histórico de doações
 									</td>
 									<%# <td at-attribute="document_number" at-title="Número do Documento">{{ item.document_number }}</td> %>
 									<%# <td at-attribute="authorization_number" at-title="Número da Autorização">{{ item.authorization_number }}</td> %>
-									<td at-title="Mensagens de registro">
+									<td at-title="Status">
 										{{ item.payment_lr }}
 										{{ (!!item.payment_lr === !!item.payment_message) ? '-' : '' }}
 										{{ item.payment_message }}
