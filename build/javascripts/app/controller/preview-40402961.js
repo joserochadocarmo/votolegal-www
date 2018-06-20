@@ -25,23 +25,23 @@ var locationHost = window.location.host;
    * getting data
    */
   $scope.get_candidate = function(){
-    var params = {};
+	var params = {};
 
-    var user = auth_service.current_user();
-    params['api_key'] = user.api_key;
+	var user = auth_service.current_user();
+	params['api_key'] = user.api_key;
 
-    $http.get(BASE_API_JS+'/candidate/' + user.id +'?api_key=' + user.api_key)
-    .then(
-      function(response){
+	$http.get(BASE_API_JS+'/candidate/' + user.id +'?api_key=' + user.api_key)
+	.then(
+	  function(response){
 		$scope.candidate = response.data.candidate;
 
 
-        (function(){
-          var boleto = document.querySelector('#show-boleto');
-          if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
-        })();
+		(function(){
+		  var boleto = document.querySelector('#show-boleto');
+		  if(boleto && $scope.candidate.status === 'activated') boleto.classList.remove('hide');
+		})();
 
-        $scope.candidate.profile_url = function(){
+		$scope.candidate.profile_url = function(){
 			var url = '';
 			if (locationHost.indexOf('dev-') > -1) {
 				url = locationHost.replace('dev-participe.','dev.');
@@ -49,21 +49,22 @@ var locationHost = window.location.host;
 				url = locationHost.replace('participe.','')
 			}
 
-          return $sce.trustAsResourceUrl("//" + url + "/em/" + $scope.candidate.username);
+		  return $sce.trustAsResourceUrl("//" + url + "/em/" + $scope.candidate.username);
 		};
 
 		$scope.publish = ($scope.candidate.is_published == 1) ? true : false;
 
-      },
-      function(response){ throw new Error('ERROR_GET_CANDIDATE') }
-    );
-    return false;
+	  },
+	  function(response){ throw new Error('ERROR_GET_CANDIDATE') }
+	);
+	return false;
   };
 
   //Verify preview status, theme aand publish
 
   $scope.controlPublishStatus = function () {
   	$scope.publish = !$scope.publish;
+	$scope.responsePublish = ''
 
   }
   $scope.publishSite = function (statusSiteForm) {
@@ -76,6 +77,7 @@ var locationHost = window.location.host;
 			$scope.responsePublish = 'Alterações salvas'
 			$scope.candidate.publish = ($scope.publish) ? 1 : 0;
 		})
+
 		.error(function(error){
 			if(error.form_error)
 				var errors = Object.keys(error.form_error);
@@ -91,6 +93,7 @@ var locationHost = window.location.host;
 	$scope.choiceTheme = function () {
 		var previewWindow = document.getElementById('preview');
 		previewWindow.contentWindow.postMessage($scope.iframeStatus, window.location.origin);
+		$scope.reponseTheme = '';
 	}
 
   $scope.editConfigSite = function(valid, formData){

@@ -81,7 +81,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 					$scope.donationsStatuses = response.data.donations_statuses ||
 						[{
 								name: 'captured',
-								label: 'Capturadas'
+								label: 'Autorizadas'
 							},
 							{
 								name: 'refunded',

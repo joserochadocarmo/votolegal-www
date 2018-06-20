@@ -133,7 +133,7 @@
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						<li><a href="{{download.csv_file()}}" target="_blank">...doações compensadas</a></li>
+						<li><a href="{{download.csv_file()}}" target="_blank">...doações autorizadas</a></li>
 					</ul>
 				</div>
 			</div>
@@ -191,7 +191,7 @@
 									<td at-attribute="refunded_at" at-title="Data do extorno" class="{{ item.refunded_at ? 'alert-danger' : '' }}">
 										{{ item.refunded_at ? ( item.refunded_at | date:'dd/MM/yyyy hh:mm:ss') : '-' }}
 									</td>
-									<td at-title="Mensagens de registro">
+									<td at-title="Status">
 										{{ item.payment_lr }}
 										{{ (!!item.payment_lr === !!item.payment_message) ? '-' : '' }}
 										{{ item.payment_message }}
@@ -257,7 +257,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-ff3bcd3b.js"></script>
+												<script src="/javascripts/all-2b5fbf3e.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
