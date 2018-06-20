@@ -4085,9 +4085,10 @@ var error_msg = function (token) {
 		"Candidate not found": 'Seu usuário não foi identificado',
 		"user_id": 'Você já confirmou o contrato, por favor tente logar.',
 		"google_analytics": "está errado.",
-		"video_url": "Para ativar o site vc precisa terminar seu cadastro e colocar a url do seu video.",
-		"summary": "Termine seu cadastro e preeencha o campo da sua breve descrição.",
-		"biography": "Preencha o campo biografia para poder ativar o site"
+		"video_url": "Preencha o campo de link do vídeo",
+		"summary": "Preeencha o campo da sua breve apresentação pessoal e da campanha",
+		"biography": "Preencha o campo de biografia",
+		"public_email": "Preencha o campo de e-mail de contato para eleitores"
 	};
 
 	var pagseguroMessages = {
