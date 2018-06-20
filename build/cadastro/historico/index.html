@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-e7b4fac7.css" rel="stylesheet" />
+	<link href="/stylesheets/all-30fdbb00.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -157,6 +157,12 @@
 							</thead>
 							<tbody>
 								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}">
+									<td at-attribute="id" at-implicit="id" at-title="ID" class="donations-history__id" title="{{ item.id }}"></td>
+									<td at-attribute="transaction_link" at-title="Decred" class="donations-history__dcred-link">
+										<a ng-if="item.transaction_link" href="{{ item.transaction_link }}" target="_blank" title="Registro na blockchain">
+											<i class="fa fa-link"></i>
+										</a>
+									</td>
 									<td at-attribute="name" at-title="Nome">
 										{{ item.name }}
 										<a href="mailto:{{ item.email }}" title="Enviar email para o doador" ng-if="item.email">
@@ -178,9 +184,6 @@
 									<td at-attribute="method" at-title="Método">{{ item.payment_method_human }}</td>
 									<td at-attribute="amount" at-title="Valor" class="text-nowrap">
 										{{ item.amount ? (item.amount | finance: 'R$' ) : '-' }}
-										<a ng-if="item.transaction_link" href="{{ item.transaction_link }}" target="_blank" title="Registro na blockchain">
-											<i class="fa fa-link"></i>
-										</a>
 									</td>
 									<td at-attribute="created_at_human" at-title="Data da doação">
 										{{ item.created_at_human || '-' }}
