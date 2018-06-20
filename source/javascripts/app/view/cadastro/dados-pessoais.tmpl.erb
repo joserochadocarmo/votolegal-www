@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="form-group col-md-12">
-        <label>Imagem para o perfil</label>*
+        <label>Imagem para o perfil *</label>
         <div class="input-group image-preview">
         <input type="text" class="form-control image-preview-filename picture_filename" value="{{candidate.picture}}" disabled="disabled">
           <span class="input-group-btn">
@@ -41,33 +41,33 @@
       </div>
 
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="candidate_url">URL Candidato</label>*
+        <label for="candidate_url">URL Candidato *</label>
         <i class="fa fa-user"></i>
         <input name="candidate_url" class="form-control" type="text" value="https://votolegal.com.br/em/{{candidate.username}}" disabled>
-	  </div>
-	  <!-- <div class="form-group icon-left icon-with-label col-md-12">
+      </div>
+      <!-- <div class="form-group icon-left icon-with-label col-md-12">
         <label for="google_analytics">ID do Analytics</label>*
         <i class="fa fa-pie-chart"></i>
         <input name="google_analytics" class="form-control" type="text" ng-model="candidate.google_analytics">
-	  </div> -->
-	    <%# <div class="form-group icon-left icon-with-label col-md-12">
+      </div> -->
+        <%# <div class="form-group icon-left icon-with-label col-md-12">
         <label for="collect_donor_address">Capturar endereço dos doadores no formulário?
-			<input name="collect_donor_address" type="checkbox" ng-model="candidate.collect_donor_address" value="1" class="contract-ckeck personal-data"></label>
+            <input name="collect_donor_address" type="checkbox" ng-model="candidate.collect_donor_address" value="1" class="contract-ckeck personal-data"></label>
 
-	  </div>
-	   <div class="form-group icon-left icon-with-label col-md-12">
+      </div>
+       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="collect_donor_phone">Capturar telefone dos doadores
-		<input name="collect_donor_phone" type="checkbox" ng-model="candidate.collect_donor_phone" class="contract-ckeck personal-data" value="1">
-		</label>
+        <input name="collect_donor_phone" type="checkbox" ng-model="candidate.collect_donor_phone" class="contract-ckeck personal-data" value="1">
+        </label>
       </div> %>
       <!-- TODO: Recolocar no dia (a partir de 15/08)
-		  <div class="form-group icon-left icon-with-label col-md-12">
+          <div class="form-group icon-left icon-with-label col-md-12">
         <label for="cnpj">CNPJ do Candidato</label>*
         <i class="fa fa-user"></i>
         <input class="form-control" type="text" name="cnpj" ng-model="candidate.cnpj" mask="99.999.999/9999-99" mask-restrict="reject">
       </div>-->
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="video_url">Link do video</label>*
+        <label for="video_url">Link do vídeo *</label>
         <i class="fa fa-video-camera"></i>
         <input class="form-control" type="text" name="video_url" ng-model="candidate.video_url">
         <small>Apenas YouTube. O endereço deve seguir o seguinte modelo: <code>https://www.youtube.com/watch?v=xZKg2w3iOMo</code>.</small>
@@ -97,37 +97,34 @@
         <small>O endereço do seu website deve seguir o seguinte modelo: <code>http://www.seu-site.com.br</code>.</small>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="public_email">E-mail de contato para eleitores</label>
+        <label for="public_email">E-mail de contato para eleitores *</label>
         <i class="fa fa-envelope"></i>
-		<input class="form-control" type="email" name="public_email" ng-model="candidate.public_email" >
-		<div class="" ng-if="candidateForm.$submitted && candidateForm.public_email.$error.email" style="margin: 5px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
-			class="error-panel">E-mail inválido</div>
+        <input class="form-control" type="email" name="public_email" ng-model="candidate.public_email" required>
+        <div class="" ng-if="candidateForm.$submitted && candidateForm.public_email.$error.email" style="margin: 5px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">E-mail inválido</div>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="summary">Breve apresentação pessoal e da campanha</label>*
+        <label for="summary">Breve apresentação pessoal e da campanha *</label>
         <i class="fa fa-user"></i>
         <textarea class="form-control" cols="30" rows="6" maxlength="400" name="summary" ng-model="candidate.summary" required></textarea>
         <span class="help-block text-right">{{candidate.summary.length || 0}} de <strong>400</strong> caracteres</span>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="biography">Sobre você (biografia)</label>*
+        <label for="biography">Sobre você (biografia) *</label>
         <i class="fa fa-user"></i>
-        <textarea class="form-control" cols="30" rows="6" maxlength="400" name="biography" ng-model="candidate.biography"></textarea>
+        <textarea class="form-control" cols="30" rows="6" maxlength="400" name="biography" ng-model="candidate.biography" required></textarea>
         <span class="help-block text-right">{{candidate.biography.length || 0}} de <strong>400</strong> caracteres</span>
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="responsible_name">Nome do responsável pelo cadastro</label>*
+        <label for="responsible_name">Nome do responsável pelo cadastro</label>
         <i class="fa fa-user"></i>
-        <input class="form-control" type="text" name="responsible_name" ng-model="candidate.responsible_name" required>
+        <input class="form-control" type="text" name="responsible_name" ng-model="candidate.responsible_name">
       </div>
       <div class="form-group icon-left icon-with-label col-md-12">
         <label for="responsible_email">E-mail do responsável pelo cadastro</label>
         <i class="fa fa-envelope"></i>
         <input class="form-control" type="email" name="responsible_email" ng-model="candidate.responsible_email" >
-<div class="" ng-if="candidateForm.$submitted && candidateForm.responsible_email.$error.email" style="margin: 5px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
-    class="error-panel">E-mail inválido</div>
-
-		</div>
+        <div class="" ng-if="candidateForm.$submitted && candidateForm.responsible_email.$error.email" style="margin: 5px 0px; border: 2px solid rgb(234, 53, 53; color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">E-mail inválido</div>
+      </div>
 
 <!-- TODO: Recolocar no dia (a partir de 15/08)
       <div class="form-group col-md-12">
@@ -170,8 +167,8 @@
       <div class="form-group col-md-12" ng-init="submit_disabled = false">
         <p class="text-right">
           <button type="submit" id="btn-enviar" ng-disabled="submit_disabled" class="btn btn-success btn-lg">Gravar</button>
-		</p>
-		<!-- <div style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;">{{Email}}</div> -->
+        </p>
+        <!-- <div style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;">{{Email}}</div> -->
         <div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
           <h4>Os seguinte campos precisam ser corrigidos:</h4>
           <ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
