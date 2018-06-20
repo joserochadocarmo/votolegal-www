@@ -2,13 +2,13 @@
   <h1 class="page-title">Cadastro</h1>
   <h2 class="page-subtitle">Campanha</h2>
 
-  <p>Os campos marcados com o asterisco (*) são de preenchimento obrigatório.</p>
+  <p>Os campos marcados com o asterisco (*) são obrigatórios para ativar a página pública</p>
   <br class="divider">
 
   <% content_tag :form, name: 'campaignForm', class: 'angular-form', 'ng-submit' => "save_campaign(campaignForm.$valid)", novalidate: '' do %>
     <div class="row">
       <div class="form-group icon-left icon-with-label col-md-12">
-        <label for="raising_goal">Quanto quer arrecadar?</label>*
+        <label for="raising_goal">Quanto quer arrecadar? *</label>
         <i class="fa fa-money"></i>
         <input class="form-control" type="text" name="raising_goal" ng-model="candidate.raising_goal" ui-number-mask="2" required>
         <p class="help-block" ng-show="error_list.length > 0">
@@ -125,7 +125,7 @@
     <div class="row">
       <div class="form-group col-md-12" ng-init="submit_disabled = false">
         <p class="text-right">
-          <button type="submit" id="btn-enviar" ng-disabled="submit_disabled" class="btn btn-success btn-lg">Gravar</button>
+          <button type="submit" id="btn-enviar" ng-disabled="submit_disabled" class="btn btn-success btn-lg">Salvar</button>
         </p>
         <div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
           <h4>Os seguinte campos precisam ser corrigidos:</h4>
