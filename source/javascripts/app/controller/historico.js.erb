@@ -48,20 +48,21 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		return $scope.filteredDonations = $scope.donations
 	};
 
-	$scope.getDonationsList = function (user) {
+	$scope.getDonationsList = function () {
+		var user = $scope.user;
 		var lastDonation = $scope.donations[$scope.donations.length - 1];
-		var markerSegment = '';
+		var markerSegment = (!!lastDonation && !! lastDonation._marker)
+			? '/' + lastDonation._marker
+			: '';
+		var url = BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations' + markerSegment + '?results=9999&api_key=' + user.api_key;
 
-		if (!!lastDonation && !! lastDonation._marker) {
-			markerSegment = '/' + marker
-		}
 
 		$scope.donationsLoading = true;
 
 		try {
 			$http({
 				method: 'GET',
-				url: BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations' + markerSegment + '?results=9999&api_key=' + user.api_key
+				url: url
 			}).
 			then(
 				function (response) {
@@ -115,11 +116,11 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	}
 
 	/* methods */
-	$scope.history_list = function (user) {
+	$scope.history_list = function () {
 		var table = document.querySelector('#donations-table');
 
 		if (table) {
-			$scope.getDonationsList($scope.user);
+			$scope.getDonationsList();
 		}
 
 	};
