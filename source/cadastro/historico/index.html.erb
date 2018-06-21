@@ -24,7 +24,7 @@ title: Histórico de doações
 			<div class="col-md-12" style="margin-top:20px;">
 
 				<div class="table-responsive">
-					<div id="donations-table" class="hide">
+					<div id="donations-table" class="{{ donationsLoading ? 'hide' : '' }}">
 						<div class="form-group" ng-show="donationsStatuses.length > 0">
 							<label for="donations-status">Filtragem das doações</label>
 							<select id="donations-status" ng-model="query" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="updateFilteredList()">
@@ -57,6 +57,11 @@ title: Histórico de doações
 								<tr ng-if="donationsRecent.length > 0">
 									<td colspan="13" class="alert alert-warning" role="alert">
 										Há {{ donationsRecent.length }} novas doações desde {{ filteredDonations[filteredDonations.length - 1].created_at_human | date:'dd/MM/yyyy hh:mm:ss' }}.
+									</td>
+								</tr>
+								<tr ng-if="donationsError">
+									<td colspan="13" class="alert alert-danger" role="alert">
+										Houve um erro no carregamento da lista de doações. Por favor, contate o suporte.
 									</td>
 								</tr>
 								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in filteredDonations">
@@ -109,15 +114,14 @@ title: Histórico de doações
 								</tr>
 							</tbody>
 						</table>
-
 						<button class="btn btn-default btn-sm text-center" type="button" ng-show="!hasMoreDonations">
 							carregar mais
 						</button>
 					</div>
-				</div>
-				<div id="loading-donations" class="text-center">
-					<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
-					<p class="text-success">Carregando</p>
+					<div id="loading-donations" class="text-center {{ donationsLoading ? '' : 'hide' }}">
+						<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
+						<p class="text-success">Carregando</p>
+					</div>
 				</div>
 				<div class="carrega-mais-hist-container hide">
 					<button id="carrega-mais-hist" class="btn btn-default">Carregar mais</button>

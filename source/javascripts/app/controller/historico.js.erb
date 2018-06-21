@@ -22,6 +22,9 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		itemsPerPage: 10,
 	};
 
+	$scope.donationsLoading = false;
+	$scope.donationsError = false;
+
 	$scope.donationsRecent = [];
 	$scope.donations = [];
 	$scope.download = {};
@@ -45,22 +48,20 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		return $scope.filteredDonations = $scope.donations
 	};
 
-	/* methods */
-	$scope.history_list = function (user) {
-		var table = document.querySelector('#donations-table');
-		var loading = document.querySelector('#loading-donations');
-		var error = document.querySelector('#donations-error');
-		if (error) error.classList.add('hide');
+	$scope.getDonationsList = function (user) {
+		var lastDonation = $scope.donations[$scope.donations.length - 1];
+		var markerSegment = '';
 
-		if (table) {
-			table.classList.add('hide');
-			if (loading) loading.classList.remove('hide');
+		if (!!lastDonation && !! lastDonation._marker) {
+			markerSegment = '/' + marker
 		}
+
+		$scope.donationsLoading = true;
 
 		try {
 			$http({
 				method: 'GET',
-				url: BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations?results=9999&api_key=' + user.api_key
+				url: BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations' + markerSegment + '?results=9999&api_key=' + user.api_key
 			}).
 			then(
 				function (response) {
@@ -85,19 +86,11 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 					$scope.donations = res;
 					$scope.filteredDonations = res;
-
-					// diasble loading
-					if (table) {
-						if (loading) loading.classList.add('hide');
-						table.classList.remove('hide');
-					}
+					$scope.donationsLoading = false;
 				},
 				function (response) {
-					// diasble loading
-					if (table) {
-						if (loading) loading.classList.add('hide');
-						table.classList.remove('hide');
-					}
+					$scope.donationsLoading = false;
+					$scope.donationsError = true;
 					trouble.shoot({
 						route: document.location.href,
 						error: JSON.stringify(response)
@@ -108,11 +101,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 				}
 			);
 		} catch (e) {
-			if (table) {
-				if (loading) loading.classList.add('hide');
-				table.classList.remove('hide');
-			}
-
+			$scope.donationsLoading = false;
+			$scope.donationsError = true;
 			trouble.shoot({
 				route: document.location.href,
 				error: JSON.stringify(e)
@@ -120,6 +110,16 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 			SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
 		}
+	}
+
+	/* methods */
+	$scope.history_list = function (user) {
+		var table = document.querySelector('#donations-table');
+
+		if (table) {
+			$scope.getDonationsList($scope.user);
+		}
+
 	};
 
 	// setting download of donations table
