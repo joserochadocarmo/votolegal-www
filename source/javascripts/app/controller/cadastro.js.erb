@@ -62,6 +62,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.submit_disabled = false;
 	$scope.progress = 0;
 
+	$scope.user = auth_service.current_user();
+
 	// count days to 15/08/2016
 	$scope.date_to_profile = (function () {
 		var difference = 0;
