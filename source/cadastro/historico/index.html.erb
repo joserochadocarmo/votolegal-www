@@ -24,7 +24,7 @@ title: Histórico de doações
 			<div class="col-md-12" style="margin-top:20px;">
 
 				<div class="table-responsive">
-					<div id="donations-table" class="{{ donationsLoading ? 'hide' : '' }}">
+					<div id="donations-table" aria-busy="{{ donationsLoading ? 'true' : 'false' }}">
 						<div class="form-group" ng-show="donationsStatuses.length > 0">
 							<label for="donations-status">Filtragem das doações</label>
 							<select id="donations-status" ng-model="query" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="updateFilteredList()">
@@ -112,17 +112,18 @@ title: Histórico de doações
 										{{ item.payment_message }}
 									</td>
 								</tr>
+								<tr id="loading-donations" class="text-center {{ donationsLoading ? '' : 'hide' }}">
+									<td colspan="13">
+										<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
+										<p class="text-success">Carregando</p>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						<button class="btn btn-default btn-sm center-block" type="button" ng-if="hasMoreDonations">
 							carregar mais
 						</button>
 					</div>
-					<div id="loading-donations" class="text-center {{ donationsLoading ? '' : 'hide' }}">
-						<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-success" style="opacity:0.6"></i>
-						<p class="text-success">Carregando</p>
-					</div>
-				</div>
 				<div class="carrega-mais-hist-container hide">
 					<button id="carrega-mais-hist" class="btn btn-default">Carregar mais</button>
 				</div>
