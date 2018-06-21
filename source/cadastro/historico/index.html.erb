@@ -54,6 +54,11 @@ title: Histórico de doações
 								</tr>
 							</thead>
 							<tbody>
+								<tr ng-if="donationsRecent.length > 0">
+									<td colspan="13" class="alert alert-warning" role="alert">
+										Há {{ donationsRecent.length }} novas doações desde {{ filteredDonations[filteredDonations.length - 1].created_at_human | date:'dd/MM/yyyy hh:mm:ss' }}.
+									</td>
+								</tr>
 								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in filteredDonations">
 									<td title="ID" class="donations-history__id">
 										<span title="{{ item.id }}">{{ item.id }}</span>

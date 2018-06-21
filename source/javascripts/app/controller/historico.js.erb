@@ -22,6 +22,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		itemsPerPage: 10,
 	};
 
+	$scope.donationsRecent = [];
 	$scope.donations = [];
 	$scope.download = {};
 	$scope.filteredDonations = $scope.donations;
