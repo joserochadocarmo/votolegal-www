@@ -4567,11 +4567,6 @@ app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'aut
 		return false;
 	};
 
-	$scope.is_party = function () {
-		if (user && user.donation_type == 'party') return true;
-		return false;
-	};
-
 	$scope.dashboardHome = function () {
 		return (!!user && !!user.dashboard_home)
 		? user.dashboard_home
@@ -5045,16 +5040,6 @@ if (document.location.href.indexOf('/cadastro-completo') >= 0) {
 			activetab: 'pessoal'
 		});
 	}]);
-
-	var pid = window.setInterval(function () {
-		if (typeof (Storage) !== "undefined") {
-			var progress = localStorage.progress;
-
-			var p = document.querySelector("div[role=progressbar]");
-			p.innerHTML = progress + "%";
-			p.style.width = progress + "%";
-		}
-	}, 500);
 }
 
 var BASE_API = '';
@@ -5087,6 +5072,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.error_list = [];
 	$scope.submit_disabled = false;
 	$scope.progress = 0;
+
+	$scope.user = auth_service.current_user();
 
 	// count days to 15/08/2016
 	$scope.date_to_profile = (function () {
@@ -5732,7 +5719,7 @@ if(/\?.?&?id=[a-z0-9_-]+/.test(currentURL.search) && /\/candidato/.test(currentU
 app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "certi_face_token","SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $rootScope,$http, $sce, $route, $routeParams, $location, serialize, auth_service,certi_face_token, SweetAlert, payment_doacao, trouble, postmon){
   var load   = document.querySelector('#loading');
 
-
+  $scope.user = auth_service.current_user();
 
   // defaults
   $scope.vote           = undefined;
@@ -7103,20 +7090,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 						}
 					}
 
-					$scope.donationsStatuses = response.data.donations_statuses ||
-						[{
-								name: 'captured',
-								label: 'Autorizadas'
-							},
-							{
-								name: 'refunded',
-								label: 'Estornadas'
-							},
-							{
-								name: 'non_completed',
-								label: 'Não concluídas'
-							}
-						];
+					if (response.data.statuses) $scope.donationsStatuses = response.data.statuses;
 
 					$scope.donations = res;
 					$scope.filteredDonations = res;
