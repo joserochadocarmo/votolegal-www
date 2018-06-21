@@ -7,6 +7,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	// defaults
 	$scope.user = auth_service.current_user();
 	$scope.donationsStatuses = [];
+	$scope.hasMoreDonations = false;
 	$scope.error_list = [];
 	$scope.config = {
 		fillLastPage: 'yes',
@@ -78,6 +79,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 					}
 
 					if (response.data.statuses) $scope.donationsStatuses = response.data.statuses;
+
+					if (response.data.has_more) $scope.hasMoreDonations = response.data.has_more;
 
 					$scope.donations = res;
 					$scope.filteredDonations = res;

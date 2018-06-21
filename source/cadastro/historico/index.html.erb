@@ -88,6 +88,10 @@ title: Histórico de doações
 							</tbody>
 						</table>
 						<at-pagination class="pull-right" at-config="config" at-list="filteredDonations"></at-pagination>
+
+						<button class="btn btn-default btn-sm text-center" type="button" ng-show="!hasMoreDonations">
+							carregar mais
+						</button>
 					</div>
 				</div>
 				<div id="loading-donations" class="text-center">
