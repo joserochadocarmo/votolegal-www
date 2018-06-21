@@ -64,7 +64,7 @@ title: Histórico de doações
 										Houve um erro no carregamento da lista de doações. Por favor, contate o suporte.
 									</td>
 								</tr>
-								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in filteredDonations">
+								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in filteredDonations track by $index">
 									<td title="ID" class="donations-history__id">
 										<span title="{{ item.id }}">{{ item.id }}</span>
 									</td>
