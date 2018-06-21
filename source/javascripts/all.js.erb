@@ -822,11 +822,6 @@ app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'aut
 		return false;
 	};
 
-	$scope.is_party = function () {
-		if (user && user.donation_type == 'party') return true;
-		return false;
-	};
-
 	$scope.dashboardHome = function () {
 		return (!!user && !!user.dashboard_home)
 		? user.dashboard_home
