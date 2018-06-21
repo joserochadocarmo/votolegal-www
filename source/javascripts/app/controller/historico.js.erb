@@ -82,7 +82,9 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 					if (response.data.statuses) $scope.donationsStatuses = response.data.statuses;
 
-					if (response.data.has_more) $scope.hasMoreDonations = response.data.has_more;
+					$scope.hasMoreDonations = response.data.has_more !== undefined
+						? !!response.data.has_more
+						: false;
 
 					$scope.donations = res;
 					$scope.filteredDonations = res;
