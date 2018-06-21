@@ -87,8 +87,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 						? !!response.data.has_more
 						: false;
 
-					$scope.donations = res;
-					$scope.filteredDonations = res;
+					$scope.donations = $scope.donations.concat(res);
+					$scope.filteredDonations = $scope.filteredDonations.concat(res);
 					$scope.donationsLoading = false;
 				},
 				function (response) {
