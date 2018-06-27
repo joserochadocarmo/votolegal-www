@@ -7019,7 +7019,18 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 	// defaults
 	$scope.user = auth_service.current_user();
-	$scope.donationsStatuses = [];
+	$scope.sortOptions = [
+		{
+			label: 'ascendente',
+			name: 'asc'
+		},
+		{
+			label: 'descendente',
+			name: 'desc'
+		}
+	];
+	$scope.sort = 'desc';
+	$scope.hasMoreDonations = false;
 	$scope.error_list = [];
 	$scope.config = {
 		fillLastPage: 'yes',
@@ -7034,44 +7045,33 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		itemsPerPage: 10,
 	};
 
+	$scope.donationsLoading = false;
+	$scope.donationsError = false;
+
+	$scope.donationsRecent = [];
 	$scope.donations = [];
 	$scope.download = {};
-	$scope.filteredDonations = $scope.donations;
-	$scope.query = '';
-	$scope.updateFilteredList = function() {
-		if (!!$scope.query) {
-			return $scope.filteredDonations = $scope.donations.filter(function(x) {
-				if (x.status == null) {
-					if ($scope.query === 'captured' || $scope.query === 'refunded') {
-						return !!x[$scope.query + '_at'];
-					} else {
-						return !x.captured_at && !x.refunded_at;
-					}
-				} else {
-					return x.status.indexOf($scope.query) !== -1;
-				}
-			});
+	$scope.donationsStatuses = [];
+	$scope.status = 'captured';
+
+	$scope.getDonationsList = function (positionToInsert) {
+		var user = $scope.user;
+		var lastDonation = $scope.donations[$scope.donations.length - 1];
+		var markerSegment = (positionToInsert === 'after' && !!lastDonation && !! lastDonation._marker)
+		? '/' + lastDonation._marker
+		: '';
+		var url = BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations' + markerSegment + '?api_key=' + user.api_key + '&filter=' + $scope.status + '&order_by_created_at=' + $scope.sort;
+
+		if ( positionToInsert !== 'before' && positionToInsert !== 'after' && positionToInsert !== '' ) {
+			positionToInsert = '';
 		}
 
-		return $scope.filteredDonations = $scope.donations
-	};
-
-	/* methods */
-	$scope.history_list = function (user) {
-		var table = document.querySelector('#donations-table');
-		var loading = document.querySelector('#loading-donations');
-		var error = document.querySelector('#donations-error');
-		if (error) error.classList.add('hide');
-
-		if (table) {
-			table.classList.add('hide');
-			if (loading) loading.classList.remove('hide');
-		}
+		$scope.donationsLoading = true;
 
 		try {
 			$http({
 				method: 'GET',
-				url: BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations?results=9999&api_key=' + user.api_key
+				url: url
 			}).
 			then(
 				function (response) {
@@ -7091,22 +7091,27 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 					}
 
 					if (response.data.statuses) $scope.donationsStatuses = response.data.statuses;
+					if (response.data.sortOptions) $scope.sortOptions = response.data.order_by_created_at;
 
-					$scope.donations = res;
-					$scope.filteredDonations = res;
+					$scope.hasMoreDonations = response.data.has_more !== undefined
+						? !!response.data.has_more
+						: false;
 
-					// diasble loading
-					if (table) {
-						if (loading) loading.classList.add('hide');
-						table.classList.remove('hide');
+					if (!positionToInsert) {
+						$scope.donations = res;
+					} else if (positionToInsert === 'before' ) {
+						// TO-DO: compare and filter new donations
+
+						$scope.donationsRecent = res.concat($scope.donationsRecent);
+					} else if (positionToInsert === 'after' ) {
+						$scope.donations = $scope.donations.concat(res);
 					}
+
+					$scope.donationsLoading = false;
 				},
 				function (response) {
-					// diasble loading
-					if (table) {
-						if (loading) loading.classList.add('hide');
-						table.classList.remove('hide');
-					}
+					$scope.donationsLoading = false;
+					$scope.donationsError = true;
 					trouble.shoot({
 						route: document.location.href,
 						error: JSON.stringify(response)
@@ -7117,11 +7122,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 				}
 			);
 		} catch (e) {
-			if (table) {
-				if (loading) loading.classList.add('hide');
-				table.classList.remove('hide');
-			}
-
+			$scope.donationsLoading = false;
+			$scope.donationsError = true;
 			trouble.shoot({
 				route: document.location.href,
 				error: JSON.stringify(e)
@@ -7129,12 +7131,23 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 			SweetAlert.swal('Falha no carregamento dos dados', 'Não foi possível carregar os dados de doações.');
 		}
+	}
+
+	/* methods */
+	$scope.history_list = function () {
+		var table = document.querySelector('#donations-table');
+
+		if (table) {
+			$scope.getDonationsList();
+		}
+
+		// TO-DO: call for new donations on intervals
 	};
 
 	// setting download of donations table
 	$scope.download.csv_file = function () {
 		var user = $scope.user;
-		return BASE_API_JS + '/candidate/' + user.id + '/donate/download/csv?api_key=' + user.api_key;
+		return BASE_API_JS + '/candidate/' + user.id + '/donate/download/csv?api_key=' + user.api_key + '&filter=' + $scope.status + '&order_by_created_at=' + $scope.sort;
 	};
 
 
