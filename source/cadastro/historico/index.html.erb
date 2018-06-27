@@ -9,30 +9,30 @@ title: Histórico de doações
 				<h1 class="page-title">Histórico de transações</h1>
 			</div>
 
-			<div class="col-md-6">
-				<div class="dropdown">
-					<button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
-						Baixar...
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						<li><a href="{{download.csv_file()}}" target="_blank">...doações autorizadas</a></li>
-					</ul>
-				</div>
-			</div>
-
 			<div class="col-md-12" style="margin-top:20px;">
+				<div class="row">
+					<div class="form-group col-md-9">
+						<label for="donations-status" class="sr-only">Doações</label>
+						<select id="donations-status" ng-model="status" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="getDonationsList()" ng-show="donationsStatuses.length > 0">
+							<option ng-repeat="s in donationsStatuses" value="{{ s.name }}">{{ s.label }}</option>
+						</select>
+					</div>
+					<div class="form-group col-md-1">
+						<a href="{{ download.csv_file() }}" target="_blank" aria-busy="{{ donationsLoading ? 'true' : 'false' }}" class="btn btn-default btn-sm form-control">
+							<span class="caret"></span>
+							baixar
+						</a>
+					</div>
 
-				<div class="table-responsive">
+					<div class="form-group col-md-2">
+						<label for="donations-status" class="sr-only">Ordem</label>
+						<select id="donations-status" ng-model="sort" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="getDonationsList()">
+							<option ng-repeat="o in sortOptions" value="{{ o.name }}">{{ o.label }}</option>
+						</select>
+					</div>
+				</div>
+				<div class="table-responsive" class="row">
 					<div id="donations-table" aria-busy="{{ donationsLoading ? 'true' : 'false' }}">
-						<div class="form-group" ng-show="donationsStatuses.length > 0">
-							<label for="donations-status">Filtragem das doações</label>
-							<select id="donations-status" ng-model="query" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="updateFilteredList()">
-								<option value="">todas as doações</option>
-								<option ng-repeat="s in donationsStatuses" value="{{ s.name }}">{{ s.label }}</option>
-							</select>
-						</div>
-
 						<table class="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -75,7 +75,7 @@ title: Histórico de doações
 							<tbody>
 								<tr ng-if="donationsRecent.length > 0">
 									<td colspan="13" class="alert alert-warning" role="alert">
-										Há {{ donationsRecent.length }} novas doações desde {{ filteredDonations[filteredDonations.length - 1].created_at_human | date:'dd/MM/yyyy hh:mm:ss' }}.
+										Há {{ donationsRecent.length }} novas doações desde {{ donations[donations.length - 1].created_at_human | date:'dd/MM/yyyy hh:mm:ss' }}.
 									</td>
 								</tr>
 								<tr ng-if="donationsError">
@@ -83,12 +83,12 @@ title: Histórico de doações
 										Houve um erro no carregamento da lista de doações. Por favor, contate o suporte.
 									</td>
 								</tr>
-								<tr ng-if="filteredDonations.length == 0 && donationsRecent.length == 0 && !donationsLoading">
+								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading">
 									<td colspan="13" class="alert alert-warning" role="alert">
 										Ainda não há doações.
 									</td>
 								</tr>
-								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in filteredDonations track by $index">
+								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in donations track by $index">
 									<td title="ID" class="donations-history__id">
 										<span title="{{ item.id }}">{{ item.id }}</span>
 									</td>
@@ -144,8 +144,8 @@ title: Histórico de doações
 								</tr>
 							</tbody>
 						</table>
-						<button class="btn btn-default btn-sm center-block" type="button" ng-if="hasMoreDonations" ng-click="getDonationsList()">
-							carregar mais
+						<button class="btn btn-default btn-sm center-block" type="button" ng-if="hasMoreDonations" ng-click="getDonationsList('after')">
+						carregar mais
 						</button>
 					</div>
 				</div>
