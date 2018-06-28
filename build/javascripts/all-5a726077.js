@@ -7365,7 +7365,7 @@ app.votolegal.controller("PaymentController", [
 					$scope.errorListPaymentServer = errorList;
 				}
 			} else {
-				$scope.error = 'Usário não encontrado'
+				$scope.error = 'Usuário não encontrado'
 			}
 		}
 
@@ -7474,6 +7474,7 @@ app.votolegal.controller("PaymentController", [
 						localStorage.removeItem('address');
 						$scope.loading = false;
 						$scope.boletoUrl = val.url;
+						$scope.mensagem_sucesso = val.mensagem_sucesso;
 
 					}).error(function (err) {
 						$scope.loading = false;
