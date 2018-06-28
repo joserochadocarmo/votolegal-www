@@ -224,9 +224,14 @@ title: Pagamento
 								<img src="../images/ajax-loader.gif" alt="">
 							</button>
 							<input class="register-submit" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
+
 							<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block alert alert-warning " ng-if="boletoUrl.length> 0" ng-click="redirectBoleto()">Imprimir boleto </a>
-								<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{error}} </label>
-								<label ng-if="success.length > 0 " style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{success}} </label>
+
+							<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{error}} </label>
+
+							<label ng-if="success.length > 0 " style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{success}} </label>
+
+							<label ng-if="mensagem_sucesso" style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{mensagem_sucesso}} </label>
 						</div>
 						<div class=" clearfix">
 							<div class="col-md-12">
@@ -239,7 +244,6 @@ title: Pagamento
 								</div>
 							</div>
 						</div>
-
 				</div>
 			</form>
 		</div>
