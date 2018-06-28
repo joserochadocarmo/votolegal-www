@@ -29,16 +29,6 @@ if (document.location.href.indexOf('/cadastro-completo') >= 0) {
 			activetab: 'pessoal'
 		});
 	}]);
-
-	var pid = window.setInterval(function () {
-		if (typeof (Storage) !== "undefined") {
-			var progress = localStorage.progress;
-
-			var p = document.querySelector("div[role=progressbar]");
-			p.innerHTML = progress + "%";
-			p.style.width = progress + "%";
-		}
-	}, 500);
 }
 
 var BASE_API = '<%= config[:api_host] %>';
@@ -71,6 +61,8 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 	$scope.error_list = [];
 	$scope.submit_disabled = false;
 	$scope.progress = 0;
+
+	$scope.user = auth_service.current_user();
 
 	// count days to 15/08/2016
 	$scope.date_to_profile = (function () {

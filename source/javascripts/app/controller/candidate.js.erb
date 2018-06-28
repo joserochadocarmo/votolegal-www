@@ -50,7 +50,7 @@ if(/\?.?&?id=[a-z0-9_-]+/.test(currentURL.search) && /\/candidato/.test(currentU
 app.votolegal.controller('CandidateController', ["$scope", "$rootScope", "$http", "$sce", "$route", "$location", "$routeParams","serialize", "auth_service", "certi_face_token","SweetAlert", "payment_doacao", "trouble", "postmon", function($scope, $rootScope,$http, $sce, $route, $routeParams, $location, serialize, auth_service,certi_face_token, SweetAlert, payment_doacao, trouble, postmon){
   var load   = document.querySelector('#loading');
 
-
+  $scope.user = auth_service.current_user();
 
   // defaults
   $scope.vote           = undefined;

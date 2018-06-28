@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-538051e1.css" rel="stylesheet" />
+	<link href="/stylesheets/all-affa7269.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -82,20 +82,24 @@
 												<span class="caret"></span> Olá, {{current_user.name}}
 											</a>
 											<ul class="dropdown-menu">
-												<li ng-if="!is_party()">
+												<li ng-if="current_user.donation_type !== 'party'">
 													<a href="/cadastro-completo">
 														<i class="fa fa-caret-right"></i> Editar perfil</a>
+												</li>
+												<li>
+													<a data-tabname="campanha" href="/cadastro-completo/#/dados-campanha">
+														<i class="fa fa-caret-right"></i> Campanha</a>
 												</li>
 												<li>
 													<a href="/cadastro/historico">
 														<i class="fa fa-caret-right"></i> Histórico de Doações</a>
 												</li>
-												<li ng-if="!is_party()">
+												<li ng-if="current_user.donation_type !== 'party'">
 													<a class="tab-register-default" href="/cadastro/preview">
 														<i class="fa fa-caret-right"></i> Página pública</a>
 												</li>
-												<li ng-if="!is_party()">
-													<a class="tab-register-default" href="/files/guiapraticovotolegal.pdf" target="_blank">
+												<li ng-if="current_user.donation_type !== 'party'">
+													<a class="tab-register-default" href="/files/Guia%20Financiamento%20Coletivo%20VOTO%20LEGAL%202018.pdf" target="_blank">
 														<i class="fa fa-caret-right"></i> Guia Prático</a>
 												</li>
 												<li>
@@ -240,7 +244,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-642170c1.js"></script>
+												<script src="/javascripts/all-319b6e21.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
