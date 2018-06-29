@@ -132,9 +132,7 @@ title: Histórico de doações
 									<%# <td title="Número da Autorização">{{ item.authorization_number }}</td> %>
 									<td title="Status">
 										<span
-											title="{{ item.payment_lr }}
-												{{ (!!item.payment_lr && !!item.payment_message) ? '-' : '' }}
-												{{ item.payment_message }}"
+											title="{{ item.payment_lr }} {{ (!!item.payment_lr && !!item.payment_message) ? '-' : '' }} {{ item.payment_message }}"
 										>
 											{{ item.status.label || item.status }}
 										</span>
