@@ -152,6 +152,11 @@
 						</select>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<p class="small text-warning"><strong>Lembrete:</strong> Para prestação de contas baixar apenas a lista de  doações recebidas.</p>
+					</div>
+				</div>
 				<div class="table-responsive" class="row">
 					<div id="donations-table" aria-busy="{{ donationsLoading ? 'true' : 'false' }}">
 						<table class="table table-striped table-bordered">
@@ -164,7 +169,6 @@
 										<abbr title="Cadastro de Pessoa Física">CPF</abbr>
 									</th>
 									<th>Telefone</th>
-									<th>Endereço</th>
 									<th>Nascimento</th>
 									<th>Método</th>
 									<th>Valor</th>
@@ -172,6 +176,7 @@
 									<th>Data da captura</th>
 									<th>Data do extorno</th>
 									<th>Status</th>
+									<th>Motivo</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -183,7 +188,6 @@
 										<abbr title="Cadastro de Pessoa Física">CPF</abbr>
 									</th>
 									<th>Telefone</th>
-									<th>Endereço</th>
 									<th>Nascimento</th>
 									<th>Método</th>
 									<th>Valor</th>
@@ -191,6 +195,7 @@
 									<th>Data da captura</th>
 									<th>Data do extorno</th>
 									<th>Status</th>
+									<th>Motivo</th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -204,7 +209,7 @@
 										Houve um erro no carregamento da lista de doações. Por favor, contate o suporte.
 									</td>
 								</tr>
-								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading">
+								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading && !donationsError">
 									<td colspan="13" class="alert alert-warning" role="alert">
 										Ainda não há doações segundo esse critério.
 									</td>
@@ -228,13 +233,6 @@
 										{{ item.cpf | brCpf }}
 									</td>
 									<td title="Telefone">{{ item.phone ? ( item.phone | brPhoneNumber) : '-' }}</td>
-									<td title="Endereço">
-										{{ item.address_street || '-' }}{{ item.address_house_number ? ' ,' + item.address_house_number : '' }}
-										{{ item.address_complement ? ' - ' + item.address_complement : '' }}
-										{{ item.address_district ? ' - ' + item.address_district : '' }}
-										{{ item.address_city ? ' - ' + item.address_city : '' }}
-										{{ item.address_state ? ' - ' + item.address_state : '' }}{{ item.address_zipcode ? ', ' + (item.address_zipcode | brCep) : '' }}
-									</td>
 									<td title="Nascimento">{{ item.birthday || '-' }}</td>
 									<td title="Método">{{ item.payment_method_human }}</td>
 									<td title="Valor" class="text-nowrap">
@@ -250,11 +248,10 @@
 										{{ item.refunded_at || '-' }}
 									</td>
 									<td title="Status">
-										<span
-											title="{{ item.motive || item.payment_lr + ((!!item.payment_lr && !!item.payment_message) ? '-' : '') + item.payment_message }}"
-										>
-											{{ item.status.label || item.status }}
-										</span>
+										{{ item.status.label || item.status }}
+									</td>
+									<td title="Motivo">
+										{{ item.motive || item.payment_lr + ((!!item.payment_lr && !!item.payment_message) ? '-' : '') + item.payment_message }}
 									</td>
 								</tr>
 								<tr id="loading-donations" class="text-center {{ donationsLoading ? '' : 'hide' }}">
@@ -318,7 +315,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-2fdb3e8b.js"></script>
+												<script src="/javascripts/all-4495219f.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

@@ -31,6 +31,11 @@ title: Histórico de doações
 						</select>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<p class="small text-warning"><strong>Lembrete:</strong> Para prestação de contas baixar apenas a lista de  doações recebidas.</p>
+					</div>
+				</div>
 				<div class="table-responsive" class="row">
 					<div id="donations-table" aria-busy="{{ donationsLoading ? 'true' : 'false' }}">
 						<table class="table table-striped table-bordered">
@@ -43,7 +48,6 @@ title: Histórico de doações
 										<abbr title="Cadastro de Pessoa Física">CPF</abbr>
 									</th>
 									<th>Telefone</th>
-									<th>Endereço</th>
 									<th>Nascimento</th>
 									<th>Método</th>
 									<th>Valor</th>
@@ -51,6 +55,7 @@ title: Histórico de doações
 									<th>Data da captura</th>
 									<th>Data do extorno</th>
 									<th>Status</th>
+									<th>Motivo</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -62,7 +67,6 @@ title: Histórico de doações
 										<abbr title="Cadastro de Pessoa Física">CPF</abbr>
 									</th>
 									<th>Telefone</th>
-									<th>Endereço</th>
 									<th>Nascimento</th>
 									<th>Método</th>
 									<th>Valor</th>
@@ -70,6 +74,7 @@ title: Histórico de doações
 									<th>Data da captura</th>
 									<th>Data do extorno</th>
 									<th>Status</th>
+									<th>Motivo</th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -83,7 +88,7 @@ title: Histórico de doações
 										Houve um erro no carregamento da lista de doações. Por favor, contate o suporte.
 									</td>
 								</tr>
-								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading">
+								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading && !donationsError">
 									<td colspan="13" class="alert alert-warning" role="alert">
 										Ainda não há doações segundo esse critério.
 									</td>
@@ -107,13 +112,6 @@ title: Histórico de doações
 										{{ item.cpf | brCpf }}
 									</td>
 									<td title="Telefone">{{ item.phone ? ( item.phone | brPhoneNumber) : '-' }}</td>
-									<td title="Endereço">
-										{{ item.address_street || '-' }}{{ item.address_house_number ? ' ,' + item.address_house_number : '' }}
-										{{ item.address_complement ? ' - ' + item.address_complement : '' }}
-										{{ item.address_district ? ' - ' + item.address_district : '' }}
-										{{ item.address_city ? ' - ' + item.address_city : '' }}
-										{{ item.address_state ? ' - ' + item.address_state : '' }}{{ item.address_zipcode ? ', ' + (item.address_zipcode | brCep) : '' }}
-									</td>
 									<td title="Nascimento">{{ item.birthday || '-' }}</td>
 									<td title="Método">{{ item.payment_method_human }}</td>
 									<td title="Valor" class="text-nowrap">
@@ -131,11 +129,10 @@ title: Histórico de doações
 									<%# <td title="Número do Documento">{{ item.document_number }}</td> %>
 									<%# <td title="Número da Autorização">{{ item.authorization_number }}</td> %>
 									<td title="Status">
-										<span
-											title="{{ item.motive || item.payment_lr + ((!!item.payment_lr && !!item.payment_message) ? '-' : '') + item.payment_message }}"
-										>
-											{{ item.status.label || item.status }}
-										</span>
+										{{ item.status.label || item.status }}
+									</td>
+									<td title="Motivo">
+										{{ item.motive || item.payment_lr + ((!!item.payment_lr && !!item.payment_message) ? '-' : '') + item.payment_message }}
 									</td>
 								</tr>
 								<tr id="loading-donations" class="text-center {{ donationsLoading ? '' : 'hide' }}">

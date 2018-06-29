@@ -4084,7 +4084,7 @@ var error_msg = function (token) {
 		"invalid token": " é invalido ou esta expirado.",
 		"Candidate not found": 'Seu usuário não foi identificado',
 		"user_id": 'Você já confirmou o contrato, por favor tente logar.',
-		"google_analytics": "está errado.",
+		"google_analytics": " está errado.",
 		"video_url": "Preencha o campo de link do vídeo",
 		"summary": "Preeencha o campo da sua breve apresentação pessoal e da campanha",
 		"biography": "Preencha o campo de biografia",
@@ -7667,6 +7667,7 @@ $scope.getMoviment = function(){
 }
 
 
+$scope.states = State._value;
   // reset form fields
   $scope.reset = function(){
     $scope.candidate = {};
