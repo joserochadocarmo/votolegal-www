@@ -83,7 +83,7 @@ title: Histórico de doações
 										Houve um erro no carregamento da lista de doações. Por favor, contate o suporte.
 									</td>
 								</tr>
-								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading">
+								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading && !donationsError">
 									<td colspan="13" class="alert alert-warning" role="alert">
 										Ainda não há doações segundo esse critério.
 									</td>
