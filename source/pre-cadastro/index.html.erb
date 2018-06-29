@@ -101,6 +101,12 @@ title: Pré-cadastro
 						<option ng-repeat="mov in political_movement | orderBy: 'name'" value="{{mov.id}}">{{mov.name}}</option>
 						</select>
 					</div>
+					<div class="form-group _icon-left col-md-12">
+						<select class="form-control" name="running_for_address_state" placeholder="Estado pelo qual concorre" ng-model="candidate.running_for_address_state" ng-disabled="candidate.office_id == 4 || !candidate.office_id">
+							<option value="" disabled selected ng-selected="selected">Estado pelo qual concorre</option>
+							<option ng-repeat="s in states" value="{{ $index }}">{{ s }}</option>
+						</select>
+				</div>
 				</div>
 
 				<div class="row">
