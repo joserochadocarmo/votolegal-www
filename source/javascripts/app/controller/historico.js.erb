@@ -8,11 +8,11 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	$scope.user = auth_service.current_user();
 	$scope.sortOptions = [
 		{
-			label: 'ascendente',
+			label: 'mais antigas',
 			name: 'asc'
 		},
 		{
-			label: 'descendente',
+			label: 'mais recentes',
 			name: 'desc'
 		}
 	];
