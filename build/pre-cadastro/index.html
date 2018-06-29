@@ -155,15 +155,13 @@
 
 <form name="candidateForm" class="angular-form" ng-submit="create(candidateForm.$valid)" novalidate="novalidate">
 				<div class="row">
-					<div class="form-group _icon-left col-md-12">
-						<input type="text" class="form-control position-relative" name="username" placeholder="Nome de usuário" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
-
-						<a class="btn-info-absolute" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: votolegal.com.br/em/seunome">
-						<i class="fa fa-info"></i>
-						</a>
-
-						<span class="help-block">Entre com o nome de usuário pelo qual você será identificado por nossa equipe e seus apoiadores. Escreva sem utilizar espaços, pois este será o nome utilizado para identificação na URL do VotoLegal.</span>
-
+					<div class="form-group col-md-12">
+						<div class="input-group">
+							<div class="input-group-addon">https://votolegal.com.br/em/</div>
+							<input type="text" class="form-control" name="username" placeholder="nome-de-usuario" ng-model="candidate.username" mask="w" mask-repeat="30" mask-restrict="reject" mask-validate="false" mask-clean="false">
+							<div class="input-group-addon">/</div>
+						</div>
+						<span class="help-block">Entre com uma variação <em>sem espaços ou caracteres especiais</em> do nome pelo qual seus eleitores te conhecem. Ele será usado na composição de sua URL do VotoLegal.</span>
 					</div>
 					<div class="form-group icon-left col-md-8">
 						<i class="fa fa-envelope"></i>
@@ -223,6 +221,12 @@
 						<option ng-repeat="mov in political_movement | orderBy: 'name'" value="{{mov.id}}">{{mov.name}}</option>
 						</select>
 					</div>
+					<div class="form-group _icon-left col-md-12">
+						<select class="form-control" name="running_for_address_state" placeholder="Estado pelo qual concorre" ng-model="candidate.running_for_address_state" ng-disabled="candidate.office_id == 4 || !candidate.office_id">
+							<option value="" disabled selected ng-selected="selected">Estado pelo qual concorre</option>
+							<option ng-repeat="s in states" value="{{ $index }}">{{ s }}</option>
+						</select>
+				</div>
 				</div>
 
 				<div class="row">
@@ -723,7 +727,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-2fdb3e8b.js"></script>
+												<script src="/javascripts/all-2f9366dd.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

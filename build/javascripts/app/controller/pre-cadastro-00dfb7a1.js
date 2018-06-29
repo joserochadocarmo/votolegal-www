@@ -169,6 +169,7 @@ $scope.getMoviment = function(){
 }
 
 
+$scope.states = State._value;
   // reset form fields
   $scope.reset = function(){
     $scope.candidate = {};
