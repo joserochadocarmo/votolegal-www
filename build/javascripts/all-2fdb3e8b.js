@@ -5169,7 +5169,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			var params = $scope.candidate_params();
 			var user = auth_service.current_user();
 			params.api_key = user.api_key;
-			// params.google_analytics = $scope.candidate.google_analytics;
+			params.google_analytics = $scope.candidate.google_analytics;
+
+			if (!!$scope.candidate.popular_name)
+				params.popular_name = $scope.candidate.popular_name;
+
 			params.collect_donor_phone = ($scope.candidate.collect_donor_phone) ? 1 : 0;
 			params.collect_donor_address = ($scope.candidate.collect_donor_address) ? 1 : 0;
 			$scope.submit_disabled = true;
@@ -7021,11 +7025,11 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	$scope.user = auth_service.current_user();
 	$scope.sortOptions = [
 		{
-			label: 'ascendente',
+			label: 'mais antigas',
 			name: 'asc'
 		},
 		{
-			label: 'descendente',
+			label: 'mais recentes',
 			name: 'desc'
 		}
 	];
@@ -7045,6 +7049,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		itemsPerPage: 10,
 	};
 
+	$scope.donationsReportDate = null;
 	$scope.donationsLoading = false;
 	$scope.donationsError = false;
 
@@ -7060,7 +7065,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		var markerSegment = (positionToInsert === 'after' && !!lastDonation && !! lastDonation._marker)
 		? '/' + lastDonation._marker
 		: '';
-		var url = BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations' + markerSegment + '?api_key=' + user.api_key + '&filter=' + $scope.status + '&order_by_created_at=' + $scope.sort;
+
+		var url = BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations' + markerSegment + '?api_key=' + user.api_key + ( !!$scope.status ? '&filter=' + $scope.status : '' ) + '&order_by_created_at=' + $scope.sort;
 
 		if ( positionToInsert !== 'before' && positionToInsert !== 'after' && positionToInsert !== '' ) {
 			positionToInsert = '';
@@ -7078,9 +7084,6 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 					var res = response.data.donations;
 
 					for (var i in res) {
-						// parsing date
-						res[i].captured_at = Date.parse(res[i].captured_at);
-
 						// format birthday
 						if (res[i].birthdate) {
 							var birth = res[i].birthdate.match(/^(\d{4})\-(\d{2})\-(\d{2})$/);
@@ -7092,6 +7095,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 					if (response.data.statuses) $scope.donationsStatuses = response.data.statuses;
 					if (response.data.sortOptions) $scope.sortOptions = response.data.order_by_created_at;
+					if (response.data.generated_at) $scope.donationsReportDate = response.data.generated_at;
 
 					$scope.hasMoreDonations = response.data.has_more !== undefined
 						? !!response.data.has_more

@@ -158,7 +158,11 @@ app.votolegal.controller('CadastroController', ['$scope', '$http', '$location', 
 			var params = $scope.candidate_params();
 			var user = auth_service.current_user();
 			params.api_key = user.api_key;
-			// params.google_analytics = $scope.candidate.google_analytics;
+			params.google_analytics = $scope.candidate.google_analytics;
+
+			if (!!$scope.candidate.popular_name)
+				params.popular_name = $scope.candidate.popular_name;
+
 			params.collect_donor_phone = ($scope.candidate.collect_donor_phone) ? 1 : 0;
 			params.collect_donor_address = ($scope.candidate.collect_donor_address) ? 1 : 0;
 			$scope.submit_disabled = true;
