@@ -85,7 +85,7 @@ title: Histórico de doações
 								</tr>
 								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading">
 									<td colspan="13" class="alert alert-warning" role="alert">
-										Ainda não há doações.
+										Ainda não há doações segundo esse critério.
 									</td>
 								</tr>
 								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in donations track by $index">
