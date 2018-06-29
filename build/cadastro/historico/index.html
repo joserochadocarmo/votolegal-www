@@ -251,7 +251,7 @@
 									</td>
 									<td title="Status">
 										<span
-											title="{{ item.payment_lr }} {{ (!!item.payment_lr && !!item.payment_message) ? '-' : '' }} {{ item.payment_message }}"
+											title="{{ item.motive || item.payment_lr + ((!!item.payment_lr && !!item.payment_message) ? '-' : '') + item.payment_message }}"
 										>
 											{{ item.status.label || item.status }}
 										</span>
