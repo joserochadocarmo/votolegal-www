@@ -132,16 +132,16 @@
 
 			<div class="col-md-12" style="margin-top:20px;">
 				<div class="row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-9">
 						<label for="donations-status" class="sr-only">Doações</label>
 						<select id="donations-status" ng-model="status" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="getDonationsList()" ng-show="donationsStatuses.length > 0">
 							<option ng-repeat="s in donationsStatuses" value="{{ s.name }}">{{ s.label }}</option>
 						</select>
 					</div>
-					<div class="form-group col-md-2">
-						<a href="{{ download.csv_file() }}" target="_blank" aria-busy="{{ donationsLoading ? 'true' : 'false' }}" class="btn btn-default btn-sm form-control">
+					<div class="form-group col-md-1">
+						<a href="{{ download.csv_file() }}" target="_blank" aria-busy="{{ donationsLoading ? 'true' : 'false' }}" class="btn btn-default btn-sm form-control" download="{{ status }}@{{ donationsReportDate }}">
 							<span class="caret"></span>
-							baixar todas as doações
+							baixar
 						</a>
 					</div>
 
@@ -206,7 +206,7 @@
 								</tr>
 								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading">
 									<td colspan="13" class="alert alert-warning" role="alert">
-										Ainda não há doações.
+										Ainda não há doações segundo esse critério.
 									</td>
 								</tr>
 								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in donations track by $index">
@@ -243,16 +243,20 @@
 									<td title="Data da doação">
 										{{ item.created_at_human || '-' }}
 									</td>
-									<td title="Data da captura" class="{{ item.captured_at ? 'alert-success' : '' }}">
-										{{ item.captured_at ? ( item.captured_at | date:'dd/MM/yyyy hh:mm:ss') : '-' }}
+									<td title="Data da captura" class="{{ !!item.captured_at ? 'alert-success' : '' }}">
+										{{ item.captured_at || '-' }}
 									</td>
-									<td title="Data do extorno" class="{{ item.refunded_at ? 'alert-danger' : '' }}">
-										{{ item.refunded_at ? ( item.refunded_at | date:'dd/MM/yyyy hh:mm:ss') : '-' }}
+									<td title="Data do extorno" class="{{ !!item.refunded_at ? 'alert-danger' : '' }}">
+										{{ item.refunded_at || '-' }}
 									</td>
 									<td title="Status">
-										{{ item.payment_lr }}
-										{{ (!!item.payment_lr === !!item.payment_message) ? '-' : '' }}
-										{{ item.payment_message }}
+										<span
+											title="{{ item.payment_lr }}
+												{{ (!!item.payment_lr && !!item.payment_message) ? '-' : '' }}
+												{{ item.payment_message }}"
+										>
+											{{ item.status.label || item.status }}
+										</span>
 									</td>
 								</tr>
 								<tr id="loading-donations" class="text-center {{ donationsLoading ? '' : 'hide' }}">
@@ -316,7 +320,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-f23a83d0.js"></script>
+												<script src="/javascripts/all-2fdb3e8b.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
