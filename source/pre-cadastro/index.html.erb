@@ -104,7 +104,7 @@ title: Pré-cadastro
 					<div class="form-group _icon-left col-md-12">
 						<select class="form-control" name="running_for_address_state" placeholder="Estado pelo qual concorre" ng-model="candidate.running_for_address_state" ng-disabled="candidate.office_id == 4 || !candidate.office_id">
 							<option value="" disabled selected ng-selected="selected">Estado pelo qual concorre</option>
-							<option ng-repeat="s in states" value="{{ $index }}">{{ s }}</option>
+							<option ng-repeat="(k, s) in states" value="{{ k }}">{{ s }}</option>
 						</select>
 				</div>
 				</div>
