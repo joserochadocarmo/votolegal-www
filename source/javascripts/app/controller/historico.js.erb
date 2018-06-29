@@ -32,6 +32,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		itemsPerPage: 10,
 	};
 
+	$scope.donationsReportDate = null;
 	$scope.donationsLoading = false;
 	$scope.donationsError = false;
 
@@ -79,6 +80,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 					if (response.data.statuses) $scope.donationsStatuses = response.data.statuses;
 					if (response.data.sortOptions) $scope.sortOptions = response.data.order_by_created_at;
+					if (response.data.generated_at) $scope.donationsReportDate = response.data.generated_at;
 
 					$scope.hasMoreDonations = response.data.has_more !== undefined
 						? !!response.data.has_more

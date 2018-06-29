@@ -11,16 +11,16 @@ title: Histórico de doações
 
 			<div class="col-md-12" style="margin-top:20px;">
 				<div class="row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-9">
 						<label for="donations-status" class="sr-only">Doações</label>
 						<select id="donations-status" ng-model="status" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="getDonationsList()" ng-show="donationsStatuses.length > 0">
 							<option ng-repeat="s in donationsStatuses" value="{{ s.name }}">{{ s.label }}</option>
 						</select>
 					</div>
-					<div class="form-group col-md-2">
-						<a href="{{ download.csv_file() }}" target="_blank" aria-busy="{{ donationsLoading ? 'true' : 'false' }}" class="btn btn-default btn-sm form-control">
+					<div class="form-group col-md-1">
+						<a href="{{ download.csv_file() }}" target="_blank" aria-busy="{{ donationsLoading ? 'true' : 'false' }}" class="btn btn-default btn-sm form-control" download="{{ status }}@{{ donationsReportDate }}">
 							<span class="caret"></span>
-							baixar todas as doações
+							baixar
 						</a>
 					</div>
 
