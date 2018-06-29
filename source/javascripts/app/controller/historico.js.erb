@@ -48,7 +48,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		var markerSegment = (positionToInsert === 'after' && !!lastDonation && !! lastDonation._marker)
 		? '/' + lastDonation._marker
 		: '';
-		var url = BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations' + markerSegment + '?api_key=' + user.api_key + '&filter=' + $scope.status + '&order_by_created_at=' + $scope.sort;
+
+		var url = BASE_API_JS + '/candidate/' + user.id + '/votolegal-donations' + markerSegment + '?api_key=' + user.api_key + ( !!$scope.status ? '&filter=' + $scope.status : '' ) + '&order_by_created_at=' + $scope.sort;
 
 		if ( positionToInsert !== 'before' && positionToInsert !== 'after' && positionToInsert !== '' ) {
 			positionToInsert = '';
