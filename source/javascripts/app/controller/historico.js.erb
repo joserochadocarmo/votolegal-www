@@ -92,9 +92,30 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 					if (!positionToInsert) {
 						$scope.donations = res;
 					} else if (positionToInsert === 'before' ) {
-						// TO-DO: compare and filter new donations
+						var donationToCompare = $scope.donationsRecent.length === 0
+							? $scope.donations[0]
+							: $scope.donationsRecent[0];
 
-						$scope.donationsRecent = res.concat($scope.donationsRecent);
+						if (!!donationToCompare) {
+							if ($scope.donations.length === 0) {
+
+								$scope.donationsRecentCount = res.length;
+								$scope.donationsRecent = res;
+
+							} else {
+								var i = 0;
+
+								while ( !!res[i] && res[i]._marker !== $scope.donations[0]._marker ) {
+									i += 1;
+								}
+
+								if (i > 0){
+									$scope.donationsRecentCount += i;
+									$scope.donationsRecent = res;
+								}
+							}
+						}
+
 					} else if (positionToInsert === 'after' ) {
 						$scope.donations = $scope.donations.concat(res);
 					}
@@ -131,9 +152,21 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 		if (table) {
 			$scope.getDonationsList('after');
+
+			window.setInterval(
+				function () {
+					$scope.getDonationsList('before');
+				}, 5 * 1000 * 60);
 		}
 
 		// TO-DO: call for new donations on intervals
+	};
+
+	$scope.refreshDonationsList = function () {
+		$scope.donationsRecentCount = 0;
+		$scope.donationsRecent = [];
+
+		return $scope.donations = $scope.donationsRecent;
 	};
 
 	// setting download of donations table

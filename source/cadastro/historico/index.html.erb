@@ -81,6 +81,7 @@ title: Histórico de doações
 								<tr ng-if="donationsRecentCount > 0">
 									<td colspan="13" class="alert alert-warning" role="alert">
 										Há pelo menos {{ donationsRecentCount }} novas transações desde {{ donations[donations.length - 1].created_at | date: 'dd/MM/yyyy hh:mm:ss' }}.
+										<button class="btn btn-link" role="link" type="button" ng-click="refreshDonationsList()">Carregar?</button>
 									</td>
 								</tr>
 								<tr ng-if="donationsError">
