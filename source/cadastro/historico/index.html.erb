@@ -78,9 +78,9 @@ title: Histórico de doações
 								</tr>
 							</tfoot>
 							<tbody>
-								<tr ng-if="donationsRecent.length > 0">
+								<tr ng-if="donationsRecentCount > 0">
 									<td colspan="13" class="alert alert-warning" role="alert">
-										Há pelo menos {{ donationsRecent.length }} novas transações desde {{ donations[donations.length - 1].created_at | date: 'dd/MM/yyyy hh:mm:ss' }}.
+										Há pelo menos {{ donationsRecentCount }} novas transações desde {{ donations[donations.length - 1].created_at | date: 'dd/MM/yyyy hh:mm:ss' }}.
 									</td>
 								</tr>
 								<tr ng-if="donationsError">
