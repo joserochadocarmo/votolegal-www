@@ -59,9 +59,8 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		if (positionToInsert !== '') {
 			$scope.donationsRecent = [];
 			$scope.donations = [];
+			$scope.donationsLoading = true;
 		}
-
-		$scope.donationsLoading = true;
 
 		try {
 			$http({
@@ -131,7 +130,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		var table = document.querySelector('#donations-table');
 
 		if (table) {
-			$scope.getDonationsList();
+			$scope.getDonationsList('after');
 		}
 
 		// TO-DO: call for new donations on intervals
