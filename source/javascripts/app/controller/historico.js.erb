@@ -108,7 +108,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 							} else {
 								var i = 0;
 
-								while ( !!res[i] && res[i]._marker !== $scope.donations[0]._marker ) {
+								while ( !!res[i] && res[i]._marker !== donationToCompare._marker ) {
 									i += 1;
 								}
 
