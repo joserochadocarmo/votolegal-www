@@ -16,7 +16,6 @@ $scope.reponseTheme = '';
 $scope.iframeStatus = {};
 $scope.error_list = [];
 
-var locationHost = window.location.host;
 
 
 
@@ -41,14 +40,11 @@ var locationHost = window.location.host;
 		})();
 
 		$scope.candidate.profile_url = function(){
-			var url = '';
-			if (locationHost.indexOf('dev-') > -1) {
-				url = locationHost.replace('dev-participe.','dev.');
-			} else {
-				url = locationHost.replace('participe.','')
-			}
+			var domain = window.location.href.indexOf('<%= config[:host] %>') !== -1
+				? 'votolegal.com.br'
+				: 'dev.votolegal.com.br';
 
-		  return $sce.trustAsResourceUrl("//" + url + "/em/" + $scope.candidate.username);
+			return $sce.trustAsResourceUrl("//" + domain + "/em/" + $scope.candidate.username);
 		};
 
 		$scope.publish = ($scope.candidate.is_published == 1) ? true : false;
