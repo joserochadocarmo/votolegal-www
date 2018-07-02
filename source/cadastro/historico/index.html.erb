@@ -78,19 +78,20 @@ title: Histórico de doações
 								</tr>
 							</tfoot>
 							<tbody>
-								<tr ng-if="donationsRecent.length > 0">
+								<tr ng-if="donationsRecentCount > 0">
 									<td colspan="13" class="alert alert-warning" role="alert">
-										Há {{ donationsRecent.length }} novas doações desde {{ donations[donations.length - 1].created_at_human | date:'dd/MM/yyyy hh:mm:ss' }}.
+										Há pelo menos {{ donationsRecentCount }} novas transações segundo os critérios escolhidos.
+										<button class="btn btn-link" role="link" type="button" ng-click="refreshDonationsList()">Carregar?</button>
 									</td>
 								</tr>
 								<tr ng-if="donationsError">
 									<td colspan="13" class="alert alert-danger" role="alert">
-										Houve um erro no carregamento da lista de doações. Por favor, contate o suporte.
+										Houve um erro no carregamento da lista de transações. Por favor, contate o suporte.
 									</td>
 								</tr>
 								<tr ng-if="donations.length == 0 && donationsRecent.length == 0 && !donationsLoading && !donationsError">
 									<td colspan="13" class="alert alert-warning" role="alert">
-										Ainda não há doações segundo esse critério.
+										Ainda não há transações segundo esse critério.
 									</td>
 								</tr>
 								<tr class="text-center {{ item.status ? 'donation--' + item.status : '' }}" ng-repeat="item in donations track by $index">
