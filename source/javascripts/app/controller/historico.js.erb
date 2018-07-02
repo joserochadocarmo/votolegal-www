@@ -46,7 +46,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	$scope.getDonationsList = function (positionToInsert) {
 		var user = $scope.user;
 		var lastDonation = $scope.donations[$scope.donations.length - 1];
-		var markerSegment = (positionToInsert === 'after' && !!lastDonation && !! lastDonation._marker)
+		var markerSegment = (positionToInsert === 'after' && !!lastDonation && !!lastDonation._marker)
 		? '/' + lastDonation._marker
 		: '';
 
@@ -166,10 +166,10 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	};
 
 	$scope.refreshDonationsList = function () {
+		$scope.donations = $scope.donationsRecent;
+
 		$scope.donationsRecentCount = 0;
 		$scope.donationsRecent = [];
-
-		return $scope.donations = $scope.donationsRecent;
 	};
 
 	// setting download of donations table
