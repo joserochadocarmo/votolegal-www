@@ -38,6 +38,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	$scope.donationsError = false;
 
 	$scope.donationsRecent = [];
+	$scope.donationsRecentCount = 0;
 	$scope.donations = [];
 	$scope.download = {};
 	$scope.donationsStatuses = [];
@@ -46,7 +47,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 	$scope.getDonationsList = function (positionToInsert) {
 		var user = $scope.user;
 		var lastDonation = $scope.donations[$scope.donations.length - 1];
-		var markerSegment = (positionToInsert === 'after' && !!lastDonation && !! lastDonation._marker)
+		var markerSegment = (positionToInsert === 'after' && !!lastDonation && !!lastDonation._marker)
 		? '/' + lastDonation._marker
 		: '';
 
@@ -56,7 +57,15 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 			positionToInsert = '';
 		}
 
-		$scope.donationsLoading = true;
+		if (positionToInsert === '') {
+			$scope.donationsRecent = [];
+			$scope.donationsRecentCount = 0;
+			$scope.donations = [];
+		}
+
+		if (positionToInsert !== 'before') {
+			$scope.donationsLoading = true;
+		}
 
 		try {
 			$http({
@@ -88,9 +97,30 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 					if (!positionToInsert) {
 						$scope.donations = res;
 					} else if (positionToInsert === 'before' ) {
-						// TO-DO: compare and filter new donations
+						var donationToCompare = $scope.donationsRecent.length === 0
+							? $scope.donations[0]
+							: $scope.donationsRecent[0];
 
-						$scope.donationsRecent = res.concat($scope.donationsRecent);
+						if (!!donationToCompare) {
+							if ($scope.donations.length === 0) {
+
+								$scope.donationsRecentCount = res.length;
+								$scope.donationsRecent = res;
+
+							} else {
+								var i = 0;
+
+								while ( !!res[i] && res[i]._marker !== donationToCompare._marker ) {
+									i += 1;
+								}
+
+								if (i > 0){
+									$scope.donationsRecentCount += i;
+									$scope.donationsRecent = res;
+								}
+							}
+						}
+
 					} else if (positionToInsert === 'after' ) {
 						$scope.donations = $scope.donations.concat(res);
 					}
@@ -126,10 +156,22 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 		var table = document.querySelector('#donations-table');
 
 		if (table) {
-			$scope.getDonationsList();
+			$scope.getDonationsList('after');
+
+			window.setInterval(
+				function () {
+					$scope.getDonationsList('before');
+				}, 5 * 1000 * 60);
 		}
 
 		// TO-DO: call for new donations on intervals
+	};
+
+	$scope.refreshDonationsList = function () {
+		$scope.donations = $scope.donationsRecent;
+
+		$scope.donationsRecentCount = 0;
+		$scope.donationsRecent = [];
 	};
 
 	// setting download of donations table
