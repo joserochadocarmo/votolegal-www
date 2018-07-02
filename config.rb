@@ -79,7 +79,7 @@ configure :build do
 #   config[:api_host] = "//dapi.votolegal.com.br/api"
 
   # webapp host address
-  config[:host] = "//www.participe.votolegal.com.br"
+  config[:host] = "//participe.votolegal.com.br"
 
   # Append a hash to asset urls (make sure to use the url helpers)
 #   activate :asset_hash

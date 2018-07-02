@@ -4088,7 +4088,8 @@ var error_msg = function (token) {
 		"video_url": "Preencha o campo de link do vídeo",
 		"summary": "Preeencha o campo da sua breve apresentação pessoal e da campanha",
 		"biography": "Preencha o campo de biografia",
-		"public_email": "Preencha o campo de e-mail de contato para eleitores"
+		"public_email": "Preencha o campo de e-mail de contato para eleitores",
+		"raising_goal": "Não é possível habilitar sua página antes de definir uma meta de arrecadação"
 	};
 
 	var pagseguroMessages = {
@@ -7073,6 +7074,12 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 			positionToInsert = '';
 		}
 
+		if (positionToInsert === 'before') {
+			if ($scope.sort === 'asc' && !!$scope.hasMoreDonations) {
+				return;
+			}
+		}
+
 		if (positionToInsert === '') {
 			$scope.donationsRecent = [];
 			$scope.donationsRecentCount = 0;
@@ -7767,7 +7774,6 @@ $scope.reponseTheme = '';
 $scope.iframeStatus = {};
 $scope.error_list = [];
 
-var locationHost = window.location.host;
 
 
 
@@ -7792,14 +7798,11 @@ var locationHost = window.location.host;
 		})();
 
 		$scope.candidate.profile_url = function(){
-			var url = '';
-			if (locationHost.indexOf('dev-') > -1) {
-				url = locationHost.replace('dev-participe.','dev.');
-			} else {
-				url = locationHost.replace('participe.','')
-			}
+			var domain = window.location.href.indexOf('//participe.votolegal.com.br') !== -1
+				? 'votolegal.com.br'
+				: 'dev.votolegal.com.br';
 
-		  return $sce.trustAsResourceUrl("//" + url + "/em/" + $scope.candidate.username);
+			return $sce.trustAsResourceUrl("//" + domain + "/em/" + $scope.candidate.username);
 		};
 
 		$scope.publish = ($scope.candidate.is_published == 1) ? true : false;
