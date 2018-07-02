@@ -75,16 +75,6 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 				function (response) {
 					var res = response.data.donations;
 
-					for (var i in res) {
-						// format birthday
-						if (res[i].birthdate) {
-							var birth = res[i].birthdate.match(/^(\d{4})\-(\d{2})\-(\d{2})$/);
-							res[i].birthday = birth[3] + "/" + birth[2] + "/" + birth[1];
-						} else {
-							res[i].birthday = '';
-						}
-					}
-
 					if (response.data.statuses) $scope.donationsStatuses = response.data.statuses;
 					if (response.data.sortOptions) $scope.sortOptions = response.data.order_by_created_at;
 					if (response.data.generated_at) $scope.donationsReportDate = response.data.generated_at;

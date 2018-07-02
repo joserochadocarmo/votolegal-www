@@ -234,7 +234,7 @@
 										{{ item.cpf | brCpf }}
 									</td>
 									<td title="Telefone">{{ item.phone ? ( item.phone | brPhoneNumber) : '-' }}</td>
-									<td title="Nascimento">{{ item.birthday || '-' }}</td>
+									<td title="Nascimento">{{ item.birthdate_human || '-' }}</td>
 									<td title="Método">{{ item.payment_method_human }}</td>
 									<td title="Valor" class="text-nowrap">
 										{{ item.amount ? (item.amount | finance: 'R$' ) : '-' }}
@@ -243,10 +243,10 @@
 										{{ item.created_at_human || '-' }}
 									</td>
 									<td title="Data da captura" class="{{ !!item.captured_at ? 'alert-success' : '' }}">
-										{{ item.captured_at || '-' }}
+										{{ item.captured_at_human || '-' }}
 									</td>
 									<td title="Data do extorno" class="{{ !!item.refunded_at ? 'alert-danger' : '' }}">
-										{{ item.refunded_at || '-' }}
+										{{ item.refunded_at_human || '-' }}
 									</td>
 									<td title="Status">
 										{{ item.status.label || item.status }}
@@ -316,7 +316,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-0265aafd.js"></script>
+												<script src="/javascripts/all-82d5fa05.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
