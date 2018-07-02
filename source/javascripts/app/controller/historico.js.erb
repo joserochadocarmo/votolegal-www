@@ -58,6 +58,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 
 		if (positionToInsert === '') {
 			$scope.donationsRecent = [];
+			$scope.donationsRecentCount = 0;
 			$scope.donations = [];
 		}
 
