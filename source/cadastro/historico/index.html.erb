@@ -113,7 +113,7 @@ title: Histórico de doações
 										{{ item.cpf | brCpf }}
 									</td>
 									<td title="Telefone">{{ item.phone ? ( item.phone | brPhoneNumber) : '-' }}</td>
-									<td title="Nascimento">{{ item.birthday || '-' }}</td>
+									<td title="Nascimento">{{ item.birthdate_human || '-' }}</td>
 									<td title="Método">{{ item.payment_method_human }}</td>
 									<td title="Valor" class="text-nowrap">
 										{{ item.amount ? (item.amount | finance: 'R$' ) : '-' }}
@@ -122,10 +122,10 @@ title: Histórico de doações
 										{{ item.created_at_human || '-' }}
 									</td>
 									<td title="Data da captura" class="{{ !!item.captured_at ? 'alert-success' : '' }}">
-										{{ item.captured_at || '-' }}
+										{{ item.captured_at_human || '-' }}
 									</td>
 									<td title="Data do extorno" class="{{ !!item.refunded_at ? 'alert-danger' : '' }}">
-										{{ item.refunded_at || '-' }}
+										{{ item.refunded_at_human || '-' }}
 									</td>
 									<%# <td title="Número do Documento">{{ item.document_number }}</td> %>
 									<%# <td title="Número da Autorização">{{ item.authorization_number }}</td> %>
