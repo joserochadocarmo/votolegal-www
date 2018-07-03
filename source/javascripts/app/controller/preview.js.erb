@@ -40,9 +40,9 @@ $scope.error_list = [];
 		})();
 
 		$scope.candidate.profile_url = function(){
-			var domain = window.location.href.indexOf('<%= config[:host] %>') !== -1
-				? 'votolegal.com.br'
-				: 'dev.votolegal.com.br';
+			var domain = window.location.href.indexOf('//dev') !== -1 || window.location.href.indexOf('//localhost') !== -1 || window.location.href.indexOf('//192.') !== -1
+				? 'dev.votolegal.com.br'
+				: 'votolegal.com.br';
 
 			return $sce.trustAsResourceUrl("//" + domain + "/em/" + $scope.candidate.username);
 		};
