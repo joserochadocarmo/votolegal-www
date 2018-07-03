@@ -4089,7 +4089,8 @@ var error_msg = function (token) {
 		"summary": "Preeencha o campo da sua breve apresentação pessoal e da campanha",
 		"biography": "Preencha o campo de biografia",
 		"public_email": "Preencha o campo de e-mail de contato para eleitores",
-		"raising_goal": "Não é possível habilitar sua página antes de definir uma meta de arrecadação"
+		"raising_goal": "Não é possível habilitar sua página antes de definir uma meta de arrecadação",
+		"picture": "Não é possível habilitar sua página pública antes de escolher um imagem de perfil a ser usada nos compartilhamentos em redes sociais"
 	};
 
 	var pagseguroMessages = {
@@ -7798,9 +7799,9 @@ $scope.error_list = [];
 		})();
 
 		$scope.candidate.profile_url = function(){
-			var domain = window.location.href.indexOf('//participe.votolegal.com.br') !== -1
-				? 'votolegal.com.br'
-				: 'dev.votolegal.com.br';
+			var domain = window.location.href.indexOf('//dev') !== -1 || window.location.href.indexOf('//localhost') !== -1 || window.location.href.indexOf('//192.') !== -1
+				? 'dev.votolegal.com.br'
+				: 'votolegal.com.br';
 
 			return $sce.trustAsResourceUrl("//" + domain + "/em/" + $scope.candidate.username);
 		};
