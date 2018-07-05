@@ -73,6 +73,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.senderHash = '';
 		$scope.errorListPaymentServer = [];
 		$scope.paymentFields = true;
+		$scope.successMessage = '';
 
 
 
@@ -105,6 +106,7 @@ app.votolegal.controller("PaymentController", [
 					addressHouseNumber: localStorageUserData.address_house_number,
 					amount: localStorageUserData.amount,
 					payment_method: localStorageUserData.payment_method,
+					card: $scope.candidate.card
 				}
 			}
 		}
