@@ -117,6 +117,7 @@ title: Pagamento
 								</div>
 							</div>
 						</div>
+
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group icon-left">
@@ -131,6 +132,7 @@ title: Pagamento
 								</div>
 							</div>
 						</div>
+
 						<div class="row">
 							<div class="col-md-8">
 								<div class="form-group icon-left">
@@ -148,17 +150,15 @@ title: Pagamento
 							</div>
 						</div>
 
-
-
 						<div class="row">
 							<div class="col-md-12">
 								<h3>Escolha uma forma de pagamento</h3>
 							</div>
 							<div class="payment-type">
-								<div class="col-md-6">
+								<div class="col-xs-6">
 									<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required ng-click="manageCondition(pagamento.typePayment)"> Boleto
 								</div>
-								<div class="col-md-6">
+								<div class="col-xs-6">
 									<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="manageCondition(pagamento.typePayment)"> Cartão de crédito
 								</div>
 								<div class="col-md-12">
@@ -169,7 +169,7 @@ title: Pagamento
 								<div class="col-md-12">
 									<h3>Dados do cartão de crédito</h3>
 								</div>
-								<div class="wrapper-number-num-card clearfix">
+								<div class="clearfix">
 									<div class="form-group icon-left col-md-6">
 										<i class="fa fa-credit-card"></i>
 										<input class="form-control " name="cardName" ng-model="candidate.card.name" ng-required="paymentMethod === 'creditCard'"
@@ -228,7 +228,8 @@ title: Pagamento
 
 							<label ng-if="mensagem_sucesso" style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{mensagem_sucesso}} </label>
 						</div>
-						<div class=" clearfix">
+
+						<div class="row">
 							<div class="col-md-12">
 								<div ng-show="errorListPaymentServer.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
 									class="error-panel">
@@ -239,6 +240,7 @@ title: Pagamento
 								</div>
 							</div>
 						</div>
+					</div>
 				</div>
 			</form>
 		</div>
