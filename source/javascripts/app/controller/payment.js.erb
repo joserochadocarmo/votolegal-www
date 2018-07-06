@@ -75,7 +75,13 @@ app.votolegal.controller("PaymentController", [
 		$scope.paymentFields = true;
 		$scope.successMessage = '';
 
+		if (CONFIG.paymentGateway === 'iugu'){
+			Iugu.setAccountID('68DE978054A6496F9C1AC8214381195C');
 
+			if (CONFIG.environment === 'development') {
+				Iugu.setTestMode(true);
+			}
+		}
 
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
