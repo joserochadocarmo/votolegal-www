@@ -7271,7 +7271,7 @@ app.votolegal.controller("PaymentController", [
 		$scope.formDisable = true;
 		$scope.loading = false;
 		$scope.error_list = [],
-		$scope.paymentMethod = '';
+		$scope.paymentMethod = 'boleto';
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
 		$scope.boletoUrl = null;
