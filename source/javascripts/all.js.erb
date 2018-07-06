@@ -739,6 +739,7 @@ app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', funct
 					"address_street": address_street,
 					"address_house_number": address_house_number,
 					"phone": phone,
+					"gateway": CONFIG.paymentGateway
 				}),
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
