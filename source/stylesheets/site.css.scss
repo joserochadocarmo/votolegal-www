@@ -2281,3 +2281,12 @@ input[type=checkbox].contract-ckeck {
 	width: 4em;
 	max-width: 4em;
 }
+
+.field-error-message {
+	border-radius: 5px;
+	border: 2px solid rgb(234, 53, 53);
+	color: rgb(234, 53, 53);
+	display: block;
+	margin: 10px 0px;
+	padding: 5px 5px;
+}
