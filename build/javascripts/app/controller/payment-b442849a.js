@@ -56,6 +56,7 @@ app.votolegal.controller("PaymentController", [
 				monthCardExpire: '',
 				yearCardExpire: '',
 				cvvCard: '',
+				brandCard: ''
 			}
 		};
 
@@ -65,16 +66,107 @@ app.votolegal.controller("PaymentController", [
 		$scope.formDisable = true;
 		$scope.loading = false;
 		$scope.error_list = [],
-		$scope.paymentMethod = 'boleto';
+		$scope.paymentMethod = '';
 		var year = new Date()
 		$scope.currentYear = year.getFullYear();
 		$scope.boletoUrl = null;
 		$scope.error = '';
-		$scope.senderHash = '';
+		$scope.token = '';
 		$scope.errorListPaymentServer = [];
 		$scope.paymentFields = true;
+		$scope.mensagem_sucesso = '';
 
+		if (CONFIG.paymentGateway === 'iugu' && typeof Iugu !== 'undefined') {
+			Iugu.setAccountID('68DE978054A6496F9C1AC8214381195C');
 
+			if (CONFIG.environment === 'development') {
+				Iugu.setTestMode(true);
+			}
+		}
+
+		$scope.validateCreditCardNumber = function () {
+			if (CONFIG.paymentGateway !== 'iugu') return;
+
+			var isCardNumberValid = !$scope.candidate.card.cardNumber
+				? false
+				: Iugu.utils.validateCreditCardNumber($scope.candidate.card.cardNumber);
+
+			return $scope.pagamento.cardNumber.$setValidity('creditCardInvalid', isCardNumberValid);
+		}
+
+		_getCreditCardBrandIugu = function () {
+			return $scope.candidate.card.brandCard = !$scope.candidate.card.cardNumber
+				? false
+				: Iugu.utils.getBrandByCreditCardNumber($scope.candidate.card.cardNumber);
+		}
+
+		$scope.validateCreditCardBrand = function () {
+			if (CONFIG.paymentGateway !== 'iugu') return;
+
+			return !_getCreditCardBrandIugu()
+				? $scope.pagamento.cardNumber.$setValidity('creditCardInvalidBrand', false)
+				: $scope.pagamento.cardNumber.$setValidity('creditCardInvalidBrand', true);
+		}
+
+		$scope.validateCreditCardExpirationDate = function () {
+			if (CONFIG.paymentGateway !== 'iugu') return;
+
+			var expirationMonthAndYear = $scope.candidate.card.monthCardExpire + '/' + $scope.candidate.card.yearCardExpire;
+			var isExpirationValid = expirationMonthAndYear.indexOf('/') < 2
+				? false
+				: Iugu.utils.validateExpirationString(expirationMonthAndYear);
+
+			return $scope.pagamento.yearCardExpire.$setValidity('creditCardInvalidDate', isExpirationValid);
+		}
+
+		$scope.validateCreditCardCvv = function () {
+			if (CONFIG.paymentGateway !== 'iugu') return;
+
+			var isCvvValid = !$scope.candidate.card.cvvCard || !$scope.candidate.card.brandCard
+				? false
+				: Iugu.utils.validateCVV($scope.candidate.card.cvvCard, $scope.candidate.card.brandCard);
+
+			return $scope.pagamento.cvvCard.$setValidity('creditCardInvalidCvv', isCvvValid);
+		}
+
+		_createCreditCardObjectIugu = function () {
+			var names = $scope.candidate.card.name.split(' ');
+			var name = names.shift();
+			var surname = names.join(' ') || '';
+
+			return Iugu.CreditCard(
+				$scope.candidate.card.cardNumber,
+				$scope.candidate.card.monthCardExpire,
+				$scope.candidate.card.yearCardExpire,
+				name,
+				surname,
+				$scope.candidate.card.cvvCard
+			);
+		}
+
+		_submitCcPaymentUsingIugu = function () {
+			var cc = _createCreditCardObjectIugu();
+			var isCcValid = cc.valid();
+
+			if (!isCcValid) {
+				$scope.errorListPaymentServer.push({
+					title: 'cartão inválido'
+				});
+				return $scope.loading = false;
+			}
+
+			$scope.errorListPaymentServer = [];
+
+			Iugu.createPaymentToken(cc, function (response) {
+				if (response.errors) {
+					$scope.errorListPaymentServer.push(response.errors);
+				} else {
+					$scope.token = response.id;
+					_submitPayment();
+				}
+				return $scope.loading = false;
+			});
+		}
 
 		$scope.getSessionId = function () {
 			return new Promise(function (resolve) {
@@ -105,6 +197,7 @@ app.votolegal.controller("PaymentController", [
 					addressHouseNumber: localStorageUserData.address_house_number,
 					amount: localStorageUserData.amount,
 					payment_method: localStorageUserData.payment_method,
+					card: $scope.candidate.card
 				}
 			}
 		}
@@ -113,8 +206,10 @@ app.votolegal.controller("PaymentController", [
 		$scope.getSessionId()
 			.then(function (val) {
 				$scope.boletoUrl = null;
-				$scope.SetSessionId(val.data.id)
 
+				if (CONFIG.paymentGateway === 'pagseguro'){
+					$scope.SetSessionId(val.data.id)
+				}
 			}, function (resp) {
 				if (resp.data.error == "user did not sign contract") {
 
@@ -281,11 +376,61 @@ app.votolegal.controller("PaymentController", [
 			})
 		}
 
+		_submitPayment = function () {
+			var name = $scope.paymentMethod === 'creditCard'
+				? $scope.candidate.card.name
+				: $scope.candidate.name;
+
+			var userId = localStorage.getItem("userId");
+
+			$scope.loading = true;
+
+			return payment_pagseguro.payment(
+				userId,
+				$scope.senderHash,
+				$scope.token,
+				$scope.paymentMethod,
+				name,
+				$scope.candidate.email,
+				$scope.candidate.phone,
+				$scope.candidate.zipCode,
+				$scope.candidate.addressState,
+				$scope.candidate.addressCity,
+				$scope.candidate.addressDistrict,
+				$scope.candidate.addressStreet,
+				$scope.candidate.addressHouseNumber,
+			).success(function (response) {
+				if ($scope.paymentMethod === 'creditCard') {
+					$scope.mensagem_sucesso = 'Sucesso';
+					localStorage.setItem('paymentRedirect', 1);
+					document.location = '/pagamento/analise';
+				} else if ($scope.paymentMethod === 'boleto') {
+					$scope.boletoUrl = response.url;
+					$scope.mensagem_sucesso = response.mensagem_sucesso;
+				}
+
+				$scope.loading = false;
+			}).error(function (errors) {
+				$scope.loading = false;
+				$scope.errorListPaymentServer.push(errors);
+			});
+		}
+
 		$scope.submit = function (valid, form) {
 			$scope.error = '';
 			$scope.errorListPaymentServer = [];
 
 			if (valid) {
+				if (CONFIG.paymentGateway === 'iugu') {
+
+					$scope.loading = true;
+
+					if (form.typePayment.$viewValue == 'creditCard') {
+						return _submitCcPaymentUsingIugu();
+					} else if (form.typePayment.$viewValue == 'boleto') {
+						return _submitPayment();
+					}
+				}
 
 				if (form.typePayment.$viewValue == 'boleto') {
 					var userId = localStorage.getItem("userId");
