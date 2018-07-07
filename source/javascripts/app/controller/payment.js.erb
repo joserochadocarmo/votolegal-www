@@ -121,8 +121,10 @@ app.votolegal.controller("PaymentController", [
 		$scope.getSessionId()
 			.then(function (val) {
 				$scope.boletoUrl = null;
-				$scope.SetSessionId(val.data.id)
 
+				if (CONFIG.paymentGateway === 'pagseguro'){
+					$scope.SetSessionId(val.data.id)
+				}
 			}, function (resp) {
 				if (resp.data.error == "user did not sign contract") {
 
