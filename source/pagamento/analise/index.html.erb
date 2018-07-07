@@ -20,7 +20,7 @@ title: Análise do Pagamento
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' ">
+				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' " ng-cloak>
 					<h1 class="page-title">Seu boleto foi gerado!</h1>
 
 					<p>Após o pagamento, a confirmação ocorre em até 3 dias úteis.</p>
@@ -32,7 +32,7 @@ title: Análise do Pagamento
 					</div>
 				</div>
 
-				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' ">
+				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' " ng-cloak>
 					<h1 class="page-title">Pagamento em análise</h1>
 
 					<p>Seu pagamento foi realizado e está em análise.</p>
