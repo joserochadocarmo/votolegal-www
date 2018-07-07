@@ -2290,3 +2290,12 @@ input[type=checkbox].contract-ckeck {
 	margin: 10px 0px;
 	padding: 5px 5px;
 }
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+	display: none !important;
+}
