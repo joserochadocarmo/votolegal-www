@@ -10,12 +10,23 @@ var BASE_API = '<%= config[:api_host] %>';
 
 var BASE_API_JS = '';
 
+/**
+ * paymentGateway 'iugu' || 'pagseguro';
+ */
+var CONFIG = {
+	paymentGateway: 'iugu'
+};
 
-var server = window.location;
-if (server.hostname == 'participe.votolegal.com.br') {
+if (window.location.hostname == 'participe.votolegal.com.br') {
 	BASE_API_JS = '//api.votolegal.com.br/api';
-	} else {
+	CONFIG.apiHref = 'https://api.votolegal.com.br/api';
+	CONFIG.environment = 'production';
+	CONFIG.publicHref = 'https://votolegal.com.br/em';
+} else {
 	BASE_API_JS = '//dapi.votolegal.com.br/api';
+	CONFIG.apiHref = 'https://dapi.votolegal.com.br/api';
+	CONFIG.environment = 'development';
+	CONFIG.publicHref = 'https://dev.votolegal.com.br/em';
 }
 
 
@@ -728,6 +739,7 @@ app.votolegal.factory('payment_pagseguro', ['$http', 'serialize', 'store', funct
 					"address_street": address_street,
 					"address_house_number": address_house_number,
 					"phone": phone,
+					"gateway": CONFIG.paymentGateway
 				}),
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'

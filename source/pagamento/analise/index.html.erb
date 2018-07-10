@@ -20,18 +20,10 @@ title: Análise do Pagamento
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' ">
+				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' " ng-cloak>
 					<h1 class="page-title">Seu boleto foi gerado!</h1>
 
 					<p>Após o pagamento, a confirmação ocorre em até 3 dias úteis.</p>
-
-					<p>
-						Você será notificado por e-mail, sobre o status do seu pagamento, assim que o pagamento for identificado.
-					</p>
-					<p>
-						Dúvidas? Acesse
-						<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.
-					</p>
 
 					<div class="jumbotron alert alert-warning">
 						<p>Caso tenha tido algum problema com seu boleto refaça a operação.
@@ -40,19 +32,20 @@ title: Análise do Pagamento
 					</div>
 				</div>
 
-				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' ">
-
+				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' " ng-cloak>
 					<h1 class="page-title">Pagamento em análise</h1>
 
 					<p>Seu pagamento foi realizado e está em análise.</p>
-					<p>
-						Você será notificado por e-mail, sobre o status do seu pagamento, assim que o pagamento for identificado.
-					</p>
-					<p>
-						Dúvidas? Acesse
-						<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.
-					</p>
 				</div>
+
+				<p>
+					Você será notificado por e-mail, sobre o status do seu pagamento, assim que ele for identificado.
+				</p>
+
+				<p>
+					Dúvidas? Acesse
+					<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.
+				</p>
 			</div>
 		</div>
 	</div>
