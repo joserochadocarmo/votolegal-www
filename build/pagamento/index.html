@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-400021c6.css" rel="stylesheet" />
+	<link href="/stylesheets/all-558c4fa4.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -21,6 +21,9 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+	<style>
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+	</style>
 </head>
 
 <body class="pagamento pagamento_index" data-controller="" data-action="">
@@ -161,7 +164,7 @@
 						</p>
 						<ul>
 							<li class="value-payment__setup">
-								<span class="value-payment__value">
+								<span class="value-payment__value" ng-cloak>
 									<span class="value-payment__currency">R$</span>{{candidate.amount}}
 								</span>
 								<span class="value-payment__info">Parcela única para setup</span>
@@ -211,7 +214,7 @@
 								<div class="form-group">
 									<input class="form-control" name="phone" ng-model="candidate.phone" type="text" placeholder="*Tel" mask="(99)99999-9999"
 										required>
-									<label ng-if="pagamento.phone.$error.mask  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Telefone Inváido</label>
+									<label ng-if="pagamento.phone.$error.mask  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Telefone Inválido</label>
 									<label ng-if="pagamento.phone.$error.required  && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O telefone é obrigatório</label>
 								</div>
 							</div>
@@ -239,6 +242,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group icon-left">
@@ -253,6 +257,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="row">
 							<div class="col-md-8">
 								<div class="form-group icon-left">
@@ -270,107 +275,157 @@
 							</div>
 						</div>
 
-
-
 						<div class="row">
 							<div class="col-md-12">
 								<h3>Escolha uma forma de pagamento</h3>
 							</div>
 							<div class="payment-type">
-								<div class="col-md-6">
+								<div class="col-xs-6">
 									<input type="radio" name="typePayment" value="boleto" ng-model="paymentMethod" required ng-click="manageCondition(pagamento.typePayment)"> Boleto
 								</div>
-								<div class="col-md-6">
-									<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="manageCondition(pagamento.typePayment)" disabled> Cartão de crédito
-
-									<a class="btn-info" tabindex="-1" href="javascript:void(0);"  data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Seu nome será seu domínio dentro do Voto Legal. Siga o exemplo: votolegal.com.br/em/seunome">
-									<i class="fa fa-info"></i>
-									</a>
-
+								<div class="col-xs-6">
+									<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="manageCondition(pagamento.typePayment)"> Cartão de crédito
 								</div>
 								<div class="col-md-12">
-									<label ng-if="pagamento.typePayment.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Escolha a forma de pagamento</label>
+									<small ng-if="pagamento.typePayment.$error.required && pagamento.$submitted" class="field-error-message">Escolha a forma de pagamento</small>
 								</div>
 							</div>
 							<div class="credit-card-method" ng-if="paymentMethod === 'creditCard'">
 								<div class="col-md-12">
 									<h3>Dados do cartão de crédito</h3>
 								</div>
-								<div class="wrapper-number-num-card clearfix">
+								<div class="clearfix">
 									<div class="form-group icon-left col-md-6">
 										<i class="fa fa-credit-card"></i>
 										<input class="form-control " name="cardName" ng-model="candidate.card.name" ng-required="paymentMethod === 'creditCard'"
-											type="text" placeholder="Nome impresso no Cartão" >
-										<!-- error number card -->
-										<label ng-if="pagamento.cardName.$error.required && pagamento.$submitted" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O nome do cartão é obrigatório por favor verifique os dados inseridos</label>
+										type="text" placeholder="Nome impresso no Cartão">
+
+										<small ng-show="pagamento.cardName.$error.required && (pagamento.$submitted || pagamento.cardName.$touched)" class="field-error-message">
+											O nome do detentor do cartão é obrigatório
+										</small>
 									</div>
 									<div class="form-group icon-left col-md-6">
 										<i class="fa fa-credit-card"></i>
 										<input class="form-control  " name="cardNumber" data-cardNumber="Número do cartão" ng-model="candidate.card.cardNumber" ng-required="paymentMethod === 'creditCard'"
-											type="text" placeholder="Número do cartão" mask="9999 9999 9999 9999" >
-										<!-- error number card -->
-										<label ng-if="(pagamento.cardNumber.$error.required || pagamento.cardNumber.$error.mask  ) && (pagamento.$submitted && paymentMethod === 'creditCard')"
-											style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;" required>O número do cartão é obrigatório por favor verifique os dados inseridos</label>
+											type="text" placeholder="Número do cartão" mask="9999 9999 9999 9999" ng-change="validateCreditCardNumber(); validateCreditCardBrand();">
+
+										<div ng-show="pagamento.$submitted || pagamento.cardNumber.$touched">
+											<small ng-show="pagamento.cardNumber.$error.required" class="field-error-message">
+												O número do cartão é obrigatório
+											</small>
+											<small ng-show="!pagamento.cardNumber.$error.required && !pagamento.cardNumber.$error.creditCardInvalidBrand && (pagamento.cardNumber.$error.creditCardInvalid || pagamento.cardNumber.$error.mask)"
+											class="field-error-message">
+												Número inválido
+											</small>
+											<small ng-show="!pagamento.cardNumber.$error.required && !pagamento.cardNumber.$error.mask && pagamento.cardNumber.$error.creditCardInvalidBrand"
+											class="field-error-message">
+												Bandeira inválida. As bandeiras suportadas são "visa", "mastercard", "amex", "diners" e "elo"
+											</small>
+										</div>
 									</div>
 								</div>
 
-								<div class="form-group icon-left col-md-4">
-									<i class="fa fa-credit-card"></i>
-									<input class="form-control" name="monthCardExpire" data-monthCardExpire="Mês que o cartão expira" ng-model="candidate.card.monthCardExpire"
-										type="number" placeholder="Mês de vencimento" min="01" max="12" ng-required="paymentMethod === 'creditCard'" >
-									<!-- error month card -->
-									<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.monthCardExpire.$error.required)"
-										style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O mês de validade do cartão é obrigatório</label>
+								<div class="clearfix">
+									<div class="form-group icon-left col-xs-6">
+										<i class="fa fa-credit-card"></i>
+										<input class="form-control" name="monthCardExpire" data-monthCardExpire="Mês que o cartão expira" ng-model="candidate.card.monthCardExpire"
+										type="tel" placeholder="Mês de vencimento" min="01" max="12" mask="99" ng-required="paymentMethod === 'creditCard'" ng-change="validateCreditCardExpirationDate()">
 
-									<label ng-if="(pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max) && (pagamento.$submitted && paymentMethod === 'creditCard')"
-										style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">Os números devem estar entre 1 e 12</label>
-								</div>
-								<div class="form-group icon-left col-md-4">
-									<i class="fa fa-credit-card"></i>
-									<input class="form-control" name="yearCardExpire" data-yearCardExpire="Ano que o cartão expira" ng-model="candidate.card.yearCardExpire" type="number" min="{{currentYear}}" placeholder="Ano de vencimento" mask="9999" ng-required="paymentMethod === 'creditCard'">
-									<div ng-if="paymentFields  == true">
-										<label ng-if="pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.yearCardExpire.$error.required" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão é obrigatório</label>
-										<label ng-if="pagamento.yearCardExpire.$error.min && pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.yearCardExpire.$error" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O ano de validade do cartão deve ser a partir do ano {{currentYear}}</label>
+										<div ng-show="pagamento.$submitted || pagamento.monthCardExpire.$touched">
+											<small ng-show="pagamento.monthCardExpire.$error.required"class="field-error-message">
+												O mês de validade do cartão é obrigatório
+											</small>
+											<small ng-show="!pagamento.monthCardExpire.$error.required && pagamento.monthCardExpire.$error.mask" class="field-error-message">
+												O mês de validade do cartão é inválido
+											</small>
+											<small ng-show="!pagamento.monthCardExpire.$error.required && (pagamento.monthCardExpire.$error.min || pagamento.monthCardExpire.$error.max)" class="field-error-message">
+												Os números devem estar entre 1 e 12
+											</small>
+										</div>
+									</div>
+
+									<div class="form-group icon-left col-xs-6">
+										<i class="fa fa-credit-card"></i>
+										<input class="form-control" name="yearCardExpire" data-yearCardExpire="Ano que o cartão expira" ng-model="candidate.card.yearCardExpire" type="tel" min="{{ currentYear }}" placeholder="Ano de vencimento" mask="9999" ng-required="paymentMethod === 'creditCard'" ng-change="validateCreditCardExpirationDate()">
+
+										<div ng-show="pagamento.$submitted || pagamento.yearCardExpire.$touched">
+											<small ng-show="pagamento.yearCardExpire.$error.required" class="field-error-message">
+												O ano de validade do cartão é obrigatório
+											</small>
+											<small ng-show="!pagamento.yearCardExpire.$error.required && pagamento.yearCardExpire.$error.mask" class="field-error-message">
+												O ano de validade do cartão é inválido
+											</small>
+											<small ng-show="!pagamento.yearCardExpire.$error.required && pagamento.yearCardExpire.$error.min" class="field-error-message">
+												O ano de validade do cartão deve ser a partir de {{currentYear}}
+											</small>
+										</div>
+
+									</div>
+									<div class="col-xs-12" ng-show="pagamento.$submitted || (pagamento.monthCardExpire.$touched && pagamento.yearCardExpire.$touched)">
+										<small ng-show="!pagamento.monthCardExpire.$error.required && !pagamento.yearCardExpire.$error.required && !pagamento.yearCardExpire.$error.mask && !pagamento.yearCardExpire.$error.min && (pagamento.yearCardExpire.$error.creditCardInvalidDate)" class="field-error-message">
+											Data inválida
+										</small>
 									</div>
 								</div>
-								<div class="form-group icon-left col-md-4">
-									<i class="fa fa-credit-card"></i>
-									<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cod. de segurança"
-										required >
-										<label ng-if="(pagamento.$submitted && paymentMethod === 'creditCard' && pagamento.cvvCard.$error.required)" style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px;">O Código de segurança do cartão é obrigatório</label>
+
+								<div class="clearfix">
+									<div class="form-group icon-left col-md-4">
+										<i class="fa fa-credit-card"></i>
+										<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cód. de segurança"
+											ng-required="paymentMethod === 'creditCard'" ng-change="validateCreditCardCvv()">
+
+										<div ng-show="pagamento.$submitted || pagamento.cvvCard.$touched">
+											<small ng-show="pagamento.cvvCard.$error.required" class="field-error-message">
+												O código de segurança é obrigatório
+											</small>
+
+											<small ng-show="!pagamento.cvvCard.$error.required && pagamento.cvvCard.$error.creditCardInvalidCvv" class="field-error-message">
+												O código de segurança é inválido
+											</small>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<button class="register-submit loading" ng-if="loading" type="submit" >
-								<img src="../images/ajax-loader-fbc9071e.gif" alt="">
-							</button>
-							<input class="register-submit" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
 
-							<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block alert alert-warning " ng-if="boletoUrl.length> 0" ng-click="redirectBoleto()">Imprimir boleto </a>
+							<div class="form-group col-xs-12 boleto-method" ng-if="paymentMethod === 'boleto'">
 
-							<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{error}} </label>
+								<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block alert alert-warning " ng-if="boletoUrl.length> 0"
+									ng-click="redirectBoleto()">Imprimir boleto </a>
 
-							<label ng-if="success.length > 0 " style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{success}} </label>
+							</div>
+							<div class="col-xs-12">
 
-							<label ng-if="mensagem_sucesso" style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{mensagem_sucesso}} </label>
-						</div>
-						<div class=" clearfix">
-							<div class="col-md-12">
-								<div ng-show="errorListPaymentServer.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;"
-									class="error-panel">
-									<h4>Os seguinte campos precisam ser corrigidos:</h4>
-									<ul style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope">
-										<li ng-repeat="error in errorListPaymentServer">{{error.title}}</li>
-									</ul>
-								</div>
+								<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{error}} </label>
+
+								<label ng-if="success.length > 0 " style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{success}} </label>
+
+								<label ng-if="mensagem_sucesso" style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{mensagem_sucesso}} </label>
+
+							</div>
+							<div ng-show="errorListPaymentServer.length > 0" class="error-panel col-xs-12">
+								<h4>Os seguinte campos precisam ser corrigidos:</h4>
+								<ul class="ng-scope">
+									<li ng-repeat="error in errorListPaymentServer">{{ error.title || error }}</li>
+								</ul>
+							</div>
+
+							<div class="col-xs-12">
+								<button class="register-submit loading" ng-if="loading" type="submit" ng-disabled="loading">
+									<img src="../images/ajax-loader-fbc9071e.gif" alt="">
+								</button>
+
+								<input class="register-submit" type="submit" value="enviar" ng-if="boletoUrl == null" ng-hide="loading">
 							</div>
 						</div>
+					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </section>
+<!-- TODO: conditionally load payment gateway -->
+<script type="text/javascript" src="https://js.iugu.com/v2"></script>
+<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
 
 
@@ -412,7 +467,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-aa8583a5.js"></script>
+												<script src="/javascripts/all-3fa775fe.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
@@ -490,7 +545,6 @@
       ga('send', 'pageview');
     </script>
 
-																<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
 
 

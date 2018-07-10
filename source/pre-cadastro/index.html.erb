@@ -183,12 +183,13 @@ title: Pré-cadastro
 					</label>
 					</div> -->
 					<div class="form-group col-md-12">
-						<button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="register-submit">Enviar</button>
 						<div ng-show="error_list.length > 0" style="margin: 30px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 10px 15px; border-radius: 5px;" class="error-panel">
-						<h4>Os seguinte campos precisam ser corrigidos:</h4>
-						<ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
-							<li>{{error}}</li>
-						</ul>
+							<h4>Os seguinte campos precisam ser corrigidos:</h4>
+							<ul ng-repeat="error in error_list" style="margin: 0px; list-style-type: square; padding: 0px 0px 0px 40px;" class="ng-scope" ng-repeat="error in error_list">
+								<li>{{error}}</li>
+							</ul>
+						</div>
+						<button type="submit" id="btn-enviar" ng-disabled="submit_enabled" class="register-submit">Enviar</button>
 					</div>
 
 				<% end %>

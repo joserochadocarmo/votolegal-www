@@ -11,7 +11,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
-	<link href="/stylesheets/all-400021c6.css" rel="stylesheet" />
+	<link href="/stylesheets/all-558c4fa4.css" rel="stylesheet" />
 
 		<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" -->
 
@@ -21,6 +21,9 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+	<style>
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+	</style>
 </head>
 
 <body class="pagamento pagamento_analise pagamento_analise_index" data-controller="" data-action="">
@@ -141,18 +144,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' ">
+				<div class="payment-boleto" ng-if="candidate.payment_method == 'boleto' " ng-cloak>
 					<h1 class="page-title">Seu boleto foi gerado!</h1>
 
 					<p>Após o pagamento, a confirmação ocorre em até 3 dias úteis.</p>
-
-					<p>
-						Você será notificado por e-mail, sobre o status do seu pagamento, assim que o pagamento for identificado.
-					</p>
-					<p>
-						Dúvidas? Acesse
-						<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.
-					</p>
 
 					<div class="jumbotron alert alert-warning">
 						<p>Caso tenha tido algum problema com seu boleto refaça a operação.
@@ -161,19 +156,20 @@
 					</div>
 				</div>
 
-				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' ">
-
+				<div class="payment-credit-card" ng-if="candidate.payment_method != 'boleto' " ng-cloak>
 					<h1 class="page-title">Pagamento em análise</h1>
 
 					<p>Seu pagamento foi realizado e está em análise.</p>
-					<p>
-						Você será notificado por e-mail, sobre o status do seu pagamento, assim que o pagamento for identificado.
-					</p>
-					<p>
-						Dúvidas? Acesse
-						<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.
-					</p>
 				</div>
+
+				<p>
+					Você será notificado por e-mail, sobre o status do seu pagamento, assim que ele for identificado.
+				</p>
+
+				<p>
+					Dúvidas? Acesse
+					<a href="https://votolegal.com.br/perguntas-frequentes" target="_blank">Perguntas frequentes</a>.
+				</p>
 			</div>
 		</div>
 	</div>
@@ -221,7 +217,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-aa8583a5.js"></script>
+												<script src="/javascripts/all-3fa775fe.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />
@@ -299,7 +295,6 @@
       ga('send', 'pageview');
     </script>
 
-																<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
 
 

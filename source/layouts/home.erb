@@ -18,6 +18,9 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<style>
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+	</style>
 </head>
 <body class="<%= page_classes %>" data-controller="<%= current_page.data.controller %>" data-action="<%= current_page.data.action %>" ng-controller="MenuController">
 	<div class="container">
@@ -94,7 +97,6 @@
 	</script>
 
 	<%= partial "partial/ga" %>
-	<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
 </body>
