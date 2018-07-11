@@ -182,7 +182,7 @@ title: Pagamento
 									<div class="form-group icon-left col-md-6">
 										<i class="fa fa-credit-card"></i>
 										<input class="form-control  " name="cardNumber" data-cardNumber="Número do cartão" ng-model="candidate.card.cardNumber" ng-required="paymentMethod === 'creditCard'"
-											type="text" placeholder="Número do cartão" mask="9999 9999 9999 9999" ng-change="validateCreditCardNumber(); validateCreditCardBrand();">
+											type="text" placeholder="Número do cartão" mask="9999 9999 9999 999?9?" ng-change="validateCreditCardNumber(); validateCreditCardBrand();">
 
 										<div ng-show="pagamento.$submitted || pagamento.cardNumber.$touched">
 											<small ng-show="pagamento.cardNumber.$error.required" class="field-error-message">
@@ -246,7 +246,7 @@ title: Pagamento
 								<div class="clearfix">
 									<div class="form-group icon-left col-md-4">
 										<i class="fa fa-credit-card"></i>
-										<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="999" placeholder="Cód. de segurança"
+										<input class="form-control" name="cvvCard" ng-model="candidate.card.cvvCard" type="text" mask="9999?" placeholder="Cód. de segurança"
 											ng-required="paymentMethod === 'creditCard'" ng-change="validateCreditCardCvv()">
 
 										<div ng-show="pagamento.$submitted || pagamento.cvvCard.$touched">
