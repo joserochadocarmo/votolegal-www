@@ -207,7 +207,7 @@ title: Pagamento
 										type="tel" placeholder="Mês de vencimento" min="01" max="12" mask="19" ng-required="paymentMethod === 'creditCard'" ng-change="validateCreditCardExpirationDate()">
 
 										<div ng-show="pagamento.$submitted || pagamento.monthCardExpire.$touched">
-											<small ng-show="pagamento.monthCardExpire.$error.required"class="field-error-message">
+											<small ng-show="pagamento.monthCardExpire.$error.required" class="field-error-message">
 												O mês de validade do cartão é obrigatório
 											</small>
 											<small ng-show="!pagamento.monthCardExpire.$error.required && pagamento.monthCardExpire.$error.mask" class="field-error-message">
