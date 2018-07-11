@@ -37,7 +37,7 @@ title: Histórico de doações
 					</div>
 				</div>
 				<div class="table-responsive" class="row">
-					<div id="donations-table" aria-busy="{{ donationsLoading ? 'true' : 'false' }}">
+					<div id="donations-table" aria-busy="{{ donationsLoading ? 'true' : 'false' }}" ng-cloak>
 						<table class="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -144,7 +144,7 @@ title: Histórico de doações
 								</tr>
 							</tbody>
 						</table>
-						<button class="btn btn-default btn-sm center-block" type="button" ng-if="hasMoreDonations" ng-click="getDonationsList('after')">
+						<button class="btn btn-default btn-sm center-block" type="button" ng-if="hasMoreDonations" ng-click="getDonationsList('after')" ng-cloak>
 						carregar mais
 						</button>
 					</div>

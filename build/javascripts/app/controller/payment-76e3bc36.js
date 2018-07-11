@@ -159,12 +159,11 @@ app.votolegal.controller("PaymentController", [
 
 			Iugu.createPaymentToken(cc, function (response) {
 				if (response.errors) {
-					$scope.errorListPaymentServer.push(response.errors);
+					return $scope.errorListPaymentServer.push(error_msg(response.errors.form_error.message));
 				} else {
 					$scope.token = response.id;
-					_submitPayment();
+					return _submitPayment();
 				}
-				return $scope.loading = false;
 			});
 		}
 
@@ -411,8 +410,13 @@ app.votolegal.controller("PaymentController", [
 
 				$scope.loading = false;
 			}).error(function (errors) {
+
+				var errorMessage = !!errors.form_error.message
+					? error_msg(errors.form_error.message)
+					: error_msg(errors.error);
+				$scope.errorListPaymentServer.push(errorMessage);
+
 				$scope.loading = false;
-				$scope.errorListPaymentServer.push(errors);
 			});
 		}
 

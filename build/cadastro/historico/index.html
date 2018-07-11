@@ -161,7 +161,7 @@
 					</div>
 				</div>
 				<div class="table-responsive" class="row">
-					<div id="donations-table" aria-busy="{{ donationsLoading ? 'true' : 'false' }}">
+					<div id="donations-table" aria-busy="{{ donationsLoading ? 'true' : 'false' }}" ng-cloak>
 						<table class="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -266,7 +266,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<button class="btn btn-default btn-sm center-block" type="button" ng-if="hasMoreDonations" ng-click="getDonationsList('after')">
+						<button class="btn btn-default btn-sm center-block" type="button" ng-if="hasMoreDonations" ng-click="getDonationsList('after')" ng-cloak>
 						carregar mais
 						</button>
 					</div>
@@ -319,7 +319,7 @@
 					<link href="/stylesheets/sweetalert-4890c9d1.css" rel="stylesheet" />
 
 						<!-- javascript -->
-												<script src="/javascripts/all-3fa775fe.js"></script>
+												<script src="/javascripts/all-98e313d3.js"></script>
 
 													<!-- image plugin -->
 													<link href="/stylesheets/ekko-lightbox-11377be4.css" rel="stylesheet" />

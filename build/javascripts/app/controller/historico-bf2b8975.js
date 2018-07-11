@@ -157,7 +157,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 			window.setInterval(
 				function () {
 					$scope.getDonationsList('before');
-				}, 5 * 1000 * 60);
+				}, 1000 * 60);
 		}
 
 		// TO-DO: call for new donations on intervals
