@@ -4101,7 +4101,9 @@ var error_msg = function (token) {
 		"biography": "Preencha o campo de biografia",
 		"public_email": "Preencha o campo de e-mail de contato para eleitores",
 		"raising_goal": "Não é possível habilitar sua página antes de definir uma meta de arrecadação",
-		"picture": "Não é possível habilitar sua página pública antes de escolher um imagem de perfil a ser usada nos compartilhamentos em redes sociais"
+		"picture": "Não é possível habilitar sua página pública antes de escolher um imagem de perfil a ser usada nos compartilhamentos em redes sociais",
+		"could not create charge right now": "Pagamento não processado. Por favor, confira os dados informados",
+		"transaction not authorized, check your data.": "Pagamento não processado. Por favor, confira os dados informados"
 	};
 
 	var pagseguroMessages = {
@@ -4219,7 +4221,7 @@ var error_msg = function (token) {
 
 
 
-  return msg_list[token] || pagseguroMessages[token];
+  return msg_list[token] || pagseguroMessages[token] || token;
 };
 
 
@@ -7187,7 +7189,7 @@ app.votolegal.controller('DonationHistoryController', ["$scope", "$http", "$sce"
 			window.setInterval(
 				function () {
 					$scope.getDonationsList('before');
-				}, 5 * 1000 * 60);
+				}, 1000 * 60);
 		}
 
 		// TO-DO: call for new donations on intervals
@@ -7377,12 +7379,11 @@ app.votolegal.controller("PaymentController", [
 
 			Iugu.createPaymentToken(cc, function (response) {
 				if (response.errors) {
-					$scope.errorListPaymentServer.push(response.errors);
+					return $scope.errorListPaymentServer.push(error_msg(response.errors.form_error.message));
 				} else {
 					$scope.token = response.id;
-					_submitPayment();
+					return _submitPayment();
 				}
-				return $scope.loading = false;
 			});
 		}
 
@@ -7630,7 +7631,7 @@ app.votolegal.controller("PaymentController", [
 				$scope.loading = false;
 			}).error(function (errors) {
 				$scope.loading = false;
-				$scope.errorListPaymentServer.push(errors);
+				$scope.errorListPaymentServer.push(error_msg(errors.form_error.message));
 			});
 		}
 
