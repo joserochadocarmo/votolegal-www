@@ -162,10 +162,10 @@ title: Pagamento
 									<input type="radio" name="typePayment" value="creditCard" ng-model="paymentMethod" required ng-click="manageCondition(pagamento.typePayment)"> Cartão de crédito
 								</div>
 								<div class="col-md-12">
-									<small ng-if="pagamento.typePayment.$error.required && pagamento.$submitted" class="field-error-message">Escolha a forma de pagamento</small>
+									<small ng-if="pagamento.typePayment.$error.required && pagamento.$submitted" class="field-error-message" ng-cloak>Escolha a forma de pagamento</small>
 								</div>
 							</div>
-							<div class="credit-card-method" ng-if="paymentMethod === 'creditCard'">
+							<div class="credit-card-method" ng-if="paymentMethod === 'creditCard'" ng-cloak>
 								<div class="col-md-12">
 									<h3>Dados do cartão de crédito</h3>
 								</div>
@@ -262,13 +262,13 @@ title: Pagamento
 								</div>
 							</div>
 
-							<div class="form-group col-xs-12 boleto-method" ng-if="paymentMethod === 'boleto'">
+							<div class="form-group col-xs-12 boleto-method" ng-if="paymentMethod === 'boleto'" ng-cloak>
 
 								<a href="{{boletoUrl}}" target="_blank" class="btn btn-success btn-lg btn-block alert alert-warning " ng-if="boletoUrl.length> 0"
 									ng-click="redirectBoleto()">Imprimir boleto </a>
 
 							</div>
-							<div class="col-xs-12">
+							<div class="col-xs-12" ng-cloak>
 
 								<label ng-if="error.length > 0 " style="margin: 10px 0px; border: 2px solid rgb(234, 53, 53); color: rgb(234, 53, 53); padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{error}} </label>
 
@@ -277,14 +277,14 @@ title: Pagamento
 								<label ng-if="mensagem_sucesso" style="margin: 10px 0px; border: 2px solid #4cae4c; color: #4cae4c ; padding: 5px 5px; border-radius: 5px; display:block; text-align:center;">{{mensagem_sucesso}} </label>
 
 							</div>
-							<div ng-show="errorListPaymentServer.length > 0" class="error-panel col-xs-12">
+							<div ng-show="errorListPaymentServer.length > 0" class="error-panel col-xs-12" ng-cloak>
 								<h4>Os seguinte campos precisam ser corrigidos:</h4>
 								<ul class="ng-scope">
 									<li ng-repeat="error in errorListPaymentServer">{{ error.title || error }}</li>
 								</ul>
 							</div>
 
-							<div class="col-xs-12">
+							<div class="col-xs-12" ng-cloak>
 								<button class="register-submit loading" ng-if="loading" type="submit" ng-disabled="loading">
 									<img src="../images/ajax-loader.gif" alt="">
 								</button>
