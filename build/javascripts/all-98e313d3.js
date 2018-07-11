@@ -7630,8 +7630,13 @@ app.votolegal.controller("PaymentController", [
 
 				$scope.loading = false;
 			}).error(function (errors) {
+
+				var errorMessage = !!errors.form_error.message
+					? error_msg(errors.form_error.message)
+					: error_msg(errors.error);
+				$scope.errorListPaymentServer.push(errorMessage);
+
 				$scope.loading = false;
-				$scope.errorListPaymentServer.push(error_msg(errors.form_error.message));
 			});
 		}
 
