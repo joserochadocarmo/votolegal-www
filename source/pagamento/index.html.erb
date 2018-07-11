@@ -204,7 +204,7 @@ title: Pagamento
 									<div class="form-group icon-left col-xs-6">
 										<i class="fa fa-credit-card"></i>
 										<input class="form-control" name="monthCardExpire" data-monthCardExpire="Mês que o cartão expira" ng-model="candidate.card.monthCardExpire"
-										type="tel" placeholder="Mês de vencimento" min="01" max="12" mask="99" ng-required="paymentMethod === 'creditCard'" ng-change="validateCreditCardExpirationDate()">
+										type="tel" placeholder="Mês de vencimento" min="01" max="12" mask="19" ng-required="paymentMethod === 'creditCard'" ng-change="validateCreditCardExpirationDate()">
 
 										<div ng-show="pagamento.$submitted || pagamento.monthCardExpire.$touched">
 											<small ng-show="pagamento.monthCardExpire.$error.required"class="field-error-message">
