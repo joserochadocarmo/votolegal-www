@@ -4578,6 +4578,8 @@ app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'aut
 
 	var user = auth_service.current_user();
 
+	$scope.user = user;
+
 	$scope.is_admin = function () {
 		if (user && user.role == 'user') return true;
 		return false;
@@ -4789,7 +4791,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 							localStorage.removeItem('userId');
 							localStorage.removeItem('address');
 
-							var dashboardHome = (res.campaign_donation_type === 'party')
+							var dashboardHome = (res.campaign_donation_type === 'party' || res.has_custom_site)
 								? '/cadastro/historico'
 								: '/cadastro-completo';
 
@@ -4801,6 +4803,7 @@ app.votolegal.controller('AuthController', ["$scope", "$http", "auth_service", "
 									api_key: res.api_key,
 									name: name,
 									donation_type: res.campaign_donation_type,
+									has_custom_site: res.has_custom_site,
 									dashboard_home: dashboardHome,
 									role: role_list[0] || null
 								}
