@@ -8,17 +8,17 @@ title:  Complete seu cadastro
 
       <div class="col-md-3">
         <!-- tab buttons -->
-        <div class="tab-register">
-          <a class="tab-register-default active" data-tabname="pessoal" href="#/dados-pessoais" ng-if="user.donation_type != 'party'">
+        <div class="tab-register" ng-cloak>
+          <a class="tab-register-default active" data-tabname="pessoal" href="#/dados-pessoais" ng-if="user.donation_type !== 'party' && !user.has_custom_site">
             <i class="fi flaticon-personal-credentials"></i> Informações pessoais
           </a>
           <a class="tab-register-default" data-tabname="campanha" href="#/dados-campanha">
             <i class="fi flaticon-square"></i> Informações da campanha
           </a>
-          <a class="tab-register-default" data-tabname="projetos" href="#/projetos" ng-if="user.donation_type != 'party'">
+          <a class="tab-register-default" data-tabname="projetos" href="#/projetos" ng-if="user.donation_type !== 'party' && !user.has_custom_site">
             <i class="fi flaticon-curriculum-1"></i> Projetos prioritários
           </a>
-          <a class="tab-register-default" href="/cadastro/preview" ng-if="user.donation_type != 'party'">
+          <a class="tab-register-default" href="/cadastro/preview" ng-if="user.donation_type !== 'party' && !user.has_custom_site">
             <i class="fi flaticon-resume"></i> Página pública
           </a>
         </div>
