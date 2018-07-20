@@ -90,8 +90,8 @@
 											<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" role="button">
 												<span class="caret"></span> Olá, {{current_user.name}}
 											</a>
-											<ul class="dropdown-menu">
 												<li ng-if="current_user.donation_type !== 'party'">
+											<ul class="dropdown-menu" ng-cloak>
 													<a href="/cadastro-completo">
 														<i class="fa fa-caret-right"></i> Editar perfil</a>
 												</li>
