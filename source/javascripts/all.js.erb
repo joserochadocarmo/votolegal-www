@@ -833,6 +833,8 @@ app.votolegal.controller('MenuController', ['$scope', '$http', 'serialize', 'aut
 
 	var user = auth_service.current_user();
 
+	$scope.user = user;
+
 	$scope.is_admin = function () {
 		if (user && user.role == 'user') return true;
 		return false;
